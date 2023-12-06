@@ -1,2 +1,2 @@
 # WORDWAVE
- This website is to help you study English.
+ 개발용 브렌치!
