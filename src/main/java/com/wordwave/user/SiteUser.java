@@ -32,7 +32,9 @@ public class SiteUser {
     //회원가입일
     private LocalDateTime createUserDate;
     
+    //레이팅 (레이팅에 따라 티어 부여)
+    private long point;
+    
     //TODO: 단어장 매핑,문법장 매핑
-	
 	
 }
