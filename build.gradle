@@ -18,6 +18,17 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//스프링 디벨로퍼툴 (서버 재시작 없이도 클래스 변경시 서버가 자동으로 재기동)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//롬북
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	//H2 DATABASE(개발용)
+	runtimeOnly 'com.h2database:h2'
+	//JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 }
 
 tasks.named('test') {
