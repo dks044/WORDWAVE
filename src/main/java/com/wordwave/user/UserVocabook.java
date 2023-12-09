@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class UserWordbook {
+public class UserVocabook {
 	@ManyToOne
 	private SiteUser user;
 	
