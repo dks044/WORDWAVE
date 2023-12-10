@@ -10,9 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
 import lombok.Getter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @Entity
+@DynamicInsert
 public class GrammarBook {
 
     @Id
@@ -20,10 +23,8 @@ public class GrammarBook {
     private Long id;
 
     @Column
+    @ColumnDefault(value = "일반")
     private String name;
-
-    @Column
-    private String description;
 
     @OneToMany(mappedBy = "grammarBook", cascade = CascadeType.ALL)
     private List<Grammar> grammars;

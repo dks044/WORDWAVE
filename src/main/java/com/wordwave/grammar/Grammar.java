@@ -18,10 +18,7 @@ public class Grammar {
     private Long id;
 
     @Column
-    private String rule;
-
-    @Column
-    private String example;
+    private String sentence;
 
     @ManyToOne(optional = false)
     private GrammarBook grammarBook;
