@@ -1,25 +1,32 @@
 package com.wordwave.vocabook;
 
-import java.util.List;
-
 import com.wordwave.voca.Voca;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.Getter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Getter
-public class Vocabook {
+@DynamicInsert
+public class VocaBook {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
+
+	@Column
+	@ColumnDefault(value = "일반")
+	private String name;
 	
-	@OneToMany(mappedBy = "vocabook")
+	@OneToMany(mappedBy = "vocaBook", cascade = CascadeType.ALL)
 	private List<Voca> vocas;
 	
 }

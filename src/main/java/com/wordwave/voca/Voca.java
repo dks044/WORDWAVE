@@ -1,7 +1,6 @@
 package com.wordwave.voca;
 
-import com.wordwave.vocabook.Vocabook;
-
+import com.wordwave.vocabook.VocaBook;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +26,7 @@ public class Voca {
 	private String engQuestion;
 	private String engAnswer;
 	
-	@ManyToOne
-	private Vocabook vocabook;
+	@ManyToOne(optional = false)
+	private VocaBook vocaBook;
 	
 }
