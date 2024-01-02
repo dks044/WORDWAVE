@@ -1,11 +1,15 @@
 package com.wordwave.voca;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.wordwave.vocabook.VocaBook;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -32,15 +36,16 @@ public class Voca {
 	@ManyToOne
 	private VocaBook vocaBook;
 	
-	public void changeWord(String korWord, String engWord) {
-        this.korWord = korWord;
-        this.engWord = engWord;
-    }
-
-    public void changeCategory(String category) {
-        this.category = category;
-    }
-	
     private String imgURL;
     
+    //예외단어추가용도
+    private List<String> exceptionVoca = new ArrayList<>();
+    
+    @Builder
+    public Voca(String korWord, String engWord,String category, String imgURL) {
+    	this.korWord = korWord;
+    	this.engWord = engWord;
+    	this.category = category;
+    	this.imgURL = imgURL;
+    }
 }

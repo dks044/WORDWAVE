@@ -11,4 +11,5 @@ public class VocaDTO {
     private String engWord;
     private String category;
     private Long vocaBookId;
+    private String imgURL;
 }
