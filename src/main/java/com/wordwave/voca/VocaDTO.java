@@ -1,5 +1,6 @@
 package com.wordwave.voca;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
