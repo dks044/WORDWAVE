@@ -1,4 +1,4 @@
-package com.wordwave.main;
+package com.wordwave;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
