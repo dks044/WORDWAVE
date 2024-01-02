@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class VocaDTO {
+	private Long id;
 	private String korWord;
     private String engWord;
     private String category;
