@@ -16,5 +16,6 @@ public class Grammar {
     private String sentence;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "GRAMMAR_BOOK_ID")
     private GrammarBook grammarBook;
 }
