@@ -1,5 +1,16 @@
 package com.wordwave.vocabook;
 
-public class VocaBookDTO {
+import java.util.List;
 
+import com.wordwave.voca.Voca;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class VocaBookDTO {
+	private Long id;
+    private String name;
+    private List<Voca> vocas;
 }
