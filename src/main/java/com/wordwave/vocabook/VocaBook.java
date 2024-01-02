@@ -21,12 +21,11 @@ public class VocaBook {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column
-	@ColumnDefault(value = "일반")
+	
+	//ex) 토익보카,고등보카
 	private String name;
 	
-	@OneToMany(mappedBy = "vocaBook", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "vocaBook")
 	private List<Voca> vocas;
 	
 }
