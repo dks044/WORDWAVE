@@ -17,7 +17,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Getter
 @DynamicInsert
 public class VocaBook {
-	//
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
