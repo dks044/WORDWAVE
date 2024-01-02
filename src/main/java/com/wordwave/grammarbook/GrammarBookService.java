@@ -19,7 +19,7 @@ public class GrammarBookService {
         GrammarBookDto grammarBookDto = new GrammarBookDto();
         grammarBookDto.setName(grammarBook.get().getName());
         grammarBookDto.setGrammars(grammarBook.get().getGrammars().stream()
-                .map(grammar -> new GrammarDto(grammar.getSentence()))
+                .map(grammar -> new GrammarDto(grammar.getSentence(), grammar.getGrammarBook().getName()))
                 .toList());
         return grammarBookDto;
     }
