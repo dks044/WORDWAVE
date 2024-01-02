@@ -41,4 +41,6 @@ public class Voca {
         this.category = category;
     }
 	
+    private String imgURL;
+    
 }
