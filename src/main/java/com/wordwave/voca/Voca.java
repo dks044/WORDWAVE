@@ -32,4 +32,13 @@ public class Voca {
 	@ManyToOne
 	private VocaBook vocaBook;
 	
+	public void changeWord(String korWord, String engWord) {
+        this.korWord = korWord;
+        this.engWord = engWord;
+    }
+
+    public void changeCategory(String category) {
+        this.category = category;
+    }
+	
 }
