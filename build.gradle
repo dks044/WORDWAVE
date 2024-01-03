@@ -24,6 +24,7 @@ dependencies {
 	//롬북
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.projectlombok:lombok'
 	//H2 DATABASE(개발용)
 	runtimeOnly 'com.h2database:h2'
 	//JPA
