@@ -18,7 +18,7 @@ public class Grammar {
     @Column
     private String sentence;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "GRAMMAR_BOOK_ID")
     private GrammarBook grammarBook;
 
