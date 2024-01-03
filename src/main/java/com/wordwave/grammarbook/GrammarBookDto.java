@@ -10,5 +10,5 @@ public class GrammarBookDto {
 
     private String name;
 
-    private List<GrammarDto> grammars;
+    private List<GrammarDto> grammarDtos;
 }
