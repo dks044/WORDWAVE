@@ -21,15 +21,16 @@ public class VocaService {
 	
 	@Transactional
 	public void create(VocaDTO vocaDTO,Long vocaBookId) {
+		VocaBook vocaBook = vocaBookRepository.findById(vocaBookId)
+				.orElseThrow(() -> new DataNotFoundException("vocaBook not found"));
 	    Voca voca = Voca.builder()
 	                    .korWord(vocaDTO.getKorWord())
 	                    .engWord(vocaDTO.getEngWord())
 	                    .category(vocaDTO.getCategory())
 	                    .imgURL(vocaDTO.getImgURL())
+	                    .vocaBook(vocaBook)
 	                    .build();
 	    
-	    VocaBook vocaBook = vocaBookRepository.findById(vocaBookId)
-	                                         .orElseThrow(() -> new DataNotFoundException("vocaBook not found"));
 	    
 	    vocaRepository.save(voca);
 	    vocaBook.getVocas().add(voca);

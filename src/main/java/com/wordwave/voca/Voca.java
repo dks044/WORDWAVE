@@ -42,10 +42,11 @@ public class Voca {
     private List<String> exceptionVoca = new ArrayList<>();
     
     @Builder
-    public Voca(String korWord, String engWord,String category, String imgURL) {
+    public Voca(String korWord, String engWord,String category, String imgURL,VocaBook vocaBook) {
     	this.korWord = korWord;
     	this.engWord = engWord;
     	this.category = category;
     	this.imgURL = imgURL;
+    	this.vocaBook = vocaBook;
     }
 }

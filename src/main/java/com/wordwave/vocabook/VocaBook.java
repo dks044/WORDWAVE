@@ -30,6 +30,9 @@ public class VocaBook {
 	@OneToMany(mappedBy = "vocaBook")
 	private List<Voca> vocas = new ArrayList<>();
 	
+	protected VocaBook() {
+    }
+	
 	public VocaBook(String name) {
         this.name = name;
     }
