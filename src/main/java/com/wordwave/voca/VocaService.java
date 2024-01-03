@@ -11,6 +11,7 @@ import com.wordwave.vocabook.VocaBookRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class VocaService {
@@ -18,8 +19,6 @@ public class VocaService {
 	private final VocaRepository vocaRepository;
 	private final VocaBookRepository vocaBookRepository;
 	
-	
-	@Transactional
 	public void create(VocaDTO vocaDTO,Long vocaBookId) {
 		VocaBook vocaBook = vocaBookRepository.findById(vocaBookId)
 				.orElseThrow(() -> new DataNotFoundException("vocaBook not found"));
