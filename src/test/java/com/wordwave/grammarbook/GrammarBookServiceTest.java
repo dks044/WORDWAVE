@@ -17,11 +17,12 @@ class GrammarBookServiceTest {
 
     @Test
     @DisplayName("GrammarBook id로 GrammarBook을 조회한다.")
-    void grammarBookSaveTest() {
+    void getGrammarBookTest() {
         Long id = 4L;
 
         GrammarBookDto grammarBookDto = grammarBookService.getGrammarBookById(id);
 
-        assertThat(grammarBookDto.getName()).isEqualTo("test book");
+        assertThat(grammarBookDto.getGrammarDtos().size()).isEqualTo(6);
+        grammarBookDto.getGrammarDtos().forEach(grammarDto -> System.out.println(grammarDto.getSentence()));
     }
 }
