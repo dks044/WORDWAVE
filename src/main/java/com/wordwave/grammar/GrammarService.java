@@ -1,5 +1,6 @@
 package com.wordwave.grammar;
 
+import com.wordwave.exception.DataNotFoundException;
 import com.wordwave.grammarbook.GrammarBook;
 import com.wordwave.grammarbook.GrammarBookRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,11 @@ public class GrammarService {
                 .sentence(grammarDto.getSentence())
                 .grammarBook(grammarBook)
                 .build());
+    }
+
+    public GrammarDto getGrammar(Long id) {
+        Grammar grammar = this.grammarRepository.findById(id)
+                .orElseThrow(() -> new DataNotFoundException("Grammar not found."));
+        return new GrammarDto(grammar.getSentence(), grammar.getGrammarBook().getName());
     }
 }
