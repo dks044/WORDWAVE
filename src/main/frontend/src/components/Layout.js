@@ -1,28 +1,33 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import DialMenu from "./DialMenu";
 
 const TemplateBlock = styled.div`
-  width: 512px;
-  height: 768px;
-
-  position: relative; /* 추후 박스 하단에 추가 버튼을 위치시키기 위한 설정 */
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
-
-  margin: 0 auto; /* 페이지 중앙에 나타나도록 설정 */
-
-  margin-top: 96px;
-  margin-bottom: 32px;
-  display: flex;
-  flex-direction: column;
+    //색 설정
+    background: white;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+    //사이즈 설정
+    width: 100%;
+    max-width: 512px;
+    height: 100vh;
+    max-height: 768px;
+    //포지션 설정
+    position : relative;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    //마진&패딩 설정
+    margin: 0 auto;
+    margin-top: 96px;
+    margin-bottom: 32px;
 `;
 
-function Layout( {children} ){
+
+function Layout(){
     return (
         <TemplateBlock>
-            {children}
+            <DialMenu />
             <Outlet />
         </TemplateBlock>
     )

@@ -1,8 +1,17 @@
 import React from "react";
+import styled from "styled-components";
+
+const TempStyle = styled.div`
+    margin-top: 45px;
+    font-size: 50px;
+    text-align: center;
+`;
 
 const Home = () => {
     return (
-        <h1>Home</h1>
+        <div>
+            <TempStyle>TempHome</TempStyle>
+        </div>
     )
 }
 
