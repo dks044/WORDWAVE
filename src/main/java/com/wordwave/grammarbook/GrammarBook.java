@@ -25,7 +25,7 @@ public class GrammarBook {
     @ColumnDefault(value = "'일반'")
     private String name;
 
-    @OneToMany(mappedBy = "grammarBook", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "grammarBook", cascade = CascadeType.ALL)
     private List<Grammar> grammars = new ArrayList<>();
 
     @Builder
