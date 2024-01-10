@@ -32,4 +32,17 @@ public class GrammarBook {
     public GrammarBook(String name) {
         this.name = name;
     }
+
+    public void addGrammar(Grammar grammar) {
+        this.grammars.add(grammar);
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("grammarBook id: ").append(this.id)
+                .append(", name: ").append(this.name)
+                .append(", grammars: ").append(this.grammars)
+                .toString();
+    }
 }

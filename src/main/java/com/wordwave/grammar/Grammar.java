@@ -27,4 +27,13 @@ public class Grammar {
         this.sentence = sentence;
         this.grammarBook = grammarBook;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("grammar id: ").append(this.id)
+                .append(", sentence: ").append(sentence)
+                .append(", book name: ").append(this.grammarBook.getName())
+                .toString();
+    }
 }
