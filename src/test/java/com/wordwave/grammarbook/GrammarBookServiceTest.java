@@ -9,11 +9,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Transactional
 @Rollback(false)
-//@TestPropertySource(locations = "classpath:application-test.properties")
 class GrammarBookServiceTest {
     @Autowired
     GrammarBookService grammarBookService;
@@ -24,12 +24,12 @@ class GrammarBookServiceTest {
     @Test
     @DisplayName("GrammarBook id로 GrammarBook을 조회한다.")
     void getGrammarBookTest() {
-        Long id = 6L;
+        Long id = 5L;
 
-        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBookById(id);
+        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBook(id);
 
-        grammarBookResponseDto.getGrammarDtos().forEach(grammarDto -> System.out.println(grammarDto.getSentence()));
-        assertThat(grammarBookResponseDto.getGrammarDtos().size()).isEqualTo(1);
+        System.out.println(grammarBookResponseDto.toString());
+        assertThat(grammarBookResponseDto.getGrammarDtos().size()).isEqualTo(4);
     }
 
     @Test
@@ -50,5 +50,16 @@ class GrammarBookServiceTest {
         this.grammarBookService.deleteGrammarBookByName(name);
 
         assertThat(grammarBookRepository.count()).isEqualTo(totalCountBefore-1);
+    }
+
+    @Test
+    @DisplayName("GrammarBook의 이름을 수정한다.")
+    void updateGrammarBookNameTest() {
+        Long id = 5L;
+        String newName = "test book1";
+
+        this.grammarBookService.updateGrammarBookName(id, newName);
+
+        assertTrue(this.grammarBookRepository.findByName(newName).isPresent());
     }
 }
