@@ -14,16 +14,17 @@ public class GrammarBookService {
     private final GrammarBookRepository grammarBookRepository;
     private final GrammarRepository grammarRepository;
 
-    public GrammarBookDto getGrammarBookById(Long id) {
+    public GrammarBookResponseDto getGrammarBookById(Long id) {
         GrammarBook grammarBook = this.grammarBookRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Grammar book not found."));
 
-        GrammarBookDto grammarBookDto = new GrammarBookDto();
-        grammarBookDto.setName(grammarBook.getName());
-        grammarBookDto.setGrammarDtos(grammarBook.getGrammars().stream()
+        GrammarBookResponseDto grammarBookResponseDto = new GrammarBookResponseDto();
+        grammarBookResponseDto.setId(id);
+        grammarBookResponseDto.setName(grammarBook.getName());
+        grammarBookResponseDto.setGrammarDtos(grammarBook.getGrammars().stream()
                 .map(grammar -> new GrammarDto(grammar.getSentence(), grammarBook.getName()))
                 .toList());
-        return grammarBookDto;
+        return grammarBookResponseDto;
     }
 
     private GrammarBook createGrammarBook(String name) {
@@ -42,5 +43,11 @@ public class GrammarBookService {
 
         grammarBook.addGrammar(grammar);
         this.grammarRepository.save(grammar);
+    }
+
+    public void deleteGrammarBookByName(String name) {
+        GrammarBook grammarBook = this.grammarBookRepository.findByName(name)
+                .orElseThrow(() -> new DataNotFoundException("grammar book not found"));
+        this.grammarBookRepository.delete(grammarBook);
     }
 }
