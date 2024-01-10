@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from './component/nav';
+import { Route, Routes } from 'react-router-dom';
 
 
 function App() {
@@ -15,7 +16,9 @@ function App() {
 
     return (
         <>
-            <Navigation/>
+            <Routes>
+                <Route></Route>
+            </Routes>
         </>
     );
 }
