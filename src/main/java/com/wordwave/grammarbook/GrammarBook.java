@@ -37,6 +37,10 @@ public class GrammarBook {
         this.grammars.add(grammar);
     }
 
+    public void changeName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return new StringBuilder()

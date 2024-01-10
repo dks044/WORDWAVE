@@ -14,7 +14,7 @@ public class GrammarBookService {
     private final GrammarBookRepository grammarBookRepository;
     private final GrammarRepository grammarRepository;
 
-    public GrammarBookResponseDto getGrammarBookById(Long id) {
+    public GrammarBookResponseDto getGrammarBook(Long id) {
         GrammarBook grammarBook = this.grammarBookRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Grammar book not found."));
 
@@ -25,10 +25,6 @@ public class GrammarBookService {
                 .map(grammar -> new GrammarDto(grammar.getSentence(), grammarBook.getName()))
                 .toList());
         return grammarBookResponseDto;
-    }
-
-    private GrammarBook createGrammarBook(String name) {
-        return this.grammarBookRepository.save(GrammarBook.builder().name(name).build());
     }
 
     @Transactional
@@ -45,9 +41,28 @@ public class GrammarBookService {
         this.grammarRepository.save(grammar);
     }
 
+    private GrammarBook createGrammarBook(String name) {
+        return this.grammarBookRepository.save(GrammarBook.builder().name(name).build());
+    }
+
     public void deleteGrammarBookByName(String name) {
-        GrammarBook grammarBook = this.grammarBookRepository.findByName(name)
-                .orElseThrow(() -> new DataNotFoundException("grammar book not found"));
+        GrammarBook grammarBook = getGrammarBookByName(name);
         this.grammarBookRepository.delete(grammarBook);
+    }
+
+    public void updateGrammarBookName(Long id, String newName) {
+        GrammarBook grammarBook = getGrammarBookById(id);
+        grammarBook.changeName(newName);
+    }
+
+
+    private GrammarBook getGrammarBookByName(String name) {
+        return this.grammarBookRepository.findByName(name)
+                .orElseThrow(() -> new DataNotFoundException("Grammar book not found"));
+    }
+
+    private GrammarBook getGrammarBookById(Long id) {
+        return this.grammarBookRepository.findById(id)
+                .orElseThrow(() -> new DataNotFoundException("Grammar book not found"));
     }
 }
