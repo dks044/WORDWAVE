@@ -39,4 +39,15 @@ class GrammarServiceTest {
 
         assertThat(this.grammarRepository.count()).isEqualTo(totalCountBefore-1);
     }
+
+    @Test
+    @DisplayName("Grammar의 문장을 수정한다.")
+    void updateSentenceTest() {
+        Long id = 16L;
+        String newSentence = "update sentence1";
+
+        this.grammarService.updateSentence(id, newSentence);
+
+        assertThat(this.grammarRepository.findById(id).get().getSentence()).isEqualTo(newSentence);
+    }
 }
