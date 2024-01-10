@@ -18,15 +18,18 @@ class GrammarBookServiceTest {
     @Autowired
     GrammarBookService grammarBookService;
 
+    @Autowired
+    GrammarBookRepository grammarBookRepository;
+
     @Test
     @DisplayName("GrammarBook id로 GrammarBook을 조회한다.")
     void getGrammarBookTest() {
         Long id = 6L;
 
-        GrammarBookDto grammarBookDto = grammarBookService.getGrammarBookById(id);
+        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBookById(id);
 
-        grammarBookDto.getGrammarDtos().forEach(grammarDto -> System.out.println(grammarDto.getSentence()));
-        assertThat(grammarBookDto.getGrammarDtos().size()).isEqualTo(1);
+        grammarBookResponseDto.getGrammarDtos().forEach(grammarDto -> System.out.println(grammarDto.getSentence()));
+        assertThat(grammarBookResponseDto.getGrammarDtos().size()).isEqualTo(1);
     }
 
     @Test
@@ -36,5 +39,16 @@ class GrammarBookServiceTest {
         GrammarDto grammarDto1 = new GrammarDto("save grammar test3", grammarBookName);
 
         this.grammarBookService.saveGrammar(grammarDto1);
+    }
+
+    @Test
+    @DisplayName("GrammarBook을 삭제한다.")
+    void deleteGrammarBookTest() {
+        long totalCountBefore = this.grammarBookRepository.count();
+        String name = "test book";
+
+        this.grammarBookService.deleteGrammarBookByName(name);
+
+        assertThat(grammarBookRepository.count()).isEqualTo(totalCountBefore-1);
     }
 }
