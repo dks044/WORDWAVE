@@ -1,14 +1,15 @@
 package com.wordwave.grammar;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class GrammarDto {
-    private String sentence;
-    private String grammarBookName;
 
-    public GrammarDto(String sentence, String grammarBookName) {
-        this.sentence = sentence;
-        this.grammarBookName = grammarBookName;
-    }
+    private String sentence;
+
+    private String grammarBookName;
 }
