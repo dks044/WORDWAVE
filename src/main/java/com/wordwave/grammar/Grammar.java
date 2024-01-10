@@ -36,4 +36,8 @@ public class Grammar {
                 .append(", book name: ").append(this.grammarBook.getName())
                 .toString();
     }
+
+    public void changeSentence(String newSentence) {
+        this.sentence = newSentence;
+    }
 }
