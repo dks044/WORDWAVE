@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import DialMenu from "./DialMenu";
+import Header from "./Header";
 
 const TemplateBlock = styled.div`
     //색 설정
@@ -27,6 +28,7 @@ const TemplateBlock = styled.div`
 function Layout(){
     return (
         <TemplateBlock>
+            <Header />
             <Outlet />
             <DialMenu />
         </TemplateBlock>

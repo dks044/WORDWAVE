@@ -4,14 +4,16 @@ import styled from "styled-components";
 //임시
 const TempStyle = styled.div`
     margin-top: 45px;
-    font-size: 20px;
+    font-size: 15px;
     text-align: center;
 `;
 
 const Home = () => {
     return (
         <div>
-            <TempStyle>TempHome</TempStyle>
+            <TempStyle>
+                
+            </TempStyle>
         </div>
     )
 }
