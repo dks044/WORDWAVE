@@ -1,5 +1,6 @@
 package com.wordwave.grammarbook;
 
+import com.wordwave.grammar.GrammarDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,16 @@ class GrammarBookControllerTest {
         Long id = 5L;
 
         ResponseEntity<GrammarBookResponseDto> response = this.grammarBookController.getGrammarBook(id);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
+
+    @Test
+    @DisplayName("Grammar 저장 요청을 받고 저장한다.")
+    void saveGrammarApiTest() {
+        GrammarDto grammarDto = new GrammarDto("save api test", "test book3");
+
+        ResponseEntity<Object> response = this.grammarBookController.saveGrammar(grammarDto);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
