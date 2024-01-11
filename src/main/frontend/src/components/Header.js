@@ -58,7 +58,6 @@ export default function Header(){
                     </NavListRight>
                 </Navbar>
             </HeaderBlock>
-            <hr/>
         </>
     )
 }
