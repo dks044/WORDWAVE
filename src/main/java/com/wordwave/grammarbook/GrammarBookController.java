@@ -30,4 +30,10 @@ public class GrammarBookController {
         this.grammarBookService.updateGrammarBookName(changeGrammarBookNameDto.getId(), changeGrammarBookNameDto.getNewName());
         return ResponseEntity.status(HttpStatus.OK).body("Updated");
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteGrammarBook(@PathVariable Long id) {
+        this.grammarBookService.deleteGrammarBook(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+    }
 }
