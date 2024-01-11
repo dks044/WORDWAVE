@@ -50,9 +50,10 @@ public class GrammarBookService {
         this.grammarBookRepository.delete(grammarBook);
     }
 
+    @Transactional
     public void updateGrammarBookName(Long id, String newName) {
         GrammarBook grammarBook = getGrammarBookById(id);
-        grammarBook.changeName(newName);
+        grammarBook.changeName(newName, this.grammarBookRepository.findAll());
     }
 
 

@@ -37,8 +37,14 @@ public class GrammarBook {
         this.grammars.add(grammar);
     }
 
-    public void changeName(String name) {
-        this.name = name;
+    public void changeName(String newName, List<GrammarBook> grammarBooks) {
+        if (newName != null && !newName.isBlank()) {
+            if (this.name == null) {
+                this.name = newName;
+            } else if (!grammarBooks.isEmpty() && grammarBooks.stream().map(GrammarBook::getName).noneMatch(name -> name.equals(newName))) {
+                this.name = newName;
+            }
+        }
     }
 
     @Override
