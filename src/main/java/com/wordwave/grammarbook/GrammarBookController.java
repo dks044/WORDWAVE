@@ -22,6 +22,12 @@ public class GrammarBookController {
     @PostMapping("/grammar")
     public ResponseEntity<Object> saveGrammar(@RequestBody GrammarDto grammarDto) {
         this.grammarBookService.saveGrammar(grammarDto);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.status(HttpStatus.OK).body("Saved");
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Object> updateGrammarBookName(@RequestBody ChangeGrammarBookNameDto changeGrammarBookNameDto) {
+        this.grammarBookService.updateGrammarBookName(changeGrammarBookNameDto.getId(), changeGrammarBookNameDto.getNewName());
+        return ResponseEntity.status(HttpStatus.OK).body("Updated");
     }
 }
