@@ -43,11 +43,12 @@ class GrammarBookServiceTest {
 
     @Test
     @DisplayName("GrammarBook을 삭제한다.")
+    @Rollback
     void deleteGrammarBookTest() {
         long totalCountBefore = this.grammarBookRepository.count();
-        String name = "test book";
+        Long id = 6L;
 
-        this.grammarBookService.deleteGrammarBookByName(name);
+        this.grammarBookService.deleteGrammarBook(id);
 
         assertThat(grammarBookRepository.count()).isEqualTo(totalCountBefore-1);
     }
