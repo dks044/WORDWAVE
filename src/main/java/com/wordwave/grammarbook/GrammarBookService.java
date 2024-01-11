@@ -45,21 +45,14 @@ public class GrammarBookService {
         return this.grammarBookRepository.save(GrammarBook.builder().name(name).build());
     }
 
-    public void deleteGrammarBookByName(String name) {
-        GrammarBook grammarBook = getGrammarBookByName(name);
-        this.grammarBookRepository.delete(grammarBook);
+    public void deleteGrammarBook(Long id) {
+        this.grammarBookRepository.deleteById(id);
     }
 
     @Transactional
     public void updateGrammarBookName(Long id, String newName) {
         GrammarBook grammarBook = getGrammarBookById(id);
         grammarBook.changeName(newName, this.grammarBookRepository.findAll());
-    }
-
-
-    private GrammarBook getGrammarBookByName(String name) {
-        return this.grammarBookRepository.findByName(name)
-                .orElseThrow(() -> new DataNotFoundException("Grammar book not found"));
     }
 
     private GrammarBook getGrammarBookById(Long id) {
