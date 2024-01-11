@@ -51,4 +51,15 @@ class GrammarBookControllerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
+
+    @Test
+    @DisplayName("GrammarBook을 삭제 요청을 받고 삭제한다.")
+    @Rollback
+    void deleteGrammarBookTest() {
+        Long id = 6L;
+
+        ResponseEntity<Object> response = this.grammarBookController.deleteGrammarBook(id);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
 }
