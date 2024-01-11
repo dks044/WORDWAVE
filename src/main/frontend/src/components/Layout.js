@@ -27,8 +27,8 @@ const TemplateBlock = styled.div`
 function Layout(){
     return (
         <TemplateBlock>
-            <DialMenu />
             <Outlet />
+            <DialMenu />
         </TemplateBlock>
     )
 }
