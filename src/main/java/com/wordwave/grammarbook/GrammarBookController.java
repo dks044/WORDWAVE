@@ -1,12 +1,10 @@
 package com.wordwave.grammarbook;
 
+import com.wordwave.grammar.GrammarDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/grammarbook")
@@ -19,5 +17,11 @@ public class GrammarBookController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.grammarBookService.getGrammarBook(id));
+    }
+
+    @PostMapping("/grammar")
+    public ResponseEntity<Object> saveGrammar(@RequestBody GrammarDto grammarDto) {
+        this.grammarBookService.saveGrammar(grammarDto);
+        return ResponseEntity.ok(null);
     }
 }
