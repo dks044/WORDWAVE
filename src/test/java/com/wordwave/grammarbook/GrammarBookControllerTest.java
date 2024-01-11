@@ -40,4 +40,15 @@ class GrammarBookControllerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
+
+    @Test
+    @DisplayName("GrammarBook의 이름 수정 요청을 받고 수정한다.")
+    @Rollback
+    void updateGrammarBookNameTest() {
+        ChangeGrammarBookNameDto changeGrammarBookNameDto = new ChangeGrammarBookNameDto(6L, "test book2");
+
+        ResponseEntity<Object> response = this.grammarBookController.updateGrammarBookName(changeGrammarBookNameDto);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
 }
