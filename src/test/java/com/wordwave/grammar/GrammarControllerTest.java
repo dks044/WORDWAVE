@@ -23,7 +23,7 @@ class GrammarControllerTest {
     void getGrammarApiTest() {
         Long id = 16L;
 
-        ResponseEntity<GrammarDto> response = this.grammarController.getGrammar(id);
+        ResponseEntity<GrammarResponseDto> response = this.grammarController.getGrammar(id);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
