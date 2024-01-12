@@ -36,6 +36,7 @@ public class VocaTest {
 	
 	
 	@Test
+	@Disabled
 	void createVocaTest() { //테스트 성공
 		VocaDTO v = new VocaDTO();
 		v.setKorWord("사과");

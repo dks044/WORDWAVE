@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.wordwave.main.DataNotFoundException;
+import com.wordwave.exception.DataNotFoundException;
 import com.wordwave.vocabook.VocaBook;
 import com.wordwave.vocabook.VocaBookRepository;
 
