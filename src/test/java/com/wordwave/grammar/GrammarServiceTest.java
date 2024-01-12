@@ -22,7 +22,7 @@ class GrammarServiceTest {
     @Test
     @DisplayName("Grammar id로 Grammar를 조회한다.")
     void getGrammarTest() {
-        Long id = 42L;
+        Long id = 16L;
 
         GrammarDto grammarDto = this.grammarService.getGrammar(id);
 
@@ -37,16 +37,17 @@ class GrammarServiceTest {
 
         this.grammarService.deleteGrammar(id);
 
-        assertThat(this.grammarRepository.count()).isEqualTo(totalCountBefore-1);
+        assertThat(this.grammarRepository.count()).isEqualTo(totalCountBefore - 1);
     }
 
     @Test
     @DisplayName("Grammar의 문장을 수정한다.")
     void updateSentenceTest() {
         Long id = 16L;
-        String newSentence = "update sentence1";
+        String newSentence = "update sentence test 4";
+        GrammarDto grammarDto = new GrammarDto(newSentence, "test book1");
 
-        this.grammarService.updateSentence(id, newSentence);
+        this.grammarService.updateSentence(id, grammarDto);
 
         assertThat(this.grammarRepository.findById(id).get().getSentence()).isEqualTo(newSentence);
     }
