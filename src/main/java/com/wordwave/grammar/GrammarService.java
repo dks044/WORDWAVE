@@ -12,9 +12,9 @@ public class GrammarService {
     private final GrammarRepository grammarRepository;
     private final GrammarBookRepository grammarBookRepository;
 
-    public GrammarDto getGrammar(Long id) {
+    public GrammarResponseDto getGrammar(Long id) {
         Grammar grammar = getGrammarById(id);
-        return new GrammarDto(grammar.getSentence(), grammar.getGrammarBook().getName());
+        return new GrammarResponseDto(id, grammar.getSentence(), grammar.getGrammarBook().getName());
     }
 
     public void deleteGrammar(Long id) {
