@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @Entity
 @NoArgsConstructor
@@ -37,7 +39,9 @@ public class Grammar {
                 .toString();
     }
 
-    public void changeSentence(String newSentence) {
-        this.sentence = newSentence;
+    public void changeSentence(String newSentence, List<Grammar> grammars) {
+        if (grammars.stream().noneMatch(grammar -> grammar.sentence.equals(newSentence))) {
+            this.sentence = newSentence;
+        }
     }
 }
