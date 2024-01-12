@@ -24,9 +24,9 @@ class GrammarServiceTest {
     void getGrammarTest() {
         Long id = 16L;
 
-        GrammarDto grammarDto = this.grammarService.getGrammar(id);
+        GrammarResponseDto grammarResponseDto = this.grammarService.getGrammar(id);
 
-        System.out.println(grammarDto.getSentence());
+        System.out.println(grammarResponseDto.getSentence());
     }
 
     @Test
