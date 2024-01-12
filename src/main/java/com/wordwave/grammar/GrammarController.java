@@ -15,6 +15,12 @@ public class GrammarController {
     public ResponseEntity<GrammarResponseDto> getGrammar(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(this.grammarService.getGrammar(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateSentence(@PathVariable Long id, @RequestBody GrammarDto grammarDto) {
+        this.grammarService.updateSentence(id, grammarDto);
+        return ResponseEntity.status(HttpStatus.OK).body("Updated");
+    }
 }
 
 
