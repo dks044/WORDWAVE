@@ -19,11 +19,22 @@ class GrammarControllerTest {
     GrammarController grammarController;
 
     @Test
-    @DisplayName("id로 grammar를 조회한다.")
+    @DisplayName("grammar 조회 요청에 응답한다.")
     void getGrammarApiTest() {
         Long id = 16L;
 
         ResponseEntity<GrammarResponseDto> response = this.grammarController.getGrammar(id);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
+
+    @Test
+    @DisplayName("해당 grammar의 sentence 수정 요청에 응답한다.")
+    void updateSentenceApiTest() {
+        Long id = 16L;
+        GrammarDto grammarDto = new GrammarDto("update api test 1", "test book1");
+
+        ResponseEntity<Object> response = this.grammarController.updateSentence(id, grammarDto);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
