@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/api/grammarbook")
 @RestController
@@ -17,6 +19,13 @@ public class GrammarBookController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.grammarBookService.getGrammarBook(id));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<GrammarBook>> getAllGrammarBooks() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.grammarBookService.getAllGrammarBooks());
     }
 
     @PostMapping("/grammar")
