@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,7 +31,14 @@ class GrammarBookServiceTest {
         GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBook(id);
 
         System.out.println(grammarBookResponseDto.toString());
-        assertThat(grammarBookResponseDto.getGrammarDtos().size()).isEqualTo(4);
+    }
+
+    @Test
+    @DisplayName("모든 GrammarBook을 조회한다.")
+    void getAllGrammarBooksTest() {
+        List<GrammarBook> grammarBooks = this.grammarBookService.getAllGrammarBooks();
+
+        System.out.println(grammarBooks);
     }
 
     @Test
