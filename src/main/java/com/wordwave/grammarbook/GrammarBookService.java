@@ -4,9 +4,12 @@ import com.wordwave.exception.DataNotFoundException;
 import com.wordwave.grammar.Grammar;
 import com.wordwave.grammar.GrammarDto;
 import com.wordwave.grammar.GrammarRepository;
+import com.wordwave.grammar.GrammarResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +24,14 @@ public class GrammarBookService {
         GrammarBookResponseDto grammarBookResponseDto = new GrammarBookResponseDto();
         grammarBookResponseDto.setId(id);
         grammarBookResponseDto.setName(grammarBook.getName());
-        grammarBookResponseDto.setGrammarDtos(grammarBook.getGrammars().stream()
-                .map(grammar -> new GrammarDto(grammar.getSentence(), grammarBook.getName()))
+        grammarBookResponseDto.setGrammars(grammarBook.getGrammars().stream()
+                .map(grammar -> new GrammarResponseDto(grammar.getId(), grammar.getSentence(), grammarBook.getName()))
                 .toList());
         return grammarBookResponseDto;
+    }
+
+    public List<GrammarBook> getAllGrammarBooks() {
+        return this.grammarBookRepository.findAll();
     }
 
     @Transactional
