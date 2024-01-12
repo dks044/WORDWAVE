@@ -38,4 +38,15 @@ class GrammarControllerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
+
+    @Test
+    @DisplayName("해당 grammar 삭제 요청에 응답한다.")
+    @Rollback
+    void deleteGrammarApiTest() {
+        Long id = 16L;
+
+        ResponseEntity<Object> response = this.grammarController.deleteGrammar(id);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
 }
