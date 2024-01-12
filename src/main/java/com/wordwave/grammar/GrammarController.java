@@ -21,6 +21,12 @@ public class GrammarController {
         this.grammarService.updateSentence(id, grammarDto);
         return ResponseEntity.status(HttpStatus.OK).body("Updated");
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteGrammar(@PathVariable Long id) {
+        this.grammarService.deleteGrammar(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+    }
 }
 
 
