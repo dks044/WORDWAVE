@@ -65,8 +65,8 @@ const CircleMenu = styled.div`
     //초기 상태 설정
     width: 0;
     height: 0;
-    opacity: 0; // 투명도를 0으로 설정
-    bottom: -15px; // 0의 크기에서 시작할 때의 위치
+    opacity: 0; 
+    bottom: -15px; 
 
     ${props =>
         props.open &&
