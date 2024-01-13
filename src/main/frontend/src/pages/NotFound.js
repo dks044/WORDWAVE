@@ -13,7 +13,9 @@ function NotFound(){
     return(
         <NotFoundContainer>
             <h1>404</h1>
-            <p>알수없는 페이지 입니다.</p>
+            <h3>죄송합니다.
+            요청하신 페이지를 찾을 수 없습니다.</h3>
+
         </NotFoundContainer>
     )
 }
