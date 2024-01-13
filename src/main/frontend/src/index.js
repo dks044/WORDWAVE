@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import GmarketSansTTFLight from './fonts/GmarketSansTTFLight.ttf';
+import WaveEffect from './components/WaveEffect';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const GlobalStyle = createGlobalStyle`
@@ -19,12 +20,17 @@ const GlobalStyle = createGlobalStyle`
 body {
     font-family: 'GmarketSansTTFLight', sans-serif;
     background: linear-gradient(to right, #89CFF0 0%, #B2FFFF 50%, #89CFF0 100%);
+
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
 }
 `;
 
 root.render(
   <BrowserRouter>
     <GlobalStyle />
+    <WaveEffect />
     <App />
   </BrowserRouter>
 );
