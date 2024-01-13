@@ -20,6 +20,7 @@ const Logo = styled.img`
 `;
 
 const Navbar = styled.div`
+    font-weight: bold;
     display: flex;
     width: 100%;                     // 너비를 조금 줄여서 좌우 여백을 만듦
 `;
