@@ -6,7 +6,6 @@ const HomeContainer = styled.div`
     justify-content: center;
     text-align: center;
     padding-top: 30%;
-    transition: 0.25s all ease-in-out;
 `;
 const Hr = styled.hr`
     width: 30%;
