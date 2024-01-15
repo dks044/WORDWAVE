@@ -9,7 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +33,19 @@ public class GrammarBookService {
         return grammarBookResponseDto;
     }
 
-    public List<GrammarBook> getAllGrammarBooks() {
-        return this.grammarBookRepository.findAll();
+    public Map<String, List<GrammarResponseDto>> getAllGrammarBooks() {
+        Map<String, List<GrammarResponseDto>> grammarBookResponseDtos = new HashMap<>();
+        for (GrammarBook grammarBook : this.grammarBookRepository.findAll()) {
+            List<GrammarResponseDto> grammarResponseDtos = new ArrayList<>();
+            for (Grammar grammar : grammarBook.getGrammars()) {
+                grammarResponseDtos.add(new GrammarResponseDto(
+                        grammar.getId(),
+                        grammar.getSentence(),
+                        grammarBook.getName()));
+            }
+            grammarBookResponseDtos.put(grammarBook.getName(), grammarResponseDtos);
+        }
+        return grammarBookResponseDtos;
     }
 
     @Transactional
