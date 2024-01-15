@@ -17,7 +17,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Getter
 @DynamicInsert
 public class VocaBook {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -25,8 +25,8 @@ public class VocaBook {
 	@Column
 	@ColumnDefault(value = "일반")
 	private String name;
-	
+
 	@OneToMany(mappedBy = "vocaBook", cascade = CascadeType.ALL)
 	private List<Voca> vocas;
-	
+
 }
