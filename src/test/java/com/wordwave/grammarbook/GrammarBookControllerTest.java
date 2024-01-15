@@ -1,6 +1,7 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.grammar.GrammarDto;
+import com.wordwave.grammar.GrammarResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,6 +31,14 @@ class GrammarBookControllerTest {
         Long id = 5L;
 
         ResponseEntity<GrammarBookResponseDto> response = this.grammarBookController.getGrammarBook(id);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
+
+    @Test
+    @DisplayName("전체 GrammarBook 조회 요청에 대해 응답한다.")
+    void getAllGrammarBookApiTest() {
+        ResponseEntity<Map<String, List<GrammarResponseDto>>> response = this.grammarBookController.getAllGrammarBooks();
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
