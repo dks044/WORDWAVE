@@ -2,6 +2,7 @@ package com.wordwave.grammarbook;
 
 import com.wordwave.grammar.Grammar;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +26,12 @@ class GrammarBookRepositoryTest {
         grammarBook.getGrammars().addAll(Lists.newArrayList(grammar1, grammar2, grammar3));
 
         grammarBookRepository.save(grammarBook);
+    }
+
+    @Test
+    @DisplayName("GrammarBook을 전체 조회한다.")
+    void findAllTest() {
+        System.out.println(this.grammarBookRepository.findAll());
     }
 
 }
