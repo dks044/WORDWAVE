@@ -19,21 +19,21 @@ import org.hibernate.annotations.DynamicInsert;
 @Getter
 @DynamicInsert
 public class VocaBook {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
 	//ex) 토익보카,고등보카
 	private String name;
-
+	
 	@OneToMany(mappedBy = "vocaBook")
 	private List<Voca> vocas = new ArrayList<>();
-
+	
 	protected VocaBook() {
-	}
-
+    }
+	
 	public VocaBook(String name) {
-		this.name = name;
-	}
+        this.name = name;
+    }
 }
