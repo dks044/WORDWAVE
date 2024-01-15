@@ -1,6 +1,7 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.grammar.GrammarDto;
+import com.wordwave.grammar.GrammarResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -36,7 +38,7 @@ class GrammarBookServiceTest {
     @Test
     @DisplayName("모든 GrammarBook을 조회한다.")
     void getAllGrammarBooksTest() {
-        List<GrammarBook> grammarBooks = this.grammarBookService.getAllGrammarBooks();
+        Map<String, List<GrammarResponseDto>> grammarBooks = this.grammarBookService.getAllGrammarBooks();
 
         System.out.println(grammarBooks);
     }
