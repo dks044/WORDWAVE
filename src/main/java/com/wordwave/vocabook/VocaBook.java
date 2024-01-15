@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
@@ -22,11 +24,16 @@ public class VocaBook {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	@ColumnDefault(value = "일반")
+	//ex) 토익보카,고등보카
 	private String name;
 
-	@OneToMany(mappedBy = "vocaBook", cascade = CascadeType.ALL)
-	private List<Voca> vocas;
+	@OneToMany(mappedBy = "vocaBook")
+	private List<Voca> vocas = new ArrayList<>();
 
+	protected VocaBook() {
+	}
+
+	public VocaBook(String name) {
+		this.name = name;
+	}
 }
