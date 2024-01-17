@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	private final UserService userService;
 	
-	@PostMapping("/signUp")
+	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
 		try {
 			if(userDTO == null || userDTO.getPassword() == null) {
