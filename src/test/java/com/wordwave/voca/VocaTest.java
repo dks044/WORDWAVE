@@ -1,4 +1,4 @@
-package com.wordwave.main;
+package com.wordwave.voca;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
