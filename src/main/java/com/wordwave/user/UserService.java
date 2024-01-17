@@ -2,6 +2,7 @@ package com.wordwave.user;
 
 import org.springframework.stereotype.Service;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,7 +10,21 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-	private UserRepository userRepository;
+	
+	private final UserRepository userRepository;
+	
+    public SiteUser convertDtoToEntity(UserDto userDto) {
+        return SiteUser.builder()
+            .userName(userDto.getUserName())
+            .password(userDto.getPassword())
+            .email(userDto.getEmail())
+            .phoneNumber(userDto.getPhoneNumber())
+            .createUserDate(userDto.getCreateUserDate())
+            .point(userDto.getPoint())
+            .role(UserRole.USER) // Assuming default role as USER
+            .build();
+    }
+
 	
 	public SiteUser create(final SiteUser user) {
 		if(user == null || user.getUserName() == null) {

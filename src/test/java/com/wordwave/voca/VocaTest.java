@@ -6,14 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
-import com.wordwave.voca.VocaDTO;
-import com.wordwave.voca.VocaService;
 import com.wordwave.vocabook.VocaBook;
-import com.wordwave.vocabook.VocaBookDTO;
 import com.wordwave.vocabook.VocaBookRepository;
 
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 
 @SpringBootTest
 public class VocaTest {
