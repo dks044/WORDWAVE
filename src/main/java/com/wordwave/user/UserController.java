@@ -54,4 +54,23 @@ public class UserController {
 		
 	}
 	
+	@PostMapping("/signin")
+	public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO){
+		SiteUser user = userService.getByCredentials(
+				userDTO.getUserName(),
+				userDTO.getPassword());
+		if(user != null) {
+			final UserDTO responseDTO = UserDTO.builder()
+												.userName(user.getUserName())
+												.id(user.getId())
+												.build();
+			return ResponseEntity.ok().body(responseDTO);
+		}else {
+			ResponseDTO responseDTO = ResponseDTO.builder()
+					.error("Login Falid")
+					.build();
+			return ResponseEntity.badRequest().body(responseDTO);
+		}
+	}
+	
 }
