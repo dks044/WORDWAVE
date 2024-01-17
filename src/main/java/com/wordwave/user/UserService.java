@@ -24,4 +24,9 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
+	public SiteUser getByCredentials(final String userName, final String password) {
+		return userRepository.findByUserNameAndPassword(userName, password);
+	}
+	
+	
 }
