@@ -27,7 +27,7 @@ public class SiteUser {
     private String email;
 	
     @Column(unique = true)
-    private String phone_number;
+    private String phoneNumber;
     
     //회원가입일
     private LocalDateTime createUserDate;
