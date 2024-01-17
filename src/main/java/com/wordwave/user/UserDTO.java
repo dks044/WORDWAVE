@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class UserDTO {
 	private long id;
 	private String token;
 	private String userName;
@@ -19,5 +19,6 @@ public class UserDto {
 	private String email;
 	private String phoneNumber;
 	private LocalDateTime createUserDate;
+	private UserRole role;
 	private long point;
 }

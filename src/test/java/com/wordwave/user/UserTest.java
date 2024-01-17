@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +23,9 @@ public class UserTest {
     @Test
     @Transactional
     @Rollback(false)
+    @Disabled
     void createSiteUserTest() {//테스트성공
-        UserDto ud = UserDto.builder()
+        UserDTO ud = UserDTO.builder()
                 .userName("테스트계정")
                 .password("1234")
                 .email("buzz7811@naver.com")

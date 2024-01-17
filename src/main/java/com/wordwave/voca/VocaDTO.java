@@ -2,7 +2,7 @@ package com.wordwave.voca;
 
 import java.time.LocalDateTime;
 
-import com.wordwave.user.UserDto;
+import com.wordwave.user.UserDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -13,7 +13,7 @@ public class UserService {
 	
 	private final UserRepository userRepository;
 	
-    public SiteUser convertDtoToEntity(UserDto userDto) {
+    public SiteUser convertDtoToEntity(UserDTO userDto) {
         return SiteUser.builder()
             .userName(userDto.getUserName())
             .password(userDto.getPassword())
