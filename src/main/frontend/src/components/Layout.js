@@ -21,7 +21,7 @@ const TemplateBlock = styled.div`
     //마진&패딩 설정
     margin: 0 auto;
     margin-top: 96px;
-    margin-bottom: 32px;
+    margin-bottom: 15%;
 `;
 
 
