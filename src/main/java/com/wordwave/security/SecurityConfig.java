@@ -1,4 +1,4 @@
-package com.wordwave;
+package com.wordwave.security;
 
 
 import org.springframework.context.annotation.Bean;
