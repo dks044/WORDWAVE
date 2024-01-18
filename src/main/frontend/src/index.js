@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
-import GmarketSansTTFLight from './fonts/GmarketSansTTFLight.ttf';
-import WaveEffect from './components/WaveEffect';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import GmarketSansTTFLight from "./fonts/GmarketSansTTFLight.ttf";
+import WaveEffect from "./components/WaveEffect";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
 @font-face {
     font-family: 'GmarketSansTTFLight';
@@ -24,7 +24,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 `;
 
