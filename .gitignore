@@ -1,5 +1,6 @@
 HELP.md
 application.properties
+SecurityConfig
 TokenProvider
 .gradle
 build/
