@@ -22,20 +22,17 @@ const TemplateBlock = styled.div`
     margin: 0 auto;
     margin-top: 96px;
     margin-bottom: 15%;
+
 `;
 
-
-function Layout(){
-    return (
-        <TemplateBlock>
-            <Header />
-            <Outlet />
-            <DialMenu />
-        </TemplateBlock>
-    )
+function Layout() {
+  return (
+    <TemplateBlock>
+      <Header />
+      <Outlet />
+      <DialMenu />
+    </TemplateBlock>
+  );
 }
-
-
-
 
 export default React.memo(Layout);
