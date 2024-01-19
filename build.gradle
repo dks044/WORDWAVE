@@ -32,12 +32,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	//스프링 시큐리티
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-    // jjwt 라이브러리
+    // jjwt 라이브러리 최신 버전
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
-    runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.11.2') {
-        exclude group: 'org.json', module: 'json' // 필요하다면 이 줄을 추가로 제외
-    }
+    runtimeOnly 'io.jsonwebtoken:jjwt-orgjson:0.11.2' // 이 줄을 추가
 	
 }
 

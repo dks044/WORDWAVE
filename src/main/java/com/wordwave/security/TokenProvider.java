@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class TokenProvider {
-	private static final String SECREAT_KEY = "HJrtrgFJGggFfgergwergwefwerwerwefsdfWEUKFHEY7regergdfgergrrgEUKFGWEKFG";
+	private static final String SECREAT_KEY = "HJrtehtrhrwelihewligjweiglhiRGRGGFGRSGSGSDFrsgsrgfggrfgFDGREGFGRGFGERGDrgrgfgregergERGWGHYTTY";
 	private static final String ISSUER = "WORDWAVE";
 	
 	public String create(SiteUser user) {
@@ -27,9 +27,7 @@ public class TokenProvider {
 				);
 		
 		return Jwts.builder()
-					//header
 					.signWith(SignatureAlgorithm.HS512, SECREAT_KEY)
-					//payload
 					.setSubject(String.valueOf(user.getId()))
 					.setIssuer(ISSUER)
 					.setIssuedAt(new Date())
