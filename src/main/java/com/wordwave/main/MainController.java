@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 	@RequestMapping({"/", "/grammar"})
     public String redirect() {
-        return "index";
+        return "index.html";
     }
 }
