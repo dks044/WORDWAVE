@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.wordwave.user.SiteUser;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -26,13 +27,23 @@ public class TokenProvider {
 				);
 		
 		return Jwts.builder()
+					//header
 					.signWith(SignatureAlgorithm.HS512, SECREAT_KEY)
+					//payload
 					.setSubject(String.valueOf(user.getId()))
 					.setIssuer(ISSUER)
 					.setIssuedAt(new Date())
 					.setExpiration(expiryDate)
 					.compact();
 					
+	}
+	
+	public String validateAndGetUserId(String token) {
+		Claims claims = Jwts.parser()
+				.setSigningKey(SECREAT_KEY)
+				.parseClaimsJws(token)
+				.getBody();
+		return claims.getSubject();
 	}
 	
 	
