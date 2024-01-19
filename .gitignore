@@ -2,7 +2,6 @@ HELP.md
 Key.java
 application.properties
 SecurityConfig
-TokenProvider
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
