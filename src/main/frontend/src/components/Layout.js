@@ -5,23 +5,22 @@ import DialMenu from "./DialMenu";
 import Header from "./Header";
 
 const TemplateBlock = styled.div`
-  //색 설정
+  //스타일
   background: white;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
-  //사이즈 설정
+  margin: 0 auto;
+  margin-top: 96px;
+  margin-bottom: 15%;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  //크기
   width: 100vw;
   max-width: 512px;
   height: 100vh;
   max-height: 768px;
-  //포지션 설정
+  //위치
   position: relative;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  //마진&패딩 설정
-  margin: 0 auto;
-  margin-top: 96px;
-  margin-bottom: 32px;
 `;
 
 function Layout() {

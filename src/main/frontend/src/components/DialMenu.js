@@ -5,24 +5,23 @@ import { Link } from "react-router-dom";
 import grammarLogo from "../resources/grammar.svg";
 
 const CircleButton = styled.button`
-  //색 설정
+  //스타일
   background: skyblue;
   color: white;
-  //사이즈 설정
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  //크기
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  //포지션 설정
+  //위치
   position: absolute;
   z-index: 5;
   bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
-  align-items: center;
-  justify-content: center;
-  //테두리 설정
-  border: none;
-  outline: none;
   //이벤트 설정
   cursor: pointer;
   &:hover {
@@ -48,26 +47,22 @@ const CircleButton = styled.button`
     `}
 `;
 const CircleMenu = styled.div`
-  //색 설정
+  //스타일
   background: skyblue;
   color: white;
-  //사이즈 설정
-  width: 100px;
-  height: 100px;
   border-radius: 50%;
-  //포지션 설정
-  position: absolute;
-  z-index: 4;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  //애니메이션 설정
-  transition: 0.25s all ease-in-out;
-  //초기 상태 설정
+  opacity: 0; // 투명도를 0으로 설정
+  //크기
   width: 0;
   height: 0;
-  opacity: 0; // 투명도를 0으로 설정
+  //위치
+  position: absolute;
+  z-index: 4;
+  left: 50%;
   bottom: -15px; // 0의 크기에서 시작할 때의 위치
+  transform: translateX(-50%);
+  //애니메이션
+  transition: 0.25s all ease-in-out;
 
   ${(props) =>
     props.open &&
@@ -80,17 +75,16 @@ const CircleMenu = styled.div`
 `;
 
 const GrammarLink = styled(Link)`
-  //색 설정
+  //스타일
   color: black;
   text-decoration: none;
-  //사이즈 설정
-  width: 100px;
-  height: 100px;
-  //내부 요소들의 포지션 설정
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  //사이즈 설정
+  width: 100px;
+  height: 100px;
   //다이얼 메뉴내 GrammaarLink의 위치
   position: absolute;
   left: 50%;
@@ -114,7 +108,7 @@ function DialMenu() {
     <>
       <CircleMenu open={open}>
         {open && (
-          <GrammarLink to="/grammar">
+          <GrammarLink to="/grammar" onClick={onToggle}>
             <GrammarLogo src={grammarLogo} alt="grammar logo" />
             문법
           </GrammarLink>

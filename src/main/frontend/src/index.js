@@ -17,14 +17,14 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
 }
 
-body {
+#root {
     font-family: 'GmarketSansTTFLight', sans-serif;
     background: linear-gradient(to right, #89CFF0 0%, #B2FFFF 50%, #89CFF0 100%);
-
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
     overflow-y: auto;
+    position: relative;
 }
 `;
 
