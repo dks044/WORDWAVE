@@ -19,6 +19,13 @@ const StartButton = styled.button`
   visibility: ${(props) => (props.hidden ? "hidden" : "visible")};
 `;
 
+const GrammarBookContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const GrammarBookButton = styled.button`
   //스타일
   background: #2e2efd;
@@ -29,6 +36,7 @@ const GrammarBookButton = styled.button`
   //크기
   width: 50%;
   height: 50px;
+  margin: 10px 0 10px 0;
 `;
 
 function GrammarPage() {
@@ -44,9 +52,9 @@ function GrammarPage() {
     setClick(!click);
   }, [click]);
 
-  const handleButtonClick = (book) => {
+  const handleButtonClick = (data) => {
     // 버튼 클릭 이벤트 처리
-    console.log(`${book} clicked`);
+    console.log(`${data}`);
   };
 
   return (
@@ -54,12 +62,17 @@ function GrammarPage() {
       <StartButton onClick={getGrammarBooks} hidden={click}>
         문법 퀴즈 시작
       </StartButton>
-      {grammarBooks &&
-        Object.keys(grammarBooks).map((book) => (
-          <GrammarBookButton key={book} onClick={() => handleButtonClick(book)}>
-            {book}
-          </GrammarBookButton>
-        ))}
+      <GrammarBookContainer>
+        {grammarBooks &&
+          Object.keys(grammarBooks).map((book) => (
+            <GrammarBookButton
+              key={book}
+              onClick={() => handleButtonClick(book)}
+            >
+              {book}
+            </GrammarBookButton>
+          ))}
+      </GrammarBookContainer>
     </>
   );
 }
