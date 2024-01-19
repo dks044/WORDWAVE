@@ -18,13 +18,18 @@ const GlobalStyle = createGlobalStyle`
 }
 
 #root {
-    font-family: 'GmarketSansTTFLight', sans-serif;
-    background: linear-gradient(to right, #89CFF0 0%, #B2FFFF 50%, #89CFF0 100%);
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
+  //스타일  
+  font-family: 'GmarketSansTTFLight', sans-serif;
+  background: linear-gradient(to right, #89CFF0 0%, #B2FFFF 50%, #89CFF0 100%);
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+  //크기
+  width: 100vw;
+  height: 100vh;
+  //위치
+  position: relative;
 }
 `;
 
@@ -40,4 +45,3 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-

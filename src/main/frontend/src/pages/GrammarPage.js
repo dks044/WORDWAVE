@@ -20,7 +20,15 @@ const StartButton = styled.button`
 `;
 
 const GrammarBookButton = styled.button`
-  // 여기에 버튼 스타일링 추가
+  //스타일
+  background: #2e2efd;
+  border-style: none;
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+  //크기
+  width: 50%;
+  height: 50px;
 `;
 
 function GrammarPage() {
