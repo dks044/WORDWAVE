@@ -24,6 +24,8 @@ public class SiteUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	private String token;
+	
 	@Column(unique = true, nullable = false, length = 50)
 	private String userName;
 	

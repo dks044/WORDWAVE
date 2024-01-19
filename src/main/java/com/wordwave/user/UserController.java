@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wordwave.ResponseDTO;
+import com.wordwave.security.TokenProvider;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/auth")
 public class UserController {
 	private final UserService userService;
+	private final TokenProvider tokenProvider;
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
@@ -60,9 +62,11 @@ public class UserController {
 				userDTO.getUserName(),
 				userDTO.getPassword());
 		if(user != null) {
+			final String token = tokenProvider.create(user);
 			final UserDTO responseDTO = UserDTO.builder()
 												.userName(user.getUserName())
 												.id(user.getId())
+												.token(token)
 												.build();
 			return ResponseEntity.ok().body(responseDTO);
 		}else {
