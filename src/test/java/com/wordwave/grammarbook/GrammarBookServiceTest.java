@@ -38,7 +38,15 @@ class GrammarBookServiceTest {
     @Test
     @DisplayName("모든 GrammarBook을 조회한다.")
     void getAllGrammarBooksTest() {
-        Map<String, List<GrammarResponseDto>> grammarBooks = this.grammarBookService.getAllGrammarBooks();
+        Map<String, List<GrammarResponseDto>> grammarBooks = this.grammarBookService.getAllGrammarBooksWithGrammar();
+
+        System.out.println(grammarBooks);
+    }
+
+    @Test
+    @DisplayName("모든 GrammarBook의 이름을 조회한다.")
+    void getAllGrammarBookNamesTest() {
+        List<GrammarBookResponseDto> grammarBooks = this.grammarBookService.getAllGrammarBooks();
 
         System.out.println(grammarBooks);
     }
