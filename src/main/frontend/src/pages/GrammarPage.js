@@ -44,17 +44,25 @@ function GrammarPage() {
   const [grammarBooks, setGrammarBooks] = useState();
 
   const getGrammarBooks = useCallback(() => {
-    fetch("/api/grammarbook/all", { method: "GET" })
-      .then((response) => response.json())
-      .then((grammarBooks) => setGrammarBooks(grammarBooks))
-      .catch((error) => console.error("Error:", error));
+    // fetch("/api/grammarbook/all", { method: "GET" })
+    //   .then((response) => response.json())
+    //   .then((grammarBooks) => setGrammarBooks(grammarBooks))
+    //   .catch((error) => console.error("Error:", error));
+
+    //Use only during development
+    const emptyGrammarBooks = [
+      { id: 5, name: "test book1", grammars: [] },
+      { id: 6, name: "test book2", grammars: [] },
+    ];
+    setGrammarBooks(emptyGrammarBooks);
 
     setClick(!click);
   }, [click]);
 
   const handleButtonClick = (data) => {
-    // 버튼 클릭 이벤트 처리
-    console.log(`${data}`);
+    //TODO:
+    //1. 각 grammarbook을 클릭하면 해당 id의 grammarbook GET 요청가져오기
+    //2. 가져온 데이터를 하위 퀴즈 페이지에 props로 전달
   };
 
   return (
@@ -64,12 +72,12 @@ function GrammarPage() {
       </StartButton>
       <GrammarBookContainer>
         {grammarBooks &&
-          Object.keys(grammarBooks).map((book) => (
+          grammarBooks.map((grammarbook) => (
             <GrammarBookButton
-              key={book}
-              onClick={() => handleButtonClick(book)}
+              key={grammarbook.id}
+              onClick={handleButtonClick(grammarbook.id)}
             >
-              {book}
+              {grammarbook.name}
             </GrammarBookButton>
           ))}
       </GrammarBookContainer>
