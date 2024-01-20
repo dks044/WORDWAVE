@@ -21,8 +21,7 @@ public class GrammarBookService {
     private final GrammarRepository grammarRepository;
 
     public GrammarBookResponseDto getGrammarBook(Long id) {
-        GrammarBook grammarBook = this.grammarBookRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException("Grammar book not found."));
+        GrammarBook grammarBook = getGrammarBookById(id);
 
         GrammarBookResponseDto grammarBookResponseDto = new GrammarBookResponseDto();
         grammarBookResponseDto.setId(id);
@@ -33,7 +32,7 @@ public class GrammarBookService {
         return grammarBookResponseDto;
     }
 
-    public Map<String, List<GrammarResponseDto>> getAllGrammarBooks() {
+    public Map<String, List<GrammarResponseDto>> getAllGrammarBooksWithGrammar() {
         Map<String, List<GrammarResponseDto>> grammarBookResponseDtos = new HashMap<>();
         for (GrammarBook grammarBook : this.grammarBookRepository.findAll()) {
             List<GrammarResponseDto> grammarResponseDtos = new ArrayList<>();
@@ -46,6 +45,19 @@ public class GrammarBookService {
             grammarBookResponseDtos.put(grammarBook.getName(), grammarResponseDtos);
         }
         return grammarBookResponseDtos;
+    }
+
+    public List<GrammarBookResponseDto> getAllGrammarBooks() {
+        List<GrammarBookResponseDto> grammarBooks = new ArrayList<>();
+        for (GrammarBook grammarBook : this.grammarBookRepository.findAll()) {
+            GrammarBookResponseDto responseDto = new GrammarBookResponseDto(
+                    grammarBook.getId(),
+                    grammarBook.getName(),
+                    new ArrayList<>()
+            );
+            grammarBooks.add(responseDto);
+        }
+        return grammarBooks;
     }
 
     @Transactional
