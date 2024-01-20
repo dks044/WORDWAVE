@@ -1,14 +1,12 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.grammar.GrammarDto;
-import com.wordwave.grammar.GrammarResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/grammarbook")
@@ -24,7 +22,7 @@ public class GrammarBookController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Map<String, List<GrammarResponseDto>>> getAllGrammarBooks() {
+    public ResponseEntity<List<GrammarBookResponseDto>> getAllGrammarBooks() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.grammarBookService.getAllGrammarBooks());
