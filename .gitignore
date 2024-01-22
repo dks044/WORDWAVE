@@ -1,7 +1,6 @@
 HELP.md
 Key.java
 application.properties
-SecurityConfig
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
