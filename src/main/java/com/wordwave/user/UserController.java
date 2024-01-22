@@ -3,6 +3,8 @@ package com.wordwave.user;
 import java.time.LocalDateTime;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	private final UserService userService;
 	private final TokenProvider tokenProvider;
+	
+	//TODO: 이후 삭제 예정
+	@PreAuthorize("isAuthenticated()")
+    @GetMapping("/test")
+    public String test() {
+        return "Login logic Test";
+    }
+	
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
