@@ -108,7 +108,7 @@ function DialMenu() {
     <>
       <CircleMenu open={open}>
         {open && (
-          <GrammarLink to="/grammar" onClick={onToggle}>
+          <GrammarLink to="/grammarbook" onClick={onToggle}>
             <GrammarLogo src={grammarLogo} alt="grammar logo" />
             문법
           </GrammarLink>
