@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Transactional
-@Rollback(false)
+//@Rollback(false)
 class GrammarBookServiceTest {
     @Autowired
     GrammarBookService grammarBookService;
