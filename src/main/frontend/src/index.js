@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
 //스크롤바 스타일
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-thumb {

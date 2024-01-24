@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
@@ -21,31 +21,46 @@ const StartButton = styled.button`
 `;
 
 const GrammarBookContainer = styled.div`
+  //스타일
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
+  flex-wrap: wrap;
+  gap: 10px;
+  //크기
+  height: 80%;
+  //위치
+  position: relative;
 `;
 
 const GrammarBookLink = styled(Link)`
   //스타일
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-decoration: none;
-  background: #2e2efd;
-  border-style: none;
-  border-radius: 12px;
+  background: ${(props) => (props.diff ? "#2e2efd" : "#008FFF")};
+  /* border-radius: 12px; */
   text-align: center;
   color: white;
+  margin: 10px 10px 10px 10px;
   //크기
-  width: 50%;
+  width: 45%;
   height: 50px;
-  margin: 10px 0 10px 0;
+`;
+
+const Span = styled.span`
+  //스타일
+  display: block;
+  margin: 0 2px;
 `;
 
 function GrammarPage() {
-  const [click, setClick] = useState(false);
   const [grammarBooks, setGrammarBooks] = useState();
 
-  const getGrammarBooks = useCallback(() => {
+  useEffect(() => {
     //   fetch("/api/grammarbook/all", { method: "GET" })
     //     .then((response) => response.json())
     //     .then((grammarBooks) => setGrammarBooks(grammarBooks))
@@ -53,27 +68,46 @@ function GrammarPage() {
 
     // Use only during development
     const emptyGrammarBooks = [
-      { id: 5, name: "test book1", grammars: [] },
-      { id: 6, name: "test book2", grammars: [] },
+      { id: 1, name: "현재와 현재진행", grammars: [] },
+      { id: 2, name: "과거와 과거진행", grammars: [] },
+      { id: 3, name: "현재 완료", grammars: [] },
+      { id: 4, name: "미래", grammars: [] },
+      { id: 5, name: "조동사", grammars: [] },
+      { id: 6, name: "수동태", grammars: [] },
+      { id: 7, name: "의문문", grammars: [] },
+      { id: 8, name: "-ing와 to + 동사원형", grammars: [] },
+      { id: 9, name: "명사와 대명사", grammars: [] },
+      { id: 10, name: "수량 표현", grammars: [] },
+      { id: 11, name: "형용사와 부사", grammars: [] },
+      { id: 12, name: "전치사와 구동사", grammars: [] },
+      { id: 13, name: "접속사와 절", grammars: [] },
+      { id: 14, name: "다양한 문장들", grammars: [] },
+      { id: 15, name: "불규칙 동사", grammars: [] },
+      { id: 16, name: "주의해야할 형태 변화", grammars: [] },
+      { id: 17, name: "축약형", grammars: [] },
+      { id: 18, name: "주의해야 할 명사와 the 용법", grammars: [] },
+      { id: 19, name: "사람과 사물을 가리키는 대명사", grammars: [] },
+      { id: 20, name: "알아두면 유용한 형용사 + 전치사 표현", grammars: [] },
+      { id: 21, name: "알아두면 유용한 동사 표현", grammars: [] },
     ];
     setGrammarBooks(emptyGrammarBooks);
+  }, []);
 
-    setClick(!click);
-  }, [click]);
+  if (!grammarBooks) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      <StartButton onClick={getGrammarBooks} hidden={click}>
-        문법 퀴즈 시작
-      </StartButton>
       <GrammarBookContainer>
         {grammarBooks &&
-          grammarBooks.map((grammarbook) => (
+          grammarBooks.map((grammarbook, index) => (
             <GrammarBookLink
               to={`/grammarbook/${grammarbook.id}`}
               key={grammarbook.id}
+              diff={index % 2 === 0}
             >
-              {grammarbook.name}
+              <Span>{grammarbook.name}</Span>
             </GrammarBookLink>
           ))}
       </GrammarBookContainer>
