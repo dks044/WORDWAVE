@@ -1,24 +1,6 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
-
-const StartButton = styled.button`
-  //스타일
-  background: #2e2efd;
-  border-style: none;
-  border-radius: 12px;
-  text-align: center;
-  color: white;
-  //크기
-  width: 50%;
-  height: 50px;
-  //위치
-  position: absolute;
-  top: 40%;
-  transform: translateX(50%);
-
-  visibility: ${(props) => (props.hidden ? "hidden" : "visible")};
-`;
 
 const GrammarBookContainer = styled.div`
   //스타일
