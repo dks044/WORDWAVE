@@ -20,7 +20,8 @@ const TemplateBlock = styled.div`
   height: 100vh;
   max-height: 768px;
   //위치
-  position: relative;
+  position: absolute;
+  top: 10px;
 `;
 
 function Layout() {

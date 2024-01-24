@@ -101,14 +101,14 @@ function DialMenu() {
   const [open, setOpen] = useState(false);
   const onToggle = () => {
     setOpen(!open);
-    console.log(open);
+    // console.log(open);
   };
 
   return (
     <>
       <CircleMenu open={open}>
         {open && (
-          <GrammarLink to="/grammar" onClick={onToggle}>
+          <GrammarLink to="/grammarbook" onClick={onToggle}>
             <GrammarLogo src={grammarLogo} alt="grammar logo" />
             문법
           </GrammarLink>

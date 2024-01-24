@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,6 +21,9 @@ public class Grammar {
     @Column
     private String sentence;
 
+    @OneToMany(mappedBy = "grammar", cascade = CascadeType.ALL)
+    private List<GrammarExample> examples = new ArrayList<>();
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "GRAMMAR_BOOK_ID")
     private GrammarBook grammarBook;
@@ -30,6 +34,14 @@ public class Grammar {
         this.grammarBook = grammarBook;
     }
 
+    public void saveExamples(List<GrammarExample> grammarExamples) {
+        this.examples = grammarExamples;
+    }
+
+    public void changeSentence(String newSentence) {
+        this.sentence = newSentence;
+    }
+
     @Override
     public String toString() {
         return new StringBuilder()
@@ -37,11 +49,5 @@ public class Grammar {
                 .append(", sentence: ").append(sentence)
                 .append(", book name: ").append(this.grammarBook.getName())
                 .toString();
-    }
-
-    public void changeSentence(String newSentence, List<Grammar> grammars) {
-        if (grammars.stream().noneMatch(grammar -> grammar.sentence.equals(newSentence))) {
-            this.sentence = newSentence;
-        }
     }
 }
