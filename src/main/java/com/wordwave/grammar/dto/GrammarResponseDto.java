@@ -15,7 +15,7 @@ public class GrammarResponseDto {
 
     private String sentence;
 
-    private List<GrammarExampleDto> grammarExampleDtos;
+    private List<GrammarExampleDto> grammarExamples;
 
     private String grammarBookName;
 }

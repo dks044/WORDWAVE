@@ -13,5 +13,5 @@ public class GrammarExamplesDto {
 
     private Long grammarId;
 
-    private List<GrammarExampleDto> grammarExampleDtos;
+    private List<GrammarExampleDto> grammarExamples;
 }

@@ -20,7 +20,7 @@ public class GrammarService {
         grammarResponseDto.setId(id);
         grammarResponseDto.setSentence(grammar.getSentence());
         grammarResponseDto.setGrammarBookName(grammar.getGrammarBook().getName());
-        grammarResponseDto.setGrammarExampleDtos(grammar.getExamples().stream()
+        grammarResponseDto.setGrammarExamples(grammar.getExamples().stream()
                 .map(example -> new GrammarExampleDto(example.getExample(), example.getIsAnswer()))
                 .toList());
         return grammarResponseDto;
@@ -39,7 +39,7 @@ public class GrammarService {
     @Transactional
     public void saveGrammarExamples(GrammarExamplesDto grammarExamplesDto) {
         Grammar grammar = getGrammarById(grammarExamplesDto.getGrammarId());
-        grammar.saveExamples(grammarExamplesDto.getGrammarExampleDtos().stream()
+        grammar.saveExamples(grammarExamplesDto.getGrammarExamples().stream()
                 .map(dto -> new GrammarExample(dto.getExample(), dto.getIsAnswer(), grammar))
                 .toList());
     }
