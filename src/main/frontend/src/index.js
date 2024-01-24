@@ -31,6 +31,21 @@ const GlobalStyle = createGlobalStyle`
   //위치
   position: relative;
 }
+
+//스크롤바 스타일
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 20%;
+  background: darkgray;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0);
+}
 `;
 
 root.render(
