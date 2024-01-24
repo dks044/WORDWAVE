@@ -1,5 +1,7 @@
 package com.wordwave.grammar;
 
+import com.wordwave.grammar.dto.ChangeSentenceDto;
+import com.wordwave.grammar.dto.GrammarResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,10 @@ class GrammarControllerTest {
     @DisplayName("해당 grammar의 sentence 수정 요청에 응답한다.")
     void updateSentenceApiTest() {
         Long id = 16L;
-        GrammarDto grammarDto = new GrammarDto("update api test 1", "test book1");
+        String newSentence = "I _ Emma. I _ from New York.";
+        ChangeSentenceDto changeSentenceDto = new ChangeSentenceDto(id, newSentence);
 
-        ResponseEntity<Object> response = this.grammarController.updateSentence(id, grammarDto);
+        ResponseEntity<Object> response = this.grammarController.updateSentence(changeSentenceDto);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
