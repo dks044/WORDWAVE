@@ -14,9 +14,8 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="grammarbook" element={<GrammarPage />}>
-          <Route path=":id" element={<GrammarBook />} />
-        </Route>
+        <Route path="grammarbook" element={<GrammarPage />} />
+        <Route path="grammarbook/:id" element={<GrammarBook />} />
       </Route>
     </Routes>
   );
