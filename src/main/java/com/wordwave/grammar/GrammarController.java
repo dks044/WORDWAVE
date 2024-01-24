@@ -1,5 +1,7 @@
 package com.wordwave.grammar;
 
+import com.wordwave.grammar.dto.ChangeSentenceDto;
+import com.wordwave.grammar.dto.GrammarResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,8 @@ public class GrammarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateSentence(@PathVariable Long id, @RequestBody GrammarDto grammarDto) {
-        this.grammarService.updateSentence(id, grammarDto);
+    public ResponseEntity<Object> updateSentence(@RequestBody ChangeSentenceDto changeSentenceDto) {
+        this.grammarService.updateSentence(changeSentenceDto);
         return ResponseEntity.status(HttpStatus.OK).body("Updated");
     }
 
