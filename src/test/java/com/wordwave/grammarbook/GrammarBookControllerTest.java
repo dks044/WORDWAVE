@@ -1,6 +1,8 @@
 package com.wordwave.grammarbook;
 
-import com.wordwave.grammar.GrammarDto;
+import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammarbook.dto.ChangeGrammarBookNameDto;
+import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
