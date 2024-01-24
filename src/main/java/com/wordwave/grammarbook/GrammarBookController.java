@@ -1,6 +1,8 @@
 package com.wordwave.grammarbook;
 
-import com.wordwave.grammar.GrammarDto;
+import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammarbook.dto.ChangeGrammarBookNameDto;
+import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class GrammarBookController {
     public ResponseEntity<List<GrammarBookResponseDto>> getAllGrammarBooks() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(this.grammarBookService.getAllGrammarBooks());
+                .body(this.grammarBookService.getAllGrammarBooksWithoutGrammar());
     }
 
     @PostMapping("/grammar")
