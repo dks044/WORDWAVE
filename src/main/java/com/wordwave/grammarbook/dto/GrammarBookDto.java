@@ -1,6 +1,6 @@
-package com.wordwave.grammarbook;
+package com.wordwave.grammarbook.dto;
 
-import com.wordwave.grammar.GrammarDto;
+import com.wordwave.grammar.dto.GrammarDto;
 import lombok.Data;
 
 import java.util.List;

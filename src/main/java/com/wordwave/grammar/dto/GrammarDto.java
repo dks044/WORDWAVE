@@ -1,4 +1,4 @@
-package com.wordwave.grammar;
+package com.wordwave.grammar.dto;
 
 import lombok.*;
 
