@@ -14,7 +14,7 @@ public class GrammarBookResponseDto {
 
     private Long id;
 
-    private String grammarBookName;
+    private String name;
 
     private List<SentenceResponseDto> grammars;
 }
