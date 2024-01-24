@@ -3,6 +3,7 @@ package com.wordwave.user;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,6 +44,7 @@ public class SiteUser {
     //레이팅 (레이팅에 따라 티어 부여)
     private long point;
     
+    @Convert(converter = UserRoleConverter.class)
     private UserRole role = UserRole.USER;
     
 
