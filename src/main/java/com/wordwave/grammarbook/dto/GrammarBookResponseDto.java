@@ -1,6 +1,6 @@
-package com.wordwave.grammarbook;
+package com.wordwave.grammarbook.dto;
 
-import com.wordwave.grammar.GrammarResponseDto;
+import com.wordwave.grammar.dto.SentenceResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ public class GrammarBookResponseDto {
 
     private Long id;
 
-    private String name;
+    private String grammarBookName;
 
-    private List<GrammarResponseDto> grammars;
+    private List<SentenceResponseDto> grammars;
 }
