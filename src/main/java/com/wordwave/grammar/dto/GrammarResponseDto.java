@@ -1,6 +1,8 @@
-package com.wordwave.grammar;
+package com.wordwave.grammar.dto;
 
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,6 +14,8 @@ public class GrammarResponseDto {
     private Long id;
 
     private String sentence;
+
+    private List<GrammarExampleDto> grammarExampleDtos;
 
     private String grammarBookName;
 }
