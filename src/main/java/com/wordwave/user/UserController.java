@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordwave.ResponseDTO;
 import com.wordwave.security.TokenProvider;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -67,12 +68,15 @@ public class UserController {
 	}
 	
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO){
+	public ResponseEntity<?> authenticate(
+			@RequestBody UserDTO userDTO,
+			HttpServletResponse response
+			){
 		SiteUser user = userService.getByCredentials(
 				userDTO.getUserName(),
 				userDTO.getPassword());
 		if(user != null) {
-			final String token = tokenProvider.create(user);
+			final String token = tokenProvider.create(user,response);
 			final UserDTO responseDTO = UserDTO.builder()
 												.userName(user.getUserName())
 												.id(user.getId())

@@ -1,10 +1,8 @@
 package com.wordwave.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,7 +19,6 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableMethodSecurity
 public class SecurityConfig {
     
@@ -50,7 +47,7 @@ public class SecurityConfig {
     }
     
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
+    WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
                 .requestMatchers(new AntPathRequestMatcher("/static/**"))
