@@ -1,9 +1,9 @@
 import * as authAPI from '../api/authAPI';
 import {
-  createPromiseThunk,
   reducerUtils,
   handleAsyncActions,
 } from '../lib/asyncUtils';
+import axios from 'axios';
 
 const LOGIN_REQUEST = 'auth/LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
@@ -13,8 +13,29 @@ const LOGOUT_REQUEST = 'auth/LOGOUT_REQUEST';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 
-export const login = createPromiseThunk(LOGIN_REQUEST,authAPI.loginApi);
-export const logout = createPromiseThunk(LOGOUT_REQUEST,authAPI.loginApi);
+export const login = (username, password) => async dispatch => {
+  dispatch({ type: LOGIN_REQUEST });
+  try {
+    const response = await authAPI.loginApi(username, password);
+    const token = response.data.token;
+    localStorage.setItem('token', token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+  } catch (e) {
+    dispatch({ type: LOGIN_FAILURE, error: e });
+  }
+};
+
+export const logout = () => dispatch => {
+  dispatch({ type: LOGOUT_REQUEST });
+  try {
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
+    dispatch({ type: LOGOUT_SUCCESS });
+  } catch (e) {
+    dispatch({ type: LOGOUT_FAILURE, error: e });
+  }
+};
 
 const initialState = {
   auth: reducerUtils.initial()
