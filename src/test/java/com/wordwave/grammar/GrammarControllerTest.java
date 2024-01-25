@@ -1,7 +1,8 @@
 package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.ChangeSentenceDto;
-import com.wordwave.grammar.dto.GrammarResponseDto;
+import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.GrammarExampleDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +28,23 @@ class GrammarControllerTest {
     void getGrammarApiTest() {
         Long id = 16L;
 
-        ResponseEntity<GrammarResponseDto> response = this.grammarController.getGrammar(id);
+        ResponseEntity<GrammarDto> response = this.grammarController.getGrammar(id);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
+
+    @Test
+    @DisplayName("grammar에 example을 저장한다.")
+    void saveGrammarExampleTest() {
+        GrammarDto grammarDto = GrammarDto.builder()
+                .id(91L)
+                .grammarExamples(List.of(
+                        new GrammarExampleDto("is", true),
+                        new GrammarExampleDto("are", false),
+                        new GrammarExampleDto("am", false)
+                ))
+                .build();
+        ResponseEntity<Object> response = this.grammarController.saveGrammarExample(grammarDto);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
