@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import DialMenu from "./DialMenu";
-import Header from "./Header";
+import DialMenu from "../components/DialMenu";
+import Header from "../components/Header";
 
 const TemplateBlock = styled.div`
   //스타일

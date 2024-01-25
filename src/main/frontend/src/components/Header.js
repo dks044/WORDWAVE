@@ -9,15 +9,19 @@ const HeaderBlock = styled.div`
   align-items: center;
   width: 100%;
   height: 10%;
+  min-height: 77.8px;
   border-bottom: 1px solid #e9ecef;
 `;
 
 const Logo = styled.img`
-  position: absolute;
-  top: -5px;
-  max-width: 20%;
-  max-height: 10%;
+  //크기
+  max-width: 76px;
+  max-height: 76px;
   object-fit: contain;
+  //위치
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const Navbar = styled.div`

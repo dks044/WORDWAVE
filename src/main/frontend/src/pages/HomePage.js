@@ -12,7 +12,7 @@ const Hr = styled.hr`
 `
 
 
-const Home = () => {
+const HomePage = () => {
     return (
         <HomeContainer>
             <h2>환영합니다!</h2>
@@ -23,4 +23,4 @@ const Home = () => {
     )
 }
 
-export default React.memo(Home);
+export default React.memo(HomePage);
