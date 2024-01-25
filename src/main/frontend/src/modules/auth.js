@@ -3,7 +3,6 @@ import {
   reducerUtils,
   handleAsyncActions,
 } from '../lib/asyncUtils';
-import axios from 'axios';
 
 const LOGIN_REQUEST = 'auth/LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
@@ -19,21 +18,17 @@ export const login = (username, password) => async dispatch => {
   dispatch({ type: LOGIN_REQUEST });
   try {
     const response = await authAPI.loginApi(username, password);
-    const token = response.data.token;
-    localStorage.setItem('token', token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     dispatch({ type: LOGIN_SUCCESS, payload: response.data });
   } catch (e) {
     dispatch({ type: LOGIN_FAILURE, error: e });
   }
 };
 
-export const logout = () => dispatch => {
+export const logout = () => async dispatch => {
   dispatch({ type: LOGOUT_REQUEST });
   try {
-    localStorage.removeItem('token');
-    delete axios.defaults.headers.common['Authorization'];
-    dispatch({ type: LOGOUT_SUCCESS });
+    const response = await authAPI.logoutApi();
+    dispatch({ type: LOGOUT_SUCCESS, payload: response.data });
   } catch (e) {
     dispatch({ type: LOGOUT_FAILURE, error: e });
   }

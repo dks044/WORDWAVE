@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordwave.ResponseDTO;
 import com.wordwave.security.TokenProvider;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -91,6 +92,14 @@ public class UserController {
 		}
 	}
 	
+	@PostMapping("/signout")
+	public ResponseEntity<?> signOut(HttpServletResponse response){
+	    Cookie cookie = new Cookie("token", null); 
+	    cookie.setHttpOnly(true);
+	    cookie.setMaxAge(0); 
+	    response.addCookie(cookie); //HTTP 응답에 쿠키를 추가
+	    return ResponseEntity.ok().body("Logged out");
+	}
 	
 	
 }
