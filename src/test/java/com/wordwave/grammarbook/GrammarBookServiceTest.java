@@ -1,6 +1,7 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.GrammarExampleDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class GrammarBookServiceTest {
     void getGrammarBookTest() {
         Long id = 6L;
 
-        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBook(id);
+        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBookWithoutGrammarExamples(id);
 
         System.out.println(grammarBookResponseDto.toString());
     }
@@ -44,11 +45,22 @@ class GrammarBookServiceTest {
 
     @Test
     @DisplayName("GrammarBook에 Grammar를 저장한다.")
-    void saveGrammarTest() {
+    void saveGrammarToGrammarBookTest() {
         String grammarBookName = "현재와 현재진행";
-        GrammarDto grammarDto = new GrammarDto("I _ Emma. I _ from New York.", grammarBookName);
+        GrammarDto grammarDto = GrammarDto.builder()
+                .sentence("Paul and Emily _ singers. they are very famous")
+                .grammarExamples(List.of(
+                        new GrammarExampleDto("are", true),
+                        new GrammarExampleDto("is", false),
+                        new GrammarExampleDto("am", false)
+                ))
+                .grammarBookName(grammarBookName)
+                .build();
 
-        this.grammarBookService.saveGrammar(grammarDto);
+        this.grammarBookService.saveGrammarToGrammarBook(grammarDto);
+
+        System.out.println("===========assert===========");
+        System.out.println(this.grammarBookRepository.findByName(grammarBookName));
     }
 
     @Test
