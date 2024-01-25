@@ -2,9 +2,9 @@ package com.wordwave.grammarbook;
 
 import com.wordwave.exception.DataNotFoundException;
 import com.wordwave.grammar.Grammar;
+import com.wordwave.grammar.GrammarExample;
 import com.wordwave.grammar.GrammarRepository;
 import com.wordwave.grammar.dto.GrammarDto;
-import com.wordwave.grammar.dto.SentenceResponseDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,14 +19,20 @@ public class GrammarBookService {
     private final GrammarBookRepository grammarBookRepository;
     private final GrammarRepository grammarRepository;
 
-    public GrammarBookResponseDto getGrammarBook(Long id) {
+    public GrammarBookResponseDto getGrammarBookWithoutGrammarExamples(Long id) {
         GrammarBook grammarBook = getGrammarBookById(id);
 
         GrammarBookResponseDto grammarBookResponseDto = new GrammarBookResponseDto();
         grammarBookResponseDto.setId(id);
         grammarBookResponseDto.setName(grammarBook.getName());
         grammarBookResponseDto.setGrammars(grammarBook.getGrammars().stream()
-                .map(grammar -> new SentenceResponseDto(grammar.getId(), grammar.getSentence()))
+                .map(grammar -> new GrammarDto(
+                        grammar.getId(),
+                        grammar.getSentence(),
+                        new ArrayList<>(),
+                        grammarBook.getName()
+                    )
+                )
                 .toList());
         return grammarBookResponseDto;
     }
@@ -45,7 +51,8 @@ public class GrammarBookService {
     }
 
     @Transactional
-    public void saveGrammar(GrammarDto grammarDto) {
+    public void saveGrammarToGrammarBook(GrammarDto grammarDto) {
+        // grammarDto의 id는 필요 없음
         GrammarBook grammarBook = this.grammarBookRepository.findByName(grammarDto.getGrammarBookName())
                 .orElseGet(() -> createGrammarBook(grammarDto.getGrammarBookName()));
 
@@ -53,6 +60,12 @@ public class GrammarBookService {
                 .sentence(grammarDto.getSentence())
                 .grammarBook(grammarBook)
                 .build();
+        grammar.saveExamples(grammarDto.getGrammarExamples().stream()
+                .map(dto -> GrammarExample.builder()
+                        .example(dto.getExample())
+                        .isAnswer(dto.getIsAnswer())
+                        .grammar(grammar)
+                        .build()).toList());
 
         grammarBook.addGrammar(grammar);
         this.grammarRepository.save(grammar);
