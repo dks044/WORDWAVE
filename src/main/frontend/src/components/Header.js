@@ -12,7 +12,7 @@ const HeaderBlock = styled.div`
   min-height: 77.8px;
   border-bottom: 1px solid #e9ecef;
 `;
-
+  
 const Logo = styled.img`
   //크기
   max-width: 76px;
