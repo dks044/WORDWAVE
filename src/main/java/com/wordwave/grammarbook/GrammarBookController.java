@@ -17,10 +17,10 @@ public class GrammarBookController {
     private final GrammarBookService grammarBookService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<GrammarBookResponseDto> getGrammarBook(@PathVariable Long id) {
+    public ResponseEntity<GrammarBookResponseDto> getGrammarBookWithoutGrammarExamples(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(this.grammarBookService.getGrammarBook(id));
+                .body(this.grammarBookService.getGrammarBookWithoutGrammarExamples(id));
     }
 
     @GetMapping("/all")
@@ -31,8 +31,9 @@ public class GrammarBookController {
     }
 
     @PostMapping("/grammar")
-    public ResponseEntity<Object> saveGrammar(@RequestBody GrammarDto grammarDto) {
-        this.grammarBookService.saveGrammar(grammarDto);
+    public ResponseEntity<Object> saveGrammarToGrammarBook(@RequestBody GrammarDto grammarDto) {
+        //grammarDto에 id는 필요 없음
+        this.grammarBookService.saveGrammarToGrammarBook(grammarDto);
         return ResponseEntity.status(HttpStatus.OK).body("Saved");
     }
 
