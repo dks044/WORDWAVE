@@ -1,9 +1,8 @@
 package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.ChangeSentenceDto;
+import com.wordwave.grammar.dto.GrammarDto;
 import com.wordwave.grammar.dto.GrammarExampleDto;
-import com.wordwave.grammar.dto.GrammarExamplesDto;
-import com.wordwave.grammar.dto.GrammarResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,9 @@ class GrammarServiceTest {
     void getGrammarTest() {
         Long id = 16L;
 
-        GrammarResponseDto grammarResponseDto = this.grammarService.getGrammar(id);
+        GrammarDto grammarDto = this.grammarService.getGrammar(id);
 
-        System.out.println(grammarResponseDto.toString());
+        System.out.println(grammarDto.toString());
     }
 
     @Test
@@ -68,8 +67,8 @@ class GrammarServiceTest {
         GrammarExampleDto grammarExampleDto3 = new GrammarExampleDto("are", false);
         GrammarExampleDto grammarExampleDto4 = new GrammarExampleDto("be", false);
         List<GrammarExampleDto> grammarExampleDtos = List.of(grammarExampleDto1, grammarExampleDto2, grammarExampleDto3, grammarExampleDto4);
-
-        this.grammarService.saveGrammarExamples(new GrammarExamplesDto(grammarId, grammarExampleDtos));
+        GrammarDto grammarDto = new GrammarDto(grammarId, null, grammarExampleDtos, null);
+        this.grammarService.saveGrammarExamples(grammarDto);
 
         System.out.println(this.grammarService.getGrammar(grammarId));
     }
