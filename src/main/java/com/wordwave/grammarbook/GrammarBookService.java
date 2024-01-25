@@ -26,14 +26,7 @@ public class GrammarBookService {
         grammarBookResponseDto.setId(id);
         grammarBookResponseDto.setName(grammarBook.getName());
         grammarBookResponseDto.setGrammars(grammarBook.getGrammars().stream()
-                .map(grammar -> new GrammarDto(
-                        grammar.getId(),
-                        grammar.getSentence(),
-                        new ArrayList<>(),
-                        grammarBook.getName()
-                    )
-                )
-                .toList());
+                .map(grammar -> GrammarDto.builder().id(grammar.getId()).build()).toList());
         return grammarBookResponseDto;
     }
 
