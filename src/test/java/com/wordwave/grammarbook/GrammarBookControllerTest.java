@@ -1,6 +1,7 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.GrammarExampleDto;
 import com.wordwave.grammarbook.dto.ChangeGrammarBookNameDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +30,7 @@ class GrammarBookControllerTest {
     void getGrammarBookApiTest() {
         Long id = 5L;
 
-        ResponseEntity<GrammarBookResponseDto> response = this.grammarBookController.getGrammarBook(id);
+        ResponseEntity<GrammarBookResponseDto> response = this.grammarBookController.getGrammarBookWithoutGrammarExamples(id);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
@@ -45,9 +46,17 @@ class GrammarBookControllerTest {
     @Test
     @DisplayName("Grammar 저장 요청을 받고 저장한다.")
     void saveGrammarApiTest() {
-        GrammarDto grammarDto = new GrammarDto("save api test", "test book3");
+        GrammarDto grammarDto = GrammarDto.builder()
+                .sentence("My car is just over there. it _ in the parking lot")
+                .grammarExamples(
+                        List.of(new GrammarExampleDto("is", true),
+                                new GrammarExampleDto("are", false),
+                                new GrammarExampleDto("am", false))
+                )
+                .grammarBookName("현재와 현재진행")
+                .build();
 
-        ResponseEntity<Object> response = this.grammarBookController.saveGrammar(grammarDto);
+        ResponseEntity<Object> response = this.grammarBookController.saveGrammarToGrammarBook(grammarDto);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
