@@ -89,6 +89,9 @@ public class UserController {
 												.id(user.getId())
 												.token(token)
 												.build();
+	        Cookie cookie = new Cookie("token", token);
+	        cookie.setHttpOnly(true);
+	        response.addCookie(cookie);
 			return ResponseEntity.ok().body(responseDTO);
 		}else {
 			ResponseDTO responseDTO = ResponseDTO.builder()
@@ -114,9 +117,9 @@ public class UserController {
 		Cookie[] cookies = request.getCookies();
 		if(cookies == null) {
 			ResponseDTO responseDTO = ResponseDTO.builder()
-					.error("Token is empty")
+					.error("Cookie is empty")
 					.build();
-			return ResponseEntity.badRequest().body(responseDTO);
+			return ResponseEntity.status(404).body(responseDTO);
 		}
 	    String token = null;
 	    for (Cookie cookie : cookies) {
@@ -130,7 +133,7 @@ public class UserController {
 	        ResponseDTO responseDTO = ResponseDTO.builder()
 	                .error("Token is empty")
 	                .build();
-	        return ResponseEntity.badRequest().body(responseDTO);
+	        return ResponseEntity.status(404).body(responseDTO);
 	    }
 	    //토큰을 찾았을떄 검사시작
 	    try {

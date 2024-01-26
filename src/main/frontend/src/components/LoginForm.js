@@ -9,6 +9,7 @@ export default function LoginForm(){
   const dispatch = useDispatch();
   const [validLogin,setValidLogin] = useState(false);
   const navigate = useNavigate();
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +17,7 @@ export default function LoginForm(){
     const password = event.target.elements.formBasicPassword.value;
     try {
       await dispatch(login(userName,password));
-      navigate(-1);
+      navigate('/');
     } catch (error) {
       console.error('로그인 실패:', error);
       setValidLogin(true);

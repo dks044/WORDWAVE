@@ -40,7 +40,7 @@ export const logout = () => async dispatch => {
   }
 };
 
-export const isLoggenIn = () => async dispatch => {
+export const isLoggedIn = () => async dispatch => {
   dispatch({ type : IS_LOGGED_IN_REQUEST });
   try {
     const response = await authAPI.validateTokenApi();
@@ -54,6 +54,7 @@ export const isLoggenIn = () => async dispatch => {
 
 const initialState = {
   auth: reducerUtils.initial(),
+  isLoging: false
 };
 
 export default function auth(state = initialState, action) {
@@ -61,16 +62,22 @@ export default function auth(state = initialState, action) {
     case LOGIN_REQUEST:
     case LOGIN_SUCCESS:
     case LOGIN_FAILURE:
-      return handleAsyncActions(LOGIN_REQUEST, 'auth')(state, action);
+      return {...handleAsyncActions(LOGIN_REQUEST, 'auth')(state, action),
+      isLoging: action.type === LOGIN_REQUEST ? true : state.isLoging
+      }
     case LOGOUT_REQUEST:
     case LOGOUT_SUCCESS:
-    case LOGOUT_FAILURE:
-      return handleAsyncActions(LOGOUT_REQUEST, 'auth')(state, action);
+      return {
+        ...handleAsyncActions(LOGOUT_REQUEST, 'auth')(state, action),
+        isLoging: action.type === LOGOUT_SUCCESS ? false : state.isLoging
+      };
     case IS_LOGGED_IN_REQUEST:
     case IS_LOGGED_IN_SUCCESS:
     case IS_LOGGED_IN_FAILURE:
-      return handleAsyncActions(IS_LOGGED_IN_REQUEST,'auth')
-    
+      return {
+        ...handleAsyncActions(IS_LOGGED_IN_REQUEST, 'auth')(state, action),
+        isLoging: action.type === IS_LOGGED_IN_SUCCESS ? true : state.isLoging
+      };
     default:
       return state;
   }

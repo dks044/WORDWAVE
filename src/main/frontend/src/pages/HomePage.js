@@ -9,7 +9,6 @@ const HomeContainer = styled.div`
 `;
 
 const HomePage = () => {
-
     return (
         <HomeContainer>
             <h2>환영합니다!</h2>
