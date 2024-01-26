@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,7 @@ public class UserController {
 	private final UserService userService;
 	private final TokenProvider tokenProvider;
 	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
-	
+	private final PasswordEncoder passwordEncoder;
 	
 	//TODO: 이후 삭제 예정
 	@PreAuthorize("isAuthenticated()")
@@ -48,7 +49,7 @@ public class UserController {
 			}
 			SiteUser user = SiteUser.builder()
 									.userName(userDTO.getUserName())
-									.password(userDTO.getPassword())
+									.password(passwordEncoder.encode(userDTO.getPassword()))
 									.email(userDTO.getPassword())
 									.phoneNumber(userDTO.getPhoneNumber())
 									.createUserDate(LocalDateTime.now())

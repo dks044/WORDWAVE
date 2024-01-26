@@ -4,14 +4,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { isLoggedIn  } from "./modules/auth";
-import styled from "styled-components";
 
 function App() {
-  const { isLoging } = useSelector(state => state.auth);
-  console.log(sessionStorage.getItem('isLoging'));
+  console.log('is Login : '+sessionStorage.getItem('isLoging'));
 
   return (
     <Routes>
