@@ -7,6 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import GmarketSansTTFLight from "./resources/GmarketSansTTFLight.ttf";
 import WaveEffect from "./components/WaveEffect";
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "./modules";
+import logger from "redux-logger";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
@@ -27,12 +31,18 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
 }
 `;
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+});
 
 root.render(
   <BrowserRouter>
     <GlobalStyle />
     <WaveEffect />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 );
 
