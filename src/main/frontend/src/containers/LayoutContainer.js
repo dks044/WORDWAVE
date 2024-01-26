@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import DialMenu from "../components/DialMenu";
-import Header from "../components/Header";
+import HeaderContainer from "./HeaderContainer";
 
 const TemplateBlock = styled.div`
   //스타일
@@ -23,14 +23,14 @@ const TemplateBlock = styled.div`
   position: relative;
 `;
 
-function Layout() {
+function LayoutContainer() {
   return (
     <TemplateBlock>
-      <Header />
+      <HeaderContainer />
       <Outlet />
       <DialMenu />
     </TemplateBlock>
   );
 }
 
-export default React.memo(Layout);
+export default React.memo(LayoutContainer);

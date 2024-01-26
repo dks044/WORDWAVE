@@ -11,6 +11,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./modules";
 import logger from "redux-logger";
 import { Provider } from "react-redux";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
