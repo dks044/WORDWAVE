@@ -21,6 +21,7 @@ export const login = (username, password) => async dispatch => {
   try {
     const response = await authAPI.loginApi(username, password);
     dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+    sessionStorage.setItem('isLoging', true);
     return response.data;
   } catch (e) {
     dispatch({ type: LOGIN_FAILURE, error: e });
@@ -33,6 +34,7 @@ export const logout = () => async dispatch => {
   try {
     const response = await authAPI.logoutApi();
     dispatch({ type: LOGOUT_SUCCESS, payload: response.data });
+    sessionStorage.removeItem('isLoging');
     return response.data;
   } catch (e) {
     dispatch({ type: LOGOUT_FAILURE, error: e });
@@ -45,6 +47,7 @@ export const isLoggedIn = () => async dispatch => {
   try {
     const response = await authAPI.validateTokenApi();
     dispatch({ type : IS_LOGGED_IN_SUCCESS, payload: response.data});
+    sessionStorage.setItem('isLoging', true);
     return response.data;
   } catch (e) {
     dispatch({ type : IS_LOGGED_IN_FAILURE, error: e});
