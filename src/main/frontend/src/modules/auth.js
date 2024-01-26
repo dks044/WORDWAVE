@@ -12,8 +12,6 @@ const LOGOUT_REQUEST = 'auth/LOGOUT_REQUEST';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 
-
-//MEMO: HTTPONLY 및 스토리지 플랫폼 변경해야함.
 export const login = (username, password) => async dispatch => {
   dispatch({ type: LOGIN_REQUEST });
   try {

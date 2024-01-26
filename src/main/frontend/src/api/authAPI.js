@@ -7,3 +7,7 @@ export function loginApi(userName, password) {
 export function logoutApi(){
   return axios.post('/api/auth/signout');
 }
+
+export function validateTokenApi(){
+  return axios.post('/api/auth/validateToken');
+}
