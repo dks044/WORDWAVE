@@ -94,6 +94,7 @@ public class UserController {
 			ResponseDTO responseDTO = ResponseDTO.builder()
 					.error("Login Falid")
 					.build();
+			log.info("utf-8", responseDTO.getError(), responseDTO);
 			return ResponseEntity.badRequest().body(responseDTO);
 		}
 	}

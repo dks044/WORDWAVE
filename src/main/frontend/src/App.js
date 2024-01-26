@@ -10,7 +10,7 @@ import { isLoggenIn } from "./modules/auth";
 
 function App() {
   //인증된 사용자인지 검사(토큰검사)
-  const { data} = useSelector(
+  const {data} = useSelector(
     state => state.auth.auth
   ) || {
     loading: false,
@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     if (data) return;
     dispatch(isLoggenIn());
-  }, [data,dispatch]);;
+  }, [data,dispatch]);
 
 
   return (
@@ -30,6 +30,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="grammar" element={data ? <GrammarPage /> : <Navigate to="/login" />} />
+        {/* <Route path="grammar" element={<GrammarPage />} /> */}
         <Route path="login" element={<LoginPage />} />
       </Route>
     </Routes>

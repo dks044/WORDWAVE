@@ -8,8 +8,8 @@ const HomeContainer = styled.div`
     padding-top: 30%;
 `;
 
-
 const HomePage = () => {
+
     return (
         <HomeContainer>
             <h2>환영합니다!</h2>
