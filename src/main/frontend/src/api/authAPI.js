@@ -11,3 +11,7 @@ export function logoutApi(){
 export function validateTokenApi(){
   return axios.post('/api/auth/validateToken');
 }
+
+export function userNameApi(){
+  return axios.post('/api/auth/username');
+}

@@ -2,6 +2,9 @@ package com.wordwave.user;
 
 import org.springframework.stereotype.Service;
 
+import com.wordwave.security.Key;
+
+import io.jsonwebtoken.Jwts;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-	
 	private final UserRepository userRepository;
+	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
 	
     public SiteUser convertDtoToEntity(UserDTO userDto) {
         return SiteUser.builder()
@@ -43,5 +46,14 @@ public class UserService {
 		return userRepository.findByUserNameAndPassword(userName, password);
 	}
 	
+	public String getUserNameFromJwt(String token) {
+		String userName = Jwts.parserBuilder()
+							  .setSigningKey(JWT_SECRET_KEY)
+							  .build()
+							  .parseClaimsJws(token)
+							  .getBody()
+							  .getSubject();
+		return userName;
+	}
 	
 }
