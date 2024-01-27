@@ -5,18 +5,25 @@ import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TestPage from "./pages/TestPage";
+import { userInfo } from "./modules/auth";
 
 function App() {
-  const [loging,setLoging] = useState(sessionStorage.getItem('isLoging') || '');
-  const { isLoging } = useSelector(state=>state.auth);
+  //const [loging,setLoging] = useState(sessionStorage.getItem('isLoging') || '');
+  const { isLoging,user } = useSelector(state=>state.auth);
+   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(isLoging) return setLoging(true);
-  }, [loging,isLoging]);
+    if(isLoging){
+      dispatch(userInfo());
+    }
+  }, [isLoging, dispatch]);
 
+  console.log('user : =>'+user);
   console.log('is Login : '+sessionStorage.getItem('isLoging'));
+  console.log('is Login2 : '+isLoging);
+  console.log('user'+user);
 
   return (
     <Routes>
