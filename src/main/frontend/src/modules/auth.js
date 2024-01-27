@@ -65,7 +65,7 @@ export const userInfo = () => async dispatch => {
   dispatch({ type : USERINFO });
   try {
     const data = await authAPI.userInfoApi(); 
-    console.log('이게 데이터인가 !!!!'+data);  
+    console.log('data => '+data);  
     dispatch({type : USERINFO_SUCCESS,payload : data});
     return data;
   } catch (error) {

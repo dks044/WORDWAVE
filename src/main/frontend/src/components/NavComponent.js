@@ -50,22 +50,13 @@ function NavComponent(){
     list-style: none;
   `;
 
-  const [userInfo,setUserInfo] = useState();
-
-  const { user } = useSelector(state => state.auth);
-    useEffect(()=>{
-      setUserInfo(user);
-    },[user]);
-
-  console.log('===테스트중...===');
-  console.log(userInfo);
-  console.log(user);
-  console.log('===테스트중...===');
+  const { isLoging, user} = useSelector(state=>state.auth);
+  
 
   return(
     <Navbar>
       <NavListLeft>
-        {user && <NavItem>{user.userName} 님 안녕하세요🤪</NavItem>}
+        {isLoging ? <p> {user.userName}</p> : <p> 그래시발아</p>}
       </NavListLeft>
       <NavListCenter>
         <Link to="/">
