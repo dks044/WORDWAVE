@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import GmarketSansTTFLight from "./resources/GmarketSansTTFLight.ttf";
 import WaveEffect from "./components/WaveEffect";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./modules";
@@ -16,19 +15,13 @@ import storage from 'redux-persist/lib/storage/session'
 import persistReducer from "redux-persist/es/persistReducer";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
+import './index.css';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
-@font-face {
-    font-family: 'GmarketSansTTFLight';
-    src: url(${GmarketSansTTFLight}) format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: 'opional';
-}
 
 #root {
-    font-family: 'GmarketSansTTFLight', sans-serif;
     background: linear-gradient(to right, #89CFF0 0%, #B2FFFF 50%, #89CFF0 100%);
     justify-content: center;
     align-items: center;

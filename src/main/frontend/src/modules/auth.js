@@ -28,6 +28,7 @@ export const login = (username, password) => async dispatch => {
     const response = await authAPI.loginApi(username, password);
     dispatch({ type: LOGIN_SUCCESS, payload: response.data });
     sessionStorage.setItem('isLoging', true);
+    console.log(response.data);
     return response.data;
   } catch (e) {
     dispatch({ type: LOGIN_FAILURE, error: e });

@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+@font-face {
+  font-family: 'GmarketSansTTFLight';
+  src: url("./resources/GmarketSansTTFLight.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: 'optional';
+}
+body {
+  font-family: 'GmarketSansTTFLight'
+}
