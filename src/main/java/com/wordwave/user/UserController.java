@@ -1,6 +1,7 @@
 package com.wordwave.user;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -150,8 +151,9 @@ public class UserController {
 		return ResponseEntity.ok().body("validate success");
 	}
 	
-	@PostMapping("/username")
-	public String userName(HttpServletRequest request) {
+	//TODO:user엔티티필드 추가되면 코드 수정 필요
+	@PostMapping("/userinfo")
+	public ResponseEntity<?> userInfo(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 	    String token = null;
 	    for (Cookie cookie : cookies) {
@@ -163,8 +165,18 @@ public class UserController {
 	    if (token == null) {
 	        throw new RuntimeException("토큰이 없습니다.");
 	    }
-	    String userName = userService.getUserNameFromJwt(token);
-	    return userName;
+	    final long userId = userService.getUserIdFromJwt(token);
+	    SiteUser user = userService.getByUserId(userId );
+	    UserDTO responseDTO = UserDTO.builder()
+	    						 .userName(user.getUserName())
+	    						 .email(user.getEmail())
+	    						 .phoneNumber(user.getPhoneNumber())
+	    						 .createUserDate(user.getCreateUserDate())
+	    						 .point(user.getPoint())
+	    						 .build();
+	    
+	    return ResponseEntity.ok().body(responseDTO);
+
 	}
 
 }

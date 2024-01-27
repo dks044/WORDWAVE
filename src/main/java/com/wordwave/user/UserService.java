@@ -1,5 +1,7 @@
 package com.wordwave.user;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.wordwave.security.Key;
@@ -46,14 +48,24 @@ public class UserService {
 		return userRepository.findByUserNameAndPassword(userName, password);
 	}
 	
-	public String getUserNameFromJwt(String token) {
-		String userName = Jwts.parserBuilder()
+	public SiteUser getByUserId(final long id) {
+		Optional<SiteUser> user = userRepository.findById(id);
+		if(user == null) {
+			throw new RuntimeException(id+"<= this is not valid");
+		}
+		return user.get();
+	}
+	
+	
+	
+	public long getUserIdFromJwt(String token) {
+		String tokenInformation = Jwts.parserBuilder()
 							  .setSigningKey(JWT_SECRET_KEY)
 							  .build()
 							  .parseClaimsJws(token)
 							  .getBody()
 							  .getSubject();
-		return userName;
+		return Long.parseLong(tokenInformation);
 	}
 	
 }

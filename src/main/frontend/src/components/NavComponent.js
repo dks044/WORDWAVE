@@ -49,23 +49,10 @@ function NavComponent(){
     list-style: none;
   `;
 
-const [userName, setUserName] = useState('');
-
-useEffect(() => {
-  userNameApi()
-    .then(response => {
-      setUserName(response.data.name);  // 서버에서 반환한 사용자 이름을 상태에 저장
-    })
-    .catch(error => {
-      console.error('사용자 이름 가져오기 실패', error);
-    });
-}, []);
-
-
   return(
     <Navbar>
       <NavListLeft>
-        <NavItem>{userName && <p>안녕하세요, {userName}님!</p>}</NavItem>
+        <NavItem></NavItem>
       </NavListLeft>
       <NavListCenter>
         <Link to="/">

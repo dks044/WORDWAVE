@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import TestPage from "./pages/TestPage";
 
 function App() {
   const [loging,setLoging] = useState(sessionStorage.getItem('isLoging') || '');
@@ -26,6 +27,7 @@ function App() {
         <Route path="login" 
         element={sessionStorage.getItem('isLoging') === null || 
                  sessionStorage.getItem('isLoging') === "false" ? <LoginPage /> : <Navigate to="/" />} />
+        <Route path="test" element={<TestPage />} />
       </Route>
     </Routes>
   );

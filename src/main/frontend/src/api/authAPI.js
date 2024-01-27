@@ -1,17 +1,17 @@
 import axios from "axios";
 
-export function loginApi(userName, password) {
-  return axios.post('/api/auth/signin', { userName, password });
+export async function loginApi(userName, password) {
+  return await axios.post('/api/auth/signin', { userName, password });
 }
 
-export function logoutApi(){
-  return axios.post('/api/auth/signout');
+export async function logoutApi(){
+  return await axios.post('/api/auth/signout');
 }
 
-export function validateTokenApi(){
-  return axios.post('/api/auth/validateToken');
+export async function validateTokenApi(){
+  return await axios.post('/api/auth/validateToken');
 }
 
-export function userNameApi(){
-  return axios.post('/api/auth/username');
+export async function userInfoApi(){
+  return await axios.post('api/auth/userinfo');
 }
