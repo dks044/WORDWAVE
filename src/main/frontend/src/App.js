@@ -13,11 +13,11 @@ function App() {
   const { isLoging,user } = useSelector(state=>state.auth);
   const dispatch = useDispatch();
   
+
   //로그인 상태일떄, user정보를 업데이트
   useEffect(() => {
     if(isLoging === true){
       dispatch(userInfo());
-      console.log(user);
     }
   }, [isLoging, dispatch]);
 

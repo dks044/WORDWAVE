@@ -64,9 +64,9 @@ export const isLoggedIn = () => async dispatch => {
 export const userInfo = () => async dispatch => {
   dispatch({ type : USERINFO });
   try {
-    const data = await authAPI.userInfoApi(); 
-    console.log('data => '+data);  
+    const data = await authAPI.userInfoApi();  
     dispatch({type : USERINFO_SUCCESS,payload : data});
+    console.log(data);
     return data;
   } catch (error) {
     dispatch({type : USERINFO_FAILURE,error: error});
@@ -86,14 +86,13 @@ export default function auth(state = initialState, action) {
     case LOGIN_SUCCESS:
     case LOGIN_FAILURE:
       return {...handleAsyncActions(LOGIN, 'auth',true)(state, action),
-      isLoging: action.type === LOGIN_SUCCESS ? true : state.isLoging
+      isLoging: action.type === LOGIN_SUCCESS ? true : state.isLoging 
       }
     case LOGOUT:
     case LOGOUT_SUCCESS:
       return {
         ...handleAsyncActions(LOGOUT, 'auth')(state, action),
-        isLoging: action.type === LOGOUT || action.type === LOGOUT_SUCCESS ? false : state.isLoging,
-        user : action.type === LOGOUT || action.type === LOGOUT_SUCCESS ? null : state.user
+        isLoging: action.type === LOGOUT || action.type === LOGOUT_SUCCESS ? false : state.isLoging
       };
     case IS_LOGGED_IN:
     case IS_LOGGED_IN_SUCCESS:

@@ -95,6 +95,7 @@ function NavComponent(){
     if(onLogout){
       dispatch(logout());
       setShow(false);
+      setOnLogout(false);
       navigate('/');
     }
   },[onLogout,show]);
@@ -103,7 +104,7 @@ function NavComponent(){
   return(
     <Navbar>
       <NavListLeft>
-        {isLoging ? <NavItem>{user.userName} 반가워요!😄</NavItem> : <></>}
+        {isLoging && <NavItem>{user.userName} 반가워요!😄</NavItem>}
       </NavListLeft>
       <NavListCenter>
         <Link to="/">

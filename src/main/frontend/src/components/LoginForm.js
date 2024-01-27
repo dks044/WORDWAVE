@@ -3,7 +3,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {login} from '../modules/auth'
+import {login, userInfo} from '../modules/auth'
 
 export default function LoginForm(){
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ export default function LoginForm(){
     const password = event.target.elements.formBasicPassword.value;
     try {
       await dispatch(login(userName,password));
+      await dispatch(userInfo());
       navigate(-1); 
     } catch (error) {
       console.error('로그인 실패:', error);
