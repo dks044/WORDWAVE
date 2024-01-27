@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LogoImg from "../resources/WAVELOGO.png";
 import { Link } from "react-router-dom";
-import { userInfoApi } from "../api/authAPI";
+import { BsFillPersonLinesFill } from "react-icons/bs";
+import { IoMdLogOut } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { Button, Modal } from 'react-bootstrap';
 
 function NavComponent(){
    const Navbar = styled.div`
@@ -17,7 +19,8 @@ function NavComponent(){
     justify-content: left;
     padding-left: 0;
     width: 100%;
-    margin-left: 10px;
+    margin-left: 5%;
+    margin-top: 5%;
   `;
 
   const NavListRight = styled.ul`
@@ -25,14 +28,13 @@ function NavComponent(){
     justify-content: right;
     padding-left: 0;
     width: 100%;
-    margin-right: 10px;
+    margin-right: 5%;
+    margin-top: 5%;
   `;
   const NavListCenter = styled.div`
     display: flex;
     justify-content: center;
-    padding-left: 0;
     width: 100%;
-    margin-right: 10px;
   `;
 
   const Logo = styled.img`
@@ -52,11 +54,40 @@ function NavComponent(){
 
   const { isLoging, user} = useSelector(state=>state.auth);
   
+  //Modal(로그아웃)
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
+  const IconBox = styled.div`
+    font-size: 40px;
+    color: #0078ff;
+    position: relative;
+    top: -10%; 
+    display: flex;
+    justify-content: space-between;
+    width: 100px; 
+    transition: 0.325s all ease-in;
+    cursor: pointer;
+    &:hover {
+      color: #63e6be;
+    }
+  `;
+  const Icon = styled.i`
+    font-size: 40px;
+    color: #0078ff;
+    transition: 0.325s all ease-in;
+    cursor: pointer;
+    &:hover {
+      color: #63e6be;
+    }
+  `;
 
   return(
     <Navbar>
       <NavListLeft>
-        {isLoging ? <p> {user.userName}</p> : <p> 그래시발아</p>}
+        {isLoging ? <NavItem>{user.userName} 반가워요!😄</NavItem> : <></>}
       </NavListLeft>
       <NavListCenter>
         <Link to="/">
@@ -64,8 +95,27 @@ function NavComponent(){
         </Link>
       </NavListCenter>
       <NavListRight>
-        <NavItem>Login | Join</NavItem>
+        {isLoging ? <NavItem>
+                      <IconBox>
+                        <Icon as={BsFillPersonLinesFill}/>
+                        <Icon as={IoMdLogOut} onClick={handleShow}/>
+                      </IconBox>
+                    </NavItem> : <></>}
       </NavListRight>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Navbar>
   )
 }

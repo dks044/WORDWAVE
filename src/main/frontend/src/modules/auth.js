@@ -92,7 +92,8 @@ export default function auth(state = initialState, action) {
     case LOGOUT_SUCCESS:
       return {
         ...handleAsyncActions(LOGOUT, 'auth')(state, action),
-        isLoging: action.type === LOGOUT_SUCCESS ? false : state.isLoging
+        isLoging: action.type === LOGOUT_SUCCESS ? false : state.isLoging,
+        user : action.type === LOGOUT_SUCCESS ? null : state.user
       };
     case IS_LOGGED_IN:
     case IS_LOGGED_IN_SUCCESS:
