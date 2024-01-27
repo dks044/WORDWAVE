@@ -152,7 +152,7 @@ public class UserController {
 	}
 	
 	//TODO:user엔티티필드 추가되면 코드 수정 필요
-	@PostMapping("/userinfo")
+	@GetMapping("/userinfo")
 	public ResponseEntity<?> userInfo(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 	    String token = null;

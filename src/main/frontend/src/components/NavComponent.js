@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LogoImg from "../resources/WAVELOGO.png";
 import { Link } from "react-router-dom";
-import { userNameApi } from "../api/authAPI";
+import { userInfoApi } from "../api/authAPI";
 
 function NavComponent(){
    const Navbar = styled.div`
@@ -49,10 +49,24 @@ function NavComponent(){
     list-style: none;
   `;
 
+  const [userName, setUserName] = useState(null);
+
+  useEffect(() => {
+    // 서버에 사용자 정보 요청
+    userInfoApi()
+      .then(data => {
+        // 요청이 성공하면 사용자 이름을 상태에 저장
+        setUserName(data.userName);
+      })
+      .catch(error => {
+        console.error('사용자 정보 요청 실패', error);
+      });
+  }, []);
+
   return(
     <Navbar>
       <NavListLeft>
-        <NavItem></NavItem>
+        {userName && <NavItem>{userName} 님 안녕하세요</NavItem>}
       </NavListLeft>
       <NavListCenter>
         <Link to="/">

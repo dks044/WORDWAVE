@@ -13,5 +13,6 @@ export async function validateTokenApi(){
 }
 
 export async function userInfoApi(){
-  return await axios.post('api/auth/userinfo');
+  const response = await axios.get('/api/auth/userinfo');
+  return response.data;
 }
