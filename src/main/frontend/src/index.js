@@ -12,6 +12,10 @@ import rootReducer from "./modules";
 import logger from "redux-logger";
 import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import storage from 'redux-persist/lib/storage/session'
+import persistReducer from "redux-persist/es/persistReducer";
+import { PersistGate } from "redux-persist/integration/react";
+import persistStore from "redux-persist/es/persistStore";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
@@ -34,17 +38,27 @@ const GlobalStyle = createGlobalStyle`
 }
 `;
 
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 });
+
+const persistor = persistStore(store);
 
 root.render(
   <BrowserRouter>
     <GlobalStyle />
     <WaveEffect />
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </BrowserRouter>
 );

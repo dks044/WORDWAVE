@@ -10,10 +10,10 @@ import TestPage from "./pages/TestPage";
 import { userInfo } from "./modules/auth";
 
 function App() {
-  //const [loging,setLoging] = useState(sessionStorage.getItem('isLoging') || '');
   const { isLoging,user } = useSelector(state=>state.auth);
   const dispatch = useDispatch();
   
+  //로그인 상태일떄, user정보를 업데이트
   useEffect(() => {
     if(isLoging === true){
       dispatch(userInfo());
@@ -22,7 +22,6 @@ function App() {
   }, [isLoging, dispatch]);
 
   console.log('is Login : '+sessionStorage.getItem('isLoging'));
-  console.log(user);
 
   return (
     <Routes>
