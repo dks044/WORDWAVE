@@ -61,7 +61,7 @@ const WaveThree = styled.div`
 `;
 
 
-export default function WaveEffect(){
+function WaveEffect(){
     return(
         <WaveEffectContainer>
             <WaveOne />
@@ -70,3 +70,5 @@ export default function WaveEffect(){
         </WaveEffectContainer>
     )
 }
+
+export default React.memo(WaveEffect);

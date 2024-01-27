@@ -13,7 +13,6 @@ import logger from "redux-logger";
 import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
 @font-face {
@@ -21,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     src: url(${GmarketSansTTFLight}) format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: 'opional';
 }
 
 #root {
@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
 }
 `;
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -52,4 +53,3 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
