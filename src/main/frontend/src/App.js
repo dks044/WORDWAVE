@@ -23,9 +23,9 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="grammar" element={sessionStorage.getItem('isLoging') ? <GrammarPage /> : <Navigate to="/login" />} />
-        <Route path="login" element={sessionStorage.getItem('isLoging') === null || sessionStorage.getItem('isLoging') === "false" ? <LoginPage /> : <Navigate to="/" />} />
-        {/* <Route path="grammar" element={isLoging ? <GrammarPage /> : <Navigate to="/login" />} />
-        <Route path="login" element={!isLoging ? <LoginPage /> : <Navigate to="/" />} /> */}
+        <Route path="login" 
+        element={sessionStorage.getItem('isLoging') === null || 
+                 sessionStorage.getItem('isLoging') === "false" ? <LoginPage /> : <Navigate to="/" />} />
       </Route>
     </Routes>
   );

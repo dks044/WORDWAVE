@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {login} from '../modules/auth'
@@ -8,7 +8,6 @@ import {login} from '../modules/auth'
 export default function LoginForm(){
   const dispatch = useDispatch();
   const [validLogin,setValidLogin] = useState(false);
-  const { isLoging } = useSelector(state=>state.auth);
 
   const navigate = useNavigate();
 
