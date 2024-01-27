@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LogoImg from "../resources/WAVELOGO.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { IoMdLogOut } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal } from 'react-bootstrap';
+import { logout } from "../modules/auth";
 
 function NavComponent(){
    const Navbar = styled.div`
@@ -46,21 +47,13 @@ function NavComponent(){
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-`;
+  `;
 
   const NavItem = styled.li`
     list-style: none;
   `;
-
-  const { isLoging, user} = useSelector(state=>state.auth);
-  
-  //Modal(로그아웃)
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-
-  const IconBox = styled.div`
+  //Icon
+    const IconBox = styled.div`
     font-size: 40px;
     color: #0078ff;
     position: relative;
@@ -84,6 +77,29 @@ function NavComponent(){
     }
   `;
 
+  const { isLoging, user} = useSelector(state=>state.auth);
+  
+  //Modal(로그아웃)
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
+  //로그아웃
+  const [onLogout,setOnLogout] = useState(false);
+  const handleLogout = () => setOnLogout(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  console.log(onLogout);
+  useEffect(()=>{
+    if(onLogout){
+      dispatch(logout());
+      setShow(false);
+      navigate('/');
+    }
+  },[onLogout,show]);
+
+
   return(
     <Navbar>
       <NavListLeft>
@@ -102,17 +118,17 @@ function NavComponent(){
                       </IconBox>
                     </NavItem> : <></>}
       </NavListRight>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>로그아웃</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Body>로그아웃 하시겠습니까?🥹</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            닫기
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="primary" onClick={handleLogout}>
+            로그아웃
           </Button>
         </Modal.Footer>
       </Modal>
