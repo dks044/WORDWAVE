@@ -150,6 +150,21 @@ public class UserController {
 		return ResponseEntity.ok().body("validate success");
 	}
 	
-
+	@PostMapping("/username")
+	public String userName(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+	    String token = null;
+	    for (Cookie cookie : cookies) {
+	        if (cookie.getName().equals("token")) {
+	            token = cookie.getValue();
+	            break;
+	        }
+	    }
+	    if (token == null) {
+	        throw new RuntimeException("토큰이 없습니다.");
+	    }
+	    String userName = userService.getUserNameFromJwt(token);
+	    return userName;
+	}
 
 }

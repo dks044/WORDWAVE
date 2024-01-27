@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {login} from '../modules/auth'
@@ -8,8 +8,9 @@ import {login} from '../modules/auth'
 export default function LoginForm(){
   const dispatch = useDispatch();
   const [validLogin,setValidLogin] = useState(false);
+  const { isLoging } = useSelector(state=>state.auth);
+
   const navigate = useNavigate();
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,12 +18,13 @@ export default function LoginForm(){
     const password = event.target.elements.formBasicPassword.value;
     try {
       await dispatch(login(userName,password));
-      navigate('-1');
+      navigate(-1); 
     } catch (error) {
       console.error('로그인 실패:', error);
       setValidLogin(true);
     }
   };
+
   const LoginFormBlock = styled.div`
     width: 80%;
     position: absolute;

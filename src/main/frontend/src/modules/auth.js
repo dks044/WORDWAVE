@@ -66,7 +66,7 @@ export default function auth(state = initialState, action) {
     case LOGIN_SUCCESS:
     case LOGIN_FAILURE:
       return {...handleAsyncActions(LOGIN_REQUEST, 'auth')(state, action),
-      isLoging: action.type === LOGIN_REQUEST ? true : state.isLoging
+      isLoging: action.type === LOGIN_SUCCESS ? true : state.isLoging
       }
     case LOGOUT_REQUEST:
     case LOGOUT_SUCCESS:
