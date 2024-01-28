@@ -52,16 +52,6 @@ function NavComponent(){
 
   const NavItem = styled.li`
     list-style: none;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-    animation: fadeIn 2s;
-    animation-fill-mode: forwards;
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
   `;
   //Icon
     const IconBox = styled.div`

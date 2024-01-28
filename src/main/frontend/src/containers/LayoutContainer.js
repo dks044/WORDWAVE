@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import DialMenu from "../components/DialMenu";
 import HeaderContainer from "./HeaderContainer";
+import { Spinner } from "react-bootstrap";
 
 const TemplateBlock = styled.div`
   //스타일
@@ -22,12 +23,28 @@ const TemplateBlock = styled.div`
   //위치
   position: relative;
 `;
+const SpinnerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
 
 function LayoutContainer() {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <TemplateBlock>
       <HeaderContainer />
-      <Outlet />
+      {isLoading ?
+      <SpinnerWrapper>
+        <Spinner animation="grow" variant="info" size="100" />
+      </SpinnerWrapper>
+      : <Outlet />}
       <DialMenu />
     </TemplateBlock>
   );
