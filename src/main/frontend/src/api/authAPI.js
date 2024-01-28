@@ -12,8 +12,8 @@ export async function validateTokenApi(){
   return await axios.post('/api/auth/validateToken');
 }
 
-export async function userInfoApi(){
-  const response = await axios.post('/api/auth/userinfo');
-  console.log(response);
-  return response.data;
-}
+// export async function userInfoApi(){
+//   const response = await axios.post('/api/auth/userinfo');
+//   console.log(response);
+//   return response.data;
+// }

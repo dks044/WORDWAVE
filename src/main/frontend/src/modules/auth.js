@@ -17,9 +17,9 @@ const IS_LOGGED_IN = 'auth/LOGGED_IN_REQUEST';
 const IS_LOGGED_IN_SUCCESS = 'auth/LOGGED_IN_SUCCESS';
 const IS_LOGGED_IN_FAILURE = 'auth/LOGGED_IN_FAILURE';
 
-const USERINFO = 'auth/USERINFO_REQUEST';
-const USERINFO_SUCCESS = 'auth/USERINFO_SUCCESS';
-const USERINFO_FAILURE = 'auth/USERINFO_FAILURE';
+// const USERINFO = 'auth/USERINFO_REQUEST';
+// const USERINFO_SUCCESS = 'auth/USERINFO_SUCCESS';
+// const USERINFO_FAILURE = 'auth/USERINFO_FAILURE';
 
 
 export const login = (username, password) => async dispatch => {
@@ -27,7 +27,6 @@ export const login = (username, password) => async dispatch => {
   try {
     const response = await authAPI.loginApi(username, password);
     dispatch({ type: LOGIN_SUCCESS, payload: response.data });
-    sessionStorage.setItem('isLoging', true);
     console.log(response.data);
     return response.data;
   } catch (e) {
@@ -41,7 +40,6 @@ export const logout = () => async dispatch => {
   try {
     const response = await authAPI.logoutApi();
     dispatch({ type: LOGOUT_SUCCESS, payload: response.data });
-    sessionStorage.removeItem('isLoging');
     return response.data;
   } catch (e) {
     dispatch({ type: LOGOUT_FAILURE, error: e });
@@ -54,7 +52,7 @@ export const isLoggedIn = () => async dispatch => {
   try {
     const response = await authAPI.validateTokenApi();
     dispatch({ type : IS_LOGGED_IN_SUCCESS, payload: response.data});
-    sessionStorage.setItem('isLoging', true);
+    console.log('validate success');
     return response.data;
   } catch (e) {
     dispatch({ type : IS_LOGGED_IN_FAILURE, error: e});
@@ -62,18 +60,18 @@ export const isLoggedIn = () => async dispatch => {
   }
 }
 
-export const userInfo = () => async dispatch => {
-  dispatch({ type : USERINFO });
-  try {
-    const data = await authAPI.userInfoApi();  
-    dispatch({type : USERINFO_SUCCESS,payload : data});
-    console.log(data);
-    return data;
-  } catch (error) {
-    dispatch({type : USERINFO_FAILURE,error: error});
-    throw error; 
-  }
-}
+// export const userInfo = () => async dispatch => {
+//   dispatch({ type : USERINFO });
+//   try {
+//     const data = await authAPI.userInfoApi();  
+//     dispatch({type : USERINFO_SUCCESS,payload : data});
+//     console.log(data);
+//     return data;
+//   } catch (error) {
+//     dispatch({type : USERINFO_FAILURE,error: error});
+//     throw error; 
+//   }
+// }
 
 const initialState = {
   auth: reducerUtils.initial(),
@@ -86,14 +84,17 @@ export default function auth(state = initialState, action) {
     case LOGIN:
     case LOGIN_SUCCESS:
     case LOGIN_FAILURE:
-      return {...handleAsyncActions(LOGIN, 'auth',true)(state, action),
-      isLoging: action.type === LOGIN_SUCCESS ? true : state.isLoging 
+      return {
+        ...handleAsyncActions(LOGIN, 'auth',true)(state, action),
+        isLoging: action.type === LOGIN_SUCCESS ? true : state.isLoging,
+        user : action.type === LOGIN_SUCCESS ? action.payload : state.user
       }
     case LOGOUT:
     case LOGOUT_SUCCESS:
       return {
         ...handleAsyncActions(LOGOUT, 'auth')(state, action),
-        isLoging: action.type === LOGOUT || action.type === LOGOUT_SUCCESS ? false : state.isLoging
+        isLoging: false, 
+        user: {}
       };
     case IS_LOGGED_IN:
     case IS_LOGGED_IN_SUCCESS:
@@ -102,13 +103,13 @@ export default function auth(state = initialState, action) {
         ...handleAsyncActions(IS_LOGGED_IN, 'auth')(state, action),
         isLoging: action.type === IS_LOGGED_IN_SUCCESS ? true : state.isLoging
       };
-    case USERINFO:
-    case USERINFO_SUCCESS:
-    case USERINFO_FAILURE:
-      return {
-        ...handleAsyncActions(USERINFO, 'user',true)(state, action),
-        user : action.type === USERINFO_SUCCESS ? action.payload : state.user
-      }
+    // case USERINFO:
+    // case USERINFO_SUCCESS:
+    // case USERINFO_FAILURE:
+    //   return {
+    //     ...handleAsyncActions(USERINFO, 'user',true)(state, action),
+    //     user : action.type === USERINFO_SUCCESS ? action.payload : state.user
+    //   }
     default:
       return state;
   }

@@ -78,30 +78,29 @@ public class UserController {
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticate(
-			@RequestBody UserDTO userDTO,
-			HttpServletResponse response
-			){
-		SiteUser user = userService.getByCredentials(
-				userDTO.getUserName(),
-				userDTO.getPassword());
-		if(user != null) {
-			final String token = tokenProvider.create(user,response);
-			final UserDTO responseDTO = UserDTO.builder()
-												.userName(user.getUserName())
-												.id(user.getId())
-												.token(token)
-												.build();
+	        @RequestBody UserDTO userDTO,
+	        HttpServletResponse response
+	        ){
+	    SiteUser user = userService.getByCredentials(
+	            userDTO.getUserName(),
+	            userDTO.getPassword());
+	    if(user != null) {
+	        final String token = tokenProvider.create(user,response);
+	        final UserDTO responseDTO = UserDTO.builder()
+	                                            .userName(user.getUserName())
+	                                            .id(user.getId())
+	                                            .build();
 	        Cookie cookie = new Cookie("token", token);
 	        cookie.setHttpOnly(true);
 	        response.addCookie(cookie);
-			return ResponseEntity.ok().body(responseDTO);
-		}else {
-			ResponseDTO responseDTO = ResponseDTO.builder()
-					.error("Login Falid")
-					.build();
-			log.info("utf-8", responseDTO.getError(), responseDTO);
-			return ResponseEntity.badRequest().body(responseDTO);
-		}
+	        return ResponseEntity.ok().body(responseDTO);
+	    }else {
+	        ResponseDTO responseDTO = ResponseDTO.builder()
+	                .error("Login Falid")
+	                .build();
+	        log.info("utf-8", responseDTO.getError(), responseDTO);
+	        return ResponseEntity.badRequest().body(responseDTO);
+	    }
 	}
 	
 	@PostMapping("/signout")
@@ -152,31 +151,31 @@ public class UserController {
 	}
 	
 	//TODO:user엔티티필드 추가되면 코드 수정 필요
-	@PostMapping("/userinfo")
-	public ResponseEntity<?> userInfo(HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-	    String token = null;
-	    for (Cookie cookie : cookies) {
-	        if (cookie.getName().equals("token")) {
-	            token = cookie.getValue();
-	            break;
-	        }
-	    }
-	    if (token == null) {
-	        throw new RuntimeException("토큰이 없습니다.");
-	    }
-	    final long userId = userService.getUserIdFromJwt(token);
-	    SiteUser user = userService.getByUserId(userId );
-	    UserDTO responseDTO = UserDTO.builder()
-	    						 .userName(user.getUserName())
-	    						 .email(user.getEmail())
-	    						 .phoneNumber(user.getPhoneNumber())
-	    						 .createUserDate(user.getCreateUserDate())
-	    						 .point(user.getPoint())
-	    						 .build();
-	    
-	    return ResponseEntity.ok().body(responseDTO);
-
-	}
+//	@PostMapping("/userinfo")
+//	public ResponseEntity<?> userInfo(HttpServletRequest request) {
+//		Cookie[] cookies = request.getCookies();
+//	    String token = null;
+//	    for (Cookie cookie : cookies) {
+//	        if (cookie.getName().equals("token")) {
+//	            token = cookie.getValue();
+//	            break;
+//	        }
+//	    }
+//	    if (token == null) {
+//	        throw new RuntimeException("토큰이 없습니다.");
+//	    }
+//	    final long userId = userService.getUserIdFromJwt(token);
+//	    SiteUser user = userService.getByUserId(userId );
+//	    UserDTO responseDTO = UserDTO.builder()
+//	    						 .userName(user.getUserName())
+//	    						 .email(user.getEmail())
+//	    						 .phoneNumber(user.getPhoneNumber())
+//	    						 .createUserDate(user.getCreateUserDate())
+//	    						 .point(user.getPoint())
+//	    						 .build();
+//	    
+//	    return ResponseEntity.ok().body(responseDTO);
+//
+//	}
 
 }

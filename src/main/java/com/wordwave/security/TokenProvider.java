@@ -40,9 +40,9 @@ public class TokenProvider {
 					.setExpiration(expiryDate)
 					.signWith(secretKey,SignatureAlgorithm.HS512)
 					.compact();
-	    // 쿠키 생성 및 설정
+		//쿠키 생성 및 설정
 	    Cookie cookie = new Cookie("token", token);
-	    cookie.setHttpOnly(true); //httpOnly로 설정
+	    cookie.setHttpOnly(true);
 	    cookie.setMaxAge(24 * 60 * 60); // 쿠키 유효 시간 설정 (24시간)
 	    response.addCookie(cookie);
 		

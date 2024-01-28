@@ -4,34 +4,31 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import TestPage from "./pages/TestPage";
-import { userInfo } from "./modules/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { isLoggedIn } from "./modules/auth";
 
 function App() {
-  const { isLoging,user } = useSelector(state=>state.auth);
+  const { isLoging } = useSelector(state=>state.auth);
+  console.log(isLoging);
+
   const dispatch = useDispatch();
-  
 
-  //로그인 상태일떄, user정보를 업데이트
   useEffect(() => {
-    if(isLoging === true){
-      dispatch(userInfo());
+    if(isLoging){
+      dispatch(isLoggedIn());
     }
-  }, [isLoging, dispatch]);
-
-  console.log('is Login : '+sessionStorage.getItem('isLoging'));
+  }, [dispatch,isLoging]);
 
   return (
     <Routes>
       <Route path="/" element={<LayoutContainer />}>
         <Route index element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="grammar" element={sessionStorage.getItem('isLoging') ? <GrammarPage /> : <Navigate to="/login" />} />
+        <Route path="grammar" element={isLoging ? <GrammarPage /> : <Navigate to="/login" />} />
         <Route path="login" 
-        element={sessionStorage.getItem('isLoging') === null || 
-                 sessionStorage.getItem('isLoging') === "false" ? <LoginPage /> : <Navigate to="/" />} />
+        element={isLoging === false ? <LoginPage /> : <Navigate to="/" />} />
         <Route path="test" element={<TestPage />} />
       </Route>
     </Routes>
