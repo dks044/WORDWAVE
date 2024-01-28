@@ -56,8 +56,9 @@ export const isLoggedIn = () => async dispatch => {
     console.log('validate success');
     return response.data;
   } catch (e) {
-    if (e.response && e.response.status === 401) {
+    if (e.response && e.response.status === 401) {//비로그인 사용자 예외처리
       dispatch({ type: LOGOUT });
+      console.log('비로그인 사용자임(토큰없음)');
     } else {
       dispatch({ type : IS_LOGGED_IN_FAILURE, error: e});
       throw e;
@@ -93,21 +94,22 @@ export default function auth(state = initialState, action) {
       return {
         ...handleAsyncActions(LOGIN, 'auth',true)(state, action),
         isLoging: action.type === LOGIN_SUCCESS ? true : state.isLoging,
-        user : action.type === LOGIN_SUCCESS ? action.payload : state.user
+        user : action.type === LOGIN_SUCCESS ? action.payload : state.user,
       }
     case LOGOUT:
     case LOGOUT_SUCCESS:
       return {
         ...handleAsyncActions(LOGOUT, 'auth')(state, action),
         isLoging: false, 
-        user: {}
+        user: {},
+        auth: reducerUtils.initial()
       };
     case IS_LOGGED_IN:
     case IS_LOGGED_IN_SUCCESS:
     case IS_LOGGED_IN_FAILURE:
       return {
         ...handleAsyncActions(IS_LOGGED_IN, 'auth')(state, action),
-        isLoging: action.type === IS_LOGGED_IN_SUCCESS ? true : state.isLoging
+        isLoging: action.type === IS_LOGGED_IN_SUCCESS ? true : state.isLoging,
       };
     // case USERINFO:
     // case USERINFO_SUCCESS:
