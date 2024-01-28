@@ -1,7 +1,7 @@
 import React from "react";
 import SignUpContainer from "../containers/SignUpContainer";
 
-function SignUpPage(){
+const SignUpPage = () => {
   return (
     <SignUpContainer />
   );

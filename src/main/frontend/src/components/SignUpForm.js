@@ -15,7 +15,7 @@ function SignUpForm(){
   return(
     <SignUpFormBlock>
         <Row className="justify-content-md-center">
-          <Col xs={12} md={6}>
+          <Col xs={18} md={20}>
             <h1>회원가입</h1>
             <Form >
               <Form.Group className="mb-3">

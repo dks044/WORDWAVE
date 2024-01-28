@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
-import TestPage from "./pages/TestPage";
+import SignUpPage from "./pages/SignUpPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { isLoggedIn } from "./modules/auth";
@@ -29,7 +29,8 @@ function App() {
         <Route path="grammar" element={isLoging ? <GrammarPage /> : <Navigate to="/login" />} />
         <Route path="login" 
         element={isLoging === false ? <LoginPage /> : <Navigate to="/" />} />
-        <Route path="test" element={<TestPage />} />
+        <Route path="signup" 
+        element={isLoging === false ? <SignUpPage /> : <Navigate to="/" />} />
       </Route>
     </Routes>
   );
