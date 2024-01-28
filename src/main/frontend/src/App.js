@@ -18,9 +18,9 @@ function App() {
   useEffect(() => {
       console.log('check the user..');
       dispatch(isLoggedIn());
-    
   }, [dispatch,isLoging]);
 
+  
   return (
     <Routes>
       <Route path="/" element={<LayoutContainer />}>

@@ -8,12 +8,3 @@ const LoginPage = () =>{
 };
 
 export default React.memo(LoginPage);
-
-
-
-
-
-
-
-
-
