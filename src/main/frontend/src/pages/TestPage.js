@@ -6,7 +6,6 @@ function TestPage(){
   console.log(auth);
   return(
     <>
-      <p>ssibal</p>
       
     </>
   )

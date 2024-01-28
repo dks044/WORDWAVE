@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LogoImg from "../resources/WAVELOGO.png";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { IoMdLogOut } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal } from 'react-bootstrap';
 import { logout } from "../modules/auth";
+
 
 function NavComponent(){
    const Navbar = styled.div`
@@ -51,6 +52,16 @@ function NavComponent(){
 
   const NavItem = styled.li`
     list-style: none;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    animation: fadeIn 2s;
+    animation-fill-mode: forwards;
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
   `;
   //Icon
     const IconBox = styled.div`
@@ -104,7 +115,7 @@ function NavComponent(){
   return(
     <Navbar>
       <NavListLeft>
-        {isLoging && <NavItem>{user.userName} 반가워요!😄</NavItem>}
+        {isLoging && user.userName && <NavItem>{user.userName} 반가워요!😄</NavItem>}
       </NavListLeft>
       <NavListCenter>
         <Link to="/">
@@ -112,12 +123,13 @@ function NavComponent(){
         </Link>
       </NavListCenter>
       <NavListRight>
-        {isLoging ? <NavItem>
-                      <IconBox>
-                        <Icon as={BsFillPersonLinesFill}/>
-                        <Icon as={IoMdLogOut} onClick={handleShow}/>
-                      </IconBox>
-                    </NavItem> : <></>}
+        {isLoging && user.id && 
+          <NavItem>
+            <IconBox>
+              <Icon as={BsFillPersonLinesFill}/>
+              <Icon as={IoMdLogOut} onClick={handleShow}/>
+            </IconBox>
+          </NavItem>}
       </NavListRight>
       <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
