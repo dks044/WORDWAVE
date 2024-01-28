@@ -51,7 +51,7 @@ public class UserController {
 			SiteUser user = SiteUser.builder()
 									.userName(userDTO.getUserName())
 									.password(passwordEncoder.encode(userDTO.getPassword()))
-									.email(userDTO.getPassword())
+									.email(userDTO.getEmail())
 									.phoneNumber(userDTO.getPhoneNumber())
 									.createUserDate(LocalDateTime.now())
 									.point(0)
