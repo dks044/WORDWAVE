@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row, FloatingLabel, Container } from "react-bootstrap";
 import styled from "styled-components";
 
 const SignUpFormBlock = styled.div`
@@ -9,43 +9,56 @@ const SignUpFormBlock = styled.div`
   left: 50%;
   transform: translateX(-50%);
 `
+const SignUpTitle = styled.h1`
+  text-align: center;
+`
 
-
-function SignUpForm(){
-  return(
+function SignUpForm() {
+  return (
     <SignUpFormBlock>
-        <Row className="justify-content-md-center">
-          <Col xs={18} md={20}>
-            <h1>회원가입</h1>
-            <Form >
-              <Form.Group className="mb-3">
-                <Form.Label>아이디</Form.Label>
-                <Form.Control type="text" placeholder="아이디를 입력하세요"/>
-              </Form.Group>
+      <Row className="justify-content-md-center">
+        <Col xs={18} md={20}>
+          <SignUpTitle>회원가입</SignUpTitle>
+          <Form>
+            <FloatingLabel
+              controlId="floatingInputId"
+              label="아이디 입력"
+              className="mb-3"
+            >
+              <Form.Control type="text" placeholder="아이디를 입력하세요" />
+            </FloatingLabel>
 
-              <Form.Group className="mb-3">
-                <Form.Label>비밀번호</Form.Label>
-                <Form.Control type="password" placeholder="비밀번호를 입력하세요"/>
-              </Form.Group>
+            <FloatingLabel
+              controlId="floatingInputPassword"
+              label="비밀번호 입력"
+              className="mb-3"
+            >
+              <Form.Control type="password" placeholder="비밀번호를 입력하세요" />
+            </FloatingLabel>
 
-              <Form.Group className="mb-3">
-                <Form.Label>이메일</Form.Label>
-                <Form.Control type="email" placeholder="이메일을 입력하세요"/>
-              </Form.Group>
+            <FloatingLabel
+              controlId="floatingInputEmail"
+              label="이메일 입력"
+              className="mb-3"
+            >
+              <Form.Control type="email" placeholder="이메일을 입력하세요" />
+            </FloatingLabel>
 
-              <Form.Group className="mb-3">
-                <Form.Label>전화번호</Form.Label>
-                <Form.Control type="text" placeholder="전화번호를 입력하세요"/>
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                가입하기
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-      </SignUpFormBlock>  
+            <FloatingLabel
+              controlId="floatingInputPhone"
+              label="전화번호 입력"
+              className="mb-3"
+            >
+              <Form.Control type="text" placeholder="전화번호를 입력하세요" />
+            </FloatingLabel>
+            <Container className="d-flex justify-content-center mt-3">
+              <Button variant="outline-primary" type="submit" size="lg">가입하기</Button>
+            </Container>
+          </Form>
+        </Col>
+      </Row>
+    </SignUpFormBlock>
   )
 }
-
 
 export default SignUpForm;

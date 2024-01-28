@@ -5,9 +5,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { IoMdLogOut } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Image, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { logout } from "../modules/auth";
 
+const SignUpFormText = styled.h4`
+  font-weight: bolder;
+  cursor: pointer;
+  transition: 0.225s all ease-in;
+  &:hover {
+      color: #63e6be;
+  }
+`
 
 function NavComponent(){
    const Navbar = styled.div`
@@ -101,6 +109,9 @@ function NavComponent(){
     }
   },[onLogout,show]);
 
+  const onClickToSignUpForm = () => {
+    navigate('/signup')
+  }
 
   return(
     <Navbar>
@@ -120,6 +131,15 @@ function NavComponent(){
               <Icon as={IoMdLogOut} onClick={handleShow}/>
             </IconBox>
           </NavItem>}
+          {(!isLoging || isLoging === null) &&
+            <NavItem>
+              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">같이 영어 공부해요!😝</Tooltip>}>
+                <span className="d-inline-block">
+                  <SignUpFormText onClick={onClickToSignUpForm}>회원가입</SignUpFormText>
+                </span>
+              </OverlayTrigger>
+            </NavItem>
+          }
       </NavListRight>
       <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>

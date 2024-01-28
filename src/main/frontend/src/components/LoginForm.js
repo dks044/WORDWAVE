@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, FloatingLabel, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap';
 import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -58,7 +58,9 @@ export default function LoginForm(){
                 >
                   <Form.Control type="password" placeholder="PASSWORD" name="password"/>
                 </FloatingLabel>
-                <Button variant="outline-primary" type="submit">LOGIN</Button>
+                <Container className="d-flex justify-content-center mt-3">
+                  <Button variant="outline-primary" type="submit" size="lg">로그인</Button>
+                </Container>
                 {validLogin === true ? <ValidMessage>아이디와 비밀번호를 다시 확인해주세요.</ValidMessage> : <></>}
               </Form>
             </Col>
