@@ -11,7 +11,7 @@ import rootReducer from "./modules";
 import logger from "redux-logger";
 import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import storage from 'redux-persist/lib/storage/session'
+import storage from 'redux-persist/lib/storage'
 import persistReducer from "redux-persist/es/persistReducer";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";

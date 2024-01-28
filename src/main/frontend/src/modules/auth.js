@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as authAPI from '../api/authAPI';
 import {
   reducerUtils,
@@ -55,10 +56,15 @@ export const isLoggedIn = () => async dispatch => {
     console.log('validate success');
     return response.data;
   } catch (e) {
-    dispatch({ type : IS_LOGGED_IN_FAILURE, error: e});
-    throw e;
+    if (e.response && e.response.status === 401) {
+      dispatch({ type: LOGOUT });
+    } else {
+      dispatch({ type : IS_LOGGED_IN_FAILURE, error: e});
+      throw e;
+    }
   }
 }
+
 
 // export const userInfo = () => async dispatch => {
 //   dispatch({ type : USERINFO });

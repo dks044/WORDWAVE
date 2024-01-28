@@ -120,7 +120,7 @@ public class UserController {
 			ResponseDTO responseDTO = ResponseDTO.builder()
 					.error("Cookie is empty")
 					.build();
-			return ResponseEntity.status(404).body(responseDTO);
+			return ResponseEntity.status(401).body(responseDTO);
 		}
 	    String token = null;
 	    for (Cookie cookie : cookies) {
@@ -134,7 +134,7 @@ public class UserController {
 	        ResponseDTO responseDTO = ResponseDTO.builder()
 	                .error("Token is empty")
 	                .build();
-	        return ResponseEntity.status(404).body(responseDTO);
+	        return ResponseEntity.status(401).body(responseDTO);
 	    }
 	    //토큰을 찾았을떄 검사시작
 	    try {

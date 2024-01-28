@@ -16,9 +16,9 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(isLoging){
+      console.log('check the user..');
       dispatch(isLoggedIn());
-    }
+    
   }, [dispatch,isLoging]);
 
   return (
