@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row, FloatingLabel, Container, Modal } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { signUp } from "../modules/auth";
 import { useNavigate } from "react-router-dom";
 import { showPopup } from "../modules/popup";
+
 
 const SignUpFormBlock = styled.div`
   width: 80%;
@@ -19,6 +20,7 @@ const SignUpTitle = styled.h1`
 const ModalTitle = styled.h2`
   font-weight: bolder;
 `
+
 
 function SignUpForm() {
   const [errorMessage,setErrorMessage] = useState('');
@@ -141,7 +143,7 @@ function SignUpForm() {
       </Row>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title><ModalTitle>회원가입 오류</ModalTitle></Modal.Title>
+          <Modal.Title><ModalTitle>😥회원가입 오류</ModalTitle></Modal.Title>
         </Modal.Header>
         <Modal.Body>{errorMessage}</Modal.Body>
         <Modal.Footer>

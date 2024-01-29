@@ -29,11 +29,20 @@ const SpinnerWrapper = styled.div`
   align-items: center;
   height: 100%;
 `;
-
+const StyledSpinner = styled(Spinner)`
+  position: absolute;
+  top: 30%;
+  width: 200px;
+  height: 200px;
+  & .spinner-border {
+    width: 100%;
+    height: 100%;
+  }
+`;
 function LayoutContainer() {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1000);
+    const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -42,7 +51,7 @@ function LayoutContainer() {
       <HeaderContainer />
       {isLoading ?
       <SpinnerWrapper>
-        <Spinner animation="grow" variant="info" size="100" />
+        <StyledSpinner animation="grow" variant="info" />
       </SpinnerWrapper>
       : <Outlet />}
       <DialMenu />

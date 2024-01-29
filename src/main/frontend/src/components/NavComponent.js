@@ -5,10 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { IoMdLogOut } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Image, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { logout } from "../modules/auth";
 
-const SignUpFormText = styled.h4`
+const SignUpFormText = styled.h6`
+  display: inline;
   font-weight: bolder;
   cursor: pointer;
   transition: 0.225s all ease-in;
@@ -16,6 +17,16 @@ const SignUpFormText = styled.h4`
       color: #63e6be;
   }
 `
+const LoginFormText = styled.h6`
+  display: inline;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: 0.225s all ease-in;
+  &:hover {
+      color: #63e6be;
+  }
+`
+
 const Navbar = styled.div`
   font-weight: bold;
   display: flex;
@@ -112,6 +123,9 @@ function NavComponent(){
   const onClickToSignUpForm = () => {
     navigate('/signup')
   }
+  const onClickToLoginForm = () => {
+    navigate('/login')
+  }
 
   return(
     <Navbar>
@@ -135,7 +149,8 @@ function NavComponent(){
             <NavItem>
               <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">같이 영어 공부해요!😝</Tooltip>}>
                 <span className="d-inline-block">
-                  <SignUpFormText onClick={onClickToSignUpForm}>회원가입</SignUpFormText>
+                  <SignUpFormText onClick={onClickToSignUpForm}>회원가입 </SignUpFormText>
+                  <LoginFormText onClick={onClickToLoginForm}>로그인</LoginFormText>
                 </span>
               </OverlayTrigger>
             </NavItem>

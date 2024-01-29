@@ -3,7 +3,7 @@ import { Button, Col, Container, FloatingLabel, Form, InputGroup, Modal, Row } f
 import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {login, userInfo} from '../modules/auth'
+import {login} from '../modules/auth'
 
 const LoginFormBlock = styled.div`
   width: 80%;
@@ -103,10 +103,10 @@ export default function LoginForm(){
             keyboard={false}
           >
             <Modal.Header closeButton>
-              <Modal.Title><TitleText>아이디&비밀번호 찾기</TitleText></Modal.Title>
+              <Modal.Title><TitleText>👀 아이디&비밀번호 찾기</TitleText></Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <SubTitleText>아이디찾기</SubTitleText>
+              <SubTitleText>아이디 찾기</SubTitleText>
               <p>가입시 입력한 이메일을 입력하세요.</p>
               <InputGroup className="mb-3">
                 <Form.Control
