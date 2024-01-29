@@ -44,25 +44,48 @@ function SignUpForm() {
     return !(alphabetCount < 1 || differentCount < 1);
   }
 
+  //전화번호 자동 하이폰
+  const autoHyphen = (event) => {
+    let phoneNumber = event.target.value;
+    phoneNumber = phoneNumber
+      .replace(/[^0-9]/g, '')
+      .replace(/^(\d{3})(\d{0,4})(\d{0,4})$/g, (match, p1, p2, p3) => {
+        return `${p1}-${p2}-${p3}`.replace(/(\-)$/g, '');
+      });
+    event.target.value = phoneNumber;
+  }
+
+  // 전화번호 유효성 검사 함수
+  function isPhoneNumberValid(phoneNumber) {
+    return /^010-(\d{4})-(\d{4})$/.test(phoneNumber);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const userName = event.target.elements.floatingInputUserName.value;
     const password = event.target.elements.floatingInputPassword.value;
     const email = event.target.elements.floatingInputEmail.value;
     const phoneNumber = event.target.elements.floatingInputPhone.value;
-
+  
     if(!userName || !password || !email || !phoneNumber){
       handleShow();
       setErrorMessage('빈 입력칸이 있는지 확인해주세요.');
       return;
     }
-
+  
     if(!isPasswordValid(password)){
       handleShow();
       setErrorMessage('비밀번호는 14자 이상, 21자 이하여야 하며, 대문자, 소문자, 특수문자가 각각 1자 이상 포함되어야 합니다.');
       return;
     }
+  
+    if(!isPhoneNumberValid(phoneNumber)){
+      handleShow();
+      setErrorMessage('전화번호는 010으로 시작하고, 숫자가 총 11개여야 합니다.');
+      return;
+    }
     
+
   };
 
   return (
@@ -76,7 +99,7 @@ function SignUpForm() {
               label="아이디 입력"
               className="mb-3"
             >
-              <Form.Control onInput={(e) => e.target.value = e.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')} type="text" placeholder="아이디를 입력하세요" name="userName" />
+              <Form.Control type="text" placeholder="아이디를 입력하세요" name="userName" />
             </FloatingLabel>
 
             <FloatingLabel
@@ -84,7 +107,7 @@ function SignUpForm() {
               label="비밀번호 입력"
               className="mb-3"
             >
-              <Form.Control type="password" placeholder="비밀번호를 입력하세요" name="password"/>
+              <Form.Control onInput={(e) => e.target.value = e.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')} type="password" placeholder="비밀번호를 입력하세요" name="password"/>
             </FloatingLabel>
 
             <FloatingLabel
@@ -100,7 +123,7 @@ function SignUpForm() {
               label="전화번호 입력"
               className="mb-3"
             >
-              <Form.Control type="text" placeholder="전화번호를 입력하세요" name="phoneNumber"/>
+            <Form.Control onInput={autoHyphen} type="text" placeholder="전화번호를 입력하세요" name="phoneNumber" maxLength="13"/>
             </FloatingLabel>
             <Container className="d-flex justify-content-center mt-3">
               <Button variant="outline-primary" type="submit" size="lg">가입하기</Button>
