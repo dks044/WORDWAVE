@@ -18,9 +18,9 @@ const IS_LOGGED_IN = 'auth/LOGGED_IN_REQUEST';
 const IS_LOGGED_IN_SUCCESS = 'auth/LOGGED_IN_SUCCESS';
 const IS_LOGGED_IN_FAILURE = 'auth/LOGGED_IN_FAILURE';
 
-// const USERINFO = 'auth/USERINFO_REQUEST';
-// const USERINFO_SUCCESS = 'auth/USERINFO_SUCCESS';
-// const USERINFO_FAILURE = 'auth/USERINFO_FAILURE';
+const SIGNUP = 'auth/SIGNUP';
+const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS';
+const SIGNUP_FAILURE = 'auth/SIGNUP/FAILURE';
 
 
 export const login = (username, password) => async dispatch => {
@@ -66,19 +66,17 @@ export const isLoggedIn = () => async dispatch => {
   }
 }
 
-
-// export const userInfo = () => async dispatch => {
-//   dispatch({ type : USERINFO });
-//   try {
-//     const data = await authAPI.userInfoApi();  
-//     dispatch({type : USERINFO_SUCCESS,payload : data});
-//     console.log(data);
-//     return data;
-//   } catch (error) {
-//     dispatch({type : USERINFO_FAILURE,error: error});
-//     throw error; 
-//   }
-// }
+export const signUp = (userName,password,email,phoneNumber) => async dispatch => {
+  dispatch({type : SIGNUP});
+  try {
+    const response = await authAPI.signupApi(userName,password,email,phoneNumber);
+    dispatch({type : SIGNUP_SUCCESS,payload : response.data});
+    return response.data;
+  } catch (e) {
+    dispatch({type: SIGNUP_FAILURE, error: e});
+    throw e;
+  }
+}
 
 const initialState = {
   auth: reducerUtils.initial(),
@@ -111,13 +109,10 @@ export default function auth(state = initialState, action) {
         ...handleAsyncActions(IS_LOGGED_IN, 'auth')(state, action),
         isLoging: action.type === IS_LOGGED_IN_SUCCESS ? true : state.isLoging,
       };
-    // case USERINFO:
-    // case USERINFO_SUCCESS:
-    // case USERINFO_FAILURE:
-    //   return {
-    //     ...handleAsyncActions(USERINFO, 'user',true)(state, action),
-    //     user : action.type === USERINFO_SUCCESS ? action.payload : state.user
-    //   }
+    case SIGNUP:
+    case SIGNUP_SUCCESS:
+    case SIGNUP_FAILURE:
+      return handleAsyncActions(SIGNUP,'auth')(state,action);
     default:
       return state;
   }

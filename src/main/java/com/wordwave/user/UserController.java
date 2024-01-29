@@ -150,32 +150,5 @@ public class UserController {
 		return ResponseEntity.ok().body("validate success");
 	}
 	
-	//TODO:user엔티티필드 추가되면 코드 수정 필요
-//	@PostMapping("/userinfo")
-//	public ResponseEntity<?> userInfo(HttpServletRequest request) {
-//		Cookie[] cookies = request.getCookies();
-//	    String token = null;
-//	    for (Cookie cookie : cookies) {
-//	        if (cookie.getName().equals("token")) {
-//	            token = cookie.getValue();
-//	            break;
-//	        }
-//	    }
-//	    if (token == null) {
-//	        throw new RuntimeException("토큰이 없습니다.");
-//	    }
-//	    final long userId = userService.getUserIdFromJwt(token);
-//	    SiteUser user = userService.getByUserId(userId );
-//	    UserDTO responseDTO = UserDTO.builder()
-//	    						 .userName(user.getUserName())
-//	    						 .email(user.getEmail())
-//	    						 .phoneNumber(user.getPhoneNumber())
-//	    						 .createUserDate(user.getCreateUserDate())
-//	    						 .point(user.getPoint())
-//	    						 .build();
-//	    
-//	    return ResponseEntity.ok().body(responseDTO);
-//
-//	}
 
 }
