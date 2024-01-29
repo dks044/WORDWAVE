@@ -1,9 +1,9 @@
 const SHOW_POPUP = 'popup/SHOW_POPUP';
-//const CLOSE_POPUP = 'popup/CLOSE_POPUP';
+const CLOSE_POPUP = 'popup/CLOSE_POPUP';
 
 export const showPopup = (message) => ({ type: SHOW_POPUP, payload: message });
 
-//export const closePopup = () => ({ type: CLOSE_POPUP }); 사용자가 직접 끄면 되니까 일단 보류
+export const closePopup = () => ({ type: CLOSE_POPUP }); 
 
 const initialState = {
   isOpen: false,
@@ -17,6 +17,10 @@ function popup(state = initialState, action) {
         isOpen: true,
         message: action.payload,
       };
+    case CLOSE_POPUP:
+      return{
+        message: ''
+      }
     default:
       return state;
   }

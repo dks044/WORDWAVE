@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row, FloatingLabel, Container, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { signUp } from "../modules/auth";
 import { useNavigate } from "react-router-dom";
+import { showPopup } from "../modules/popup";
 
 const SignUpFormBlock = styled.div`
   width: 80%;
@@ -35,11 +36,13 @@ function SignUpForm() {
 
   //비밀번호 유효성검사
   function isPasswordValid(password) {
-  const hasAlphabet = /[a-zA-Z]/.test(password);
-  const hasSpecialCharacter = /[^0-9a-zA-Z]/.test(password);
+    const hasAlphabet = /[a-zA-Z]/.test(password);
+    const hasSpecialCharacter = /[^0-9a-zA-Z]/.test(password);
+    const isLengthValid = password.length >= 10 && password.length <= 20;
 
-  return hasAlphabet && hasSpecialCharacter;
-}
+    return hasAlphabet && hasSpecialCharacter && isLengthValid;
+  }
+
 
 
   //전화번호 자동 하이폰
@@ -73,7 +76,7 @@ function SignUpForm() {
   
     if(!isPasswordValid(password)){
       handleShow();
-      setErrorMessage('비밀번호는 14자 이상, 21자 이하여야 하며, 대문자, 소문자, 특수문자가 각각 1자 이상 포함되어야 합니다.');
+      setErrorMessage('비밀번호는 10자 이상, 20자 이하여야 하며, 각각 영문자 한개, 특수문자 한개씩 포함되어야 합니다.');
       return;
     }
   
@@ -84,6 +87,7 @@ function SignUpForm() {
     }
     try {
       await dispatch(signUp(userName,password,email,phoneNumber));
+      await dispatch(showPopup('회원가입에 성공하였습니다.'));
       navigate('/'); 
     } catch (error) {
       handleShow();
