@@ -30,7 +30,7 @@ class GrammarBookControllerTest {
     void getGrammarBookApiTest() {
         Long id = 5L;
 
-        ResponseEntity<GrammarBookResponseDto> response = this.grammarBookController.getGrammarBookWithoutGrammarExamples(id);
+        ResponseEntity<GrammarBookResponseDto> response = this.grammarBookController.getGrammarBook(id);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
