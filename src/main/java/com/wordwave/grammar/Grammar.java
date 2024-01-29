@@ -22,6 +22,7 @@ public class Grammar {
     private String sentence;
 
     @OneToMany(mappedBy = "grammar", cascade = CascadeType.ALL)
+    @OrderColumn(name = "id")
     private List<GrammarExample> examples = new ArrayList<>();
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

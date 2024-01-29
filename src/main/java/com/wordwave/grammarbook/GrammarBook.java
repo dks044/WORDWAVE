@@ -26,6 +26,7 @@ public class GrammarBook {
     private String name;
 
     @OneToMany(mappedBy = "grammarBook", cascade = CascadeType.ALL)
+    @OrderColumn(name = "id")
     private List<Grammar> grammars = new ArrayList<>();
 
     @Builder
