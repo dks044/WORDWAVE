@@ -34,7 +34,11 @@ dependencies {
     // jjwt 라이브러리 최신 버전
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
-    runtimeOnly 'io.jsonwebtoken:jjwt-orgjson:0.11.2' // 이 줄을 추가
+    runtimeOnly 'io.jsonwebtoken:jjwt-orgjson:0.11.2'
+    
+  	//메일보내기용
+    implementation 'javax.mail:javax.mail-api:1.6.2'
+    implementation 'com.sun.mail:javax.mail:1.6.2'
 	
 }
 
