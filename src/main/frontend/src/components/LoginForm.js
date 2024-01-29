@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, FloatingLabel, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Container, FloatingLabel, Form, InputGroup, Modal, Row } from 'react-bootstrap';
 import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -35,6 +35,12 @@ const FindPasswordText = styled.h5`
   &:hover {
     color: #63e6be;
   }
+`
+const TitleText = styled.h1`
+  font-weight: bolder;
+`
+const SubTitleText = styled.h3`
+  font-weight: bolder;
 `
 
 export default function LoginForm(){
@@ -97,27 +103,44 @@ export default function LoginForm(){
             keyboard={false}
           >
             <Modal.Header closeButton>
-              <Modal.Title><h1>아이디&비밀번호 찾기</h1></Modal.Title>
+              <Modal.Title><TitleText>아이디&비밀번호 찾기</TitleText></Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <h2>아이디 찾기</h2>
-                  <Form.Label>이메일 입력</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />
-                  <Form.Text className="text-muted">
-                    우리는 귀하의 이메일을 다른 누구와도 공유하지 않습니다.
-                  </Form.Text>
-                  <br />
-                  <Button variant="outline-primary" type="submit" size="sm">아이디 찾기!</Button>
-                </Form.Group>
-              </Form>
+              <SubTitleText>아이디찾기</SubTitleText>
+              <p>가입시 입력한 이메일을 입력하세요.</p>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="이메일 입력"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+                <Button variant="outline-secondary" id="button-addon2">
+                  아이디 찾기
+                </Button>
+              </InputGroup>
+              <hr />
+              <SubTitleText>비밀번호 찾기</SubTitleText>
+              <p>가입시 입력한 이메일과 아이디를 입력하세요.</p>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="아이디 입력"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+                <Form.Control
+                  placeholder="이메일 입력"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+                <Button variant="outline-secondary" id="button-addon2">
+                  비밀번호 찾기
+                </Button>
+              </InputGroup>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
-                Close
+                닫기
               </Button>
-              <Button variant="primary">Understood</Button>
             </Modal.Footer>
           </Modal>
     </LoginFormBlock>
