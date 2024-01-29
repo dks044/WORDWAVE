@@ -36,9 +36,19 @@ public class UserService {
 			throw new RuntimeException("Invalid arguments");
 		}
 		final String userName = user.getUserName();
+		final String phoneNumber = user.getPhoneNumber();
+		final String email = user.getEmail();
 		if(userRepository.existsByUserName(userName)) {
 			log.warn("UserName is already exists {}",userName);
 			throw new RuntimeException("UserName is already exists");
+		}
+		if(userRepository.existsByPhoneNumber(phoneNumber)) {
+			log.warn("phoneNumber is already exists {}",phoneNumber);
+			throw new RuntimeException("phoneNumber is already exists");
+		}
+		if(userRepository.existsByEmail(email)) {
+			log.warn("emalil is already exists {}",email);
+			throw new RuntimeException("emalil is already exists");
 		}
 		
 		return userRepository.save(user);
