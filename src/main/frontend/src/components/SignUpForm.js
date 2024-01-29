@@ -31,24 +31,16 @@ function SignUpForm() {
     setErrorMessage('');
   };
   const handleShow = () => setShow(true);
+  //toast
 
   //비밀번호 유효성검사
   function isPasswordValid(password) {
-    if(password.length < 14 || password.length > 21) {
-      return false;
-    }
-  
-    let alphabetCount = 0;
-    let differentCount = 0;
-  
-    for(let i = 0; i < password.length; i++){
-      const word = password[i];
-      if(/[a-zA-Z]/.test(word)) alphabetCount++;
-      if(!/[0-9a-zA-Z]/.test(word)) differentCount++;
-    }
-  
-    return !(alphabetCount < 1 || differentCount < 1);
-  }
+  const hasAlphabet = /[a-zA-Z]/.test(password);
+  const hasSpecialCharacter = /[^0-9a-zA-Z]/.test(password);
+
+  return hasAlphabet && hasSpecialCharacter;
+}
+
 
   //전화번호 자동 하이폰
   const autoHyphen = (event) => {
@@ -94,7 +86,9 @@ function SignUpForm() {
       await dispatch(signUp(userName,password,email,phoneNumber));
       navigate('/'); 
     } catch (error) {
-      console.error('회원가입 실패:', error);
+      handleShow();
+      setErrorMessage('이미 가입된 사용자이거나, 이메일입니다, 다시 확인해주세요.');
+      return;
     }
   };
 

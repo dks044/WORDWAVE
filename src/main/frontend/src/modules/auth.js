@@ -74,14 +74,13 @@ export const signUp = (userName,password,email,phoneNumber) => async dispatch =>
     return response.data;
   } catch (e) {
     dispatch({type: SIGNUP_FAILURE, error: e});
-    throw e;
   }
 }
 
 const initialState = {
   auth: reducerUtils.initial(),
   isLoging: false,
-  user : {}
+  user : {},
 };
 
 export default function auth(state = initialState, action) {

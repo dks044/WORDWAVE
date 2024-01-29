@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { isLoggedIn } from "./modules/auth";
 
 function App() {
@@ -19,20 +19,19 @@ function App() {
       console.log('check the user..');
       dispatch(isLoggedIn());
   }, [dispatch,isLoging]);
-
   
   return (
-    <Routes>
-      <Route path="/" element={<LayoutContainer />}>
-        <Route index element={<HomePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="grammar" element={isLoging ? <GrammarPage /> : <Navigate to="/login" />} />
-        <Route path="login" 
-        element={isLoging === false ? <LoginPage /> : <Navigate to="/" />} />
-        <Route path="signup" 
-        element={isLoging === false ? <SignUpPage /> : <Navigate to="/" />} />
-      </Route>
-    </Routes>
+      <Routes>
+        <Route path="/" element={<LayoutContainer />}>
+          <Route index element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="grammar" element={isLoging ? <GrammarPage /> : <Navigate to="/login" />} />
+          <Route path="login" 
+          element={isLoging === false ? <LoginPage /> : <Navigate to="/" />} />
+          <Route path="signup" 
+          element={isLoging === false ? <SignUpPage /> : <Navigate to="/" />} />
+        </Route>
+      </Routes>
   );
 }
 
