@@ -19,8 +19,30 @@ const ModalTitle = styled.h2`
 function SignUpForm() {
   //modal
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setErrorMessage('');
+  };
   const handleShow = () => setShow(true);
+  const [errorMessage,setErrorMessage] = useState('');
+
+  //비밀번호 유효성검사
+  function isPasswordValid(password) {
+    if(password.length < 14 || password.length > 21) {
+      return false;
+    }
+  
+    let alphabetCount = 0;
+    let differentCount = 0;
+  
+    for(let i = 0; i < password.length; i++){
+      const word = password[i];
+      if(/[a-zA-Z]/.test(word)) alphabetCount++;
+      if(!/[0-9a-zA-Z]/.test(word)) differentCount++;
+    }
+  
+    return !(alphabetCount < 1 || differentCount < 1);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,7 +50,19 @@ function SignUpForm() {
     const password = event.target.elements.floatingInputPassword.value;
     const email = event.target.elements.floatingInputEmail.value;
     const phoneNumber = event.target.elements.floatingInputPhone.value;
-    setShow(true);
+
+    if(!userName || !password || !email || !phoneNumber){
+      handleShow();
+      setErrorMessage('빈 입력칸이 있는지 확인해주세요.');
+      return;
+    }
+
+    if(!isPasswordValid(password)){
+      handleShow();
+      setErrorMessage('비밀번호는 14자 이상, 21자 이하여야 하며, 대문자, 소문자, 특수문자가 각각 1자 이상 포함되어야 합니다.');
+      return;
+    }
+    
   };
 
   return (
@@ -42,7 +76,7 @@ function SignUpForm() {
               label="아이디 입력"
               className="mb-3"
             >
-              <Form.Control type="text" placeholder="아이디를 입력하세요" name="userName" />
+              <Form.Control onInput={(e) => e.target.value = e.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')} type="text" placeholder="아이디를 입력하세요" name="userName" />
             </FloatingLabel>
 
             <FloatingLabel
@@ -78,7 +112,7 @@ function SignUpForm() {
         <Modal.Header closeButton>
           <Modal.Title><ModalTitle>회원가입 오류</ModalTitle></Modal.Title>
         </Modal.Header>
-        <Modal.Body>오류</Modal.Body>
+        <Modal.Body>{errorMessage}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
