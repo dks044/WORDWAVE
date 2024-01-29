@@ -28,9 +28,9 @@ class GrammarBookServiceTest {
     @Test
     @DisplayName("GrammarBook id로 GrammarBook을 조회한다.")
     void getGrammarBookTest() {
-        Long id = 6L;
+        Long id = 12L;
 
-        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBookWithoutGrammarExamples(id);
+        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBook(id);
 
         System.out.println(grammarBookResponseDto.toString());
     }
@@ -78,8 +78,8 @@ class GrammarBookServiceTest {
     @Test
     @DisplayName("GrammarBook의 이름을 수정한다.")
     void updateGrammarBookNameTest() {
-        Long id = 5L;
-        String newName = "test book1";
+        Long id = 12L;
+        String newName = "test book4";
 
         this.grammarBookService.updateGrammarBookName(id, newName);
 
