@@ -16,38 +16,36 @@ const SignUpFormText = styled.h4`
       color: #63e6be;
   }
 `
+const Navbar = styled.div`
+  font-weight: bold;
+  display: flex;
+  width: 100%;
+`;
 
-function NavComponent(){
-   const Navbar = styled.div`
-    font-weight: bold;
-    display: flex;
-    width: 100%;
-  `;
+const NavListLeft = styled.ul`
+  display: flex;
+  justify-content: left;
+  padding-left: 0;
+  width: 100%;
+  margin-left: 5%;
+  margin-top: 5%;
+`;
 
-  const NavListLeft = styled.ul`
-    display: flex;
-    justify-content: left;
-    padding-left: 0;
-    width: 100%;
-    margin-left: 5%;
-    margin-top: 5%;
-  `;
+const NavListRight = styled.ul`
+  display: flex;
+  justify-content: right;
+  padding-left: 0;
+  width: 100%;
+  margin-right: 5%;
+  margin-top: 5%;
+`;
+const NavListCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
 
-  const NavListRight = styled.ul`
-    display: flex;
-    justify-content: right;
-    padding-left: 0;
-    width: 100%;
-    margin-right: 5%;
-    margin-top: 5%;
-  `;
-  const NavListCenter = styled.div`
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  `;
-
-  const Logo = styled.img`
+const Logo = styled.img`
   //크기
   max-width: 76px;
   max-height: 76px;
@@ -56,35 +54,37 @@ function NavComponent(){
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  `;
+`;
 
-  const NavItem = styled.li`
-    list-style: none;
-  `;
-  //Icon
-    const IconBox = styled.div`
-    font-size: 40px;
-    color: #0078ff;
-    position: relative;
-    top: -10%; 
-    display: flex;
-    justify-content: space-between;
-    width: 100px; 
-    transition: 0.325s all ease-in;
-    cursor: pointer;
-    &:hover {
-      color: #63e6be;
-    }
-  `;
-  const Icon = styled.i`
-    font-size: 40px;
-    color: #0078ff;
-    transition: 0.325s all ease-in;
-    cursor: pointer;
-    &:hover {
-      color: #63e6be;
-    }
-  `;
+const NavItem = styled.li`
+  list-style: none;
+`;
+//Icon
+const IconBox = styled.div`
+  font-size: 40px;
+  color: #0078ff;
+  position: relative;
+  top: -10%; 
+  display: flex;
+  justify-content: space-between;
+  width: 100px; 
+  transition: 0.325s all ease-in;
+  cursor: pointer;
+  &:hover {
+    color: #63e6be;
+  }
+`;
+const Icon = styled.i`
+  font-size: 40px;
+  color: #0078ff;
+  transition: 0.325s all ease-in;
+  cursor: pointer;
+  &:hover {
+    color: #63e6be;
+  }
+`;
+function NavComponent(){
+
 
   const { isLoging, user} = useSelector(state=>state.auth);
 
