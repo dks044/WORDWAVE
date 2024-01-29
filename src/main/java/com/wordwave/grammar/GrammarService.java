@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class GrammarService {
@@ -15,14 +18,22 @@ public class GrammarService {
 
     public GrammarDto getGrammar(Long id) {
         Grammar grammar = getGrammarById(id);
-        GrammarDto grammarDto = new GrammarDto();
-        grammarDto.setId(id);
-        grammarDto.setSentence(grammar.getSentence());
-        grammarDto.setGrammarBookName(grammar.getGrammarBook().getName());
-        grammarDto.setGrammarExamples(grammar.getExamples().stream()
-                .map(example -> new GrammarExampleDto(example.getExample(), example.getIsAnswer()))
-                .toList());
-        return grammarDto;
+
+        //GrammarExample --> GrammarExampleDto
+        List<GrammarExampleDto> grammarExampleDtos = new ArrayList<>();
+        for (GrammarExample grammarExample : grammar.getExamples()) {
+            grammarExampleDtos.add(GrammarExampleDto.builder()
+                    .example(grammarExample.getExample())
+                    .isAnswer(grammarExample.getIsAnswer())
+                    .build());
+        }
+
+        return GrammarDto.builder()
+                .id(id)
+                .sentence(grammar.getSentence())
+                .grammarBookName(grammar.getGrammarBook().getName())
+                .grammarExamples(grammarExampleDtos)
+                .build();
     }
 
     public void deleteGrammar(Long id) {
