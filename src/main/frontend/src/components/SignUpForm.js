@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row, FloatingLabel, Container, Modal } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { signUp } from "../modules/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignUpFormBlock = styled.div`
   width: 80%;
@@ -17,6 +20,10 @@ const ModalTitle = styled.h2`
 `
 
 function SignUpForm() {
+  const [errorMessage,setErrorMessage] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   //modal
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -24,7 +31,6 @@ function SignUpForm() {
     setErrorMessage('');
   };
   const handleShow = () => setShow(true);
-  const [errorMessage,setErrorMessage] = useState('');
 
   //비밀번호 유효성검사
   function isPasswordValid(password) {
@@ -60,7 +66,7 @@ function SignUpForm() {
     return /^010-(\d{4})-(\d{4})$/.test(phoneNumber);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const userName = event.target.elements.floatingInputUserName.value;
     const password = event.target.elements.floatingInputPassword.value;
@@ -84,8 +90,12 @@ function SignUpForm() {
       setErrorMessage('전화번호는 010으로 시작하고, 숫자가 총 11개여야 합니다.');
       return;
     }
-    
-
+    try {
+      await dispatch(signUp(userName,password,email,phoneNumber));
+      navigate('/'); 
+    } catch (error) {
+      console.error('회원가입 실패:', error);
+    }
   };
 
   return (
