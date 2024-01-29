@@ -17,10 +17,10 @@ public class GrammarBookController {
     private final GrammarBookService grammarBookService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<GrammarBookResponseDto> getGrammarBookWithoutGrammarExamples(@PathVariable Long id) {
+    public ResponseEntity<GrammarBookResponseDto> getGrammarBook(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(this.grammarBookService.getGrammarBookWithoutGrammarExamples(id));
+                .body(this.grammarBookService.getGrammarBook(id));
     }
 
     @GetMapping("/all")
