@@ -5,6 +5,7 @@ import com.wordwave.grammar.Grammar;
 import com.wordwave.grammar.GrammarExample;
 import com.wordwave.grammar.GrammarRepository;
 import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.GrammarExampleDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,25 +20,50 @@ public class GrammarBookService {
     private final GrammarBookRepository grammarBookRepository;
     private final GrammarRepository grammarRepository;
 
-    public GrammarBookResponseDto getGrammarBookWithoutGrammarExamples(Long id) {
-        GrammarBook grammarBook = getGrammarBookById(id);
+    public GrammarBookResponseDto getGrammarBook(Long id) {
+        GrammarBook grammarBook = this.grammarBookRepository.findGrammarBookById(id)
+                .orElseThrow(() -> new DataNotFoundException("Grammar book not found"));
 
-        GrammarBookResponseDto grammarBookResponseDto = new GrammarBookResponseDto();
-        grammarBookResponseDto.setId(id);
-        grammarBookResponseDto.setName(grammarBook.getName());
-        grammarBookResponseDto.setGrammars(grammarBook.getGrammars().stream()
-                .map(grammar -> GrammarDto.builder().id(grammar.getId()).build()).toList());
-        return grammarBookResponseDto;
+        List<GrammarDto> grammarDtos = new ArrayList<>();
+        List<Grammar> grammars = grammarBook.getGrammars();
+        for (Grammar grammar : grammars) {
+            if (grammar != null) {
+                grammarDtos.add(GrammarDto.builder()
+                        .id(grammar.getId())
+                        .sentence(grammar.getSentence())
+                        .grammarBookName(grammarBook.getName())
+                        .grammarExamples(convertGrammarExampleDto(grammar.getExamples()))
+                        .build());
+            }
+        }
+
+        return GrammarBookResponseDto.builder()
+                .id(id)
+                .name(grammarBook.getName())
+                .grammars(grammarDtos)
+                .build();
+    }
+
+    private List<GrammarExampleDto> convertGrammarExampleDto(List<GrammarExample> grammarExamples) {
+        List<GrammarExampleDto> grammarExampleDtos = new ArrayList<>();
+        for (GrammarExample grammarExample : grammarExamples) {
+            if(grammarExample != null) {
+                grammarExampleDtos.add(GrammarExampleDto.builder()
+                        .example(grammarExample.getExample())
+                        .isAnswer(grammarExample.getIsAnswer())
+                        .build());
+            }
+        }
+        return grammarExampleDtos;
     }
 
     public List<GrammarBookResponseDto> getAllGrammarBooksWithoutGrammar() {
         List<GrammarBookResponseDto> grammarBooks = new ArrayList<>();
         for (GrammarBook grammarBook : this.grammarBookRepository.findAll()) {
-            GrammarBookResponseDto responseDto = new GrammarBookResponseDto(
-                    grammarBook.getId(),
-                    grammarBook.getName(),
-                    new ArrayList<>()
-            );
+            GrammarBookResponseDto responseDto = GrammarBookResponseDto.builder()
+                    .id(grammarBook.getId())
+                    .name(grammarBook.getName())
+                    .build();
             grammarBooks.add(responseDto);
         }
         return grammarBooks;
@@ -74,12 +100,8 @@ public class GrammarBookService {
 
     @Transactional
     public void updateGrammarBookName(Long id, String newName) {
-        GrammarBook grammarBook = getGrammarBookById(id);
-        grammarBook.changeName(newName, this.grammarBookRepository.findAll());
-    }
-
-    private GrammarBook getGrammarBookById(Long id) {
-        return this.grammarBookRepository.findById(id)
+        GrammarBook grammarBook = this.grammarBookRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Grammar book not found"));
+        grammarBook.changeName(newName, this.grammarBookRepository.findAll());
     }
 }
