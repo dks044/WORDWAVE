@@ -5,8 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import GmarketSansTTFLight from "./fonts/GmarketSansTTFLight.ttf";
+import GmarketSansTTFLight from "./resources/GmarketSansTTFLight.ttf";
 import WaveEffect from "./components/WaveEffect";
+import { Provider } from "react-redux";
+import store from "./modules/config";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
@@ -52,8 +54,10 @@ const GlobalStyle = createGlobalStyle`
 root.render(
   <BrowserRouter>
     <GlobalStyle />
-    <WaveEffect />
-    <App />
+    <Provider store={store}>
+      <WaveEffect />
+      <App />
+    </Provider>
   </BrowserRouter>
 );
 
