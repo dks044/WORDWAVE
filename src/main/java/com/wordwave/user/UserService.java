@@ -78,4 +78,12 @@ public class UserService {
 		return Long.parseLong(tokenInformation);
 	}
 	
+	public String getUserNameByEmail(String email) {
+		SiteUser user = userRepository.findByEmail(email);
+		if(user == null) {
+			throw new RuntimeException("not exist by email and userName"+email);
+		}
+		return user.getUserName();
+	}
+	
 }

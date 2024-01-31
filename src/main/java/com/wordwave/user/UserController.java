@@ -6,6 +6,7 @@ import java.util.Collections;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wordwave.security.Key;
 import com.wordwave.security.TokenProvider;
+import com.wordwave.util.MailDTO;
+import com.wordwave.util.MailService;
 import com.wordwave.util.ResponseDTO;
 
 import io.jsonwebtoken.JwtException;
@@ -33,6 +36,7 @@ public class UserController {
 	private final TokenProvider tokenProvider;
 	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
 	private final PasswordEncoder passwordEncoder;
+	private final MailService mailService;
 	
 	//TODO: 이후 삭제 예정
 	@PreAuthorize("isAuthenticated()")
@@ -146,9 +150,22 @@ public class UserController {
 			return ResponseEntity.badRequest().body(responseDTO);
 		}
 	    
-	    
 		return ResponseEntity.ok().body("validate success");
 	}
 	
+	@PostMapping("/findUserName")
+	public ResponseEntity<?> findUserName(Model model,
+										HttpServletResponse response,
+										@RequestBody MailDTO mailDTO
+			){
+		try {
+			model.addAttribute("mainSubject", mailDTO.getMainSubject());
+			model.addAttribute("text", mailDTO.getText());
+			mailService.sendEmail(mailDTO);
+			return ResponseEntity.ok().body("아이디 찾기 메일 전송 완료");
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("아이디와 이메일이 매칭 되지 않음");
+		}
+	}
 
 }

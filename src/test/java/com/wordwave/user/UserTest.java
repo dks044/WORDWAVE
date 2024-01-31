@@ -1,7 +1,9 @@
 package com.wordwave.user;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
@@ -40,4 +42,16 @@ public class UserTest {
         assertNotNull(foundUser);
         assertEquals("테스트계정", foundUser.getUserName());
     }
+    
+    @Test
+    @Transactional
+    @Rollback(false)
+    void findUserNameByEmailTest() { //테스트 성공
+    	String errorEmail = "error@error.com";
+    	assertThrows(RuntimeException.class, () -> userService.getUserNameByEmail(errorEmail));
+        String notErrorEmail = "un08217@naver.com";
+        assertDoesNotThrow(() -> userService.getUserNameByEmail(notErrorEmail), "에러가 없어야함.");
+    }
+    
+    
 }

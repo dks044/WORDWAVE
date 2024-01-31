@@ -28,7 +28,6 @@ public class MailService {
             helper.setTo(mailDTO.getToAddress());
             helper.setSubject(mailDTO.getMainSubject());
 
-            // Thymeleaf 템플릿을 사용하여 이메일 본문을 설정
             Context context = new Context();
             context.setVariable("mainSubject", mailDTO.getMainSubject());
             context.setVariable("text", mailDTO.getText());
