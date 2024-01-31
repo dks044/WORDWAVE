@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGrammarBooks } from "../modules/grammarbooks/grammarBooks";
 import GrammarBooks from "../components/GrammarBooks";
+import { initializeIndex } from "../modules/quiz/grammarQuiz";
 
 const GrammarBooksContainer = () => {
   const loading = useSelector(
@@ -12,7 +13,10 @@ const GrammarBooksContainer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (data) return;
+    if (data) {
+      dispatch(initializeIndex());
+      return;
+    }
     dispatch(getGrammarBooks());
   }, [data, dispatch]);
 

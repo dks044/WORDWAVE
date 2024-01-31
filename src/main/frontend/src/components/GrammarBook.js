@@ -1,11 +1,11 @@
-import GrammarsContainer from "../containers/GrammarsContainer";
+import GrammarContainer from "../containers/GrammarContainer";
 
 const GrammarBook = ({ grammarBook }) => {
-  const { name, grammars, ...rest } = grammarBook;
+  const { name, grammars } = grammarBook;
   return (
     <>
       <h2>{name}</h2>
-      {grammars && <GrammarsContainer grammars={grammars} />}
+      {grammars && <GrammarContainer grammars={grammars} />}
     </>
   );
 };
