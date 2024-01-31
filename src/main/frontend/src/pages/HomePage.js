@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { showPopup } from "../modules/popup";
 
 const HomeContainer = styled.div`
     flex: 1;
@@ -7,6 +10,7 @@ const HomeContainer = styled.div`
     text-align: center;
     padding-top: 30%;
 `;
+
 
 const HomePage = () => {
     return (

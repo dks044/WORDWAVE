@@ -19,7 +19,8 @@ function popup(state = initialState, action) {
       };
     case CLOSE_POPUP:
       return{
-        message: ''
+          isOpen: false,
+          message: ''
       }
     default:
       return state;

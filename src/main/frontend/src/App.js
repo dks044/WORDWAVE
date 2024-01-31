@@ -29,15 +29,25 @@ function App() {
   useEffect(() => {
     if(isOpen) {
       setShow(true);
-      console.log(show);
-      return;
     }
-  }, [isOpen]);
+    if(!isOpen){
+      setShow(false);
+    }
+  },[isOpen]);
+  
+  useEffect(() => {
+    if(!show) {
+      dispatch(closePopup());
+    }
+  }, [show, dispatch]);
 
   return (
     <>
       <ToastContainer position='middle-center'>
-        <ToastComponent show={show} onClose={toggleShow} message={message}/>
+        <ToastComponent show={show} onClose={() => {
+          dispatch(closePopup());
+          setShow(false);
+        }} message={message}/>
       </ToastContainer>
       <Routes>
         <Route path="/" element={<LayoutContainer />}>
