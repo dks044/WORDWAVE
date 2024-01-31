@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, FloatingLabel, Form, InputGroup, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Container, FloatingLabel, Form, InputGroup, Modal, Row, Spinner } from 'react-bootstrap';
 import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -45,6 +45,7 @@ const SubTitleText = styled.h3`
 `
 
 export default function LoginForm(){
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [validLogin,setValidLogin] = useState(false);
   const navigate = useNavigate();
@@ -69,18 +70,21 @@ export default function LoginForm(){
   const [emailForFindId, setEmailForFindId] = useState('');
 
   const onChangeEmailForFindId = (e) => {
-    console.log(e.target.value);  // 이메일 입력 필드의 현재 값 출력
+    console.log(e.target.value);  
     setEmailForFindId(e.target.value);
   };
   const onClickFindId = async (event) => {
     const email = emailForFindId;
     console.log(email);
+    setLoading(true); //로딩시작
     try {
       await dispatch(findId(email));
-      await dispatch(showPopup('고객님의 이메일에 아이디를 전송했습니다.'));
+      await dispatch(showPopup('입력하신 이메일에 아이디를 보냈습니다.'));
     } catch (error) {
       await dispatch(showPopup('유효하지 않은 이메일입니다.'));
       setEmailForFindId('');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -125,7 +129,7 @@ export default function LoginForm(){
             </Modal.Header>
             <Modal.Body>
               <SubTitleText>아이디 찾기</SubTitleText>
-              <p>가입시 입력한 이메일을 입력하세요.</p>
+              <p>가입시 입력한 이메일을 입력하세요. {loading ? <Spinner animation="border" /> : null}</p>
               <InputGroup className="mb-3">
                 <Form.Control
                   placeholder="이메일 입력"

@@ -90,6 +90,7 @@ export const findId = (email) => async dispatch => {
     return response.data;
   } catch (e) {
     dispatch({type: FINDID_FAILURE, error: {message: e.message, code: e.code}});
+    throw e;
   }
 }
 
