@@ -88,4 +88,16 @@ public class UserService {
 		return user.getUserName();
 	}
 	
+	public SiteUser getSiteUserByUserNameAndEmail(String userName,String email) {
+		SiteUser user = userRepository.findByUserNameAndEmail(userName, email);
+		if(user == null) {
+			throw new RuntimeException("not match : email , userName"+userName+email);
+		}
+		return user;
+	}
+	
+	public void changeUserPassword(SiteUser user, String newPassword) {
+	    user.changePassword(newPassword);
+	    userRepository.save(user);
+	}
 }

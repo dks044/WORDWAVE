@@ -177,5 +177,27 @@ public class UserController {
 			return ResponseEntity.badRequest().body("유효하지 않은 이메일");
 		}
 	}
+	
+	@PostMapping("/find_password")
+	public ResponseEntity<?> findPassWord(HttpServletResponse response,
+										  @RequestBody MailDTO mailDTO){
+		String subject = "[WORDWAVE] 임시 비밀번호 입니다.";
+		try {
+			SiteUser user = userService.getSiteUserByUserNameAndEmail(mailDTO.getUserName(), mailDTO.getEmail());
+			String newPassword = mailService.createRandomPW();
+			userService.changeUserPassword(user, newPassword);
+			StringBuilder sendMessage = new StringBuilder();
+			sendMessage.append("반갑습니다");
+			sendMessage.append(user.getUserName()+"님<br>");
+			sendMessage.append("임시 비밀번호 발급해드리겠습니다.<br>");
+			sendMessage.append(newPassword+"<= 해당 임시 비밀번호로 로그인하세요.<br>");
+			sendMessage.append("감사합니다.<br>");
+			mailService.sendEmail(mailDTO,subject,sendMessage.toString());
+			return ResponseEntity.ok().body("비밀번호 이메일 전송완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("유효하지 않은 이메일과 아이디");
+		}
+	}
 
 }

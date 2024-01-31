@@ -47,5 +47,7 @@ public class SiteUser {
     @Convert(converter = UserRoleConverter.class)
     private UserRole role = UserRole.USER;
     
-
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+    }
 }
