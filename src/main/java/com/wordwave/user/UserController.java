@@ -160,7 +160,7 @@ public class UserController {
 										HttpServletResponse response,
 										@RequestBody MailDTO mailDTO
 			){
-		String subject = "[WORDWAAVE] 찾으신 아이디 입니다.";
+		String subject = "[WORDWAVE] 찾으신 아이디 입니다.";
 		try {
 			String findedUserName = userService.getUserNameByEmail(mailDTO.getEmail());
 			StringBuilder sendMessage = new StringBuilder();

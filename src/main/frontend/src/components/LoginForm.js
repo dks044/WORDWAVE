@@ -77,7 +77,7 @@ export default function LoginForm(){
     console.log(email);
     try {
       await dispatch(findId(email));
-      
+      await dispatch(showPopup('고객님의 이메일에 아이디를 전송했습니다.'));
     } catch (error) {
       await dispatch(showPopup('유효하지 않은 이메일입니다.'));
       setEmailForFindId('');

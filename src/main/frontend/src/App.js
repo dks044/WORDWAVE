@@ -26,15 +26,13 @@ function App() {
   //toast
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
-  const prevIsOpen = useRef(isOpen);
-  
   useEffect(() => {
-    if(prevIsOpen.current !== isOpen && isOpen) {
-        setShow(true);
+    if(isOpen) {
+      setShow(true);
+      console.log(show);
+      return;
     }
-    prevIsOpen.current = isOpen;
-  }, [isOpen, show, message]);
-  //toast
+  }, [isOpen]);
 
   return (
     <>
