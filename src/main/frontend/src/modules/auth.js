@@ -22,6 +22,11 @@ const SIGNUP = 'auth/SIGNUP';
 const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS';
 const SIGNUP_FAILURE = 'auth/SIGNUP/FAILURE';
 
+const FINDID = "auth/FINDID"
+const FINDID_SUCCESS = "auth/FINDID_SUCCESS";
+const FINDID_FAILURE = "auth/FINDID_FAILURE"
+
+
 
 export const login = (username, password) => async dispatch => {
   dispatch({ type: LOGIN });
@@ -115,5 +120,10 @@ export default function auth(state = initialState, action) {
       return handleAsyncActions(SIGNUP,'auth')(state,action);
     default:
       return state;
+    case FINDID:
+    case FINDID_SUCCESS:
+    case FINDID_FAILURE:
+      return handleAsyncActions(SIGNUP,'auth')(state,action);
+    
   }
 }

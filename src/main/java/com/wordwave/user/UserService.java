@@ -66,7 +66,9 @@ public class UserService {
 		return user.get();
 	}
 	
-	
+	public boolean validateEmail(String email) {
+		return userRepository.existsByEmail(email);
+	}
 	
 	public long getUserIdFromJwt(String token) {
 		String tokenInformation = Jwts.parserBuilder()

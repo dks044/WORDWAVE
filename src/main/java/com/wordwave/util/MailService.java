@@ -26,11 +26,8 @@ public class MailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
             helper.setTo(mailDTO.getToAddress());
-            helper.setSubject(mailDTO.getMainSubject());
 
             Context context = new Context();
-            context.setVariable("mainSubject", mailDTO.getMainSubject());
-            context.setVariable("text", mailDTO.getText());
             String html = templateEngine.process("mail", context);
             helper.setText(html, true);
 

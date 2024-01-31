@@ -9,6 +9,4 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MailDTO {
     private String toAddress;
-    private String mainSubject;
-    private String text;
 }

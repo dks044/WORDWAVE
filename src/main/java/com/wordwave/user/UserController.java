@@ -159,8 +159,14 @@ public class UserController {
 										@RequestBody MailDTO mailDTO
 			){
 		try {
-			model.addAttribute("mainSubject", mailDTO.getMainSubject());
-			model.addAttribute("text", mailDTO.getText());
+			if(!userService.validateEmail(mailDTO.getToAddress())) return ResponseEntity.badRequest().body("존재하지 않는 이메일");
+			String findedUserName = userService.getUserNameByEmail(mailDTO.getToAddress());
+			model.addAttribute("mainSubject", "아이디 찾기");
+			StringBuilder sendMessage = new StringBuilder();
+			sendMessage.append("아이디 찾기 결과 입니다.\n");
+			sendMessage.append(findedUserName+" 해당 아이디로 로그인하세요.\\n");
+			sendMessage.append("감사합니다.\\n");
+			model.addAttribute("text",sendMessage.toString());
 			mailService.sendEmail(mailDTO);
 			return ResponseEntity.ok().body("아이디 찾기 메일 전송 완료");
 		} catch (Exception e) {
