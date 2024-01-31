@@ -1,4 +1,4 @@
-package com.wordwave;
+package com.wordwave.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

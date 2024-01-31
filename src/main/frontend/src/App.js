@@ -13,20 +13,19 @@ import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
 
 function App() {
+  //authenticated
   const { isLoging } = useSelector(state=>state.auth);
   const {isOpen, message} = useSelector(state=>state.popup);
   const dispatch = useDispatch();
   console.log(isLoging);
-
   useEffect(() => {
       console.log('check the user..');
       dispatch(isLoggedIn());
   }, [dispatch,isLoging]);
-
+  //authenticated
   //toast
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
-  
   const prevIsOpen = useRef(isOpen);
   
   useEffect(() => {
@@ -35,11 +34,11 @@ function App() {
     }
     prevIsOpen.current = isOpen;
   }, [isOpen, show, message]);
-
+  //toast
 
   return (
     <>
-      <ToastContainer position='top-center'>
+      <ToastContainer position='middle-center'>
         <ToastComponent show={show} onClose={toggleShow} message={message}/>
       </ToastContainer>
       <Routes>

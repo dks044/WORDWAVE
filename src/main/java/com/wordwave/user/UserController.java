@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wordwave.ResponseDTO;
 import com.wordwave.security.Key;
 import com.wordwave.security.TokenProvider;
+import com.wordwave.util.ResponseDTO;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

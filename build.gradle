@@ -36,8 +36,9 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-orgjson:0.11.2'
     
-  	//메일보내기용
-    implementation 'org.springframework.boot:spring-boot-starter-mail
+  	//메일보내기용(타임리프는 동적 메일 전달용도)
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	
 }
 
