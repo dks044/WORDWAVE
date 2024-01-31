@@ -16,9 +16,6 @@ export async function signupApi(userName,password,email,phoneNumber){
   return await axios.post('/api/auth/signup',{userName,password,email,phoneNumber})
 }
 
-
-// export async function userInfoApi(){
-//   const response = await axios.post('/api/auth/userinfo');
-//   console.log(response);
-//   return response.data;
-// }
+export async function findidAPI(email){
+  return await axios.post('/api/auth/find_username',{email});
+}

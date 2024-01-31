@@ -30,7 +30,7 @@ public class UserTest {
         UserDTO ud = UserDTO.builder()
                 .userName("테스트계정")
                 .password("1234")
-                .email("buzz7811@naver.com")
+                .email("buzz7812@naver.com")
                 .phoneNumber("010-1234-5678")
                 .createUserDate(LocalDateTime.now())
                 .point(0)
@@ -49,7 +49,7 @@ public class UserTest {
     void findUserNameByEmailTest() { //테스트 성공
     	String errorEmail = "error@error.com";
     	assertThrows(RuntimeException.class, () -> userService.getUserNameByEmail(errorEmail));
-        String notErrorEmail = "un08217@naver.com";
+        String notErrorEmail = "buzz7811@naver.com";
         assertDoesNotThrow(() -> userService.getUserNameByEmail(notErrorEmail), "에러가 없어야함.");
     }
     

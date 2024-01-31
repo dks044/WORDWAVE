@@ -39,6 +39,7 @@ dependencies {
   	//메일보내기용(타임리프는 동적 메일 전달용도)
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	
 }
 

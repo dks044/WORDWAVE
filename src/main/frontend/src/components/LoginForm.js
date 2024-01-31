@@ -3,7 +3,8 @@ import { Button, Col, Container, FloatingLabel, Form, InputGroup, Modal, Row } f
 import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {login} from '../modules/auth'
+import {findId, login} from '../modules/auth'
+import { showPopup } from '../modules/popup';
 
 const LoginFormBlock = styled.div`
   width: 80%;
@@ -65,6 +66,23 @@ export default function LoginForm(){
       setValidLogin(true);
     }
   };
+  const [emailForFindId, setEmailForFindId] = useState('');
+
+  const onChangeEmailForFindId = (e) => {
+    console.log(e.target.value);  // 이메일 입력 필드의 현재 값 출력
+    setEmailForFindId(e.target.value);
+  };
+  const onClickFindId = async (event) => {
+    const email = emailForFindId;
+    console.log(email);
+    try {
+      await dispatch(findId(email));
+      
+    } catch (error) {
+      await dispatch(showPopup('유효하지 않은 이메일입니다.'));
+      setEmailForFindId('');
+    }
+  }
 
   return (
     <LoginFormBlock>
@@ -113,8 +131,9 @@ export default function LoginForm(){
                   placeholder="이메일 입력"
                   aria-label="Recipient's username"
                   aria-describedby="basic-addon2"
+                  onChange={onChangeEmailForFindId}
                 />
-                <Button variant="outline-secondary" id="button-addon2">
+                <Button onClick={onClickFindId} variant="outline-secondary" id="button-addon2">
                   아이디 찾기
                 </Button>
               </InputGroup>

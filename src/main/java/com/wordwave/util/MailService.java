@@ -20,20 +20,22 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
     
     // 메일보내기
-    public void sendEmail(MailDTO mailDTO) {
+    public void sendEmail(MailDTO mailDTO,String subject,String text) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setTo(mailDTO.getToAddress());
-
+            helper.setTo(mailDTO.getEmail());
+            helper.setSubject(subject);
             Context context = new Context();
+            context.setVariable("mainSubject", subject);
+            context.setVariable("text", text);
             String html = templateEngine.process("mail", context);
             helper.setText(html, true);
-
             javaMailSender.send(message);
         } catch (MessagingException e) {
             log.error("Failed to send email", e);
+            System.out.println("메일 오류");
             throw new IllegalStateException("Failed to send email", e);
         }
     }

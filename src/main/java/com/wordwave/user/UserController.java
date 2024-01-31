@@ -3,6 +3,8 @@ package com.wordwave.user;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -153,24 +155,26 @@ public class UserController {
 		return ResponseEntity.ok().body("validate success");
 	}
 	
-	@PostMapping("/findUserName")
-	public ResponseEntity<?> findUserName(Model model,
+	@PostMapping("/find_username")
+	public ResponseEntity<?> findUserName(
 										HttpServletResponse response,
 										@RequestBody MailDTO mailDTO
 			){
+		String subject = "[WORDWAAVE] 찾으신 아이디 입니다.";
 		try {
-			if(!userService.validateEmail(mailDTO.getToAddress())) return ResponseEntity.badRequest().body("존재하지 않는 이메일");
-			String findedUserName = userService.getUserNameByEmail(mailDTO.getToAddress());
-			model.addAttribute("mainSubject", "아이디 찾기");
+			String findedUserName = userService.getUserNameByEmail(mailDTO.getEmail());
 			StringBuilder sendMessage = new StringBuilder();
-			sendMessage.append("아이디 찾기 결과 입니다.\n");
-			sendMessage.append(findedUserName+" 해당 아이디로 로그인하세요.\\n");
-			sendMessage.append("감사합니다.\\n");
-			model.addAttribute("text",sendMessage.toString());
-			mailService.sendEmail(mailDTO);
-			return ResponseEntity.ok().body("아이디 찾기 메일 전송 완료");
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body("아이디와 이메일이 매칭 되지 않음");
+			sendMessage.append("아이디 찾기 결과 입니다.<br>");
+			sendMessage.append(findedUserName+"<= 해당 아이디로 로그인하세요.<br>");
+			sendMessage.append("감사합니다.<br>");
+			mailService.sendEmail(mailDTO,subject,sendMessage.toString());
+			return ResponseEntity.ok().body(findedUserName);
+		} catch (DataAccessException e) {
+		    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("데이터베이스 오류");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("유효하지 않은 이메일");
 		}
 	}
 

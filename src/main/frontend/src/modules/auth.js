@@ -22,9 +22,9 @@ const SIGNUP = 'auth/SIGNUP';
 const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS';
 const SIGNUP_FAILURE = 'auth/SIGNUP/FAILURE';
 
-const FINDID = "auth/FINDID"
-const FINDID_SUCCESS = "auth/FINDID_SUCCESS";
-const FINDID_FAILURE = "auth/FINDID_FAILURE"
+const FINDID = 'auth/FINDID';
+const FINDID_SUCCESS = 'auth/FINDID_SUCCESS';
+const FINDID_FAILURE = 'auth/FINDID_FAILURE';
 
 
 
@@ -82,6 +82,18 @@ export const signUp = (userName,password,email,phoneNumber) => async dispatch =>
     throw e;
   }
 }
+export const findId = (email) => async dispatch => {
+  dispatch({type : FINDID});
+  try {
+    const response = await authAPI.findidAPI(email);
+    dispatch({type : FINDID_SUCCESS, payload: response.data});
+    return response.data;
+  } catch (e) {
+    dispatch({type: FINDID_FAILURE, error: {message: e.message, code: e.code}});
+  }
+}
+
+
 
 const initialState = {
   auth: reducerUtils.initial(),
@@ -123,7 +135,7 @@ export default function auth(state = initialState, action) {
     case FINDID:
     case FINDID_SUCCESS:
     case FINDID_FAILURE:
-      return handleAsyncActions(SIGNUP,'auth')(state,action);
+      return handleAsyncActions(FINDID,'auth')(state,action);
     
   }
 }
