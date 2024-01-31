@@ -1,10 +1,10 @@
 import Grammar from "../components/Grammar";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  initializeIndex,
   increaseIndex,
   initializeClickExampleAndSubmit,
   clickSubmitButton,
+  addIncorrectGrammarId,
 } from "../modules/quiz/grammarQuiz";
 
 const GrammarContainer = ({ grammars }) => {
@@ -23,9 +23,13 @@ const GrammarContainer = ({ grammars }) => {
     dispatch(clickSubmitButton());
     if (isSubmit) {
       dispatch(initializeClickExampleAndSubmit());
-      currentGrammarIndex >= grammars.length - 1
-        ? dispatch(initializeIndex())
-        : dispatch(increaseIndex());
+      dispatch(increaseIndex());
+      if (!isAnswer) {
+        dispatch(addIncorrectGrammarId(grammars[currentGrammarIndex].id));
+      }
+    }
+    if (currentGrammarIndex >= grammars.length) {
+      return;
     }
   };
   return (
