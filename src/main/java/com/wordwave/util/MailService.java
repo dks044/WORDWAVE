@@ -3,6 +3,8 @@ package com.wordwave.util;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -15,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MailService {
     private final JavaMailSender javaMailSender;
+    private final SpringTemplateEngine templateEngine;
     
     // 메일보내기
     public void sendEmail(MailDTO mailDTO) {
@@ -24,7 +27,13 @@ public class MailService {
 
             helper.setTo(mailDTO.getToAddress());
             helper.setSubject(mailDTO.getMainSubject());
-            helper.setText(mailDTO.getText(), true); // true를 설정하여 HTML을 사용하도록 설정
+
+            // Thymeleaf 템플릿을 사용하여 이메일 본문을 설정
+            Context context = new Context();
+            context.setVariable("mainSubject", mailDTO.getMainSubject());
+            context.setVariable("text", mailDTO.getText());
+            String html = templateEngine.process("mail", context);
+            helper.setText(html, true);
 
             javaMailSender.send(message);
         } catch (MessagingException e) {
