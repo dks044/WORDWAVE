@@ -60,6 +60,11 @@ export default function MyPageComponent(){
       await dispatch(showPopup('원래 비밀번호와 변경 비밀번호를 같게 설정 할 수 없습니다.'));
       return;
     }
+    if(!password || !newPassword || !confirmedPassword){
+      await dispatch(showPopup('빈 입력칸이 있는지 확인해주세요.'));
+      return;
+    }
+
     try {
       setLoading(true); //로딩시작
       await dispatch(changePw(password,newPassword));
