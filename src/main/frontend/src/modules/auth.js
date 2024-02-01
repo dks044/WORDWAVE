@@ -38,6 +38,10 @@ const DELETE_USER = 'auth/DELETE_USER';
 const DELETE_USER_SUCCESS = 'auth/DELETE_USER_SUCCESS';
 const DELETE_USER_FAILURE = 'auth/DELETE_USER_FAILURE';
 
+const SENDEMAIL_CODE = 'auth/SENDEMAIL_CODE';
+const SENDEMAIL_CODE_SUCCESS = 'auth/SENDEMAIL_CODE_SUCCESS';
+const SENDEMAIL_CODE_FAILURE = 'auth/SENDEMAIL_CODE_FAILURE';
+
 export const login = (username, password) => async dispatch => {
   dispatch({ type: LOGIN });
   try {
@@ -147,6 +151,17 @@ export const deleteUser = (email,password) => async dispatch => {
     }
   }
 }
+export const sendEmailCode = (email) => async dispatch => {
+  dispatch({type : SENDEMAIL_CODE});
+  try {
+    const response = await authAPI.sendEmailCodeAPI(email);
+    dispatch({type : SENDEMAIL_CODE_SUCCESS,payload : response.data});
+    return response.data;
+  } catch (e) {
+    dispatch({type : SENDEMAIL_CODE_FAILURE,error : e});
+    throw e;
+  }
+}
 
 
 
@@ -204,6 +219,9 @@ export default function auth(state = initialState, action) {
     case DELETE_USER_SUCCESS:
     case DELETE_USER_FAILURE:
       return handleAsyncActions(DELETE_USER,'auth')(state,action);
-
+    case SENDEMAIL_CODE:
+    case SENDEMAIL_CODE_SUCCESS:
+    case SENDEMAIL_CODE_FAILURE:
+      return handleAsyncActions(SENDEMAIL_CODE,'auth')(state,action);
   }
 }

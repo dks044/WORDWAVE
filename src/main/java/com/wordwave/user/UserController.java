@@ -54,7 +54,7 @@ public class UserController {
 			MailDTO mailDTO = new MailDTO();
 			mailDTO.setEmail(emailAuthenicateDTO.getEmail());
 			StringBuilder sendMessage = new StringBuilder();
-			sendMessage.append("인증코드 입니다..<br>");
+			sendMessage.append("인증코드 입니다.. <br>");
 			sendMessage.append(sendCode+"<= 해당 임시코드를 입력 하세요.<br>");
 			sendMessage.append("감사합니다.<br>");
 			mailService.sendEmail(mailDTO, "subject", sendMessage.toString());

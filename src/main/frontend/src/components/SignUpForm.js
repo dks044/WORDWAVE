@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Form, Row, FloatingLabel, Container, Modal } from "react-bootstrap";
+import { Button, Col, Form, Row, FloatingLabel, Container, Modal, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { signUp } from "../modules/auth";
@@ -23,6 +23,7 @@ const ModalTitle = styled.h2`
 
 
 function SignUpForm() {
+  const [loading, setLoading] = useState(false);
   const [errorMessage,setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -98,6 +99,12 @@ function SignUpForm() {
     }
   };
 
+  const [email, setEmail] = useState('');
+  const onChangeEmail = (e) => setEmail(e.target.value);
+  const onClickEmailCodeSend = () => {
+
+  }
+
   return (
     <SignUpFormBlock>
       <Row className="justify-content-md-center">
@@ -125,9 +132,9 @@ function SignUpForm() {
               label="이메일 입력"
               className="mb-3"
             >
-              <Form.Control type="email" placeholder="이메일을 입력하세요" name="email" />
+              <Form.Control type="email" placeholder="이메일을 입력하세요" name="email" onChange={onChangeEmail} />
               <div className="d-grid gap-2">
-                <Button>이메일 인증코드 전송</Button>
+                <Button>이메일 인증코드 전송{loading ? <Spinner animation="border" /> : null}</Button>
               </div>
             </FloatingLabel>
 
