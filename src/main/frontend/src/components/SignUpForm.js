@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Col, Form, Row, FloatingLabel, Container, Modal, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { signUp } from "../modules/auth";
+import { sendEmailCode, signUp } from "../modules/auth";
 import { useNavigate } from "react-router-dom";
 import { showPopup } from "../modules/popup";
 
@@ -101,8 +101,19 @@ function SignUpForm() {
 
   const [email, setEmail] = useState('');
   const onChangeEmail = (e) => setEmail(e.target.value);
-  const onClickEmailCodeSend = () => {
-
+  const onClickEmailCodeSend = async () => {
+    if(!email){
+      await dispatch(showPopup('이메일을 입력하지 않았습니다.'));
+      return;
+    }
+    try {
+      setLoading(true);
+      await dispatch(sendEmailCode(email));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -134,7 +145,7 @@ function SignUpForm() {
             >
               <Form.Control type="email" placeholder="이메일을 입력하세요" name="email" onChange={onChangeEmail} />
               <div className="d-grid gap-2">
-                <Button>이메일 인증코드 전송{loading ? <Spinner animation="border" /> : null}</Button>
+                <Button onClick={onClickEmailCodeSend}>이메일 인증코드 전송{loading ? <Spinner animation="border" variant="light"/> : null}</Button>
               </div>
             </FloatingLabel>
 
