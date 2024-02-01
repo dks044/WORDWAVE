@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Col, Form, Row, FloatingLabel, Container, Modal, Spinner, InputGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { sendEmailCode, signUp } from "../modules/auth";
+import { sendEmailCode, signUp, validEmailCode } from "../modules/auth";
 import { useNavigate } from "react-router-dom";
 import { showPopup } from "../modules/popup";
 
@@ -127,7 +127,19 @@ function SignUpForm() {
   const [emailCode,setEmailCode] = useState('');
 
   const onClickEmailCodeValid = async () => {
-    
+    if(!email || !emailCode){
+      await dispatch(showPopup('이메일과 이메일코드 입력칸중에 빈 입력칸이 있습니다!'));
+      return;
+    }
+    try {
+      await dispatch(validEmailCode(email,emailCode));
+      await dispatch(showPopup('인증완료 됐습니다.'))
+      setCodeValid(true);
+    } catch (error) {
+      await dispatch(showPopup('인증코드가 맞지 않습니다.'));
+    } finally{
+      setLoading(false);
+    }
   }
 
   return (
@@ -171,7 +183,7 @@ function SignUpForm() {
                 onChange={onChangeEmailCode}
               />
               <Button variant="outline-primary" id="button-addon2">
-                인증코드 인증
+                인증코드 인증 {loading ? <Spinner animation="border" variant="light"/> : null}
               </Button>
             </InputGroup>
 
