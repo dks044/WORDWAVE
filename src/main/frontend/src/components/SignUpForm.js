@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Form, Row, FloatingLabel, Container, Modal, Spinner } from "react-bootstrap";
+import { Button, Col, Form, Row, FloatingLabel, Container, Modal, Spinner, InputGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { sendEmailCode, signUp } from "../modules/auth";
@@ -20,7 +20,9 @@ const SignUpTitle = styled.h1`
 const ModalTitle = styled.h2`
   font-weight: bolder;
 `
-
+const ValidCodeMessage = styled.h3`
+  color: red;
+`
 
 function SignUpForm() {
   const [loading, setLoading] = useState(false);
@@ -101,6 +103,7 @@ function SignUpForm() {
 
   const [email, setEmail] = useState('');
   const onChangeEmail = (e) => setEmail(e.target.value);
+  const onChangeEmailCode = (e) => setEmailCode(e.target.value);
   const onClickEmailCodeSend = async () => {
     if(!email){
       await dispatch(showPopup('이메일을 입력하지 않았습니다.'));
@@ -110,7 +113,7 @@ function SignUpForm() {
       setLoading(true);
       const response = await dispatch(sendEmailCode(email));
       if (response === "이미 이메일에 코드를 전송했습니다.") {
-          await dispatch(showPopup('이미 인증 코드가 발송된 이메일입니다.'));
+          await dispatch(showPopup('이미 인증 코드가 발송된 이메일입니다.(문의 : wordwave492@gmail.com'));
       } else {
           await dispatch(showPopup('입력하신 이메일에 인증코드가 전송 됐습니다.'));
       }
@@ -119,6 +122,12 @@ function SignUpForm() {
     } finally {
       setLoading(false);
     }
+  }
+  const [codeValid,setCodeValid] = useState(false);
+  const [emailCode,setEmailCode] = useState('');
+
+  const onClickEmailCodeValid = async () => {
+    
   }
 
   return (
@@ -154,13 +163,17 @@ function SignUpForm() {
               </div>
             </FloatingLabel>
 
-            <FloatingLabel
-              controlId="floatingInputEmail"
-              label="이메일 인증 코드 입력"
-              className="mb-3"
-            >
-              <Form.Control type="email" placeholder="인증코드를 입력하세요" name="email" />
-            </FloatingLabel>
+            <InputGroup className="mb-3">
+              <Form.Control
+                placeholder="이메일 인증코드 입력하기"
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                onChange={onChangeEmailCode}
+              />
+              <Button variant="outline-primary" id="button-addon2">
+                인증코드 인증
+              </Button>
+            </InputGroup>
 
             <FloatingLabel
               controlId="floatingInputPhone"
@@ -171,6 +184,7 @@ function SignUpForm() {
             </FloatingLabel>
             <Container className="d-flex justify-content-center mt-3">
               <Button variant="outline-primary" type="submit" size="lg">가입하기</Button>
+              {codeValid && (<ValidCodeMessage>이메일 인증 확인완료.</ValidCodeMessage>)}
             </Container>
           </Form>
         </Col>
