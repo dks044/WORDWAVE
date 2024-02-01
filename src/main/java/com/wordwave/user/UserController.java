@@ -72,7 +72,7 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("authenticateCode")
+	@PostMapping("/authenticateCode")
 	public ResponseEntity<?> authenticateEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
 		try {
 			EmailCode emailCode =

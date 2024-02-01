@@ -35,3 +35,7 @@ export async function deleteUserAPI(email,password){
 export async function sendEmailCodeAPI(email){
   return await axios.post('api/auth/send_authenticateCode',{email});
 }
+
+export async function validEmailCodeAPI(email,emailCode){
+  return await axios.post('api/auth/authenticateCode',{email,emailCode});
+}

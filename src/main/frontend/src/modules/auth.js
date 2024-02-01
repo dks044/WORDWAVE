@@ -42,6 +42,12 @@ const SENDEMAIL_CODE = 'auth/SENDEMAIL_CODE';
 const SENDEMAIL_CODE_SUCCESS = 'auth/SENDEMAIL_CODE_SUCCESS';
 const SENDEMAIL_CODE_FAILURE = 'auth/SENDEMAIL_CODE_FAILURE';
 
+const VALIDCODE = 'auth/VALIDCODE';
+const VALIDCODE_SUCCESS = 'auth/VALIDCODE_SUCCESS';
+const VALIDCODE_FAILURE = 'auth/VALIDCODE_FAILURE';
+
+
+
 export const login = (username, password) => async dispatch => {
   dispatch({ type: LOGIN });
   try {
@@ -167,6 +173,23 @@ export const sendEmailCode = (email) => async dispatch => {
   }
 }
 
+export const validEmailCode = (email,emailCode) => async dispatch => {
+  dispatch({type : VALIDCODE});
+  try {
+    const response = await authAPI.validEmailCodeAPI(email,emailCode);
+    dispatch({type : VALIDCODE_SUCCESS,payload: response.data});
+    return response.data;
+  } catch (e) {
+    if (e.response.status === 401) {//인증코드를 잘못입력했을 경우
+      throw e;
+    }else {
+      dispatch({type :VALIDCODE_FAILURE,error : e});
+      throw e;
+    }
+  }
+}
+
+
 
 
 const initialState = {
@@ -227,5 +250,9 @@ export default function auth(state = initialState, action) {
     case SENDEMAIL_CODE_SUCCESS:
     case SENDEMAIL_CODE_FAILURE:
       return handleAsyncActions(SENDEMAIL_CODE,'auth')(state,action);
+    case VALIDCODE:
+    case VALIDCODE_SUCCESS:
+    case VALIDCODE_FAILURE:
+      return handleAsyncActions(VALIDCODE,'auth')(state,action);
   }
 }
