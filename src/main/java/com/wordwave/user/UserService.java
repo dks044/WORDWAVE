@@ -125,4 +125,8 @@ public class UserService {
 	public SiteUser getByUserName(String userName) {
 		return userRepository.findByUserName(userName);
 	}
+	
+	public boolean equalsDatabaseByEmail(String email) {
+		return userRepository.existsByEmail(email);
+	}
 }
