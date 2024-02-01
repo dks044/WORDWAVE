@@ -60,9 +60,11 @@ public class UserController {
 			sendMessage.append("인증코드 입니다.. <br>");
 			sendMessage.append(sendCode+"<= 해당 임시코드를 입력 하세요.<br>");
 			sendMessage.append("감사합니다.<br>");
-			mailService.sendEmail(mailDTO, subject, sendMessage.toString());
 			EmailCode emailCodeEntity = emailCodeService.converterToEntity(emailAuthenicateDTO);
-			emailCodeService.save(emailCodeEntity);
+			if(emailCodeService.isEmail(emailAuthenicateDTO.getEmail())) {
+				return ResponseEntity.status(HttpStatus.OK).body("이미 이메일에 코드를 전송했습니다.");
+			}else emailCodeService.save(emailCodeEntity);
+			mailService.sendEmail(mailDTO, subject, sendMessage.toString());
 			return ResponseEntity.ok().body("email send success.");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -21,4 +21,8 @@ public class EmailCodeService {
 	public EmailCode getByCredentials(String email,String emailCode) {
 		return emailCodeRepository.findByEmailAndEmailCode(email, emailCode);
 	}
+	public boolean isEmail(String email) {
+		return emailCodeRepository.existsByEmail(email);
+	}
+	
 }

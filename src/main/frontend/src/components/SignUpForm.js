@@ -108,8 +108,12 @@ function SignUpForm() {
     }
     try {
       setLoading(true);
-      await dispatch(sendEmailCode(email));
-      await dispatch(showPopup('입력하신 이메일에 인증코드가 전송 됐습니다.'));
+      const response = await dispatch(sendEmailCode(email));
+      if (response === "이미 이메일에 코드를 전송했습니다.") {
+          await dispatch(showPopup('이미 인증 코드가 발송된 이메일입니다.'));
+      } else {
+          await dispatch(showPopup('입력하신 이메일에 인증코드가 전송 됐습니다.'));
+      }
     } catch (error) {
       console.log(error);
     } finally {
