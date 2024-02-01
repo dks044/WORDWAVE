@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.wordwave.security.Key;
 
 import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -100,4 +102,18 @@ public class UserService {
 	    user.changePassword(newPassword);
 	    userRepository.save(user);
 	}
+	//쿠키에서 토큰을 가져온다.
+	public String getTokenFromRequest(HttpServletRequest request) {
+	    Cookie[] cookies = request.getCookies();
+	    String token = null;
+	    for (Cookie cookie : cookies) {
+	        if (cookie.getName().equals("token")) {
+	            token = cookie.getValue();
+	            break;
+	        }
+	    }
+	    if(cookies == null) throw new RuntimeException("cookies is empty");
+	    return token;
+	}
+	
 }

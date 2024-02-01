@@ -202,4 +202,22 @@ public class UserController {
 		}
 	}
 	
+	@PostMapping("/change_password")
+	public ResponseEntity<?> changePassword(
+	    HttpServletRequest request,
+	    @RequestBody MyPageDTO myPageDTO
+	) {
+	    try {
+	    	String token = userService.getTokenFromRequest(request);
+		    if(token == null) return ResponseEntity.badRequest().body("Token is empty");
+		    long userId = userService.getUserIdFromJwt(token);
+	    	SiteUser user = userService.getByUserId(userId);
+	    	userService.changeUserPassword(user, myPageDTO.newPassword);
+	        return ResponseEntity.ok().body("Password changed");
+	    } catch (JwtException e) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
+	    }
+	}
+
+	
 }

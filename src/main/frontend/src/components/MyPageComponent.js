@@ -20,14 +20,21 @@ export default function MyPageComponent(){
   function onMouseOutForPhoneNumber() {return setShowPhoneNumber(false);}
   //modal
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () =>{
+    setShow(false);
+    setModalBody('');
+    setModalTitle('');
+  }
   const handleShow = () => setShow(true);
   const [modalTitle,setModalTitle] = useState('');
-  const onclickChangePwButton = () => {
+  const [modalBody,setModalBody] = useState('');
+  const onclickChangePwShowButton = () => {
     handleShow();
     setModalTitle('비밀번호 변경');
+    setModalBody('pwForm');
   }
 
+  
   return(
     <>
       <Title>VOCA</Title>
@@ -45,7 +52,7 @@ export default function MyPageComponent(){
         <h1>ID : {user.userName}</h1>
         <h3 onMouseOver={onMouseOverForEmail} onMouseOut={onMouseOutForEmail} >Email : {showEmail && user.email}</h3>
         <h4 onMouseOver={onMouseOverForPhoneNumber} onMouseOut={onMouseOutForPhoneNumber}>number : {showPhoneNumber && user.phoneNumber}</h4>
-        <Button onClick={onclickChangePwButton} variant="info">비밀번호 변경</Button>
+        <Button onClick={onclickChangePwShowButton} variant="info">비밀번호 변경</Button>
         <Button variant="danger">회원 탈퇴</Button>
       </div>
       <Modal
@@ -57,26 +64,29 @@ export default function MyPageComponent(){
         <Modal.Header closeButton>
           <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p>원래 비밀번호, 바꿀 비밀번호를 입력하세요.</p>
-          <FloatingLabel controlId="floatingPassword" label="원래 비밀번호">
-            <Form.Control type="password" placeholder="원래 비밀번호" />
-          </FloatingLabel>
-          <FloatingLabel controlId="floatingPassword" label="바꿀 비밀번호">
-            <Form.Control type="password" placeholder="바꿀 비밀번호" />
-          </FloatingLabel>
-          <FloatingLabel controlId="floatingPassword" label="바꿀 비밀번호 확인">
-            <Form.Control type="password" placeholder="바꿀 비밀번호 확인" />
-          </FloatingLabel>
-          <div className="d-grid gap-2">
-            <Button variant="info">비밀번호 변경</Button>
-          </div>
+        <Modal.Body> 
+          {modalBody === 'pwForm' && (
+            <>
+              <p>원래 비밀번호, 변경 하고싶은 비밀번호를 입력하세요.</p>
+              <FloatingLabel controlId="floatingPassword" label="원래 비밀번호">
+                <Form.Control type="password" placeholder="원래 비밀번호" />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingPassword" label="변경 비밀번호">
+                <Form.Control type="password" placeholder="바꿀 비밀번호" />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingPassword" label="변경 비밀번호 확인">
+                <Form.Control type="password" placeholder="바꿀 비밀번호 확인" />
+              </FloatingLabel>
+              <div className="d-grid gap-2">
+                <Button variant="info">비밀번호 변경</Button>
+              </div>
+            </>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Understood</Button>
         </Modal.Footer>
       </Modal>
       <br></br>
