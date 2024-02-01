@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wordwave.emailcode.EmailAuthenicateDTO;
+import com.wordwave.emailcode.EmailCode;
+import com.wordwave.emailcode.EmailCodeService;
 import com.wordwave.security.Key;
 import com.wordwave.security.TokenProvider;
 import com.wordwave.util.MailDTO;
@@ -41,19 +43,23 @@ public class UserController {
 	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
 	private final PasswordEncoder passwordEncoder;
 	private final MailService mailService;
+	private final EmailCodeService emailCodeService;
 	
 	@PostMapping("/send_authenticateCode")
 	public ResponseEntity<?> authenticateEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
-		String emailCode = mailService.createRandomPW();
+		String sendCode = mailService.createRandomPW();
+		emailAuthenicateDTO.setEmailCode(sendCode);
 		String subject = "[WORDWAVE] 인증코드 입니다.";
 		try {
 			MailDTO mailDTO = new MailDTO();
 			mailDTO.setEmail(emailAuthenicateDTO.getEmail());
 			StringBuilder sendMessage = new StringBuilder();
 			sendMessage.append("인증코드 입니다..<br>");
-			sendMessage.append(emailCode+"<= 해당 임시코드를 입력 하세요.<br>");
+			sendMessage.append(sendCode+"<= 해당 임시코드를 입력 하세요.<br>");
 			sendMessage.append("감사합니다.<br>");
 			mailService.sendEmail(mailDTO, "subject", sendMessage.toString());
+			EmailCode emailCodeEntity = emailCodeService.converterToEntity(emailAuthenicateDTO);
+			emailCodeService.save(emailCodeEntity);
 			return ResponseEntity.ok().body("email send success.");
 		} catch (Exception e) {
 			e.printStackTrace();
