@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { showPopup } from "../modules/popup";
 import { changePw, deleteUser, logout } from "../modules/auth";
-import { deleteUserAPI } from "../api/authAPI";
 import { useNavigate } from "react-router-dom";
 
 const Title = styled.h1`
@@ -54,14 +53,13 @@ export default function MyPageComponent(){
 
   const onClickChangePwFormButton = async () =>{
     if(newPassword !== confirmedPassword){
-      showPopup('변경 비밀번호와 변경 확인 비밀번호가 다릅니다.');
+      await dispatch(showPopup('새로운 비밀번호와 확인 비밀번호 입력값이 다릅니다.'));
       return;
     }
     if(password === newPassword){
-      showPopup('원래 비밀번호와 변경 하실 비밀번호가 같습니다!');
+      await dispatch(showPopup('원래 비밀번호와 변경 비밀번호를 같게 설정 할 수 없습니다.'));
       return;
     }
-
     try {
       setLoading(true); //로딩시작
       await dispatch(changePw(password,newPassword));
@@ -81,10 +79,15 @@ export default function MyPageComponent(){
   }
 
   const onClickDeleteUserFormButton = async () =>{
-    if(deleteMessage !== '네 탈퇴하겠습니다.' || deleteMessage === null){
-      showPopup('탈퇴 확인용 답변이 틀립니다.');
+    if(deleteMessage !== '네 탈퇴하겠습니다.' || !deleteMessage){
+      await dispatch(showPopup('탈퇴 확인 메시지를 제대로 작성해주세요.'));
       return;
-    } 
+    }
+    if(!email || !password || !deleteMessage){
+      await dispatch(showPopup('빈 입력칸이 있는지 확인해주세요.'));
+      return;
+    }
+
     try {
       setLoading(true); //로딩시작
       await dispatch(deleteUser(email,password));
