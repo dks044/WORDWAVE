@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wordwave.emailcode.EmailAuthenicateDTO;
 import com.wordwave.security.Key;
 import com.wordwave.security.TokenProvider;
 import com.wordwave.util.MailDTO;
@@ -40,6 +41,25 @@ public class UserController {
 	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
 	private final PasswordEncoder passwordEncoder;
 	private final MailService mailService;
+	
+	@PostMapping("/send_authenticateCode")
+	public ResponseEntity<?> authenticateEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
+		String emailCode = mailService.createRandomPW();
+		String subject = "[WORDWAVE] 인증코드 입니다.";
+		try {
+			MailDTO mailDTO = new MailDTO();
+			mailDTO.setEmail(emailAuthenicateDTO.getEmail());
+			StringBuilder sendMessage = new StringBuilder();
+			sendMessage.append("인증코드 입니다..<br>");
+			sendMessage.append(emailCode+"<= 해당 임시코드를 입력 하세요.<br>");
+			sendMessage.append("감사합니다.<br>");
+			mailService.sendEmail(mailDTO, "subject", sendMessage.toString());
+			return ResponseEntity.ok().body("email send success.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("이메일 인증 코드 전송 실패");
+		}
+	}
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
@@ -66,7 +86,7 @@ public class UserController {
 										 .point(registeredUser.getPoint())
 										 .build();
 			return ResponseEntity.ok().body(responseDTO);
-		} catch (Exception e) {//TODO: 추후에 더 구체적인 예외 클래스를 작성해야함.
+		} catch (Exception e) {
 			ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
 			return ResponseEntity
 								.badRequest()

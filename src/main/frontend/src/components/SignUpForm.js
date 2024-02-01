@@ -10,7 +10,7 @@ import { showPopup } from "../modules/popup";
 const SignUpFormBlock = styled.div`
   width: 80%;
   position: absolute;
-  top: 25%;
+  top: 15%;
   left: 50%;
   transform: translateX(-50%);
 `
@@ -126,6 +126,17 @@ function SignUpForm() {
               className="mb-3"
             >
               <Form.Control type="email" placeholder="이메일을 입력하세요" name="email" />
+              <div className="d-grid gap-2">
+                <Button>이메일 인증코드 전송</Button>
+              </div>
+            </FloatingLabel>
+
+            <FloatingLabel
+              controlId="floatingInputEmail"
+              label="이메일 인증 코드 입력"
+              className="mb-3"
+            >
+              <Form.Control type="email" placeholder="인증코드를 입력하세요" name="email" />
             </FloatingLabel>
 
             <FloatingLabel
