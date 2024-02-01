@@ -53,6 +53,9 @@ public class UserController {
 		try {
 			MailDTO mailDTO = new MailDTO();
 			mailDTO.setEmail(emailAuthenicateDTO.getEmail());
+			if(userService.equalsDatabaseByEmail(emailAuthenicateDTO.getEmail())) {
+				return ResponseEntity.status(401).body("해당 이메일에 코드를 전송할 수 없습니다.");
+			}
 			StringBuilder sendMessage = new StringBuilder();
 			sendMessage.append("인증코드 입니다.. <br>");
 			sendMessage.append(sendCode+"<= 해당 임시코드를 입력 하세요.<br>");
