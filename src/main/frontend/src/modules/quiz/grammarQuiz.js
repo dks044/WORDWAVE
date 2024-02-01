@@ -10,9 +10,6 @@ const initialState = {
 };
 
 /*
-틀린 grammar의 id를 배열에 모아서 오답 페이지에서 보여주기
-오답 페이지에 GrammarBooksPage로 돌아가는 버튼있어야함
-
 나중에 로그인된 유저만 퀴즈 페이지 접근 가능하고,
 유저 식별해서 백엔드에 오답 grammar들 post 요청 보내기
 */
@@ -44,6 +41,9 @@ const grammarQuizSlice = createSlice({
     addIncorrectGrammarId: (state, action) => {
       state.incorrectGrammarIds.push(action.payload);
     },
+    clearIncorrectGrammarIds: (state) => {
+      state.incorrectGrammarIds.length = 0;
+    },
   },
 });
 
@@ -55,5 +55,6 @@ export const {
   clickSubmitButton,
   setAnswer,
   addIncorrectGrammarId,
+  clearIncorrectGrammarIds,
 } = grammarQuizSlice.actions;
 export default grammarQuizSlice.reducer;

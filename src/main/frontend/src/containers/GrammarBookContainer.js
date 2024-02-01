@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGrammarBook } from "../modules/grammarbooks/grammarBooks";
-import GrammarIncorrectContainer from "./GrammarIncorrectContainer";
+import GrammarResultContainer from "./GrammarResultContainer";
 import GrammarBook from "../components/GrammarBook";
 
 const GrammarBookContainer = ({ grammarBookId }) => {
@@ -25,7 +25,7 @@ const GrammarBookContainer = ({ grammarBookId }) => {
       {data && (
         <>
           <GrammarBook grammarBook={data} />
-          <GrammarIncorrectContainer grammars={data.grammars} />
+          <GrammarResultContainer grammars={data.grammars} />
         </>
       )}
     </>
