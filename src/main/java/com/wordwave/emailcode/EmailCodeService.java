@@ -24,5 +24,10 @@ public class EmailCodeService {
 	public boolean isEmail(String email) {
 		return emailCodeRepository.existsByEmail(email);
 	}
-	
+	public EmailCode getByEmailCode(String email) {
+		return emailCodeRepository.findByEmail(email);
+	}
+	public void delete(EmailCode emailCode) {
+		emailCodeRepository.delete(emailCode);
+	}
 }

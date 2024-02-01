@@ -113,6 +113,7 @@ public class UserController {
 										 .createUserDate(registeredUser.getCreateUserDate())
 										 .point(registeredUser.getPoint())
 										 .build();
+			emailCodeService.delete(emailCodeService.getByEmailCode(registeredUser.getEmail()));
 			return ResponseEntity.ok().body(responseDTO);
 		} catch (Exception e) {
 			ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
