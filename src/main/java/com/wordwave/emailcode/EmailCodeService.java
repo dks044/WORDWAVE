@@ -18,4 +18,7 @@ public class EmailCodeService {
 	public void save(EmailCode emailCode) {
 		emailCodeRepository.save(emailCode);
 	}
+	public EmailCode getByCredentials(String email,String emailCode) {
+		return emailCodeRepository.findByEmailAndEmailCode(email, emailCode);
+	}
 }

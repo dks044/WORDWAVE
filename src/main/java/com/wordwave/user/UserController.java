@@ -46,7 +46,7 @@ public class UserController {
 	private final EmailCodeService emailCodeService;
 	
 	@PostMapping("/send_authenticateCode")
-	public ResponseEntity<?> authenticateEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
+	public ResponseEntity<?> authenticateSendEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
 		String sendCode = mailService.createRandomPW();
 		emailAuthenicateDTO.setEmailCode(sendCode);
 		String subject = "[WORDWAVE] 인증코드 입니다.";
@@ -60,7 +60,7 @@ public class UserController {
 			sendMessage.append("인증코드 입니다.. <br>");
 			sendMessage.append(sendCode+"<= 해당 임시코드를 입력 하세요.<br>");
 			sendMessage.append("감사합니다.<br>");
-			mailService.sendEmail(mailDTO, "subject", sendMessage.toString());
+			mailService.sendEmail(mailDTO, subject, sendMessage.toString());
 			EmailCode emailCodeEntity = emailCodeService.converterToEntity(emailAuthenicateDTO);
 			emailCodeService.save(emailCodeEntity);
 			return ResponseEntity.ok().body("email send success.");
@@ -69,6 +69,23 @@ public class UserController {
 			return ResponseEntity.badRequest().body("이메일 인증 코드 전송 실패");
 		}
 	}
+	
+	@PostMapping("authenticateCode")
+	public ResponseEntity<?> authenticateEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
+		try {
+			EmailCode emailCode =
+			emailCodeService.getByCredentials(emailAuthenicateDTO.getEmail(),emailAuthenicateDTO.getEmailCode());
+			if(emailCode == null) {
+				return ResponseEntity.status(401).body("이메일 인증 코드가 맞지 않음");
+			}
+			return ResponseEntity.ok().body("이메일 인증 성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("이메일 인증 코드가 맞지 않음.");
+		}
+	}
+	
+	
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){

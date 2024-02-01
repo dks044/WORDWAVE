@@ -109,6 +109,7 @@ function SignUpForm() {
     try {
       setLoading(true);
       await dispatch(sendEmailCode(email));
+      await dispatch(showPopup('입력하신 이메일에 인증코드가 전송 됐습니다.'));
     } catch (error) {
       console.log(error);
     } finally {

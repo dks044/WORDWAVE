@@ -27,7 +27,7 @@ public class SiteUser {
 	
 	private String token;
 	
-	@Column(unique = true, nullable = false, length = 50)
+	@Column(unique = true, nullable = false, length = 10)
 	private String userName;
 	
 	private String password;
