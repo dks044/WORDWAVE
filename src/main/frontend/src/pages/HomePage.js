@@ -21,6 +21,7 @@ const HomeContainer = styled.div`
 const HomePage = () => {
     return (
         <HomeContainer>
+            <br /><br /><br /><br /><br /><br />
             <h2>환영합니다!</h2>
             <h1>WORDWAVE</h1>
             <p>밑에 다이얼 메뉴 버튼을 눌러 시작하세요</p>

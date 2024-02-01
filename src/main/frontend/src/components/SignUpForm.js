@@ -161,7 +161,7 @@ function SignUpForm() {
               label="아이디 입력"
               className="mb-3"
             >
-              <Form.Control type="text" placeholder="아이디를 입력하세요" name="userName" />
+              <Form.Control type="text" placeholder="아이디를 입력하세요" name="userName" maxlength='10'/>
             </FloatingLabel>
 
             <FloatingLabel
