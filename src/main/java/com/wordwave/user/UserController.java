@@ -94,6 +94,8 @@ public class UserController {
 	        final String token = tokenProvider.create(user,response);
 	        final UserDTO responseDTO = UserDTO.builder()
 	                                            .userName(user.getUserName())
+	                                            .email(user.getEmail())
+	                                            .phoneNumber(user.getPhoneNumber())
 	                                            .id(user.getId())
 	                                            .build();
 	        Cookie cookie = new Cookie("token", token);
@@ -199,5 +201,5 @@ public class UserController {
 			return ResponseEntity.badRequest().body("유효하지 않은 이메일과 아이디");
 		}
 	}
-
+	
 }

@@ -126,11 +126,13 @@ function NavComponent(){
   const onClickToLoginForm = () => {
     navigate('/login')
   }
-
+  const onClickToMyPage = () => {
+    navigate('/mypage');
+  }
   return(
     <Navbar>
       <NavListLeft>
-        {isLoging && user.userName && <NavItem>{user.userName} 반가워요!😄</NavItem>}
+        {isLoging && user.userName && <NavItem>{user.userName} HI!😄</NavItem>}
       </NavListLeft>
       <NavListCenter>
         <Link to="/">
@@ -141,7 +143,7 @@ function NavComponent(){
         {isLoging && user.id && 
           <NavItem>
             <IconBox>
-              <Icon as={BsFillPersonLinesFill}/>
+              <Icon onClick={onClickToMyPage} as={BsFillPersonLinesFill}/>
               <Icon as={IoMdLogOut} onClick={handleShow}/>
             </IconBox>
           </NavItem>}

@@ -11,6 +11,7 @@ import { isLoggedIn } from "./modules/auth";
 import { ToastContainer } from "react-bootstrap";
 import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
+import MyPage from "./pages/MyPage";
 
 function App() {
   //authenticated
@@ -54,6 +55,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="grammar" element={isLoging ? <GrammarPage /> : <Navigate to="/login" />} />
+          <Route path="mypage" element={isLoging ? <MyPage /> : <Navigate to="/login" />} />
           <Route path="login" 
           element={isLoging === false ? <LoginPage /> : <Navigate to="/" />} />
           <Route path="signup" 

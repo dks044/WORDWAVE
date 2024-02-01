@@ -21,6 +21,7 @@ import './index.css';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
 
+
 #root {
     background: linear-gradient(to right, #89CFF0 0%, #B2FFFF 50%, #89CFF0 100%);
     justify-content: center;
@@ -28,6 +29,20 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
+}
+::-webkit-scrollbar {
+    width: 8px;  
+}
+
+::-webkit-scrollbar-thumb {
+    height: 30%; 
+    background: #217af4; 
+    
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  
 }
 `;
 
