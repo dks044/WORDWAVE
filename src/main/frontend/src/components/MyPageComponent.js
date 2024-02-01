@@ -69,14 +69,14 @@ export default function MyPageComponent(){
   
   return(
     <>
-      <Title>VOCA</Title>
+      <Title>🆎VOCA🆑</Title>
       <hr/>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos enim quod sequi nobis, praesentium, doloribus dolore ullam eum quis repellat repellendus aliquam voluptatibus deserunt harum ex. Qui adipisci consectetur nostrum?</p>
       <br />
-      <Title>Grammer</Title>
+      <Title>💁🏼‍♂️Grammer💁🏼‍♀️</Title>
       <hr/>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos enim quod sequi nobis, praesentium, doloribus dolore ullam eum quis repellat repellendus aliquam voluptatibus deserunt harum ex. Qui adipisci consectetur nostrum?</p>
-      <br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <Title>내 프로필</Title>
       <p>마우스를 올리면 유저정보가 보입니다.</p>
       <hr/>

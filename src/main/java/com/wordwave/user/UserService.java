@@ -116,4 +116,11 @@ public class UserService {
 	    return token;
 	}
 	
+	public void deleteUserByUserNameAnd(HttpServletRequest request) {
+		String token = getTokenFromRequest(request);
+		SiteUser user = getByUserId(getUserIdFromJwt(token));
+		if(user == null) throw new RuntimeException("not valid token and cookie");
+		userRepository.delete(user);
+	}
+	
 }

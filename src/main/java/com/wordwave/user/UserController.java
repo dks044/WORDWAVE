@@ -40,14 +40,6 @@ public class UserController {
 	private final PasswordEncoder passwordEncoder;
 	private final MailService mailService;
 	
-	//TODO: 이후 삭제 예정
-	@PreAuthorize("isAuthenticated()")
-    @GetMapping("/test")
-    public String test() {
-        return "Login logic Test";
-    }
-	
-	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
 		try {
@@ -213,12 +205,27 @@ public class UserController {
 		    long userId = userService.getUserIdFromJwt(token);
 	    	SiteUser user = userService.getByUserId(userId);
 	    	if(!user.getPassword().equals(myPageDTO.getPassword())) return ResponseEntity.status(401).body("원래 비밀번호와 입력한 비밀번호가 다릅니다.");
-	    	userService.changeUserPassword(user, myPageDTO.getNewPassword());
+	    	userService.changeUserPassword(user, passwordEncoder.encode(myPageDTO.getNewPassword()));
 	        return ResponseEntity.ok().body("Password changed");
 	    } catch (JwtException e) {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
 	    }
 	}
-
+	
+	@PostMapping("/delete_user")
+	public ResponseEntity<?> deleteUser(HttpServletRequest request, @RequestBody MyPageDTO myPageDTO){
+		try {
+			String token = userService.getTokenFromRequest(request);
+			SiteUser user = userService.getByUserId(userService.getUserIdFromJwt(token));
+			if(!user.getEmail().equals(myPageDTO.getEmail()) || !user.getPassword().equals(myPageDTO.getPassword())) {
+				return ResponseEntity.status(401).body("입력한 비밀번호와 이메일이 가입 정보와 다릅니다.");
+			}
+			userService.deleteUserByUserNameAnd(request);
+			return ResponseEntity.ok().body(user.getId()+"<= user deleted.");
+		} catch (JwtException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
+		}
+	}
+	
 	
 }
