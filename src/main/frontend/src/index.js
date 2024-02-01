@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
+
 }
 ::-webkit-scrollbar {
     width: 8px;  

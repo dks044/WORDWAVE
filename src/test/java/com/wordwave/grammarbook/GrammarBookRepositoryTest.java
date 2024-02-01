@@ -16,7 +16,7 @@ class GrammarBookRepositoryTest {
     GrammarBookRepository grammarBookRepository;
 
     @Test
-    @Rollback(false)
+//    @Rollback(false)
     void cascadePersistTest() {
         GrammarBook grammarBook = GrammarBook.builder().name("test book2").build();
         Grammar grammar1 = Grammar.builder().sentence("test sentence4").grammarBook(grammarBook).build();

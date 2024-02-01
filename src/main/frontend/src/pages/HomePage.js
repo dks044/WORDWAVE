@@ -5,11 +5,17 @@ import styled from "styled-components";
 import { showPopup } from "../modules/popup";
 
 const HomeContainer = styled.div`
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-    padding-top: 30%;
+  //크기
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+  //위치
+  position: inherit;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 `;
+
 
 
 const HomePage = () => {
@@ -23,3 +29,4 @@ const HomePage = () => {
 }
 
 export default React.memo(HomePage);
+

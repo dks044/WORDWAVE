@@ -10,11 +10,11 @@ const waveAnimation = keyframes`
     }
 `;
 const WaveEffectContainer = styled.div`
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
+  /* overflow-x: hidden; */
 `;
-
 
 const WaveOne = styled.div`
   position: absolute;
@@ -29,7 +29,6 @@ const WaveOne = styled.div`
   animation: ${waveAnimation} 10000ms infinite linear;
   opacity: 0.5;
   background: #0af;
-
 `;
 const WaveTwo = styled.div`
   position: absolute;
@@ -72,3 +71,4 @@ function WaveEffect(){
 }
 
 export default React.memo(WaveEffect);
+

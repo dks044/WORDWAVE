@@ -13,6 +13,7 @@ import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
 
+
 function App() {
   //authenticated
   const { isLoging } = useSelector(state=>state.auth);
