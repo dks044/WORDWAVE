@@ -34,6 +34,10 @@ const CHANGEPW = 'auth/CHANGEPW';
 const CHANGEPW_SUCCESS = 'auth/CHANGEPW_SUCCESS';
 const CHANGEPW_FAILURE = 'auth/CHANGEPW_FAILURE';
 
+const DELETE_USER = 'auth/DELETE_USER';
+const DELETE_USER_SUCCESS = 'auth/DELETE_USER_SUCCESS';
+const DELETE_USER_FAILURE = 'auth/DELETE_USER_FAILURE';
+
 export const login = (username, password) => async dispatch => {
   dispatch({ type: LOGIN });
   try {
@@ -128,6 +132,23 @@ export const changePw = (password,newPassword) => async dispatch => {
   }
 }
 
+export const deleteUser = (email,password) => async dispatch => {
+  dispatch({type : DELETE_USER});
+  try {
+    const response = await authAPI.deleteUserAPI(email,password);
+    dispatch({type : DELETE_USER_SUCCESS, payload: response.data});
+    return response.data;
+  } catch (e) {
+    if (e.response.status === 401) {//입력한 비밀번호와 이메일이 회원정보와 안맞을경우
+      throw e;
+    }else{
+      dispatch({type : DELETE_USER_FAILURE, error : e});
+      throw e;
+    }
+  }
+}
+
+
 
 const initialState = {
   auth: reducerUtils.initial(),
@@ -179,5 +200,10 @@ export default function auth(state = initialState, action) {
     case CHANGEPW_SUCCESS:
     case CHANGEPW_FAILURE:
       return handleAsyncActions(CHANGEPW,'auth')(state,action);
+    case DELETE_USER:
+    case DELETE_USER_SUCCESS:
+    case DELETE_USER_FAILURE:
+      return handleAsyncActions(DELETE_USER,'auth')(state,action);
+
   }
 }

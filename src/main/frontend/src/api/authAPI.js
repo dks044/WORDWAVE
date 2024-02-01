@@ -27,3 +27,7 @@ export async function findPwAPI(userName,email){
 export async function changePwAPI(password,newPassword){
   return await axios.post('/api/auth/change_password',{password,newPassword});
 }
+
+export async function deleteUserAPI(email,password){
+  return await axios.post('/api/auth/delete_user',{email,password});
+}

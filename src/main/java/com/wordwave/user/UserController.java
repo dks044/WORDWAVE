@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,24 +80,22 @@ public class UserController {
 	        @RequestBody UserDTO userDTO,
 	        HttpServletResponse response
 	        ){
-	    SiteUser user = userService.getByCredentials(
-	            userDTO.getUserName(),
-	            userDTO.getPassword());
-	    if(user != null) {
+	    SiteUser user = userService.getByUserName(userDTO.getUserName());
+	    if(user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
 	        final String token = tokenProvider.create(user,response);
 	        final UserDTO responseDTO = UserDTO.builder()
-	                                            .userName(user.getUserName())
-	                                            .email(user.getEmail())
-	                                            .phoneNumber(user.getPhoneNumber())
-	                                            .id(user.getId())
-	                                            .build();
+	                .userName(user.getUserName())
+	                .email(user.getEmail())
+	                .phoneNumber(user.getPhoneNumber())
+	                .id(user.getId())
+	                .build();
 	        Cookie cookie = new Cookie("token", token);
 	        cookie.setHttpOnly(true);
 	        response.addCookie(cookie);
 	        return ResponseEntity.ok().body(responseDTO);
 	    }else {
 	        ResponseDTO responseDTO = ResponseDTO.builder()
-	                .error("Login Falid")
+	                .error("Login Failed")
 	                .build();
 	        log.info("utf-8", responseDTO.getError(), responseDTO);
 	        return ResponseEntity.badRequest().body(responseDTO);
@@ -179,7 +178,7 @@ public class UserController {
 		try {
 			SiteUser user = userService.getSiteUserByUserNameAndEmail(mailDTO.getUserName(), mailDTO.getEmail());
 			String newPassword = mailService.createRandomPW();
-			userService.changeUserPassword(user, newPassword);
+			userService.changeUserPassword(user, passwordEncoder.encode(newPassword));
 			StringBuilder sendMessage = new StringBuilder();
 			sendMessage.append("반갑습니다 ");
 			sendMessage.append(user.getUserName()+" 님<br>");
@@ -204,23 +203,25 @@ public class UserController {
 		    if(token == null) return ResponseEntity.badRequest().body("Token is empty");
 		    long userId = userService.getUserIdFromJwt(token);
 	    	SiteUser user = userService.getByUserId(userId);
-	    	if(!user.getPassword().equals(myPageDTO.getPassword())) return ResponseEntity.status(401).body("원래 비밀번호와 입력한 비밀번호가 다릅니다.");
+	    	if(!passwordEncoder.matches(myPageDTO.getPassword(), user.getPassword())){
+	    		return ResponseEntity.status(401).body("원래 비밀번호와 입력한 비밀번호가 다릅니다.");
+	    	}
 	    	userService.changeUserPassword(user, passwordEncoder.encode(myPageDTO.getNewPassword()));
 	        return ResponseEntity.ok().body("Password changed");
 	    } catch (JwtException e) {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
 	    }
 	}
-	
+
 	@PostMapping("/delete_user")
 	public ResponseEntity<?> deleteUser(HttpServletRequest request, @RequestBody MyPageDTO myPageDTO){
 		try {
 			String token = userService.getTokenFromRequest(request);
 			SiteUser user = userService.getByUserId(userService.getUserIdFromJwt(token));
-			if(!user.getEmail().equals(myPageDTO.getEmail()) || !user.getPassword().equals(myPageDTO.getPassword())) {
+			if(!user.getEmail().equals(myPageDTO.getEmail()) || !passwordEncoder.matches(myPageDTO.getPassword(), user.getPassword())) {
 				return ResponseEntity.status(401).body("입력한 비밀번호와 이메일이 가입 정보와 다릅니다.");
 			}
-			userService.deleteUserByUserNameAnd(request);
+			userService.deleteUser(user);
 			return ResponseEntity.ok().body(user.getId()+"<= user deleted.");
 		} catch (JwtException e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");

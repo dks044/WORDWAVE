@@ -3,7 +3,9 @@ import { Button, FloatingLabel, Form, Modal, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { showPopup } from "../modules/popup";
-import { changePw } from "../modules/auth";
+import { changePw, deleteUser, logout } from "../modules/auth";
+import { deleteUserAPI } from "../api/authAPI";
+import { useNavigate } from "react-router-dom";
 
 const Title = styled.h1`
   text-align: center;
@@ -16,6 +18,7 @@ export default function MyPageComponent(){
   const [showPhoneNumber,setShowPhoneNumber] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function onMouseOverForEmail (){ return setShowEmail(true);}
   function onMouseOutForEmail(){ return setShowEmail(false);}
@@ -40,10 +43,14 @@ export default function MyPageComponent(){
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [deleteMessage,setDeleteMessage] = useState('');
 
   const onChangeOriginalPassword = (e) => setPassword(e.target.value);
   const onChangeNewPassword = (e) => setNewPassword(e.target.value);
   const onChangeConfirmedPassword = (e) => setConfirmedPassword(e.target.value);
+  const onChangeEmail = (e) => setEmail(e.target.value);
+  const onChangeDeleteMessage = (e) => setDeleteMessage(e.target.value);
 
   const onClickChangePwFormButton = async () =>{
     if(newPassword !== confirmedPassword){
@@ -67,6 +74,33 @@ export default function MyPageComponent(){
     }
   }
   
+  const onclickDeleteUserShowButton = () => {
+    handleShow();
+    setModalTitle('회원 탈퇴🥹');
+    setModalBody('deleteUserForm');
+  }
+
+  const onClickDeleteUserFormButton = async () =>{
+    if(deleteMessage !== '네 탈퇴하겠습니다.' || deleteMessage === null){
+      showPopup('탈퇴 확인용 답변이 틀립니다.');
+      return;
+    } 
+    try {
+      setLoading(true); //로딩시작
+      await dispatch(deleteUser(email,password));
+      await dispatch(logout());
+      navigate('/');
+      await dispatch(showPopup('계정 탈퇴가 완료됐습니다, 이후에 또 만나길 바랍니다!😎'))
+    } catch (error) {
+      await dispatch(showPopup('입력하신 비밀번호와 이메일이 회원정보와 일치하지 않습니다.'));
+      return;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
+
   return(
     <>
       <Title>🆎VOCA🆑</Title>
@@ -85,7 +119,7 @@ export default function MyPageComponent(){
         <h3 onMouseOver={onMouseOverForEmail} onMouseOut={onMouseOutForEmail} >Email : {showEmail && user.email}</h3>
         <h4 onMouseOver={onMouseOverForPhoneNumber} onMouseOut={onMouseOutForPhoneNumber}>number : {showPhoneNumber && user.phoneNumber}</h4>
         <Button onClick={onclickChangePwShowButton} variant="info">비밀번호 변경</Button>
-        <Button variant="danger">회원 탈퇴</Button>
+        <Button onClick={onclickDeleteUserShowButton} variant="danger">회원 탈퇴</Button>
       </div>
       <Modal
         show={show}
@@ -111,6 +145,24 @@ export default function MyPageComponent(){
               </FloatingLabel>
               <div className="d-grid gap-2">
                 <Button onClick={onClickChangePwFormButton} variant="info">비밀번호 변경</Button>
+              </div>
+            </>
+          )}
+          {modalBody === 'deleteUserForm' && (
+            <>
+              <p>원래 비밀번호, 가입시 등록한 이메일을 입력해주세요.</p>
+              <p>"네 탈퇴하겠습니다." 까지 입력하면 계정 탈퇴가 가능합니다.</p>
+              <FloatingLabel controlId="floatingPassword" label="원래 비밀번호">
+                <Form.Control type="password" placeholder="원래 비밀번호" onChange={onChangeOriginalPassword}/>
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingEmail" label="이메일">
+                <Form.Control type="email" placeholder="이메일" onChange={onChangeEmail}/>
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingDeleteMessage" label="정말로 탈퇴하시겠습니까? (네 탈퇴하겠습니다.)">
+                <Form.Control type="text" placeholder="네 탈퇴하겠습니다." onChange={onChangeDeleteMessage}/>
+              </FloatingLabel>
+              <div className="d-grid gap-2">
+                <Button onClick={onClickDeleteUserFormButton} variant="danger">회원 탈퇴</Button>
               </div>
             </>
           )}

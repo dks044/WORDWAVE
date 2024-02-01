@@ -2,6 +2,7 @@ package com.wordwave.user;
 
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.wordwave.security.Key;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 	private final UserRepository userRepository;
 	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
+	private final PasswordEncoder passwordEncoder;
 	
     public SiteUser convertDtoToEntity(UserDTO userDto) {
         return SiteUser.builder()
@@ -57,15 +59,15 @@ public class UserService {
 	}
 	
 	public SiteUser getByCredentials(final String userName, final String password) {
-		return userRepository.findByUserNameAndPassword(userName, password);
+		return userRepository.findByUserNameAndPassword(userName, passwordEncoder.encode(password));
 	}
 	
 	public SiteUser getByUserId(final long id) {
-		Optional<SiteUser> user = userRepository.findById(id);
-		if(user == null) {
-			throw new RuntimeException(id+"<= this is not valid");
-		}
-		return user.get();
+	    Optional<SiteUser> user = userRepository.findById(id);
+	    if(!user.isPresent()) {
+	        throw new RuntimeException(id+"<= this is not valid");
+	    }
+	    return user.get();
 	}
 	
 	public boolean validateEmail(String email) {
@@ -116,11 +118,11 @@ public class UserService {
 	    return token;
 	}
 	
-	public void deleteUserByUserNameAnd(HttpServletRequest request) {
-		String token = getTokenFromRequest(request);
-		SiteUser user = getByUserId(getUserIdFromJwt(token));
-		if(user == null) throw new RuntimeException("not valid token and cookie");
-		userRepository.delete(user);
+	public void deleteUser(SiteUser user) {
+	    userRepository.delete(user);
 	}
 	
+	public SiteUser getByUserName(String userName) {
+		return userRepository.findByUserName(userName);
+	}
 }
