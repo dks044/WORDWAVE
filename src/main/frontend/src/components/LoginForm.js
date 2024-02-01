@@ -3,7 +3,7 @@ import { Button, Col, Container, FloatingLabel, Form, InputGroup, Modal, Row, Sp
 import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {findId, login} from '../modules/auth'
+import {findId, findPw, login} from '../modules/auth'
 import { showPopup } from '../modules/popup';
 
 const LoginFormBlock = styled.div`
@@ -68,11 +68,19 @@ export default function LoginForm(){
     }
   };
   const [emailForFindId, setEmailForFindId] = useState('');
+  const [userNameForFindPw, setUserNameForFindPw] = useState('');
+  const [emailForFindPw, setEmailForFindPw] = useState('');
 
   const onChangeEmailForFindId = (e) => {
-    console.log(e.target.value);  
     setEmailForFindId(e.target.value);
   };
+  const onChangeUserNameForFindPw = (e) => {
+    setUserNameForFindPw(e.target.value);
+  };
+  const onChangeEmailForFindPw = (e) => {
+    setEmailForFindPw(e.target.value);
+  };
+
   const onClickFindId = async (event) => {
     const email = emailForFindId;
     console.log(email);
@@ -83,6 +91,22 @@ export default function LoginForm(){
     } catch (error) {
       await dispatch(showPopup('유효하지 않은 이메일입니다.'));
       setEmailForFindId('');
+    } finally {
+      setLoading(false);
+    }
+  }
+  
+  const onClickFindPw = async (event) => {
+    const userName = userNameForFindPw;
+    const email = emailForFindPw;
+    setLoading(true); //로딩시작
+    try {
+      await dispatch(findPw(userName,email));
+      await dispatch(showPopup('입력하신 이메일에 임시 비밀번호를 전송했습니다.'));
+    } catch (error) {
+      await dispatch(showPopup('유효하지 않은 이메일과 아이디 입니다.'));
+      setEmailForFindPw('');
+      setUserNameForFindPw('');
     } finally {
       setLoading(false);
     }
@@ -125,11 +149,11 @@ export default function LoginForm(){
             keyboard={false}
           >
             <Modal.Header closeButton>
-              <Modal.Title><TitleText>👀 아이디&비밀번호 찾기</TitleText></Modal.Title>
+              <Modal.Title><TitleText>👀 아이디&비밀번호 찾기 {loading ? <Spinner animation="border" /> : null}</TitleText></Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <SubTitleText>아이디 찾기</SubTitleText>
-              <p>가입시 입력한 이메일을 입력하세요. {loading ? <Spinner animation="border" /> : null}</p>
+              <p>가입시 입력한 이메일을 입력하세요.</p>
               <InputGroup className="mb-3">
                 <Form.Control
                   placeholder="이메일 입력"
@@ -149,13 +173,15 @@ export default function LoginForm(){
                   placeholder="아이디 입력"
                   aria-label="Recipient's username"
                   aria-describedby="basic-addon2"
+                  onChange={onChangeUserNameForFindPw}
                 />
                 <Form.Control
                   placeholder="이메일 입력"
                   aria-label="Recipient's username"
                   aria-describedby="basic-addon2"
+                  onChange={onChangeEmailForFindPw}
                 />
-                <Button variant="outline-secondary" id="button-addon2">
+                <Button onClick={onClickFindPw} variant="outline-secondary" id="button-addon2">
                   비밀번호 찾기
                 </Button>
               </InputGroup>

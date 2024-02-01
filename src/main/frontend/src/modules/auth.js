@@ -26,6 +26,9 @@ const FINDID = 'auth/FINDID';
 const FINDID_SUCCESS = 'auth/FINDID_SUCCESS';
 const FINDID_FAILURE = 'auth/FINDID_FAILURE';
 
+const FINDPW = 'auth/FINDPW';
+const FINDPW_SUCCESS = 'auth/FINDPW_SUCCESS';
+const FINDPW_FAILURE = 'auth/FINDPW_FAILURE';
 
 
 export const login = (username, password) => async dispatch => {
@@ -94,6 +97,17 @@ export const findId = (email) => async dispatch => {
   }
 }
 
+export const findPw = (userName,email) => async dispatch => {
+  dispatch({type : FINDPW});
+  try {
+    const response = await authAPI.findPwAPI(userName,email);
+    dispatch({type : FINDID_SUCCESS,payload : response.data});
+    return response.data;
+  } catch (e) {
+    dispatch({type: FINDID_FAILURE, error: e});
+    throw e;
+  }
+}
 
 
 const initialState = {
@@ -137,6 +151,10 @@ export default function auth(state = initialState, action) {
     case FINDID_SUCCESS:
     case FINDID_FAILURE:
       return handleAsyncActions(FINDID,'auth')(state,action);
-    
+
+    case FINDPW:
+    case FINDPW_SUCCESS:
+    case FINDPW_FAILURE:
+      return handleAsyncActions(FINDPW,'auth')(state,action);
   }
 }

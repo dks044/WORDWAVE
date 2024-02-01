@@ -187,8 +187,8 @@ public class UserController {
 			String newPassword = mailService.createRandomPW();
 			userService.changeUserPassword(user, newPassword);
 			StringBuilder sendMessage = new StringBuilder();
-			sendMessage.append("반갑습니다");
-			sendMessage.append(user.getUserName()+"님<br>");
+			sendMessage.append("반갑습니다 ");
+			sendMessage.append(user.getUserName()+" 님<br>");
 			sendMessage.append("임시 비밀번호 발급해드리겠습니다.<br>");
 			sendMessage.append(newPassword+"<= 해당 임시 비밀번호로 로그인하세요.<br>");
 			sendMessage.append("감사합니다.<br>");
