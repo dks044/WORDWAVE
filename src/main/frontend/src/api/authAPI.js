@@ -21,5 +21,9 @@ export async function findidAPI(email){
 }
 
 export async function findPwAPI(userName,email){
-  return await axios.post('/api/auth//find_password',{userName,email})
+  return await axios.post('/api/auth/find_password',{userName,email})
+}
+
+export async function changePwAPI(password,newPassword){
+  return await axios.post('/api/auth/change_password',{password,newPassword});
 }

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { Button, FloatingLabel, Form, Modal, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { showPopup } from "../modules/popup";
+import { changePw } from "../modules/auth";
 
 const Title = styled.h1`
   text-align: center;
@@ -12,7 +14,8 @@ export default function MyPageComponent(){
   const {user} = useSelector(state=>state.auth);
   const [showEmail,setShowEmail] = useState(false);
   const [showPhoneNumber,setShowPhoneNumber] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   function onMouseOverForEmail (){ return setShowEmail(true);}
   function onMouseOutForEmail(){ return setShowEmail(false);}
@@ -34,6 +37,35 @@ export default function MyPageComponent(){
     setModalBody('pwForm');
   }
 
+  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('');
+
+  const onChangeOriginalPassword = (e) => setPassword(e.target.value);
+  const onChangeNewPassword = (e) => setNewPassword(e.target.value);
+  const onChangeConfirmedPassword = (e) => setConfirmedPassword(e.target.value);
+
+  const onClickChangePwFormButton = async () =>{
+    if(newPassword !== confirmedPassword){
+      showPopup('변경 비밀번호와 변경 확인 비밀번호가 다릅니다.');
+      return;
+    }
+    if(password === newPassword){
+      showPopup('원래 비밀번호와 변경 하실 비밀번호가 같습니다!');
+      return;
+    }
+
+    try {
+      setLoading(true); //로딩시작
+      await dispatch(changePw(password,newPassword));
+      await dispatch(showPopup('비밀번호를 새로운 변경했습니다, 다음에 새로운 비밀번호로 로그인하세요.'))
+    } catch (error) {
+      await dispatch(showPopup('원래비밀번호와 입력하신 비밀번호가 다릅니다.'));
+      return;
+    } finally {
+      setLoading(false);
+    }
+  }
   
   return(
     <>
@@ -62,23 +94,23 @@ export default function MyPageComponent(){
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{modalTitle}</Modal.Title>
+          <Modal.Title>{modalTitle} {loading ? <Spinner animation="border" /> : null}</Modal.Title>
         </Modal.Header>
         <Modal.Body> 
           {modalBody === 'pwForm' && (
             <>
               <p>원래 비밀번호, 변경 하고싶은 비밀번호를 입력하세요.</p>
-              <FloatingLabel controlId="floatingPassword" label="원래 비밀번호">
-                <Form.Control type="password" placeholder="원래 비밀번호" />
+              <FloatingLabel controlId="floatingOriginPassword" label="원래 비밀번호">
+                <Form.Control type="password" placeholder="원래 비밀번호" onChange={onChangeOriginalPassword}/>
               </FloatingLabel>
-              <FloatingLabel controlId="floatingPassword" label="변경 비밀번호">
-                <Form.Control type="password" placeholder="바꿀 비밀번호" />
+              <FloatingLabel controlId="floatingNewPassword" label="변경 비밀번호">
+                <Form.Control type="password" placeholder="바꿀 비밀번호" onChange={onChangeNewPassword}/>
               </FloatingLabel>
-              <FloatingLabel controlId="floatingPassword" label="변경 비밀번호 확인">
-                <Form.Control type="password" placeholder="바꿀 비밀번호 확인" />
+              <FloatingLabel controlId="floatingNewConfirmPassword" label="변경 비밀번호 확인">
+                <Form.Control type="password" placeholder="바꿀 비밀번호 확인" onChange={onChangeConfirmedPassword}/>
               </FloatingLabel>
               <div className="d-grid gap-2">
-                <Button variant="info">비밀번호 변경</Button>
+                <Button onClick={onClickChangePwFormButton} variant="info">비밀번호 변경</Button>
               </div>
             </>
           )}

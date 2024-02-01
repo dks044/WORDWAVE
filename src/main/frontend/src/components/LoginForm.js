@@ -81,7 +81,7 @@ export default function LoginForm(){
     setEmailForFindPw(e.target.value);
   };
 
-  const onClickFindId = async (event) => {
+  const onClickFindId = async () => {
     const email = emailForFindId;
     console.log(email);
     setLoading(true); //로딩시작

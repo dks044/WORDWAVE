@@ -30,6 +30,9 @@ const FINDPW = 'auth/FINDPW';
 const FINDPW_SUCCESS = 'auth/FINDPW_SUCCESS';
 const FINDPW_FAILURE = 'auth/FINDPW_FAILURE';
 
+const CHANGEPW = 'auth/CHANGEPW';
+const CHANGEPW_SUCCESS = 'auth/CHANGEPW_SUCCESS';
+const CHANGEPW_FAILURE = 'auth/CHANGEPW_FAILURE';
 
 export const login = (username, password) => async dispatch => {
   dispatch({ type: LOGIN });
@@ -109,6 +112,22 @@ export const findPw = (userName,email) => async dispatch => {
   }
 }
 
+export const changePw = (password,newPassword) => async dispatch => {
+  dispatch({ type : CHANGEPW });
+  try {
+    const response = await authAPI.changePwAPI(password,newPassword);
+    dispatch({ type : CHANGEPW_SUCCESS, payload: response.data});
+    return response.data;
+  } catch (e) {
+    if (e.response.status === 401) {//입력한 비밀번호와 원래비밀번호가 안맞을경우
+      throw e;
+    } else {
+      dispatch({ type : CHANGEPW_FAILURE, error: e});
+      throw e;
+    }
+  }
+}
+
 
 const initialState = {
   auth: reducerUtils.initial(),
@@ -156,5 +175,9 @@ export default function auth(state = initialState, action) {
     case FINDPW_SUCCESS:
     case FINDPW_FAILURE:
       return handleAsyncActions(FINDPW,'auth')(state,action);
+    case CHANGEPW:
+    case CHANGEPW_SUCCESS:
+    case CHANGEPW_FAILURE:
+      return handleAsyncActions(CHANGEPW,'auth')(state,action);
   }
 }
