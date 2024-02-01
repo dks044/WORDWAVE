@@ -21,6 +21,7 @@ const ModalTitle = styled.h2`
   font-weight: bolder;
 `
 const ValidCodeMessage = styled.h3`
+  text-align: center;
   color: red;
 `
 
@@ -118,6 +119,7 @@ function SignUpForm() {
           await dispatch(showPopup('입력하신 이메일에 인증코드가 전송 됐습니다.'));
       }
     } catch (error) {
+      await dispatch(showPopup('입력하신 이메일은 코드를 전송할 수 없습니다.'));
       console.log(error);
     } finally {
       setLoading(false);
@@ -182,7 +184,7 @@ function SignUpForm() {
                 aria-describedby="basic-addon2"
                 onChange={onChangeEmailCode}
               />
-              <Button variant="outline-primary" id="button-addon2">
+              <Button onClick={onClickEmailCodeValid} variant="outline-primary" id="button-addon2">
                 인증코드 인증 {loading ? <Spinner animation="border" variant="light"/> : null}
               </Button>
             </InputGroup>
@@ -196,8 +198,9 @@ function SignUpForm() {
             </FloatingLabel>
             <Container className="d-flex justify-content-center mt-3">
               <Button variant="outline-primary" type="submit" size="lg">가입하기</Button>
-              {codeValid && (<ValidCodeMessage>이메일 인증 확인완료.</ValidCodeMessage>)}
             </Container>
+              <br />
+              {codeValid && (<ValidCodeMessage>이메일 인증 확인완료.</ValidCodeMessage>)}
           </Form>
         </Col>
       </Row>
