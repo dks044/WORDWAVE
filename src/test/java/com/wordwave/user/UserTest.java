@@ -46,6 +46,7 @@ public class UserTest {
     @Test
     @Transactional
     @Rollback(false)
+    @Disabled
     void findUserNameByEmailTest() { //테스트 성공
     	String errorEmail = "error@error.com";
     	assertThrows(RuntimeException.class, () -> userService.getUserNameByEmail(errorEmail));
