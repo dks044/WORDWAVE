@@ -158,8 +158,12 @@ export const sendEmailCode = (email) => async dispatch => {
     dispatch({type : SENDEMAIL_CODE_SUCCESS,payload : response.data});
     return response.data;
   } catch (e) {
-    dispatch({type : SENDEMAIL_CODE_FAILURE,error : e});
-    throw e;
+    if (e.response.status === 401) {//입력한 이메일이 데이터베이스에 이미 있을경우
+      throw e;
+    }else {
+      dispatch({type : SENDEMAIL_CODE_FAILURE,error : e});
+      throw e;
+    }
   }
 }
 
