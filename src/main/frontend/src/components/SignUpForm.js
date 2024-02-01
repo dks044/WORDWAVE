@@ -73,7 +73,7 @@ function SignUpForm() {
     const password = event.target.elements.floatingInputPassword.value;
     const email = event.target.elements.floatingInputEmail.value;
     const phoneNumber = event.target.elements.floatingInputPhone.value;
-  
+
     if(!userName || !password || !email || !phoneNumber){
       handleShow();
       setErrorMessage('빈 입력칸이 있는지 확인해주세요.');
@@ -91,6 +91,12 @@ function SignUpForm() {
       setErrorMessage('전화번호는 010으로 시작하고, 숫자가 총 11개여야 합니다.');
       return;
     }
+    if(!codeValid){
+      handleShow();
+      setErrorMessage('이메일 인증을 하지 않으면, 회원가입을 할 수 없습니다.');
+      return;
+    }
+
     try {
       await dispatch(signUp(userName,password,email,phoneNumber));
       await dispatch(showPopup('회원가입에 성공하였습니다.'));
