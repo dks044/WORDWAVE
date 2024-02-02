@@ -46,11 +46,8 @@ const GrammarBooks = ({ grammarBooks }) => {
     <>
       <Lists>
         {grammarBooks.map((grammarBook) => (
-          <ListItem>
-            <GrammarBookLink
-              key={grammarBook.id}
-              to={`/grammarbook/${grammarBook.id}`}
-            >
+          <ListItem key={grammarBook.id}>
+            <GrammarBookLink to={`/grammarbooks/${grammarBook.id}`}>
               {grammarBook.name}
             </GrammarBookLink>
           </ListItem>

@@ -10,7 +10,7 @@ const GrammarBookContainer = ({ grammarBookId }) => {
   );
   const data = useSelector((state) => state.grammarBooks.grammarBook.data);
   const error = useSelector((state) => state.grammarBooks.grammarBook.error);
-
+  const grammarIndex = useSelector((state) => state.grammarQuiz.grammarIndex);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,11 +20,13 @@ const GrammarBookContainer = ({ grammarBookId }) => {
   if (loading && !data) return <div>loading...</div>;
   if (error) return <div>error!!</div>;
 
+  const progressRate = (grammarIndex / data.grammars.length) * 100;
+
   return (
     <>
       {data && (
         <>
-          <GrammarBook grammarBook={data} />
+          <GrammarBook grammarBook={data} progressRate={progressRate} />
           <GrammarResultContainer grammars={data.grammars} />
         </>
       )}
