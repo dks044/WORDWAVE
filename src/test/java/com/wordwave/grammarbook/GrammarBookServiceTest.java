@@ -78,8 +78,8 @@ class GrammarBookServiceTest {
     @Test
     @DisplayName("GrammarBook의 이름을 수정한다.")
     void updateGrammarBookNameTest() {
-        Long id = 12L;
-        String newName = "test book4";
+        Long id = 6L;
+        String newName = "현재완료";
 
         this.grammarBookService.updateGrammarBookName(id, newName);
 
