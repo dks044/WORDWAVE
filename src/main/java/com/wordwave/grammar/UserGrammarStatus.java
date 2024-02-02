@@ -1,12 +1,16 @@
-package com.wordwave.user;
+package com.wordwave.grammar;
 
+import com.wordwave.user.SiteUser;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class UserGrammarStatus {
 
     @Id
@@ -27,4 +31,11 @@ public class UserGrammarStatus {
     private Long wrongGrammarId;
 
     private LocalDateTime lastAttempted;
+
+    //보안 dev push전까진 user 필드 생략
+    @Builder
+    public UserGrammarStatus(Long wrongGrammarId, LocalDateTime lastAttempted) {
+        this.wrongGrammarId = wrongGrammarId;
+        this.lastAttempted = lastAttempted;
+    }
 }
