@@ -1,6 +1,6 @@
 package com.wordwave.grammar;
 
-import com.wordwave.ResponseDTO;
+import com.wordwave.util.ResponseDTO;
 import com.wordwave.exception.DataNotFoundException;
 import com.wordwave.grammar.dto.GrammarDto;
 import com.wordwave.grammar.dto.WrongGrammarDto;
