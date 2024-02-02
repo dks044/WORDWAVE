@@ -6,6 +6,7 @@ import {
   initializeIndex,
   clearIncorrectGrammarIds,
 } from "../modules/quiz/grammarQuiz";
+import { Spinner } from "react-bootstrap";
 
 const GrammarBooksContainer = () => {
   const loading = useSelector(
@@ -24,10 +25,17 @@ const GrammarBooksContainer = () => {
     dispatch(getGrammarBooks());
   }, [data, dispatch]);
 
-  if (loading && !data) return <div>loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  return <>{data && <GrammarBooks grammarBooks={data} />}</>;
+  return (
+    <>
+      {data ? (
+        <GrammarBooks grammarBooks={data} />
+      ) : (
+        <Spinner animation="border" />
+      )}
+    </>
+  );
 };
 
 export default GrammarBooksContainer;

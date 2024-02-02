@@ -6,6 +6,7 @@ const GrammarResultContainer = ({ grammars }) => {
     (state) => state.grammarQuiz.incorrectGrammarIds
   );
   const grammarIndex = useSelector((state) => state.grammarQuiz.grammarIndex);
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <>

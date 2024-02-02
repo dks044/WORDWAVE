@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getGrammarBook } from "../modules/grammarbooks/grammarBooks";
 import GrammarResultContainer from "./GrammarResultContainer";
 import GrammarBook from "../components/GrammarBook";
+import CircleSpinner from "../components/CircleSpinner";
 
 const GrammarBookContainer = ({ grammarBookId }) => {
   const loading = useSelector(
@@ -17,7 +18,7 @@ const GrammarBookContainer = ({ grammarBookId }) => {
     dispatch(getGrammarBook(grammarBookId));
   }, [grammarBookId, dispatch]);
 
-  if (loading && !data) return <div>loading...</div>;
+  if (loading && !data) return <CircleSpinner />;
   if (error) return <div>error!!</div>;
 
   const progressRate = (grammarIndex / data.grammars.length) * 100;
