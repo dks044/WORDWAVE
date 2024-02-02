@@ -27,7 +27,7 @@ public class SiteUser {
 	
 	private String token;
 	
-	@Column(unique = true, nullable = false, length = 50)
+	@Column(unique = true, nullable = false, length = 10)
 	private String userName;
 	
 	private String password;
@@ -48,5 +48,7 @@ public class SiteUser {
     @Builder.Default
     private UserRole role = UserRole.USER;
     
-
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+    }
 }

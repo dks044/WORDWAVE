@@ -9,7 +9,7 @@ const NotFoundContainer = styled.div`
     
 `
 
-function NotFound(){
+function NotFoundPage(){
     return(
         <NotFoundContainer>
             <h1>404</h1>
@@ -20,4 +20,4 @@ function NotFound(){
     )
 }
 
-export default React.memo(NotFound);
+export default React.memo(NotFoundPage);

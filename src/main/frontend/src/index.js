@@ -1,62 +1,73 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+// import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import GmarketSansTTFLight from "./resources/GmarketSansTTFLight.ttf";
 import WaveEffect from "./components/WaveEffect";
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "./modules";
+import logger from "redux-logger";
 import { Provider } from "react-redux";
-import store from "./modules/config";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import storage from 'redux-persist/lib/storage'
+import persistReducer from "redux-persist/es/persistReducer";
+import { PersistGate } from "redux-persist/integration/react";
+import persistStore from "redux-persist/es/persistStore";
+import './index.css';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
-@font-face {
-    font-family: 'GmarketSansTTFLight';
-    src: url(${GmarketSansTTFLight}) format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+
 
 #root {
-  //스타일  
-  font-family: 'GmarketSansTTFLight', sans-serif;
-  background: linear-gradient(to right, #89CFF0 0%, #B2FFFF 50%, #89CFF0 100%);
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  overflow-x: hidden;
-  //크기
-  width: 100vw;
-  height: 100vh;
-  //위치
-  position: relative;
-}
+    background: linear-gradient(to right, #89CFF0 0%, #B2FFFF 50%, #89CFF0 100%);
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
 
-//스크롤바 스타일
+}
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+    width: 8px;  
 }
 
 ::-webkit-scrollbar-thumb {
-  height: 20%;
-  background: darkgray;
-  border-radius: 10px;
+    height: 30%; 
+    background: #217af4; 
+    
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0);
+    background: rgba(33, 122, 244, .1);  
 }
 `;
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+});
+
+const persistor = persistStore(store);
 
 root.render(
   <BrowserRouter>
     <GlobalStyle />
+    <WaveEffect />
     <Provider store={store}>
-      <WaveEffect />
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </BrowserRouter>
 );

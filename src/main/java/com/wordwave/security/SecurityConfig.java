@@ -22,31 +22,31 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-
+    
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
+        
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .headers((headers) -> headers
-                        .addHeaderWriter(new XFrameOptionsHeaderWriter(
-                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
+        .csrf(AbstractHttpConfigurer::disable)
+        .headers((headers) -> headers
+            .addHeaderWriter(new XFrameOptionsHeaderWriter(
+                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
 
         http.cors(AbstractHttpConfigurer::disable)
-                .httpBasic(HttpBasicConfigurer::disable)
-                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/", "/api/**").permitAll()
-                        .anyRequest().authenticated());
-
+            .httpBasic(HttpBasicConfigurer::disable)
+            .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
+                    .requestMatchers("/", "/api/**").permitAll()
+                    .anyRequest().authenticated());
+        
         http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);
-
+        
         return http.build();
     }
-
+    
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
@@ -58,7 +58,7 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/**/*.json"))
                 .requestMatchers(new AntPathRequestMatcher("/**/*.ico"));
     }
-
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

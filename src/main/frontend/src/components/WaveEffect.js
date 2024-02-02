@@ -59,12 +59,16 @@ const WaveThree = styled.div`
   background: #e8a;
 `;
 
-export default function WaveEffect() {
-  return (
-    <WaveEffectContainer>
-      <WaveOne />
-      <WaveTwo />
-      <WaveThree />
-    </WaveEffectContainer>
-  );
+
+function WaveEffect(){
+    return(
+        <WaveEffectContainer>
+            <WaveOne />
+            <WaveTwo />
+            <WaveThree />
+        </WaveEffectContainer>
+    )
 }
+
+export default React.memo(WaveEffect);
+

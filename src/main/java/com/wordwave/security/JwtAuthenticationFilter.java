@@ -18,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -58,12 +59,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 	
 	private String parseBearerToken(HttpServletRequest request) {
-		//http 요청 헤더를 파싱후, Bearer 토큰 리턴
-		String bearerToken = request.getHeader("Authorization");
-		if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-			return bearerToken.substring(7);
-		}
-		return null;
+	    // 쿠키에서 토큰 가져오기
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if (cookie.getName().equals("token")) {
+	                return cookie.getValue();
+	            }
+	        }
+	    }
+	    return null;
 	}
 	
 }
