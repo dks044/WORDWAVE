@@ -45,6 +45,7 @@ public class SiteUser {
     private long point;
     
     @Convert(converter = UserRoleConverter.class)
+    @Builder.Default
     private UserRole role = UserRole.USER;
     
 
