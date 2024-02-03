@@ -108,13 +108,13 @@ function DialMenu() {
 
   useOutsideClick(ref, closeMenu);
 
-  const onToggle = (event) => {
+  const onToggle = () => {
     setOpen(!open);
     // console.log(open);
   };
 
   return (
-    <>
+    <div ref={ref}>
       <CircleMenu open={open}>
         {open && (
           <GrammarLink to="/grammarbooks" onClick={onToggle}>
@@ -123,10 +123,10 @@ function DialMenu() {
           </GrammarLink>
         )}
       </CircleMenu>
-      <CircleButton ref={ref} onClick={onToggle} open={open}>
+      <CircleButton onClick={onToggle} open={open}>
         <TiWaves size={85} />
       </CircleButton>
-    </>
+    </div>
   );
 }
 
