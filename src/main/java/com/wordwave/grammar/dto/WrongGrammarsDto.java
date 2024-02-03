@@ -8,11 +8,11 @@ import java.util.List;
 
 @Data
 @Builder
-public class WrongGrammarDto {
+public class WrongGrammarsDto {
 
     private String userName;
 
     private List<Long> wrongGrammarIds;
 
-    private LocalDateTime lastAttempted;
+    private LocalDateTime lastTryTime;
 }
