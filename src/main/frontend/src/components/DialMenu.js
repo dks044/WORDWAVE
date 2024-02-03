@@ -101,10 +101,6 @@ const GrammarLogo = styled.img`
 function DialMenu() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-  const onToggle = () => {
-    setOpen(!open);
-    // console.log(open);
-  };
 
   const closeMenu = useCallback(() => {
     if (open) setOpen(false);
@@ -112,9 +108,14 @@ function DialMenu() {
 
   useOutsideClick(ref, closeMenu);
 
+  const onToggle = (event) => {
+    setOpen(!open);
+    // console.log(open);
+  };
+
   return (
     <>
-      <CircleMenu open={open} ref={ref}>
+      <CircleMenu open={open}>
         {open && (
           <GrammarLink to="/grammarbooks" onClick={onToggle}>
             <GrammarLogo src={grammarLogo} alt="grammar logo" />
@@ -122,7 +123,7 @@ function DialMenu() {
           </GrammarLink>
         )}
       </CircleMenu>
-      <CircleButton onClick={onToggle} open={open}>
+      <CircleButton ref={ref} onClick={onToggle} open={open}>
         <TiWaves size={85} />
       </CircleButton>
     </>
