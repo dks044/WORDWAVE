@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserGrammarStatusRepository extends JpaRepository<UserGrammarStatus, Long> {
-    Optional<List<UserGrammarStatus>> findByUserId(Long userId);
+    List<UserGrammarStatus> findByUserId(Long userId);
+    Optional<UserGrammarStatus> findByUserIdAndWrongGrammarId(Long userId, Long wrongGrammarId);
 }

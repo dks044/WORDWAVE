@@ -17,7 +17,7 @@ public class UserGrammarStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser user;
 
     /**
@@ -30,12 +30,15 @@ public class UserGrammarStatus {
     */
     private Long wrongGrammarId;
 
-    private LocalDateTime lastAttempted;
+    private LocalDateTime lastTryTime;
 
-    //보안 dev push전까진 user 필드 생략
+    public void updateLastTryTime(LocalDateTime lastTryTime) {
+        this.lastTryTime = lastTryTime;
+    }
     @Builder
-    public UserGrammarStatus(Long wrongGrammarId, LocalDateTime lastAttempted) {
+    public UserGrammarStatus(SiteUser user, Long wrongGrammarId, LocalDateTime lastTryTime) {
+        this.user = user;
         this.wrongGrammarId = wrongGrammarId;
-        this.lastAttempted = lastAttempted;
+        this.lastTryTime = lastTryTime;
     }
 }
