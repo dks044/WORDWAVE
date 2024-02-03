@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import styled, { css } from "styled-components";
 import { TiWaves } from "react-icons/ti";
 import { Link } from "react-router-dom";
@@ -99,14 +99,35 @@ const GrammarLogo = styled.img`
 
 function DialMenu() {
   const [open, setOpen] = useState(false);
+  const ref = useRef(null);
   const onToggle = () => {
     setOpen(!open);
     // console.log(open);
   };
 
+  const useOutsideClick = (ref, callback) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          callback();
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref, callback]);
+  };
+
+  const closeMenu = useCallback(() => {
+    if (open) setOpen(false);
+  }, [open]);
+
+  useOutsideClick(ref, closeMenu);
+
   return (
     <>
-      <CircleMenu open={open}>
+      <CircleMenu open={open} ref={ref}>
         {open && (
           <GrammarLink to="/grammarbooks" onClick={onToggle}>
             <GrammarLogo src={grammarLogo} alt="grammar logo" />
