@@ -10,16 +10,13 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/user-grammar")
+@RequestMapping("/api/user-wrong-grammar")
 public class UserGrammarStatusController {
     private final UserGrammarStatusService userGrammarStatusService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping()
-    public ResponseEntity<?> getUserWrongGrammars(Principal principal) {
-        String userName = principal.getName();
-        if (userName == null || userName.isBlank()) {
-            return ResponseEntity.status(403).body("Forbidden error: Unauthenticated user request");
-        }
+    public ResponseEntity<?> getUserWrongGrammars(@RequestParam String userName) {
         try {
             return ResponseEntity.ok().body(this.userGrammarStatusService.getUserWrongGrammars(userName));
         } catch (Exception e) {
