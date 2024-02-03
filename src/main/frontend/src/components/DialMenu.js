@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import styled, { css } from "styled-components";
 import { TiWaves } from "react-icons/ti";
 import { Link } from "react-router-dom";
+import useOutsideClick from "../lib/useOutsideClick";
 import grammarLogo from "../resources/grammar.svg";
 
 const CircleButton = styled.button`
@@ -103,20 +104,6 @@ function DialMenu() {
   const onToggle = () => {
     setOpen(!open);
     // console.log(open);
-  };
-
-  const useOutsideClick = (ref, callback) => {
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-          callback();
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref, callback]);
   };
 
   const closeMenu = useCallback(() => {
