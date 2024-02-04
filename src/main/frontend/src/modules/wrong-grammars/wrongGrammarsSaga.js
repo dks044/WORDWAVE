@@ -1,9 +1,12 @@
 import * as wrongGrammarsAPI from "../../api/wrongGrammarsAPI";
 import { call, put, takeEvery } from "redux-saga/effects";
 
-function* fetchUserWrongGrammarsSaga() {
+function* fetchUserWrongGrammarsSaga(action) {
   try {
-    const userWrongGrammars = yield call(wrongGrammarsAPI.getUserWrongGrammars);
+    const userWrongGrammars = yield call(
+      wrongGrammarsAPI.getUserWrongGrammars,
+      action.payload
+    );
     yield put({
       type: "wrongGrammars/getUserWrongGrammarsSuccess",
       payload: userWrongGrammars,
