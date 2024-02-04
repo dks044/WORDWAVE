@@ -173,6 +173,7 @@ public class VocaTest {
 	@Test
 	@Rollback(false)
 	@DisplayName("기초 영단어 500개 넣기")
+	@Disabled
 	void insertBasicVoca() {
 		String[] basicArr = vocaDataCode.basicVoca().split("\n");
 		vocaDataTool.insertVocaByString(basicArr, VOCABOOK_BASIC_ID,"기초");
