@@ -27,11 +27,61 @@ class GrammarServiceTest {
     @Test
     @DisplayName("Grammar id로 Grammar를 조회한다.")
     void getGrammarTest() {
-        Long id = 16L;
+        Long id = 108L;
 
         GrammarDto grammarDto = this.grammarService.getGrammar(id);
 
         System.out.println(grammarDto.toString());
+    }
+
+    @Test
+    @DisplayName("GrammarExample이 없는 Grammar를 저장한다.")
+    void saveGrammarTest() {
+        GrammarDto grammarDto = GrammarDto.builder()
+                .grammarBookName("현재와 현재진행")
+                .sentence("We _ busy. Let's watch a movie together")
+                .build();
+
+        Long grammarId = this.grammarService.saveGrammar(grammarDto).getId();
+
+        System.out.println("============assert=============");
+        System.out.println(grammarId);
+    }
+
+    @Test
+    @DisplayName("이미 존재하는 Grammar에 GrammarExample을 저장한다.")
+    void saveGrammarExampleTest() {
+        Long grammarId = 110L;
+        GrammarDto grammarDto = GrammarDto.builder()
+                .id(grammarId)
+                .grammarExamples(
+                        List.of(
+                                new GrammarExampleDto("is not allowed", false),
+                                new GrammarExampleDto("not allowed", false),
+                                new GrammarExampleDto("are not allowed", true)
+                        )
+                )
+                .build();
+
+        this.grammarService.saveGrammarExamples(grammarDto);
+    }
+
+    @Test
+    @DisplayName("Grammar와 GrammarExample을 함께 저장한다.")
+    void saveGrammarAndGrammarExamplesTest() {
+        GrammarDto grammarDto = GrammarDto.builder()
+                .grammarBookName("수동태")
+                .sentence("Children _ in this pool.")
+                .grammarExamples(
+                        List.of(
+                                new GrammarExampleDto("is not allowed", false),
+                                new GrammarExampleDto("not allowed", false),
+                                new GrammarExampleDto("are not allowed", true)
+                        )
+                )
+                .build();
+
+        this.grammarService.saveGrammarAndGrammarExamples(grammarDto);
     }
 
     @Test
@@ -56,20 +106,5 @@ class GrammarServiceTest {
         this.grammarService.updateSentence(changeSentenceDto);
 
         assertThat(this.grammarRepository.findById(id).get().getSentence()).isEqualTo(newSentence);
-    }
-
-    @Test
-    @DisplayName("Grammar의 보기를 저장한다.")
-    void saveGrammarExampleTest() {
-        Long grammarId = 16L;
-        GrammarExampleDto grammarExampleDto1 = new GrammarExampleDto("am", true);
-        GrammarExampleDto grammarExampleDto2 = new GrammarExampleDto("is", false);
-        GrammarExampleDto grammarExampleDto3 = new GrammarExampleDto("are", false);
-        GrammarExampleDto grammarExampleDto4 = new GrammarExampleDto("be", false);
-        List<GrammarExampleDto> grammarExampleDtos = List.of(grammarExampleDto1, grammarExampleDto2, grammarExampleDto3, grammarExampleDto4);
-        GrammarDto grammarDto = new GrammarDto(grammarId, null, grammarExampleDtos, null);
-        this.grammarService.saveGrammarExamples(grammarDto);
-
-        System.out.println(this.grammarService.getGrammar(grammarId));
     }
 }
