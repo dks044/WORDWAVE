@@ -17,9 +17,9 @@ const initialState = {
 export const getVocaBookList = async dispatch => {
   dispatch({type : GET_VOCABOOKLIST})
   try {
-    const response = vocaAPI.getVocaBookAPI();
-    dispatch({type: GET_VOCABOOKLIST_SUCCESS , payload : response.data})
-    return response.data;
+    const payload = vocaAPI.getVocaBookAPI();
+    dispatch({type: GET_VOCABOOKLIST_SUCCESS , payload})
+    return payload;
   } catch (e) {
     dispatch({type : GET_VOCABOOKLIST_FAILURE,error : e});
     throw e;

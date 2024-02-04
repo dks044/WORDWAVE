@@ -3,6 +3,7 @@ package com.wordwave.voca;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.wordwave.vocabook.VocaBook;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,9 +12,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Voca {
 	
 	@Id
@@ -27,6 +30,7 @@ public class Voca {
 	private String category;
 	
 	@ManyToOne
+	@JsonBackReference
 	private VocaBook vocaBook;
 	
     private String imgURL;

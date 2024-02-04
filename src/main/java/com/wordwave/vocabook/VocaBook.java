@@ -17,7 +17,6 @@ import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Getter
-@DynamicInsert
 public class VocaBook {
 	
 	@Id
