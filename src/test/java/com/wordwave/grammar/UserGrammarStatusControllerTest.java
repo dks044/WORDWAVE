@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.annotation.Rollback;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +38,11 @@ class UserGrammarStatusControllerTest {
 
     @DisplayName("사용자가 틀린 문법 문제들을 조회하는 요청에 대해 응답한다.")
     @ParameterizedTest
-    @CsvSource({"'jjy1234', 200", "'', 403", ", 403"})
+    @CsvSource({"'jjy1234', 200", "'', 404", ", 404"})
     void getUserWrongGrammarsApiTest(String userName, int statusCode) {
-        Principal testPrincipal = () -> userName;
+        mockLogin();
 
-        ResponseEntity<?> response = this.userGrammarStatusController.getUserWrongGrammars(testPrincipal);
+        ResponseEntity<?> response = this.userGrammarStatusController.getUserWrongGrammars(userName);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(statusCode));
     }
