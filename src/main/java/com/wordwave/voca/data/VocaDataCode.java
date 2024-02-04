@@ -1,10 +1,10 @@
-package com.wordwave.voca;
+package com.wordwave.voca.data;
 
 import java.beans.JavaBean;
 
 @JavaBean
 public class VocaDataCode {
-	static String basicVoca() {
+	public static String basicVoca() {
 		String basic = "abandon|	버리다|\r\n"
 				+ "able|	할 수 있는|\r\n"
 				+ "aboard|	배로|\r\n"

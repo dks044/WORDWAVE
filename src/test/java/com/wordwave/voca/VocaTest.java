@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
+import com.wordwave.voca.data.VocaDataCode;
+import com.wordwave.voca.data.VocaDataTool;
 import com.wordwave.vocabook.VocaBook;
 import com.wordwave.vocabook.VocaBookRepository;
 
@@ -23,7 +25,9 @@ public class VocaTest {
 	private VocaService vocaService;
 	@Autowired
 	private VocaDataCode vocaDataCode;
-	
+	@Autowired
+	private VocaDataTool vocaDataTool;
+
 	@Test
 	@Transactional
 	@Rollback(false)
@@ -55,7 +59,7 @@ public class VocaTest {
 	@Rollback(false)
 	@DisplayName("토익 영단어 챕터1 채용파트 영단어 40개 넣기")
 	@Disabled
-	void insertToeicVocaChapter1() {
+	void testInsertToeicVocaChapter1() { //테스트성공
 		String recruiting = "resume|	이력서|	채용\r\n"
 				+ "applicant|	지원자 신청자|	채용\r\n"
 				+ "requirement|	필요조건 요건|	채용\r\n"
@@ -111,7 +115,7 @@ public class VocaTest {
 	@Rollback(false)
 	@DisplayName("토익 영단어 챕터2 법률파트 영단어 40개 넣기")
 	@Disabled
-	void insertToeicVocaChapter2() {
+	void testInsertToeicVocaChapter2() {
 		String legislation = "attire|	복장 옷차림새|	법률\r\n"
 				+ "code|	규범 관례;암호|	법률\r\n"
 				+ "concern|	우려 걱정 문제 일 ~을 걱정스럽게 하다; 영향을 미치다 관련되다.|	법률\r\n"
@@ -170,14 +174,6 @@ public class VocaTest {
 	@DisplayName("기초 영단어 500개 넣기")
 	void insertBasicVoca() {
 		String[] basicArr = vocaDataCode.basicVoca().split("\n");
-		for(String sentence : basicArr) {
-			String[] word = sentence.split("\\|");
-			VocaDTO voca = VocaDTO.builder()
-								  .engWord(word[0].trim())
-								  .korWord(word[1].trim())
-								  .category("기초")
-								  .build();
-			vocaService.create(voca, VOCABOOK_BASIC_ID);
-		}
+		vocaDataTool.insertVocaByString(basicArr, VOCABOOK_BASIC_ID);
 	}
 }
