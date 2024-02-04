@@ -35,10 +35,6 @@ public class Grammar {
         this.grammarBook = grammarBook;
     }
 
-    public void saveExamples(List<GrammarExample> grammarExamples) {
-        this.examples = grammarExamples;
-    }
-
     public void changeSentence(String newSentence) {
         this.sentence = newSentence;
     }
