@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-function VocaBookComponent({vocaBook}){
+function VocaBookComponent({id, name}){
   return (
     <div className="d-grid gap-2">
       <Button variant="primary" size="lg">
-        {vocaBook.name}
+        {name}
       </Button>
     </div>
   )

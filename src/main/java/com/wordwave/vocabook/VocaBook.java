@@ -1,5 +1,6 @@
 package com.wordwave.vocabook;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wordwave.voca.Voca;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,6 +28,7 @@ public class VocaBook {
 	private String name;
 	
 	@OneToMany(mappedBy = "vocaBook")
+	@JsonManagedReference
 	private List<Voca> vocas = new ArrayList<>();
 	
 	protected VocaBook() {

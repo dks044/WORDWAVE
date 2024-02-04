@@ -10,15 +10,16 @@ const GET_VOCABOOKLIST_SUCCESS = 'GET_VOCABOOKLIST_SUCCESS';
 const GET_VOCABOOKLIST_FAILURE = 'GET_VOCABOOKLIST_FAILURE';
 
 const initialState = {
-  vocabooks : reducerUtils.initial()
+  vocaBooks : reducerUtils.initial()
 }
 
 
-export const getVocaBookList = async dispatch => {
+export const getVocaBookList = () => async dispatch => {
   dispatch({type : GET_VOCABOOKLIST})
   try {
-    const payload = vocaAPI.getVocaBookAPI();
+    const payload = await vocaAPI.getVocaBookAPI();
     dispatch({type: GET_VOCABOOKLIST_SUCCESS , payload})
+    console.log(payload);
     return payload;
   } catch (e) {
     dispatch({type : GET_VOCABOOKLIST_FAILURE,error : e});
@@ -31,7 +32,7 @@ export default function voca(state = initialState, action) {
     case GET_VOCABOOKLIST:
     case GET_VOCABOOKLIST_SUCCESS:
     case GET_VOCABOOKLIST_FAILURE:
-      return handleAsyncActionsById(GET_VOCABOOKLIST, 'vocabooks')(state, action);
+      return handleAsyncActions(GET_VOCABOOKLIST, 'vocaBooks')(state, action);
     default:
       return state;
   }

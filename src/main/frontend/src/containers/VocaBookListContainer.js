@@ -25,26 +25,30 @@ const StyledSpinner = styled(Spinner)`
   }
 `;
 
-function VocaBookListContainer(){
-  const { data, loading, error } = useSelector(state => state.voca.vocabooks);
+function VocaBookListContainer() {
+  const { data, loading, error } = useSelector(state => state.voca.vocaBooks);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (data) return;  
-    dispatch(getVocaBookList());
-  }, [data, dispatch]);
-  console.log(data);
 
-  if(loading) return(
+  useEffect(() => {
+    dispatch(getVocaBookList());
+  }, [dispatch]);
+
+  if (loading && !data) return (
     <SpinnerWrapper>
       <StyledSpinner animation="grow" variant="info" />
     </SpinnerWrapper>
-  )
-  if(error) return <div>에러 발생!</div>;
-  return(
+  );
+  if (error) return <div>에러 발생!</div>;
+  
+  console.log(Array.isArray(data.vocaBooks));
+  console.log(data);
+
+  return (
     <>
       
     </>
-  )
+  );
 }
+
 
 export default React.memo(VocaBookListContainer);
