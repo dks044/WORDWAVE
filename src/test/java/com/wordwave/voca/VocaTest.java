@@ -46,7 +46,7 @@ public class VocaTest {
 	@Test
 	@Rollback(false)
 	@DisplayName("토익 영단어 챕터1 채용파트 영단어 40개 넣기")
-	@Disabled
+	@Disabled	
 	void insertToeicVocaChapter1() {
 		String recruiting = "resume|	이력서|	채용\r\n"
 				+ "applicant|	지원자 신청자|	채용\r\n"
@@ -89,15 +89,14 @@ public class VocaTest {
 				+ "wage|	임금 급료|	채용\r\n";
 		String[] recruitingArr = recruiting.split("\n");
 		for(String sentence : recruitingArr) {
-			String[] word = sentence.split("|");
-			for(int i=0;i<word.length;i++) {
-				VocaDTO voca = VocaDTO.builder()
-								      .korWord(word[1])
-								      .engWord(word[0])
-								      .category(word[2])
-								      .build();
-				vocaService.create(voca, VOCABOOK_TOEIC_ID);
-			}
+			String[] word = sentence.split("\\|");
+			VocaDTO voca = VocaDTO.builder()
+							      .korWord(word[1].trim())
+							      .engWord(word[0].trim())
+							      .category(word[2].trim())
+							      .build();
+			vocaService.create(voca, VOCABOOK_TOEIC_ID);
+			
 		}
 	}
 	@Test
@@ -146,15 +145,13 @@ public class VocaTest {
 				+ "restrict|	한정하다 제한하다|	법률\r\n";
 		String[] legislationArr = legislation.split("\n");
 		for(String sentence : legislationArr) {
-			String[] word = sentence.split("|");
-			for(int i=0;i<word.length;i++) {
-				VocaDTO voca = VocaDTO.builder()
-								      .korWord(word[1])
-								      .engWord(word[0])
-								      .category(word[2])
-								      .build();
-				vocaService.create(voca, VOCABOOK_TOEIC_ID);
-			}
+			String[] word = sentence.split("\\|");
+			VocaDTO voca = VocaDTO.builder()
+								  .engWord(word[0].trim())
+								  .korWord(word[1].trim())
+								  .category(word[2].trim())
+								  .build();
+			vocaService.create(voca, VOCABOOK_TOEIC_ID);
 		}
 	}
 }
