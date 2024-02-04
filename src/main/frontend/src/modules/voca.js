@@ -10,17 +10,17 @@ const GET_VOCABOOKLIST_SUCCESS = 'GET_VOCABOOKLIST_SUCCESS';
 const GET_VOCABOOKLIST_FAILURE = 'GET_VOCABOOKLIST_FAILURE';
 
 const initialState = {
-  vocaBooks : reducerUtils.initial()
+  vocaBooks : reducerUtils.initial(),
+  vocaBook : {}
 }
 
 
 export const getVocaBookList = () => async dispatch => {
   dispatch({type : GET_VOCABOOKLIST})
   try {
-    const payload = await vocaAPI.getVocaBookAPI();
-    dispatch({type: GET_VOCABOOKLIST_SUCCESS , payload})
-    console.log(payload);
-    return payload;
+    const response = await vocaAPI.getVocaBookAPI();
+    dispatch({type: GET_VOCABOOKLIST_SUCCESS , payload : response.data})
+    return response.data;
   } catch (e) {
     dispatch({type : GET_VOCABOOKLIST_FAILURE,error : e});
     throw e;

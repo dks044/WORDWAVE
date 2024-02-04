@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getVocaBookList } from "../modules/voca";
+import { getVocaBookList } from "../../modules/voca";
 import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
-import VocaBookComponent from "../components/VocaBookComponent";
+import VocaBookListComponent from "../../components/voca/VocaBookListComponent";
+import VocaBookComponent from "../../components/voca/VocaBookComponent";
 
-const Loading = styled.div`
-  
-`
 const SpinnerWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -24,6 +22,11 @@ const StyledSpinner = styled(Spinner)`
     height: 100%;
   }
 `;
+const VocaBookListContainerBlock = styled.div`
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 10%;
+`
 
 function VocaBookListContainer() {
   const { data, loading, error } = useSelector(state => state.voca.vocaBooks);
@@ -31,24 +34,25 @@ function VocaBookListContainer() {
 
   useEffect(() => {
     dispatch(getVocaBookList());
-  }, [dispatch]);
+  }, []);
 
-  if (loading && !data) return (
+  if (loading) return (
     <SpinnerWrapper>
       <StyledSpinner animation="grow" variant="info" />
     </SpinnerWrapper>
   );
   if (error) return <div>에러 발생!</div>;
   
-  console.log(Array.isArray(data.vocaBooks));
   console.log(data);
 
+
+
   return (
-    <>
-      
-    </>
-  );
-}
+    <VocaBookListContainerBlock>
+      <VocaBookListComponent vocaBooks={data || []}/>
+    </VocaBookListContainerBlock>
+  )
+};
 
 
 export default React.memo(VocaBookListContainer);
