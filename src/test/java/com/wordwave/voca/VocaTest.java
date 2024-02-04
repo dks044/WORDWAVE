@@ -46,7 +46,7 @@ public class VocaTest {
 	@Test
 	@Rollback(false)
 	@DisplayName("토익 영단어 챕터1 채용파트 영단어 40개 넣기")
-	@Disabled	
+	@Disabled
 	void insertToeicVocaChapter1() {
 		String recruiting = "resume|	이력서|	채용\r\n"
 				+ "applicant|	지원자 신청자|	채용\r\n"
@@ -102,6 +102,7 @@ public class VocaTest {
 	@Test
 	@Rollback(false)
 	@DisplayName("토익 영단어 챕터2 법률파트 영단어 40개 넣기")
+	@Disabled
 	void insertToeicVocaChapter2() {
 		String legislation = "attire|	복장 옷차림새|	법률\r\n"
 				+ "code|	규범 관례;암호|	법률\r\n"
