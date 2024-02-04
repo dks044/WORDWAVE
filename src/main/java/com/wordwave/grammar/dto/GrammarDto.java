@@ -8,7 +8,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 public class GrammarDto {
 
@@ -19,4 +18,12 @@ public class GrammarDto {
     private List<GrammarExampleDto> grammarExamples;
 
     private String grammarBookName;
+
+    @Override
+    public String toString() {
+        return "id: " + id
+                + ", sentence: " + sentence
+                + ", grammarExamples: " + grammarExamples.toString()
+                + ", grammarBookName: " + grammarBookName;
+    }
 }
