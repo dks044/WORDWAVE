@@ -138,7 +138,6 @@ public class UserController {
 	    SiteUser user = userService.getByUserName(userDTO.getUserName());
 	    if(user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
 	        final String token = tokenProvider.create(user,response);
-	        System.out.println(token);
 	        final UserDTO responseDTO = UserDTO.builder()
 	                .userName(user.getUserName())
 	                .email(user.getEmail())
