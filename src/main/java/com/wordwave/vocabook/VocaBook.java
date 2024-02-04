@@ -24,7 +24,6 @@ public class VocaBook {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	//ex) 토익보카,고등보카
 	private String name;
 	
 	@OneToMany(mappedBy = "vocaBook")

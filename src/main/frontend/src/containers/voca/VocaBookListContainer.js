@@ -27,14 +27,19 @@ const VocaBookListContainerBlock = styled.div`
   padding-right: 5%;
   padding-top: 10%;
 `
+const Title = styled.h1`
+  text-align: center;
+  font-weight: bold;
+`
 
 function VocaBookListContainer() {
   const { data, loading, error } = useSelector(state => state.voca.vocaBooks);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if(data) return;
     dispatch(getVocaBookList());
-  }, []);
+  }, [data,dispatch]);
 
   if (loading) return (
     <SpinnerWrapper>
@@ -49,6 +54,8 @@ function VocaBookListContainer() {
 
   return (
     <VocaBookListContainerBlock>
+      <Title>VOCA</Title>
+      <hr/>
       <VocaBookListComponent vocaBooks={data || []}/>
     </VocaBookListContainerBlock>
   )

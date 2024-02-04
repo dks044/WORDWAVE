@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 interface VocaRepository extends JpaRepository<Voca, Long>{
-	
+
 }

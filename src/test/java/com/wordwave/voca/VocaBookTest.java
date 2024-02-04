@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -26,5 +27,11 @@ public class VocaBookTest {
 			assertEquals(vb.getName(), "TOEIC");
 		}
 	}
+	
+	@Test
+	void vocaBookCategoryTest() {
+		Set<String> categories = vocaBookService.getCategoriesOfVocaBook(1);
+	}
+	
 	
 }
