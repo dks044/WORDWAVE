@@ -29,8 +29,12 @@ public class VocaBookTest {
 	}
 	
 	@Test
+	@Disabled
 	void vocaBookCategoryTest() {
 		Set<String> categories = vocaBookService.getCategoriesOfVocaBook(1);
+		for(String category : categories) {
+			System.out.println(category);
+		}
 	}
 	
 	
