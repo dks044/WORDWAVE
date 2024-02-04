@@ -3,10 +3,7 @@ package com.wordwave.grammar;
 import com.wordwave.grammar.dto.WrongGrammarsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,9 +11,8 @@ import java.security.Principal;
 public class UserGrammarStatusController {
     private final UserGrammarStatusService userGrammarStatusService;
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping()
-    public ResponseEntity<?> getUserWrongGrammars(@RequestParam String userName) {
+    public ResponseEntity<?> getUserWrongGrammars(@RequestParam(value = "userName") String userName) {
         try {
             return ResponseEntity.ok().body(this.userGrammarStatusService.getUserWrongGrammars(userName));
         } catch (Exception e) {
@@ -24,7 +20,6 @@ public class UserGrammarStatusController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PostMapping()
     public ResponseEntity<?> saveUserWrongGrammars(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
@@ -35,7 +30,6 @@ public class UserGrammarStatusController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PutMapping()
     public ResponseEntity<?> updateUserLastTryTime(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
@@ -46,7 +40,6 @@ public class UserGrammarStatusController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
     @DeleteMapping()
     public ResponseEntity<?> deleteUserWrongGrammars(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
