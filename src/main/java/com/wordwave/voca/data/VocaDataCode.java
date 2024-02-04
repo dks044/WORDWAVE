@@ -1,8 +1,9 @@
 package com.wordwave.voca.data;
 
-import java.beans.JavaBean;
 
-@JavaBean
+import org.springframework.stereotype.Component;
+
+@Component
 public class VocaDataCode {
 	public static String basicVoca() {
 		String basic = "abandon|	버리다|\r\n"

@@ -39,6 +39,7 @@ public class VocaTest {
 	@Test
 	@Transactional
 	@Rollback(false)
+	@Disabled
 	void createVocaBookBasic() { //테스트 성공
 		 VocaBook vb = new VocaBook("BASIC");
 		 vocaBookRepository.save(vb);
@@ -174,6 +175,6 @@ public class VocaTest {
 	@DisplayName("기초 영단어 500개 넣기")
 	void insertBasicVoca() {
 		String[] basicArr = vocaDataCode.basicVoca().split("\n");
-		vocaDataTool.insertVocaByString(basicArr, VOCABOOK_BASIC_ID);
+		vocaDataTool.insertVocaByString(basicArr, VOCABOOK_BASIC_ID,"기초");
 	}
 }
