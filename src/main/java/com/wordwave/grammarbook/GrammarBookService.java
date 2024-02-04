@@ -3,7 +3,6 @@ package com.wordwave.grammarbook;
 import com.wordwave.exception.DataNotFoundException;
 import com.wordwave.grammar.Grammar;
 import com.wordwave.grammar.GrammarExample;
-import com.wordwave.grammar.GrammarRepository;
 import com.wordwave.grammar.dto.GrammarDto;
 import com.wordwave.grammar.dto.GrammarExampleDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
@@ -18,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GrammarBookService {
     private final GrammarBookRepository grammarBookRepository;
-    private final GrammarRepository grammarRepository;
 
     public GrammarBookResponseDto getGrammarBook(Long id) {
         GrammarBook grammarBook = this.grammarBookRepository.findGrammarBookById(id)
@@ -67,31 +65,6 @@ public class GrammarBookService {
             grammarBooks.add(responseDto);
         }
         return grammarBooks;
-    }
-
-    @Transactional
-    public void saveGrammarToGrammarBook(GrammarDto grammarDto) {
-        // grammarDto의 id는 필요 없음
-        GrammarBook grammarBook = this.grammarBookRepository.findByName(grammarDto.getGrammarBookName())
-                .orElseGet(() -> createGrammarBook(grammarDto.getGrammarBookName()));
-
-        Grammar grammar = Grammar.builder()
-                .sentence(grammarDto.getSentence())
-                .grammarBook(grammarBook)
-                .build();
-        grammar.saveExamples(grammarDto.getGrammarExamples().stream()
-                .map(dto -> GrammarExample.builder()
-                        .example(dto.getExample())
-                        .isAnswer(dto.getIsAnswer())
-                        .grammar(grammar)
-                        .build()).toList());
-
-        grammarBook.addGrammar(grammar);
-        this.grammarRepository.save(grammar);
-    }
-
-    private GrammarBook createGrammarBook(String name) {
-        return this.grammarBookRepository.save(GrammarBook.builder().name(name).build());
     }
 
     public void deleteGrammarBook(Long id) {

@@ -1,6 +1,5 @@
 package com.wordwave.grammarbook;
 
-import com.wordwave.grammar.dto.GrammarDto;
 import com.wordwave.grammarbook.dto.ChangeGrammarBookNameDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +27,6 @@ public class GrammarBookController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.grammarBookService.getAllGrammarBooksWithoutGrammar());
-    }
-
-    @PostMapping("/grammar")
-    public ResponseEntity<Object> saveGrammarToGrammarBook(@RequestBody GrammarDto grammarDto) {
-        //grammarDto에 id는 필요 없음
-        this.grammarBookService.saveGrammarToGrammarBook(grammarDto);
-        return ResponseEntity.status(HttpStatus.OK).body("Saved");
     }
 
     @PutMapping("")
