@@ -45,6 +45,13 @@ public class UserController {
 	private final MailService mailService;
 	private final EmailCodeService emailCodeService;
 	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/test")
+	public String test() {
+		return "test success";
+	}
+	
+	
 	@PostMapping("/send_authenticateCode")
 	public ResponseEntity<?> authenticateSendEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
 		String sendCode = mailService.createRandomPW();
@@ -131,6 +138,7 @@ public class UserController {
 	    SiteUser user = userService.getByUserName(userDTO.getUserName());
 	    if(user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
 	        final String token = tokenProvider.create(user,response);
+	        System.out.println(token);
 	        final UserDTO responseDTO = UserDTO.builder()
 	                .userName(user.getUserName())
 	                .email(user.getEmail())
@@ -192,7 +200,6 @@ public class UserController {
 					.build();
 			return ResponseEntity.badRequest().body(responseDTO);
 		}
-	    
 		return ResponseEntity.ok().body("validate success");
 	}
 	
