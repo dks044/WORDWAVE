@@ -1,5 +1,7 @@
 package com.wordwave.grammar;
 
+import com.wordwave.grammarbook.GrammarBookService;
+import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserService;
 import com.wordwave.util.ResponseDTO;
@@ -20,13 +22,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserGrammarStatusService {
     private final UserGrammarStatusRepository userGrammarStatusRepository;
+    private final GrammarBookService grammarBookService;
     private final GrammarService grammarService;
     private final UserService userService;
 
     /**
      * userName으로 userGrammarStatuses레코드들을 조회한 뒤,
      * 저장된 Grammar의 id들로 Grammar레코드를 가져옵니다.
-     * 이 들과 lastTryTime을 Map에 넣어 반환합니다.
+     * 이들과 lastTryTime을 Map에 넣어 반환합니다.
      * */
     @Transactional
     public ResponseDTO<Object> getUserWrongGrammars(String userName) {
@@ -36,12 +39,34 @@ public class UserGrammarStatusService {
         Map<String, Object> response = new HashMap<>();
         List<GrammarDto> wrongGrammars = new ArrayList<>();
         for (UserGrammarStatus userGrammarStatus : userGrammarStatuses) {
-            wrongGrammars.add(grammarService.getGrammar(userGrammarStatus.getWrongGrammarId()));
+            wrongGrammars.add(this.grammarService.getGrammar(userGrammarStatus.getWrongGrammarId()));
         }
         response.put("wrongGrammars", wrongGrammars);
         response.put("lastTryTime", userGrammarStatuses.get(userGrammarStatuses.size()-1).getLastTryTime());
         return ResponseDTO.builder()
                 .data(response)
+                .build();
+    }
+
+    /**
+     * userName과 grammarBookName을 받아 UserGrammarStatus에서 해당 grammarBook에 속한 grammar들만 조회합니다.
+     */
+    @Transactional
+    public GrammarBookResponseDto getUserWrongGrammarBook(String userName, String grammarBookName) {
+        Long userId = getUserIdByUserName(userName);
+        List<UserGrammarStatus> userGrammarStatuses = this.userGrammarStatusRepository.findByUserId(userId);
+        Long grammarBookId = this.grammarBookService.getGrammarBookIdByGrammarBookName(grammarBookName);
+
+        List<GrammarDto> grammarDtos = new ArrayList<>();
+        for (UserGrammarStatus userGrammarStatus : userGrammarStatuses) {
+            if (userGrammarStatus.getGrammarBookId() != null && userGrammarStatus.getGrammarBookId().equals(grammarBookId)) {
+                grammarDtos.add(this.grammarService.getGrammar(userGrammarStatus.getWrongGrammarId()));
+            }
+        }
+        return GrammarBookResponseDto.builder()
+                .id(grammarBookId)
+                .name(grammarBookName)
+                .grammars(grammarDtos)
                 .build();
     }
 
