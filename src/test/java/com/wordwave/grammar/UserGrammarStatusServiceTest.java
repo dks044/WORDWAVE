@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,11 +37,12 @@ class UserGrammarStatusServiceTest {
     }
 
     @Test
-    @DisplayName("사용자가 틀린 문법 퀴즈들을 저장한다.")
+    @DisplayName("사용자가 틀린 문법 퀴즈들을 저장한다. grammarBook이 없는 grammarId를 저장하려하면 grammarBookId에 null이 저장된다.")
+    @Rollback
     void saveUserWrongGrammarsTest() {
         WrongGrammarsDto wrongGrammarsDto = WrongGrammarsDto.builder()
                 .userName("jjy1234")
-                .wrongGrammarIds(List.of(42L, 43L, 44L))
+                .wrongGrammarIds(List.of(1L, 2L, 3L))
                 .lastTryTime(LocalDateTime.now())
                 .build();
 
