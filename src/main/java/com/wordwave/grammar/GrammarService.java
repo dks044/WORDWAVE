@@ -42,6 +42,10 @@ public class GrammarService {
                 .build();
     }
 
+    public Long getGrammarBookIdByGrammarId(Long grammarId) {
+        return this.grammarRepository.findGrammarBookIdByGrammarId(grammarId);
+    }
+
     public void deleteGrammar(Long id) {
         this.grammarRepository.deleteById(id);
     }
