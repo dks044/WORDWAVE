@@ -1,5 +1,6 @@
 package com.wordwave.grammar;
 
+import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserService;
 import com.wordwave.util.ResponseDTO;
 import com.wordwave.exception.DataNotFoundException;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,15 +47,55 @@ public class UserGrammarStatusService {
 
     /**
      * userName과 wrongGrammarIds를 받아 저장합니다.
-     * userName으로 User를 조회합니다.
+     * userName으로 User를 조회한 뒤, UserGrammarStatus를 조회하고 이미 UserGrammarStatus에 있는 User라면
+     * wrongGrammarIds의 GrammarId와 같은 레코드들은 lastTryTime만 수정하고, 같지 않은 GrammarId들은 저장합니다.
+     * UserGrammarStatus에 없는 User라면, 받은 wrongGrammarIds들을 모두 저장합니다.
      * */
     @Transactional
     public void saveUserWrongGrammars(WrongGrammarsDto wrongGrammarsDto) {
-        for (Long wrongGrammarId : wrongGrammarsDto.getWrongGrammarIds()) {
+        SiteUser user = this.userService.getByUserName(wrongGrammarsDto.getUserName());
+        List<UserGrammarStatus> userGrammarStatuses = this.userGrammarStatusRepository.findByUserId(user.getId());
+        if (userGrammarStatuses.isEmpty()) {
+            saveNewUserWrongGrammar(user, wrongGrammarsDto.getWrongGrammarIds(), wrongGrammarsDto.getLastTryTime());
+        } else {
+            updateAndSaveUserWrongGrammars(user, wrongGrammarsDto, userGrammarStatuses);
+        }
+    }
+
+    private void updateAndSaveUserWrongGrammars(SiteUser user, WrongGrammarsDto wrongGrammarsDto, List<UserGrammarStatus> userGrammarStatuses) {
+        List<Long> wrongGrammarIds = wrongGrammarsDto.getWrongGrammarIds();
+        for (UserGrammarStatus userGrammarStatus : userGrammarStatuses) {
+            if (wrongGrammarIds.contains(userGrammarStatus.getWrongGrammarId())) {
+                userGrammarStatus.updateLastTryTime(wrongGrammarsDto.getLastTryTime());
+                this.userGrammarStatusRepository.save(userGrammarStatus);
+            }
+        }
+        List<Long> userGrammarStatusWrongGrammarIds = makeUserGrammarStatusWrongGrammarIds(userGrammarStatuses);
+        for (Long grammarId : wrongGrammarIds) {
+            if (!userGrammarStatusWrongGrammarIds.contains(grammarId)) {
+                this.userGrammarStatusRepository.save(UserGrammarStatus.builder()
+                        .user(user)
+                        .wrongGrammarId(grammarId)
+                        .lastTryTime(wrongGrammarsDto.getLastTryTime())
+                        .build());
+            }
+        }
+    }
+
+    private List<Long> makeUserGrammarStatusWrongGrammarIds(List<UserGrammarStatus> userGrammarStatuses) {
+        List<Long> userGrammarStatusWrongGrammarIds = new ArrayList<>();
+        for (UserGrammarStatus userGrammarStatus : userGrammarStatuses) {
+            userGrammarStatusWrongGrammarIds.add(userGrammarStatus.getWrongGrammarId());
+        }
+        return userGrammarStatusWrongGrammarIds;
+    }
+
+    private void saveNewUserWrongGrammar(SiteUser user, List<Long> wrongGrammarIds, LocalDateTime lastTryTime) {
+        for (Long wrongGrammarId : wrongGrammarIds) {
             this.userGrammarStatusRepository.save(UserGrammarStatus.builder()
-                    .user(this.userService.getByUserName(wrongGrammarsDto.getUserName()))
+                    .user(user)
                     .wrongGrammarId(wrongGrammarId)
-                    .lastTryTime(wrongGrammarsDto.getLastTryTime())
+                    .lastTryTime(lastTryTime)
                     .build());
         }
     }
