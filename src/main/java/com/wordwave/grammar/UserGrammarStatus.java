@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -27,14 +28,16 @@ public class UserGrammarStatus {
      * 이는 N:N 관계로 풀 수 있겠지만 쓸데없이 복잡해진다는 단점이 있다.
      * <p>그래서 연관관계를 설정해주는 대신 클라이언트로부터 grammar_id를 받아와 저장하고 필요할때 Grammar에 join한다.
      * <p>user 한 명당 grammar_id는 여러 개가 저장될 수 있다.
-    */
+     */
     private Long wrongGrammarId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
     private LocalDateTime lastTryTime;
 
     public void updateLastTryTime(LocalDateTime lastTryTime) {
         this.lastTryTime = lastTryTime;
     }
+
     @Builder
     public UserGrammarStatus(SiteUser user, Long wrongGrammarId, LocalDateTime lastTryTime) {
         this.user = user;
