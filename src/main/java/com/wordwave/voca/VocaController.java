@@ -21,17 +21,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/voca")
 public class VocaController {
 	
-	private final VocaBookService vocaBookService;
-	
-	@GetMapping("vocabooklist")
-	public ResponseEntity<?> selectVocaBook(){
-		try {
-			List<VocaBook> vocaBookList = vocaBookService.getVocaBookList();
-			return ResponseEntity.ok().body(vocaBookList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body("vocabook import falid");
-		}
-	}
+
 	
 }
