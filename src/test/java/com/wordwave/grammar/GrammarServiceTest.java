@@ -5,6 +5,8 @@ import com.wordwave.grammar.dto.GrammarDto;
 import com.wordwave.grammar.dto.GrammarExampleDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -23,6 +25,24 @@ class GrammarServiceTest {
 
     @Autowired
     GrammarRepository grammarRepository;
+
+    @DisplayName("Grammar id로 GrammarBook의 id를 조회한다.")
+    @ParameterizedTest
+    @CsvSource({"108, 14", "91, 14", "1, "})
+    void getGrammarBookIdByGrammarIdTest(Integer grammarIdInt, Integer grammarBookIdInt) {
+        Long grammarId = (long) grammarIdInt;
+        Long grammarBookId;
+        if (grammarBookIdInt == null) {
+            grammarBookId = null;
+        } else {
+            grammarBookId = (long) grammarBookIdInt;
+        }
+
+
+        Long response = this.grammarService.getGrammarBookIdByGrammarId(grammarId);
+
+        assertThat(response).isEqualTo(grammarBookId);
+    }
 
     @Test
     @DisplayName("Grammar id로 Grammar를 조회한다.")
