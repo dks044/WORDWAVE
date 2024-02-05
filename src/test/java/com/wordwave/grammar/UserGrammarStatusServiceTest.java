@@ -1,6 +1,7 @@
 package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.WrongGrammarsDto;
+import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import com.wordwave.util.ResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,12 +38,23 @@ class UserGrammarStatusServiceTest {
     }
 
     @Test
+    @DisplayName("특정 grammarBook 중 사용자가 틀린 grammar만 조회한다.")
+    void getUserWrongGrammarBookTest() {
+        String userName = "jjy1234";
+        String grammarBookName = "현재와 현재진행";
+
+        GrammarBookResponseDto grammarBookResponseDto = this.userGrammarStatusService.getUserWrongGrammarBook(userName, grammarBookName);
+
+        System.out.println(grammarBookResponseDto);
+    }
+
+    @Test
     @DisplayName("사용자가 틀린 문법 퀴즈들을 저장한다. grammarBook이 없는 grammarId를 저장하려하면 grammarBookId에 null이 저장된다.")
     @Rollback
     void saveUserWrongGrammarsTest() {
         WrongGrammarsDto wrongGrammarsDto = WrongGrammarsDto.builder()
                 .userName("jjy1234")
-                .wrongGrammarIds(List.of(1L, 2L, 3L))
+                .wrongGrammarIds(List.of(91L, 95L, 108L))
                 .lastTryTime(LocalDateTime.now())
                 .build();
 
