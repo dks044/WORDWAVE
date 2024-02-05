@@ -11,10 +11,21 @@ import org.springframework.web.bind.annotation.*;
 public class UserGrammarStatusController {
     private final UserGrammarStatusService userGrammarStatusService;
 
-    @GetMapping()
+    @GetMapping("/grammars")
     public ResponseEntity<?> getUserWrongGrammars(@RequestParam(value = "userName") String userName) {
         try {
             return ResponseEntity.ok().body(this.userGrammarStatusService.getUserWrongGrammars(userName));
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/grammarbook")
+    public ResponseEntity<?> getUserWrongGrammarBook(
+            @RequestParam(value = "userName") String userName,
+            @RequestParam(value = "grammarBookName") String grammarBookName) {
+        try {
+            return ResponseEntity.ok().body(this.userGrammarStatusService.getUserWrongGrammarBook(userName, grammarBookName));
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
