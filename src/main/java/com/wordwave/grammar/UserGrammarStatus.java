@@ -29,6 +29,7 @@ public class UserGrammarStatus {
      * <p>그래서 연관관계를 설정해주는 대신 클라이언트로부터 grammar_id를 받아와 저장하고 필요할때 Grammar에 join한다.
      * <p>user 한 명당 grammar_id는 여러 개가 저장될 수 있다.
      */
+    @Column(unique = true)
     private Long wrongGrammarId;
 
     @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
