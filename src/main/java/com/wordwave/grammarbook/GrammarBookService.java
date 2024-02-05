@@ -2,9 +2,8 @@ package com.wordwave.grammarbook;
 
 import com.wordwave.exception.DataNotFoundException;
 import com.wordwave.grammar.Grammar;
-import com.wordwave.grammar.GrammarExample;
+import com.wordwave.grammar.GrammarExampleToGrammarExampleDtoConverter;
 import com.wordwave.grammar.dto.GrammarDto;
-import com.wordwave.grammar.dto.GrammarExampleDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ public class GrammarBookService {
                         .id(grammar.getId())
                         .sentence(grammar.getSentence())
                         .grammarBookName(grammarBook.getName())
-                        .grammarExamples(convertGrammarExampleDto(grammar.getExamples()))
+                        .grammarExamples(GrammarExampleToGrammarExampleDtoConverter.convert(grammar.getExamples()))
                         .build());
             }
         }
@@ -40,19 +39,6 @@ public class GrammarBookService {
                 .name(grammarBook.getName())
                 .grammars(grammarDtos)
                 .build();
-    }
-
-    private List<GrammarExampleDto> convertGrammarExampleDto(List<GrammarExample> grammarExamples) {
-        List<GrammarExampleDto> grammarExampleDtos = new ArrayList<>();
-        for (GrammarExample grammarExample : grammarExamples) {
-            if(grammarExample != null) {
-                grammarExampleDtos.add(GrammarExampleDto.builder()
-                        .example(grammarExample.getExample())
-                        .isAnswer(grammarExample.getIsAnswer())
-                        .build());
-            }
-        }
-        return grammarExampleDtos;
     }
 
     public List<GrammarBookResponseDto> getAllGrammarBooksWithoutGrammar() {
@@ -65,6 +51,10 @@ public class GrammarBookService {
             grammarBooks.add(responseDto);
         }
         return grammarBooks;
+    }
+
+    public Long getGrammarBookIdByGrammarBookName(String grammarBookName) {
+        return this.grammarBookRepository.findIdByName(grammarBookName);
     }
 
     public void deleteGrammarBook(Long id) {
