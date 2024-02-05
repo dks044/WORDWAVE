@@ -10,9 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class GrammarService {
@@ -23,22 +20,11 @@ public class GrammarService {
     public GrammarDto getGrammar(Long id) {
         Grammar grammar = getGrammarById(id);
 
-        //GrammarExample --> GrammarExampleDto
-        List<GrammarExampleDto> grammarExampleDtos = new ArrayList<>();
-        for (GrammarExample grammarExample : grammar.getExamples()) {
-            if (grammarExample != null) {
-                grammarExampleDtos.add(GrammarExampleDto.builder()
-                        .example(grammarExample.getExample())
-                        .isAnswer(grammarExample.getIsAnswer())
-                        .build());
-            }
-        }
-
         return GrammarDto.builder()
                 .id(id)
                 .sentence(grammar.getSentence())
                 .grammarBookName(grammar.getGrammarBook().getName())
-                .grammarExamples(grammarExampleDtos)
+                .grammarExamples(GrammarExampleToGrammarExampleDtoConverter.convert(grammar.getExamples()))
                 .build();
     }
 
