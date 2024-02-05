@@ -1,14 +1,13 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 
 
 function VocaBookComponent({name,vocaBookId}){
   const navigate = useNavigate();
   const onClickToDetail = () => {
-    navigate(`/vocabook/detail/${vocaBookId}`, { state: { vocaBookId } });
+    navigate(`/vocabook/detail/${vocaBookId}`);
   }
   
   return (

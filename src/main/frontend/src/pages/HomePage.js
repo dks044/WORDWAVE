@@ -1,8 +1,5 @@
-import React, { useEffect } from "react";
-import { Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import styled from "styled-components";
-import { showPopup } from "../modules/popup";
 
 const HomeContainer = styled.div`
   //크기
@@ -15,7 +12,6 @@ const HomeContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
 `;
-
 
 
 const HomePage = () => {

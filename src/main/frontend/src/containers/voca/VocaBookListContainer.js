@@ -4,7 +4,6 @@ import { getVocaBookList } from "../../modules/voca";
 import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
 import VocaBookListComponent from "../../components/voca/VocaBookListComponent";
-import VocaBookComponent from "../../components/voca/VocaBookComponent";
 
 const SpinnerWrapper = styled.div`
   display: flex;

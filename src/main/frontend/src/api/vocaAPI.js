@@ -4,6 +4,6 @@ export async function getVocaBookAPI(){
   return await axios.get('/api/vocabook/vocabooklist');
 }
 
-export async function getVocaBookDetail(vocaBookId){
-  return await axios.get('/api/vocabook/detail',vocaBookId);
+export async function getVocaBookDetailByIdAPI(vocaBookId){
+  return await axios.get('/api/vocabook/vocabooklist',{vocaBookId});
 }
