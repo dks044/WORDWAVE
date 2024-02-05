@@ -47,6 +47,17 @@ class UserGrammarStatusControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(statusCode));
     }
 
+    @DisplayName("특정 문법 책(유형) 중 사용자가 틀린 문법 문제들만 조회하는 요청에 응답한다.")
+    @Test
+    void getUserWrongGrammarBookAPITest() {
+        String userName = "jjy1234";
+        String grammarBookName = "현재와 현재진행";
+
+        ResponseEntity<?> response = this.userGrammarStatusController.getUserWrongGrammarBook(userName, grammarBookName);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
+
     @DisplayName("사용자가 틀린 문법 문제들을 저장하는 요청에 대해 응답한다.")
     @Test
     @Rollback(false)
