@@ -4,7 +4,7 @@ function VocaBookListComponent({vocaBooks}){
   return(
     <>
       {vocaBooks.map(vocaBook=>{
-        return <VocaBookComponent key={vocaBook.id} name={vocaBook.name} id={vocaBook.id}/>
+        return <VocaBookComponent key={vocaBook.id} name={vocaBook.name} vocaBookId={vocaBook.id}/>
       })}
     </>
   )
