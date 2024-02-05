@@ -21,8 +21,8 @@ import lombok.extern.log4j.Log4j;
 public class VocaBookController {
 	private final VocaBookService vocaBookService;
 	
-	@GetMapping("view")
-	public ResponseEntity<?> getVocaBookDetail(@RequestParam(value = "vocabook_id")long vocaBookId){
+	@GetMapping("detail")
+	public ResponseEntity<?> getVocaBookDetail(@RequestParam(value = "vocaBookId")long vocaBookId){
 		try {
 			Set<String> responseDTO = vocaBookService.getCategoriesOfVocaBook(vocaBookId);
 			return ResponseEntity.ok().body(responseDTO);
