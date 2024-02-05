@@ -76,6 +76,7 @@ public class UserGrammarStatusService {
                 this.userGrammarStatusRepository.save(UserGrammarStatus.builder()
                         .user(user)
                         .wrongGrammarId(grammarId)
+                        .grammarBookId(this.grammarService.getGrammarBookIdByGrammarId(grammarId))
                         .lastTryTime(wrongGrammarsDto.getLastTryTime())
                         .build());
             }
@@ -95,6 +96,7 @@ public class UserGrammarStatusService {
             this.userGrammarStatusRepository.save(UserGrammarStatus.builder()
                     .user(user)
                     .wrongGrammarId(wrongGrammarId)
+                    .grammarBookId(this.grammarService.getGrammarBookIdByGrammarId(wrongGrammarId))
                     .lastTryTime(lastTryTime)
                     .build());
         }
