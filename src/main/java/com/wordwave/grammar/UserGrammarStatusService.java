@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -19,20 +21,32 @@ public class UserGrammarStatusService {
     private final GrammarService grammarService;
     private final UserService userService;
 
+    /**
+     * userName으로 userGrammarStatuses레코드들을 조회한 뒤,
+     * 저장된 Grammar의 id들로 Grammar레코드를 가져옵니다.
+     * 이 들과 lastTryTime을 Map에 넣어 반환합니다.
+     * */
     @Transactional
     public ResponseDTO<Object> getUserWrongGrammars(String userName) {
         Long userId = getUserIdByUserName(userName);
         List<UserGrammarStatus> userGrammarStatuses = this.userGrammarStatusRepository.findByUserId(userId);
 
-        List<GrammarDto> grammarDtos = new ArrayList<>();
+        Map<String, Object> response = new HashMap<>();
+        List<GrammarDto> wrongGrammars = new ArrayList<>();
         for (UserGrammarStatus userGrammarStatus : userGrammarStatuses) {
-            grammarDtos.add(grammarService.getGrammar(userGrammarStatus.getWrongGrammarId()));
+            wrongGrammars.add(grammarService.getGrammar(userGrammarStatus.getWrongGrammarId()));
         }
+        response.put("wrongGrammars", wrongGrammars);
+        response.put("lastTryTime", userGrammarStatuses.get(userGrammarStatuses.size()-1).getLastTryTime());
         return ResponseDTO.builder()
-                .data(grammarDtos)
+                .data(response)
                 .build();
     }
 
+    /**
+     * userName과 wrongGrammarIds를 받아 저장합니다.
+     * userName으로 User를 조회합니다.
+     * */
     @Transactional
     public void saveUserWrongGrammars(WrongGrammarsDto wrongGrammarsDto) {
         for (Long wrongGrammarId : wrongGrammarsDto.getWrongGrammarIds()) {
