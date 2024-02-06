@@ -90,8 +90,9 @@ public class GrammarService {
      * */
     @Transactional
     public void saveGrammarAndGrammarExamples(GrammarDto grammarDto) {
-        GrammarDto grammarDtoOnlyId = saveGrammar(grammarDto);
-        saveGrammarExamples(grammarDtoOnlyId);
+        Long grammarId = saveGrammar(grammarDto).getId();
+        grammarDto.setId(grammarId);
+        saveGrammarExamples(grammarDto);
     }
 
     private Grammar getGrammarById(Long id) {
