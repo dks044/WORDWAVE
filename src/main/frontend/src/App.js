@@ -12,9 +12,6 @@ import { ToastContainer } from "react-bootstrap";
 import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
-import VocaBookListPage from "./pages/VocaBookListPage";
-import VocaBookDetailPage from "./pages/VocaBookDetailPage";
-
 
 function App() {
   //authenticated
@@ -64,8 +61,6 @@ function App() {
           <Route path="signup" 
           element={isLoging === false ? <SignUpPage /> : <Navigate to="/" />} />
           {/* VOCA */}
-          <Route path="vocabooklist" element={isLoging ? <VocaBookListPage /> : <Navigate to="/login" />} />
-          <Route path="vocabook/detail/:vocaBookId" element={isLoging ? <VocaBookDetailPage /> : <Navigate to="/login" />} />
         </Route>
       </Routes>
     </>
