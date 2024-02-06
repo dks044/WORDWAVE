@@ -2,7 +2,6 @@ package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.WrongGrammarsDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
-import com.wordwave.util.ResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class UserGrammarStatusServiceTest {
@@ -26,7 +26,7 @@ class UserGrammarStatusServiceTest {
         int meanTime = 0;
         while (cnt < max) {
             long beforeTime = System.currentTimeMillis();
-            ResponseDTO<Object> response = this.userGrammarStatusService.getUserWrongGrammars(userName);
+            Map<String, Object> response = this.userGrammarStatusService.getUserWrongGrammars(userName);
             long afterTime = System.currentTimeMillis();
             meanTime += (int) (afterTime - beforeTime);
 //            System.out.println(response.getData());
