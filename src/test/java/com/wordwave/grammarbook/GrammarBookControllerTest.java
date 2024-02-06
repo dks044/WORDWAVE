@@ -42,6 +42,14 @@ class GrammarBookControllerTest {
     }
 
     @Test
+    @DisplayName("모든 GrammarBook의 Grammar 개수 조회 요청에 응답한다.")
+    void getGrammarNumOfAllGrammarBooksTest() {
+        ResponseEntity<Object> response = this.grammarBookController.getGrammarNumOfAllGrammarBooks();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
+
+    @Test
     @DisplayName("GrammarBook의 이름 수정 요청을 받고 수정한다.")
     @Rollback
     void updateGrammarBookNameTest() {
