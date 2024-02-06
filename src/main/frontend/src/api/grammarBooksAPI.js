@@ -5,7 +5,12 @@ export const getGrammarBooks = async () => {
   return response.data;
 };
 
-export const getGrammarBookById = async (id) => {
-  const response = await axios.get(`/api/grammarbook/${id}`);
+export const getGrammarBookById = async (grammarBookName) => {
+  const response = await axios.get(`/api/grammarbook/${grammarBookName}`);
+  return response.data;
+};
+
+export const getGrammarNumOfAllGrammarBooks = async () => {
+  const response = await axios.get("/api/grammarbook/all-grammar-num");
   return response.data;
 };
