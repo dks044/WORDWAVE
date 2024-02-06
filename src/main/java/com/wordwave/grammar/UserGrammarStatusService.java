@@ -32,7 +32,7 @@ public class UserGrammarStatusService {
      * 이들과 lastTryTime을 Map에 넣어 반환합니다.
      * */
     @Transactional
-    public ResponseDTO<Object> getUserWrongGrammars(String userName) {
+    public Map<String, Object> getUserWrongGrammars(String userName) {
         Long userId = getUserIdByUserName(userName);
         List<UserGrammarStatus> userGrammarStatuses = this.userGrammarStatusRepository.findByUserId(userId);
 
@@ -43,9 +43,7 @@ public class UserGrammarStatusService {
         }
         response.put("wrongGrammars", wrongGrammars);
         response.put("lastTryTime", userGrammarStatuses.get(userGrammarStatuses.size()-1).getLastTryTime());
-        return ResponseDTO.builder()
-                .data(response)
-                .build();
+        return response;
     }
 
     /**
