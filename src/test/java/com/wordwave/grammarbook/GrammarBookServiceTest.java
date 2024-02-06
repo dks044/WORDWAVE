@@ -1,6 +1,7 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
+import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ class GrammarBookServiceTest {
     @Test
     @DisplayName("GrammarBook id로 GrammarBook을 조회한다.")
     void getGrammarBookTest() {
-        Long id = 12L;
+        Long id = 5L;
 
         GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBook(id);
 
@@ -39,6 +40,14 @@ class GrammarBookServiceTest {
         List<GrammarBookResponseDto> grammarBooks = this.grammarBookService.getAllGrammarBooksWithoutGrammar();
 
         System.out.println(grammarBooks);
+    }
+
+    @Test
+    @DisplayName("모든 GrammarBook의 Grammar 개수들을 조회한다.")
+    void getGrammarNumOfAllGrammarBooksTest() {
+        List<GrammarNumOfGrammarBookDto> responseDtos = this.grammarBookService.getGrammarNumOfAllGrammarBooks();
+
+        System.out.println(responseDtos);
     }
 
     @Test
