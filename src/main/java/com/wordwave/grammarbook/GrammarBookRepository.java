@@ -20,9 +20,6 @@ public interface GrammarBookRepository extends JpaRepository<GrammarBook, Long> 
     @Query("select gb from GrammarBook gb join fetch gb.grammars where gb.name = :name")
     Optional<GrammarBook> findByName(@Param("name") String name);
 
-    @Query("select distinct gb from GrammarBook gb left join fetch gb.grammars g left join fetch g.examples ex where gb.id = :id")
-    Optional<GrammarBook> findGrammarBookById(@Param("id") Long id);
-
     @Query("select gb.id from GrammarBook gb where gb.name = :name")
     Long findIdByName(@Param("name") String name);
 }
