@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
@@ -9,7 +8,7 @@ import WaveEffect from "./components/WaveEffect";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./modules/reducers";
 import logger from "redux-logger";
-import sagaMiddleware, { rootSaga } from "./modules/rootSaga";
+import sagaMiddleware, { rootSaga } from "./modules/rootSaga"
 import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import storage from "redux-persist/lib/storage";
@@ -24,6 +23,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`

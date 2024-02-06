@@ -5,7 +5,7 @@ import { all, call } from "redux-saga/effects";
 const sagaMiddleware = createSagaMiddleware();
 
 export function* rootSaga() {
-  yield all([]);
+  yield all();
 }
 
 export default sagaMiddleware;
