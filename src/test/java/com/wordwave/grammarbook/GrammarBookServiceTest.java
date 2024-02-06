@@ -27,9 +27,9 @@ class GrammarBookServiceTest {
     @Test
     @DisplayName("GrammarBook id로 GrammarBook을 조회한다.")
     void getGrammarBookTest() {
-        Long id = 5L;
+        String grammarBookName = "조동사";
 
-        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBook(id);
+        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBook(grammarBookName);
 
         System.out.println(grammarBookResponseDto.toString());
     }
