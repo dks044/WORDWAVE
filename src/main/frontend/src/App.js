@@ -11,8 +11,9 @@ import { ToastContainer } from "react-bootstrap";
 import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
-import GrammarBooksPage from "./pages/GrammarBooksPage";
-import GrammarBookPage from "./pages/GrammarBookPage";
+import GrammarBooksPage from "./pages/grammar/GrammarBooksPage";
+import GrammarBookPage from "./pages/grammar/GrammarBookPage";
+import UserWrongGrammarsPage from "./pages/grammar/UserWrgonGrammarsPage";
 
 function App() {
   //authenticated
@@ -63,7 +64,16 @@ function App() {
             path="grammarbooks"
             element={isLoging ? <GrammarBooksPage /> : <Navigate to="/login" />}
           />
-          <Route path="grammarbooks/:id" element={<GrammarBookPage />} />
+          <Route
+            path="grammarbooks/:grammarBookName"
+            element={isLoging ? <GrammarBookPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="mypage/wrong-grammars"
+            element={
+              isLoging ? <UserWrongGrammarsPage /> : <Navigate to="/login" />
+            }
+          />
           <Route
             path="mypage"
             element={isLoging ? <MyPage /> : <Navigate to="/login" />}
