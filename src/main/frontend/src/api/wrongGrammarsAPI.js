@@ -1,13 +1,11 @@
 import axios from "axios";
 
 export const getUserWrongGrammars = async (userName) => {
-  console.log(userName);
   try {
-    const response = await axios.get("/api/user-wrong-grammar", {
+    const response = await axios.get("/api/user-wrong-grammar/grammars", {
       params: {
         userName: userName,
       },
-      // withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -15,14 +13,20 @@ export const getUserWrongGrammars = async (userName) => {
   }
 };
 
-export const postUserWrongGrammarIds = async (
-  userName,
-  wrongGrammarIds,
-  lastTryTime
-) => {
-  return await axios.post("/api/user", {
-    userName,
-    wrongGrammarIds,
-    lastTryTime,
-  });
+export const getUserWrongGrammarBook = async (userName, grammarBookName) => {
+  try {
+    const response = await axios.get("/api/user-wrong-grammar/grammarbook", {
+      params: {
+        userName: userName,
+        grammarBookName: grammarBookName,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postUserWrongGrammarIds = async (wrongGrammarsDto) => {
+  return await axios.post("/api/user-wrong-grammar", wrongGrammarsDto);
 };
