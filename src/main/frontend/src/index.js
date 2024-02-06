@@ -1,22 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import "./index.css";
 import App from "./App";
+import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import WaveEffect from "./components/WaveEffect";
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./modules";
+import rootReducer from "./modules/reducers";
 import logger from "redux-logger";
+import sagaMiddleware, { rootSaga } from "./modules/rootSaga";
 import { Provider } from "react-redux";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import storage from 'redux-persist/lib/storage'
+import "bootstrap/dist/css/bootstrap.min.css";
+import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
-import './index.css';
-
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
@@ -48,17 +55,25 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck:false}).concat(logger)
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(sagaMiddleware, logger),
 });
 
 const persistor = persistStore(store);
+
+sagaMiddleware.run(rootSaga);
 
 root.render(
   <BrowserRouter>
