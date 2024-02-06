@@ -20,8 +20,8 @@ public class GrammarBookService {
     private final GrammarRepository grammarRepository;
     private final GrammarExampleRepository grammarExampleRepository;
 
-    public GrammarBookResponseDto getGrammarBook(Long id) {
-        GrammarBook grammarBook = this.grammarBookRepository.findById(id)
+    public GrammarBookResponseDto getGrammarBook(String grammarBookName) {
+        GrammarBook grammarBook = this.grammarBookRepository.findByName(grammarBookName)
                 .orElseThrow(() -> new DataNotFoundException("Grammar book not found"));
 
         List<Long> grammarIds = grammarBook.getGrammars().stream()
@@ -45,8 +45,8 @@ public class GrammarBookService {
         }
 
         return GrammarBookResponseDto.builder()
-                .id(id)
-                .name(grammarBook.getName())
+                .id(grammarBook.getId())
+                .name(grammarBookName)
                 .grammars(grammarDtos)
                 .build();
     }
