@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
 import VocaBookDetail from "../../components/voca/VocaBookDetail";
-import voca, { getVocaBookDetailById } from "../../modules/voca";
+import voca, { getVocaBookDetailById } from "../../modules/vocabook";
 import IsNotData from "../../components/IsNotData";
 const SpinnerWrapper = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ function VocaBookDetailContainer({vocaBookId}){
     data: null,
     error: null
   };
-  const {vocaBookCategory} = useSelector(state=>state.voca.vocaBookCategory);
+  const {vocaBookCategory} = useSelector(state=>state.vocabook.vocaBookCategory);
   console.log(vocaBookCategory)
   const dispatch = useDispatch();
 

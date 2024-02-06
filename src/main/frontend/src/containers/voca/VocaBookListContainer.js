@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getVocaBookList } from "../../modules/voca";
+import { getVocaBookList } from "../../modules/vocabook";
 import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
 import VocaBookListComponent from "../../components/voca/VocaBookListComponent";
@@ -32,7 +32,7 @@ const Title = styled.h1`
 `
 
 function VocaBookListContainer() {
-  const { data, loading, error } = useSelector(state => state.voca.vocaBooks);
+  const { data, loading, error } = useSelector(state => state.vocabook.vocaBooks);
   const dispatch = useDispatch();
 
   useEffect(() => {
