@@ -26,16 +26,11 @@ public class GrammarBook {
     private String name;
 
     @OneToMany(mappedBy = "grammarBook", cascade = CascadeType.ALL)
-    @OrderColumn(name = "id")
     private List<Grammar> grammars = new ArrayList<>();
 
     @Builder
     public GrammarBook(String name) {
         this.name = name;
-    }
-
-    public void addGrammar(Grammar grammar) {
-        this.grammars.add(grammar);
     }
 
     public void changeName(String newName, List<GrammarBook> grammarBooks) {
@@ -50,10 +45,7 @@ public class GrammarBook {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("grammarBook id: ").append(this.id)
-                .append(", name: ").append(this.name)
-                .append(", grammars: ").append(this.grammars)
-                .toString();
+        return "grammarBook id: " + this.id +
+                ", name: " + this.name;
     }
 }
