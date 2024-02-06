@@ -1,5 +1,5 @@
 import * as wrongGrammarsAPI from "../../api/wrongGrammarsAPI";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 function* fetchUserWrongGrammarsSaga(action) {
   try {
@@ -20,10 +20,33 @@ function* fetchUserWrongGrammarsSaga(action) {
   }
 }
 
+function* postUserWrongGrammarsSaga(action) {
+  try {
+    const response = yield call(
+      wrongGrammarsAPI.postUserWrongGrammarIds,
+      action.payload
+    );
+    yield put({
+      type: "wrongGrammars/saveUserWrongGrammarsSuccess",
+      payload: response.data,
+    });
+  } catch (error) {
+    yield put({
+      type: "wrongGrammars/saveUserWrongGrammarsError",
+      error: true,
+      payload: error,
+    });
+  }
+}
+
 function* wrongGrammarsSaga() {
   yield takeEvery(
     "wrongGrammars/getUserWrongGrammars",
     fetchUserWrongGrammarsSaga
+  );
+  yield takeLatest(
+    "wrongGrammars/saveUserWrongGrammars",
+    postUserWrongGrammarsSaga
   );
 }
 
