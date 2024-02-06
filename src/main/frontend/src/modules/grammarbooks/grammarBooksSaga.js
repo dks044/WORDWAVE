@@ -36,9 +36,32 @@ function* fetchGrammarBookSaga(action) {
   }
 }
 
+function* fetchGrammarNumOfAllGrammarBooksSaga(action) {
+  try {
+    const num = yield call(
+      grammarBooksAPI.getGrammarNumOfAllGrammarBooks,
+      action.payload
+    );
+    yield put({
+      type: "grammarBooks/getGrammarNumOfAllGrammarBooksSuccess",
+      payload: num,
+    });
+  } catch (error) {
+    yield put({
+      type: "grammarBooks/getGrammarNumOfAllGrammarBooksError",
+      error: true,
+      payload: error,
+    });
+  }
+}
+
 function* grammarBooksSaga() {
   yield takeEvery("grammarBooks/getGrammarBooks", fetchGrammarBooksSaga);
   yield takeEvery("grammarBooks/getGrammarBook", fetchGrammarBookSaga);
+  yield takeEvery(
+    "grammarBooks/getGrammarNumOfAllGrammarBooks",
+    fetchGrammarNumOfAllGrammarBooksSaga
+  );
 }
 
 export default grammarBooksSaga;
