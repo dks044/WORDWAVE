@@ -26,9 +26,9 @@ class GrammarBookControllerTest {
     @Test
     @DisplayName("GrammarBook 조회 요청에 대해 응답한다.")
     void getGrammarBookApiTest() {
-        Long id = 5L;
+        String grammarBookName = "조동사";
 
-        ResponseEntity<GrammarBookResponseDto> response = this.grammarBookController.getGrammarBook(id);
+        ResponseEntity<GrammarBookResponseDto> response = this.grammarBookController.getGrammarBook(grammarBookName);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
