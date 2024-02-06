@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,6 +55,39 @@ class GrammarServiceTest {
         System.out.println(grammarDto.toString());
     }
 
+    @DisplayName("Grammar와 GrammarExample을 함께 저장한다.")
+    @ParameterizedTest
+    @CsvSource(value = {
+            "조동사: I can _ a bike.: ride: true: riding: false: be riding: false",
+            "조동사: Can you _ the guitar?: playing:false: play: true: be playing: false",
+            "조동사: Sorry I'm late. I _ fast because the streets were icy.: could not walk: true: can't walk: false: could not walking: false",
+    }, delimiter = ':')
+    void saveGrammarAndGrammarExamplesTest(String grammarBoonName, String sentence,
+                                           String ex1, boolean isAnswer1,
+                                           String ex2, boolean isAnswer2,
+                                           String ex3, boolean isAnswer3) {
+        List<GrammarExampleDto> grammarExampleDtos = new ArrayList<>();
+        grammarExampleDtos.add(GrammarExampleDto.builder()
+                .example(ex1)
+                .isAnswer(isAnswer1)
+                .build());
+        grammarExampleDtos.add(GrammarExampleDto.builder()
+                .example(ex2)
+                .isAnswer(isAnswer2)
+                .build());
+        grammarExampleDtos.add(GrammarExampleDto.builder()
+                .example(ex3)
+                .isAnswer(isAnswer3)
+                .build());
+        GrammarDto grammarDto = GrammarDto.builder()
+                .grammarBookName(grammarBoonName)
+                .sentence(sentence)
+                .grammarExamples(grammarExampleDtos)
+                .build();
+
+        this.grammarService.saveGrammarAndGrammarExamples(grammarDto);
+    }
+
     @Test
     @DisplayName("GrammarExample이 없는 Grammar를 저장한다.")
     void saveGrammarTest() {
@@ -71,37 +105,19 @@ class GrammarServiceTest {
     @Test
     @DisplayName("이미 존재하는 Grammar에 GrammarExample을 저장한다.")
     void saveGrammarExampleTest() {
-        Long grammarId = 110L;
+        Long grammarId = 153L;
         GrammarDto grammarDto = GrammarDto.builder()
                 .id(grammarId)
                 .grammarExamples(
                         List.of(
-                                new GrammarExampleDto("is not allowed", false),
-                                new GrammarExampleDto("not allowed", false),
-                                new GrammarExampleDto("are not allowed", true)
+                                new GrammarExampleDto("Is, raining", false),
+                                new GrammarExampleDto("Was, raining", true),
+                                new GrammarExampleDto("Was, rain", false)
                         )
                 )
                 .build();
 
         this.grammarService.saveGrammarExamples(grammarDto);
-    }
-
-    @Test
-    @DisplayName("Grammar와 GrammarExample을 함께 저장한다.")
-    void saveGrammarAndGrammarExamplesTest() {
-        GrammarDto grammarDto = GrammarDto.builder()
-                .grammarBookName("수동태")
-                .sentence("Children _ in this pool.")
-                .grammarExamples(
-                        List.of(
-                                new GrammarExampleDto("is not allowed", false),
-                                new GrammarExampleDto("not allowed", false),
-                                new GrammarExampleDto("are not allowed", true)
-                        )
-                )
-                .build();
-
-        this.grammarService.saveGrammarAndGrammarExamples(grammarDto);
     }
 
     @Test
