@@ -2,6 +2,7 @@ package com.wordwave.grammarbook;
 
 import com.wordwave.grammarbook.dto.ChangeGrammarBookNameDto;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
+import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,15 @@ public class GrammarBookController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.grammarBookService.getAllGrammarBooksWithoutGrammar());
+    }
+
+    @GetMapping("/all-grammar-num")
+    public ResponseEntity<Object> getGrammarNumOfAllGrammarBooks() {
+        try {
+            return ResponseEntity.ok().body(this.grammarBookService.getGrammarNumOfAllGrammarBooks());
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @PutMapping("")
