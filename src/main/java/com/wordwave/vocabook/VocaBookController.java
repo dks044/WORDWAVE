@@ -24,8 +24,8 @@ public class VocaBookController {
 	@GetMapping("detail")
 	public ResponseEntity<?> getVocaBookDetail(@RequestParam(value = "vocaBookId")long vocaBookId){
 		try {
-			Map<Long,List<String>> responseDTO = vocaBookService.getCategoriesOfVocaBook(vocaBookId);
-			return ResponseEntity.ok().body(responseDTO);
+			List<VocaBookDTO> vocaBooList = vocaBookService.getVocaBookDTOList();
+			return ResponseEntity.ok().body(vocaBooList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("VocaBook 불러오기 실패!");
