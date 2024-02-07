@@ -18,7 +18,8 @@ public class GrammarService {
     private final GrammarExampleRepository grammarExampleRepository;
 
     public GrammarDto getGrammar(Long id) {
-        Grammar grammar = getGrammarById(id);
+        Grammar grammar = this.grammarRepository.findGrammarWithGrammarBookAndExampleById(id)
+                .orElseThrow(() -> new DataNotFoundException("Grammar not found"));
 
         return GrammarDto.builder()
                 .id(id)
