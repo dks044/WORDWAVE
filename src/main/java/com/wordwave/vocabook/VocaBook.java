@@ -37,4 +37,6 @@ public class VocaBook {
 	public VocaBook(String name) {
         this.name = name;
     }
+	//s3경로
+	private String imageURL;
 }

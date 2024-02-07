@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +24,22 @@ public class VocaBookService {
 		return vocaBookNames;
 	}
 	
+	public List<VocaBookDTO> getVocaBookDTOList(){
+		List<VocaBookDTO> vocaBookDTOList = new ArrayList<>();
+		Map<Long,String> vocaBookNames = getVocaBookNameList();
+		for(Map.Entry<Long,String> entry : vocaBookNames.entrySet()) {
+			Long key = entry.getKey(); String value = entry.getValue();
+			Optional<VocaBook> vocaBook = vocaBookRepository.findById(key);
+			VocaBookDTO vb = VocaBookDTO.builder()
+									    .id(key)
+									    .name(value)
+									    .imageURL(vocaBook.get().getImageURL())
+									    .build();
+			vocaBookDTOList.add(vb);
+		}
+		return vocaBookDTOList;
+	}
+	
 	public Map<Long,List<String>> getCategoriesOfVocaBook(long vocaBookId) {
 	    Map<Long,List<String>> categoriesOfVocaBook = new HashMap<>();
 	    categoriesOfVocaBook.put(vocaBookId, new ArrayList<String>());
@@ -32,5 +49,7 @@ public class VocaBookService {
 	    categoriesOfVocaBook.put(vocaBookId, new ArrayList<String>(distinctCategories));
 	    return categoriesOfVocaBook;
 	}
+	
+	
 
 }
