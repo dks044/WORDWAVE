@@ -6,7 +6,7 @@ import VocaBooks from "../../components/voca/VocaBooks";
 import styled from "styled-components";
 const VocaBooksContainerBlock = styled.div`
   padding: 10% 5% 10%;
-  
+  overflow-y: scroll;
 `
 
 function VocaBooksContainer(){
@@ -28,6 +28,7 @@ function VocaBooksContainer(){
   return (
     <VocaBooksContainerBlock>
       <VocaBooks vocaBooks={data}/>
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     </VocaBooksContainerBlock>
   )
 }

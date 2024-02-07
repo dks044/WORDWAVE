@@ -13,4 +13,5 @@ public class VocaBookDTO {
 	private Long id;
     private String name;
     private List<Voca> vocas;
+    
 }
