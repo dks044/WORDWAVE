@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function getVocaBookAPI(){
+export async function getVocaBooksAPI(){
   return await axios.get('/api/vocabook/vocabooklist');
 }
 

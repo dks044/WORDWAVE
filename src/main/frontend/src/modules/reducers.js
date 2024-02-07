@@ -4,7 +4,7 @@ import popup from "./popup";
 import vocaBook from "./voca/vocaBook";
 
 const rootReducer = combineReducers({
-  vocaBook : vocaBook,
+  vocaBook,
   auth,
   popup,
 });
