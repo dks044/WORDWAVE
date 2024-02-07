@@ -1,7 +1,7 @@
 package com.wordwave.vocabook;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import groovy.util.logging.Log;
+
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,7 +24,7 @@ public class VocaBookController {
 	@GetMapping("detail")
 	public ResponseEntity<?> getVocaBookDetail(@RequestParam(value = "vocaBookId")long vocaBookId){
 		try {
-			Set<String> responseDTO = vocaBookService.getCategoriesOfVocaBook(vocaBookId);
+			Map<Long,List<String>> responseDTO = vocaBookService.getCategoriesOfVocaBook(vocaBookId);
 			return ResponseEntity.ok().body(responseDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class VocaBookController {
 	@GetMapping("vocabooklist")
 	public ResponseEntity<?> selectVocaBook(){
 		try {
-			List<VocaBook> vocaBookList = vocaBookService.getVocaBookList();
+			Map<Long,String> vocaBookList = vocaBookService.getVocaBookNameList();
 			return ResponseEntity.ok().body(vocaBookList);
 		} catch (Exception e) {
 			e.printStackTrace();
