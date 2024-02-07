@@ -12,7 +12,7 @@ function VocaBooks({vocaBooks})  {
           <Card.Body>
             <Card.Title className="fw-bold">{vocaBook.name}</Card.Title>
             <Container className="d-flex justify-content-center mt-3">
-            <Button variant="outline-info">공부하기!✏️</Button>
+            <Button variant="success">✏️공부하기!✏️</Button>
             </Container>
           </Card.Body>
         </Card>

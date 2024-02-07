@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { TiWaves } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import grammarLogo from "../resources/grammar.svg";
+import { FaBook } from "react-icons/fa6";
 
 const CircleButton = styled.button`
   //스타일
@@ -97,6 +98,32 @@ const GrammarLogo = styled.img`
   height: 30%;
 `;
 
+const VocaLink = styled(Link)`
+  //스타일
+  color: black;
+  text-decoration: none;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //사이즈 설정
+  width: 100px;
+  height: 100px;
+  //다이얼 메뉴내 GrammaarLink의 위치
+  position: absolute;
+  left: 60%;
+  top: 15%;
+  transform: rotate( 45deg );
+  transition: 0.25s all ease-in-out;
+  &:hover {
+    color: #54535a;
+  }
+  &:active {
+    color: #2c2b2d;
+  }
+`;
+
 function DialMenu() {
   const [open, setOpen] = useState(false);
   const onToggle = () => {
@@ -112,6 +139,12 @@ function DialMenu() {
             <GrammarLogo src={grammarLogo} alt="grammar logo" />
             문법
           </GrammarLink>
+        )}
+        {open && (
+          <VocaLink to="/vocabooks" onClick={onToggle}>
+            <FaBook size={50}/>
+            VOCA
+          </VocaLink>
         )}
       </CircleMenu>
       <CircleButton onClick={onToggle} open={open}>
