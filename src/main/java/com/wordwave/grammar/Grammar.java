@@ -22,7 +22,6 @@ public class Grammar {
     private String sentence;
 
     @OneToMany(mappedBy = "grammar", cascade = CascadeType.ALL)
-    @OrderColumn(name = "id")
     private List<GrammarExample> examples = new ArrayList<>();
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -41,10 +40,9 @@ public class Grammar {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("grammar id: ").append(this.id)
-                .append(", sentence: ").append(sentence)
-                .append(", book name: ").append(this.grammarBook.getName())
-                .toString();
+        return "grammar id: " + this.id +
+                ", sentence: " + sentence +
+                ", book name: " + this.grammarBook.getName() +
+                ", examples: " + this.examples;
     }
 }
