@@ -11,15 +11,15 @@ const vocaBookSlice = createSlice({
   reducers: {
     getVocaBooks: (state) => ({
       ...state,
-      VocaBooks: reducerUtils.loading(),
+      vocaBooks: reducerUtils.loading(),
     }),
     getVocaBooksSuccess: (state, action) => ({
       ...state,
-      VocaBooks: reducerUtils.success(action.payload),
+      vocaBooks: reducerUtils.success(action.payload),
     }),
     getVocaBooksError: (state, action) => ({
       ...state,
-      VocaBooks: reducerUtils.error(action.error),
+      vocaBooks: reducerUtils.error(action.error),
     })
   }
 })

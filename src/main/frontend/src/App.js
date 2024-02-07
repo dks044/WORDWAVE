@@ -5,6 +5,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import VocaBooksPage from "./pages/voca/VocaBooksPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { isLoggedIn } from "./modules/auth";
@@ -12,6 +13,7 @@ import { ToastContainer } from "react-bootstrap";
 import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
+
 
 function App() {
   //authenticated
@@ -61,6 +63,8 @@ function App() {
           <Route path="signup" 
           element={isLoging === false ? <SignUpPage /> : <Navigate to="/" />} />
           {/* VOCA */}
+          <Route path="vocabooks" 
+          element={isLoging ? <VocaBooksPage /> : <Navigate to="/login" />}/>
         </Route>
       </Routes>
     </>

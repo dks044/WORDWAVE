@@ -11,4 +11,6 @@ public interface VocaBookRepository extends JpaRepository<VocaBook, Long> {
 	
 	@Query("select v.category from Voca v where v.vocaBook.id = :vocaBookId")
     List<String> findCategoriesByVocaBookId(@Param("vocaBookId") long vocaBookId);
+	
+	
 }

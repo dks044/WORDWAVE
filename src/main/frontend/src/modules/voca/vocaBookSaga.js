@@ -6,8 +6,9 @@ function* fetchVocaBooksSaga(){
     const vocaBooks = yield call(vocaAPI.getVocaBooksAPI);
     yield put ({
       type: "vocaBook/getVocaBooksSuccess",
-      payload : vocaBooks,
+      payload : vocaBooks
     });
+    console.log(vocaBooks);
   } catch (error) {
     yield put({
       type: "vocaBook/getVocaBooksError",
