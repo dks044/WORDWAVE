@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.jupiter.api.Disabled;
@@ -22,18 +23,23 @@ public class VocaBookTest {
 	@Test
 	@Disabled
 	void vocaBookListViewTest() {
-		List<VocaBook> vocaBookList = vocaBookService.getVocaBookList();
-		for(VocaBook vb : vocaBookList) {
-			assertEquals(vb.getName(), "TOEIC");
+		Map<Long,String> vocaBookList = vocaBookService.getVocaBookNameList();
+		for(Map.Entry<Long, String> entry : vocaBookList.entrySet()) {
+			Long key = entry.getKey();
+			String value = entry.getValue();
+			System.out.println(key +" "+value);
 		}
 	}
 	
 	@Test
 	@Disabled
 	void vocaBookCategoryTest() {
-		Set<String> categories = vocaBookService.getCategoriesOfVocaBook(1);
-		for(String category : categories) {
-			System.out.println(category);
+		long toeicId = 1;
+		Map<Long,List<String>> categories = vocaBookService.getCategoriesOfVocaBook(toeicId);
+		for(Map.Entry<Long, List<String>> entry : categories.entrySet()) {
+			Long key = entry.getKey();
+			List<String> value = entry.getValue();
+			System.out.println(key +" "+value);
 		}
 	}
 	
