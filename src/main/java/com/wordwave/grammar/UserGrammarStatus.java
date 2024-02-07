@@ -29,6 +29,7 @@ public class UserGrammarStatus {
      * <p>그래서 연관관계를 설정해주는 대신 클라이언트로부터 grammarId를 받아와 저장하고 필요할때 Grammar에 join합니다.
      * <p>user 한 명당 grammarId는 여러 개가 저장될 수 있지만, 한 명의 user가 중복되는 grammarId를 가질 수 없습니다.
      * <p>grammarBookId도 같은 개념을 적용하며, grammarId를 저장할때 grammar로부터 불러와 grammarBookId를 저장합니다.
+     * 단, grammarBookId는 여러 grammar가 동일한 grammarBook에 속하기 때문에 중복을 허용합니다.
      */
     @Column(unique = true)
     private Long wrongGrammarId;
