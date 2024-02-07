@@ -36,12 +36,9 @@ function* fetchGrammarBookSaga(action) {
   }
 }
 
-function* fetchGrammarNumOfAllGrammarBooksSaga(action) {
+function* fetchGrammarNumOfAllGrammarBooksSaga() {
   try {
-    const num = yield call(
-      grammarBooksAPI.getGrammarNumOfAllGrammarBooks,
-      action.payload
-    );
+    const num = yield call(grammarBooksAPI.getGrammarNumOfAllGrammarBooks);
     yield put({
       type: "grammarBooks/getGrammarNumOfAllGrammarBooksSuccess",
       payload: num,
