@@ -21,23 +21,23 @@ import lombok.RequiredArgsConstructor;
 public class VocaBookController {
 	private final VocaBookService vocaBookService;
 	
-	@GetMapping("detail")
-	public ResponseEntity<?> getVocaBookDetail(@RequestParam(value = "vocaBookId")long vocaBookId){
-		try {
-			List<VocaBookDTO> vocaBooList = vocaBookService.getVocaBookDTOList();
-			return ResponseEntity.ok().body(vocaBooList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body("VocaBook 불러오기 실패!");
-		}
-	}
+//	@GetMapping("detail")
+//	public ResponseEntity<?> getVocaBookDetail(@RequestParam(value = "vocaBookId")long vocaBookId){
+//		try {
+//			List<VocaBookDTO> vocaBooList = vocaBookService.getVocaBookDTOList();
+//			return ResponseEntity.ok().body(vocaBooList);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return ResponseEntity.badRequest().body("VocaBook 불러오기 실패!");
+//		}
+//	}
 		
 		
 	@GetMapping("vocabooklist")
 	public ResponseEntity<?> selectVocaBook(){
 		try {
-			Map<Long,String> vocaBookList = vocaBookService.getVocaBookNameList();
-			return ResponseEntity.ok().body(vocaBookList);
+			List<VocaBookDTO> vocaBooList = vocaBookService.getVocaBookDTOList();
+			return ResponseEntity.ok().body(vocaBooList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("vocabook import falid");
