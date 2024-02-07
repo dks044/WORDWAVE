@@ -36,8 +36,8 @@ public class VocaBookController {
 	@GetMapping("vocabooklist")
 	public ResponseEntity<?> selectVocaBook(){
 		try {
-			List<VocaBookDTO> vocaBooList = vocaBookService.getVocaBookDTOList();
-			return ResponseEntity.ok().body(vocaBooList);
+			List<VocaBookDTO> responseDTO = vocaBookService.getVocaBookDTOList();
+			return ResponseEntity.ok().body(responseDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("vocabook import falid");

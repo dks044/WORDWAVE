@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.wordwave.vocabook.VocaBook;
+import com.wordwave.vocabook.VocaBookDTO;
 import com.wordwave.vocabook.VocaBookService;
 
 @SpringBootTest
@@ -40,6 +41,17 @@ public class VocaBookTest {
 			Long key = entry.getKey();
 			List<String> value = entry.getValue();
 			System.out.println(key +" "+value);
+		}
+	}
+	
+	@Test
+	@Disabled
+	void vocaBookView() {
+		List<VocaBookDTO> vbList = vocaBookService.getVocaBookDTOList();
+		for(VocaBookDTO vb : vbList) {
+			System.out.println(vb.getId());
+			System.out.println(vb.getName());
+			System.out.println(vb.getImageURL());
 		}
 	}
 	

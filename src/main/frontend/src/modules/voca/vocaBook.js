@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { reducerUtils } from "../../lib/asyncUtils";
 
 const initialState = {
-  vocaBooks : reducerUtils.initial()
+  vocaBooks : reducerUtils.initial(),
 }
 
 const vocaBookSlice = createSlice({
@@ -20,6 +20,10 @@ const vocaBookSlice = createSlice({
     getVocaBooksError: (state, action) => ({
       ...state,
       vocaBooks: reducerUtils.error(action.error),
+    }),
+    resetVocaBooks: (state) => ({
+      ...state,
+      vocaBooks: reducerUtils.initial(),
     })
   }
 })
@@ -27,6 +31,7 @@ const vocaBookSlice = createSlice({
 export const {
   getVocaBooks,
   getVocaBooksSuccess,
-  getVocaBooksError
+  getVocaBooksError,
+  resetVocaBooks
 } = vocaBookSlice.actions;
 export default vocaBookSlice.reducer;

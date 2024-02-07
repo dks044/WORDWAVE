@@ -5,12 +5,12 @@ function VocaBooks({vocaBooks})  {
   console.log(vocaBooks);
   return (
     <>
-      {vocaBooks && Object.entries(vocaBooks).map(([key, value]) => (
+      {vocaBooks && vocaBooks.map((vocaBook) => (
       <Container className="d-flex justify-content-center mt-3">
-        <Card key={key} style={{ width: '18rem' }} border="info" className="text-center">
-          <Card.Img variant="top" src="holder.js/100px180" />
+        <Card key={vocaBook.id} style={{ width: '18rem' }} border="info" className="text-center">
+          <Card.Img variant="top" src={vocaBook.imageURL} />
           <Card.Body>
-            <Card.Title className="fw-bold">{value}</Card.Title>
+            <Card.Title className="fw-bold">{vocaBook.name}</Card.Title>
             <Container className="d-flex justify-content-center mt-3">
             <Button variant="outline-info">공부하기!✏️</Button>
             </Container>
@@ -25,3 +25,4 @@ function VocaBooks({vocaBooks})  {
 }
 
 export default React.memo(VocaBooks);
+
