@@ -1,6 +1,7 @@
 package com.wordwave.aws;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class S3UploadService {
+public class S3Service {
 
     private final AmazonS3 amazonS3;
 
@@ -28,7 +29,8 @@ public class S3UploadService {
         metadata.setContentType(multipartFile.getContentType());
 
         amazonS3.putObject(bucket, originalFilename, multipartFile.getInputStream(), metadata);
-        return amazonS3.getUrl(bucket, originalFilename).toString();
+        // 등록된 객체의 url 반환 (decoder: url 안의 한글or특수문자 깨짐 방지)
+        return URLDecoder.decode(amazonS3.getUrl(bucket, originalFilename).toString(), "utf-8");
     }
     //*설명*
     //putObject() 메소드가 파일을 저장해주는 메소드
