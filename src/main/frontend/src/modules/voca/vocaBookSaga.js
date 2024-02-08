@@ -3,7 +3,6 @@ import * as vocaAPI from "../../api/vocaAPI"
 
 function* fetchVocaBooksSaga(){
   try {
-    yield put({ type: "vocaBook/resetVocaBooks" });
     const vocaBooks = yield call(vocaAPI.getVocaBooksAPI);
     yield put ({
       type: "vocaBook/getVocaBooksSuccess",

@@ -115,7 +115,7 @@ const VocaLink = styled(Link)`
   left: 60%;
   top: 15%;
   transform: rotate( 45deg );
-  transition: 0.25s all ease-in-out;
+  transition: 0.35s all ease-in-out;
   &:hover {
     color: #54535a;
   }
@@ -141,7 +141,7 @@ function DialMenu() {
           </GrammarLink>
         )}
         {open && (
-          <VocaLink to="/vocabooks" onClick={onToggle}>
+          <VocaLink to="/vocabooks" onClick={onToggle} open={open}>
             <FaBook size={50}/>
             VOCA
           </VocaLink>
