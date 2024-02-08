@@ -50,6 +50,9 @@ public class VocaBookService {
 	    return categoriesOfVocaBook;
 	}
 	
-	
+	public String getVocaBookName(long vocaBookId) {
+		Optional<VocaBook> vb = vocaBookRepository.findById(vocaBookId);
+		return vb.get().getName();
+	}
 
 }

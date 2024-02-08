@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getCategoriesOfVocaBook } from "../../modules/voca/vocaBook";
+import { getCategoriesOfVocaBook, getVocaBookName } from "../../modules/voca/vocaBook";
 import CircleSpinner from "../../components/CircleSpinner"
 import VocaBook from "../../components/voca/VocaBook";
 
 const VocaBookContainerBlock = styled.div`
-  padding: 10% 5% 10%;
+  padding: 10% 15% 10%;
   overflow-y: scroll;
 `
 function VocaBookOfCategoriesContainer( {vocaBookId} ){
@@ -15,18 +15,22 @@ function VocaBookOfCategoriesContainer( {vocaBookId} ){
   );
   const data = useSelector((state) => state.vocaBook.categoriesOfVocaBook.data);
   const error = useSelector((state) => state.vocaBook.categoriesOfVocaBook.error);
-  
+  const vocaBookName = useSelector((state)=>state.vocaBook.vocaBookName.data)
+
   const dispatch = useDispatch();
 
   useEffect(()=>{
+    if(data) return;
     dispatch(getCategoriesOfVocaBook(vocaBookId));
-  },[vocaBookId,dispatch])
+    dispatch(getVocaBookName(vocaBookId));
+  },[vocaBookId,dispatch,data])
 
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;
   return (
     <VocaBookContainerBlock>
-      <VocaBook categories={data}/>
+      <VocaBook categories={data} vocaBookName={vocaBookName}/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </VocaBookContainerBlock>
   )
 }

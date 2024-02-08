@@ -3,7 +3,8 @@ import { reducerUtils } from "../../lib/asyncUtils";
 
 const initialState = {
   vocaBooks : reducerUtils.initial(),
-  categoriesOfVocaBook : reducerUtils.initial()
+  categoriesOfVocaBook : reducerUtils.initial(),
+  vocaBookName : reducerUtils.initial()
 };
 
 const vocaBookSlice = createSlice({
@@ -34,6 +35,18 @@ const vocaBookSlice = createSlice({
       ...state,
       categoriesOfVocaBook: reducerUtils.error(action.error),
     }),
+    getVocaBookName: (state) => ({
+      ...state,
+      vocaBookName: reducerUtils.loading(),
+    }),
+    getVocaBookNameSuccess: (state, action) => ({
+      ...state,
+      vocaBookName: reducerUtils.success(action.payload),
+    }),
+    getVocaBookNameError: (state, action) => ({
+      ...state,
+      vocaBookName: reducerUtils.error(action.error),
+    }),
   }
 })
 
@@ -43,6 +56,9 @@ export const {
   getVocaBooksError,
   getCategoriesOfVocaBook,
   getCategoriesOfVocaBookSuccess,
-  getCategoriesOfVocaBookError
+  getCategoriesOfVocaBookError,
+  getVocaBookName,
+  getVocaBookNameSuccess,
+  getVocaBookNameError
 } = vocaBookSlice.actions;
 export default vocaBookSlice.reducer;

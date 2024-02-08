@@ -21,12 +21,10 @@ function* fetchVocaBooksSaga(){
 function* fetchCategoriesOfVocaBook(action){
   try {
     const categoriesOfVocaBook = yield call(vocaAPI.getVocaBookDetailByIdAPI,action.payload);
-    console.log(categoriesOfVocaBook);
     yield put ({
       type : "vocaBook/getCategoriesOfVocaBookSuccess",
       payload : categoriesOfVocaBook,
     });
-    console.log(categoriesOfVocaBook);
   } catch (e) {
     console.error(e);
     yield put({
@@ -37,9 +35,28 @@ function* fetchCategoriesOfVocaBook(action){
   }
 }
 
+function* fetchVocaBookName(action){
+  try {
+    const vocaBookName = yield call(vocaAPI.getVocaBookNameByIdAPI,action.payload);
+    yield put ({
+      type : "vocaBook/getVocaBookNameSuccess",
+      payload : vocaBookName,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: "vocaBook/getVocaBookNameError",
+      error: true,
+      payload: e.message,
+    });
+  }
+}
+
+
 function* vocaBookSaga() {
   yield takeEvery("vocaBook/getVocaBooks", fetchVocaBooksSaga);
   yield takeEvery("vocaBook/getCategoriesOfVocaBook", fetchCategoriesOfVocaBook);
+  yield takeEvery("vocaBook/getVocaBookName", fetchVocaBookName);
 }
 
 export default vocaBookSaga;

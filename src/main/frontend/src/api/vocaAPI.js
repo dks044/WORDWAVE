@@ -9,3 +9,8 @@ export async function getVocaBookDetailByIdAPI(vocaBookId){
   const response =  await axios.get(`/api/vocabook/${vocaBookId}`);
   return response.data;
 }
+
+export async function getVocaBookNameByIdAPI(vocaBookId){
+  const response =  await axios.get(`/api/vocabook/name/${vocaBookId}`);
+  return response.data;
+}
