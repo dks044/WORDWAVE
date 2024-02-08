@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +35,12 @@ public class VocaBookController {
 		}
 	}
 	
-	@GetMapping("detail")
-	public ResponseEntity<?> getVocaBookDetail(@RequestParam(value = "vocaBookId")long vocaBookId){
+	@GetMapping("{vocaBookId}")
+	public ResponseEntity<?> getVocaBookDetail(@PathVariable("vocaBookId") long vocaBookId){
 		try {
 			Map<Long,List<String>> categories = vocaBookService.getCategoriesOfVocaBook(vocaBookId);
 			return ResponseEntity.ok().body(categories);
-		} catch (Exception e) {
+		} catch (Exception e) {	
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("VocaBook 불러오기 실패!");
 		}

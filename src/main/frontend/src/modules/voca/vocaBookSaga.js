@@ -8,28 +8,31 @@ function* fetchVocaBooksSaga(){
       type: "vocaBook/getVocaBooksSuccess",
       payload : vocaBooks
     });
-    console.log(vocaBooks);
-  } catch (error) {
+    //console.log(vocaBooks);
+  } catch (e) {
     yield put({
       type: "vocaBook/getVocaBooksError",
       error: true,
-      payload: error,
+      payload: e.message,
     });
   }
 }
 
-function* fetchCategoriesOfVocaBook(){
+function* fetchCategoriesOfVocaBook(action){
   try {
-    const categoriesOfVocaBook = yield call(vocaAPI.getVocaBookDetailByIdAPI);
+    const categoriesOfVocaBook = yield call(vocaAPI.getVocaBookDetailByIdAPI,action.payload);
+    console.log(categoriesOfVocaBook);
     yield put ({
       type : "vocaBook/getCategoriesOfVocaBookSuccess",
-      payload : categoriesOfVocaBook
+      payload : categoriesOfVocaBook,
     });
-  } catch (error) {
+    console.log(categoriesOfVocaBook);
+  } catch (e) {
+    console.error(e);
     yield put({
       type: "vocaBook/getCategoriesOfVocaBookError",
       error: true,
-      payload: error,
+      payload: e.message,
     });
   }
 }

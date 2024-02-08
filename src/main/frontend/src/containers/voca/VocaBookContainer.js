@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import CircleSpinner from "../../components/CircleSpinner";
 import { getCategoriesOfVocaBook } from "../../modules/voca/vocaBook";
+import CircleSpinner from "../../components/CircleSpinner"
 import VocaBook from "../../components/voca/VocaBook";
 
 const VocaBookContainerBlock = styled.div`
@@ -15,12 +15,12 @@ function VocaBookOfCategoriesContainer( {vocaBookId} ){
   );
   const data = useSelector((state) => state.vocaBook.categoriesOfVocaBook.data);
   const error = useSelector((state) => state.vocaBook.categoriesOfVocaBook.error);
+  
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if(data) return;
     dispatch(getCategoriesOfVocaBook(vocaBookId));
-  },[vocaBookId,dispatch,data])
+  },[vocaBookId,dispatch])
 
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;

@@ -14,3 +14,4 @@ public interface VocaBookRepository extends JpaRepository<VocaBook, Long> {
 	
 	
 }
+	
