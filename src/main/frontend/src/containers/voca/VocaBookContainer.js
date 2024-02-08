@@ -20,16 +20,15 @@ function VocaBookOfCategoriesContainer( {vocaBookId} ){
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if(data) return;
     dispatch(getCategoriesOfVocaBook(vocaBookId));
     dispatch(getVocaBookName(vocaBookId));
-  },[vocaBookId,dispatch,data])
+  },[dispatch,vocaBookId])
 
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;
   return (
     <VocaBookContainerBlock>
-      <VocaBook categories={data} vocaBookName={vocaBookName}/>
+      <VocaBook categories={data} vocaBookName={vocaBookName} />
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </VocaBookContainerBlock>
   )

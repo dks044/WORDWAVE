@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function VocaBooks({vocaBooks})  {
-  console.log(vocaBooks);
+  const navigate = useNavigate();
   return (
     <>
       {vocaBooks && vocaBooks.map((vocaBook) => (
@@ -12,7 +13,7 @@ function VocaBooks({vocaBooks})  {
           <Card.Body>
             <Card.Title className="fw-bold">{vocaBook.name}</Card.Title>
             <Container className="d-flex justify-content-center mt-3">
-            <Button variant="success">✏️공부하기!✏️</Button>
+            <Button onClick={() => navigate(`/vocabooks/${vocaBook.id}`)} variant="success">✏️공부하기!✏️</Button>
             </Container>
           </Card.Body>
         </Card>

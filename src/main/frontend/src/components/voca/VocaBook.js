@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, Overlay, Popover } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Title = styled.h1`
@@ -7,7 +8,7 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-function VocaBook({ categories, vocaBookName }) {
+function VocaBook({ categories, vocaBookName}) {
   const [show, setShow] = useState({});
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
@@ -16,6 +17,7 @@ function VocaBook({ categories, vocaBookName }) {
     setShow((prevShow) => ({ ...prevShow, [index]: !prevShow[index] }));
     setTarget(event.target);
   };
+
 
   return (
     <>
