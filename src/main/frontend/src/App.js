@@ -13,6 +13,7 @@ import { ToastContainer } from "react-bootstrap";
 import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
+import VocaBookPage from "./pages/voca/VocaBookPage";
 
 
 function App() {
@@ -65,6 +66,8 @@ function App() {
           {/* VOCA */}
           <Route path="vocabooks" 
           element={isLoging ? <VocaBooksPage /> : <Navigate to="/login" />}/>
+          <Route path="vocabooks:vocaBookId" 
+          element={isLoging ? <VocaBookPage /> : <Navigate to="/login" />}/>
         </Route>
       </Routes>
     </>
