@@ -18,9 +18,25 @@ function* fetchVocaBooksSaga(){
   }
 }
 
+function* fetchCategoriesOfVocaBook(){
+  try {
+    const categoriesOfVocaBook = yield call(vocaAPI.getVocaBookDetailByIdAPI);
+    yield put ({
+      type : "vocaBook/getCategoriesOfVocaBookSuccess",
+      payload : categoriesOfVocaBook
+    });
+  } catch (error) {
+    yield put({
+      type: "vocaBook/getCategoriesOfVocaBookError",
+      error: true,
+      payload: error,
+    });
+  }
+}
+
 function* vocaBookSaga() {
   yield takeEvery("vocaBook/getVocaBooks", fetchVocaBooksSaga);
-
+  yield takeEvery("vocaBook/getCategoriesOfVocaBook", fetchCategoriesOfVocaBook);
 }
 
 export default vocaBookSaga;

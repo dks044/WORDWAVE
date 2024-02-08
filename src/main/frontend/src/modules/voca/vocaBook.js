@@ -35,7 +35,7 @@ const vocaBookSlice = createSlice({
       ...state,
       categoriesOfVocaBook: reducerUtils.error(action.error),
     }),
-    
+
   }
 })
 
@@ -43,6 +43,8 @@ export const {
   getVocaBooks,
   getVocaBooksSuccess,
   getVocaBooksError,
-  resetVocaBooks
+  getCategoriesOfVocaBook,
+  getCategoriesOfVocaBookSuccess,
+  getCategoriesOfVocaBookError
 } = vocaBookSlice.actions;
 export default vocaBookSlice.reducer;
