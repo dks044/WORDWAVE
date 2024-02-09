@@ -1,6 +1,7 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
+import com.wordwave.grammarbook.dto.GrammarIdsOfGrammarBookDto;
 import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,15 +30,15 @@ class GrammarBookServiceTest {
     void getGrammarBookTest() {
         String grammarBookName = "조동사";
 
-        GrammarBookResponseDto grammarBookResponseDto = grammarBookService.getGrammarBook(grammarBookName);
+        GrammarIdsOfGrammarBookDto dto = grammarBookService.getGrammarBook(grammarBookName);
 
-        System.out.println(grammarBookResponseDto.toString());
+        System.out.println(dto.toString());
     }
 
     @Test
     @DisplayName("모든 GrammarBook의 이름을 조회한다.")
     void getAllGrammarBookNamesTest() {
-        List<GrammarBookResponseDto> grammarBooks = this.grammarBookService.getAllGrammarBooksWithoutGrammar();
+        List<GrammarBookResponseDto> grammarBooks = this.grammarBookService.getAllGrammarBooksWithoutGrammars();
 
         System.out.println(grammarBooks);
     }
