@@ -5,7 +5,7 @@ export const getGrammarBooks = async () => {
   return response.data;
 };
 
-export const getGrammarBookById = async (grammarBookName) => {
+export const getGrammarBookByName = async (grammarBookName) => {
   const response = await axios.get(`/api/grammarbook/${grammarBookName}`);
   return response.data;
 };

@@ -20,7 +20,7 @@ function* fetchGrammarBooksSaga() {
 function* fetchGrammarBookSaga(action) {
   try {
     const grammarBook = yield call(
-      grammarBooksAPI.getGrammarBookById,
+      grammarBooksAPI.getGrammarBookByName,
       action.payload
     );
     yield put({
