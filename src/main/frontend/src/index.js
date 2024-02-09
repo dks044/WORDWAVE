@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
@@ -24,6 +23,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import "./index.css"; //가장 마지막에 import해야함
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const GlobalStyle = createGlobalStyle`
