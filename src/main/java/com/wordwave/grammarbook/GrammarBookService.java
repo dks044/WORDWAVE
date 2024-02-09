@@ -1,57 +1,44 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.exception.DataNotFoundException;
-import com.wordwave.grammar.*;
-import com.wordwave.grammar.dto.GrammarDto;
-import com.wordwave.grammar.dto.GrammarExampleDto;
+import com.wordwave.grammar.Grammar;
+import com.wordwave.grammar.GrammarRepository;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
+import com.wordwave.grammarbook.dto.GrammarIdsOfGrammarBookDto;
 import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class GrammarBookService {
     private final GrammarBookRepository grammarBookRepository;
     private final GrammarRepository grammarRepository;
-    private final GrammarExampleRepository grammarExampleRepository;
 
-    public GrammarBookResponseDto getGrammarBook(String grammarBookName) {
+    public GrammarIdsOfGrammarBookDto getGrammarBook(String grammarBookName) {
         GrammarBook grammarBook = this.grammarBookRepository.findByName(grammarBookName)
                 .orElseThrow(() -> new DataNotFoundException("Grammar book not found"));
 
-        List<Long> grammarIds = grammarBook.getGrammars().stream()
-                .map(Grammar::getId)
-                .toList();
-
-        List<GrammarExample> grammarExamples = this.grammarExampleRepository.findAllByGrammarIdIn(grammarIds);
-
-        Map<Long, List<GrammarExample>> grammarExamplesMappedGrammarId = grammarExamples.stream()
-                .collect(Collectors.groupingBy(example -> example.getGrammar().getId()));
-
-        List<GrammarDto> grammarDtos = new ArrayList<>();
-        for (Grammar grammar : grammarBook.getGrammars()) {
-            List<GrammarExampleDto> grammarExampleDtos = GrammarExampleToGrammarExampleDtoConverter.convert(grammarExamplesMappedGrammarId.get(grammar.getId()));
-            grammarDtos.add(GrammarDto.builder()
-                    .id(grammar.getId())
-                    .sentence(grammar.getSentence())
-                    .grammarBookName(grammarBook.getName())
-                    .grammarExamples(grammarExampleDtos)
-                    .build());
-        }
-
-        return GrammarBookResponseDto.builder()
+        return GrammarIdsOfGrammarBookDto.builder()
                 .id(grammarBook.getId())
                 .name(grammarBookName)
-                .grammars(grammarDtos)
+                .grammarIds(getGrammarIds(grammarBook.getGrammars()))
                 .build();
     }
 
-    public List<GrammarBookResponseDto> getAllGrammarBooksWithoutGrammar() {
+    private List<Long> getGrammarIds(List<Grammar> grammars) {
+        List<Long> grammarIds = new ArrayList<>();
+        for (Grammar grammar : grammars) {
+            grammarIds.add(grammar.getId());
+        }
+        return grammarIds;
+    }
+
+    public List<GrammarBookResponseDto> getAllGrammarBooksWithoutGrammars() {
         List<GrammarBookResponseDto> grammarBooks = new ArrayList<>();
         for (GrammarBook grammarBook : this.grammarBookRepository.findAll()) {
             GrammarBookResponseDto responseDto = GrammarBookResponseDto.builder()
@@ -63,6 +50,21 @@ public class GrammarBookService {
         return grammarBooks;
     }
 
+    //N+1 발생
+    /**
+     * SELECT
+     *     gb.id,
+     *     gb.name,
+     *     COUNT(g.id) AS grammar_count
+     * FROM
+     *     grammar_book gb
+     * LEFT JOIN
+     *     grammar g
+     * ON
+     *     gb.id = g.grammar_book_id
+     * GROUP BY
+     *     gb.id, gb.name;
+     * */
     public List<GrammarNumOfGrammarBookDto> getGrammarNumOfAllGrammarBooks() {
         List<GrammarNumOfGrammarBookDto> responseDtos = new ArrayList<>();
         for (GrammarBook grammarBook : this.grammarBookRepository.findAll()) {
