@@ -4,6 +4,7 @@ import { getGrammarBook } from "../../modules/grammarbooks/grammarBooks";
 import GrammarResultContainer from "./GrammarResultContainer";
 import GrammarBook from "../../components/grammar/GrammarBook";
 import CircleSpinner from "../../components/CircleSpinner";
+import NotFoundPage from "../../pages/NotFoundPage";
 
 const GrammarBookContainer = ({ grammarBookId }) => {
   const loading = useSelector(
@@ -19,16 +20,16 @@ const GrammarBookContainer = ({ grammarBookId }) => {
   }, [grammarBookId, dispatch]);
 
   if (loading && !data) return <CircleSpinner />;
-  if (error) return <div>error!!</div>;
+  if (error) return <NotFoundPage />;
 
-  const progressRate = (grammarIndex / data.grammars.length) * 100;
+  const progressRate = (grammarIndex / data.grammarIds.length) * 100;
 
   return (
     <>
       {data && (
         <>
           <GrammarBook grammarBook={data} progressRate={progressRate} />
-          <GrammarResultContainer grammars={data.grammars} />
+          {/* <GrammarResultContainer grammars={data.grammars} /> */}
         </>
       )}
     </>
