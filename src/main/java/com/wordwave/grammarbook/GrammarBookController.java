@@ -1,13 +1,10 @@
 package com.wordwave.grammarbook;
 
 import com.wordwave.grammarbook.dto.ChangeGrammarBookNameDto;
-import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/grammarbook")
@@ -16,17 +13,25 @@ public class GrammarBookController {
     private final GrammarBookService grammarBookService;
 
     @GetMapping("/{grammarBookName}")
-    public ResponseEntity<GrammarBookResponseDto> getGrammarBook(@PathVariable String grammarBookName) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(this.grammarBookService.getGrammarBook(grammarBookName));
+    public ResponseEntity<Object> getGrammarBook(@PathVariable String grammarBookName) {
+        try {
+            return ResponseEntity
+                    .ok()
+                    .body(this.grammarBookService.getGrammarBook(grammarBookName));
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<GrammarBookResponseDto>> getAllGrammarBooks() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(this.grammarBookService.getAllGrammarBooksWithoutGrammar());
+    public ResponseEntity<Object> getGrammarIdsOfAllGrammarBooks() {
+        try {
+            return ResponseEntity
+                    .ok()
+                    .body(this.grammarBookService.getAllGrammarBooksWithoutGrammars());
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @GetMapping("/all-grammar-num")
