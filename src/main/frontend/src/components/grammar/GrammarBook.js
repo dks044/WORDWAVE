@@ -18,12 +18,12 @@ const Title = styled.h2`
 `;
 
 const GrammarBook = ({ grammarBook, progressRate }) => {
-  const { name, grammars } = grammarBook;
+  const { name, grammarIds } = grammarBook;
   return (
     <>
       <ProgressBarCustom now={progressRate} />
       <Title>#{name}</Title>
-      {grammars && <GrammarContainer grammars={grammars} />}
+      {grammarIds && <GrammarContainer grammarIds={grammarIds} />}
     </>
   );
 };

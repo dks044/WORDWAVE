@@ -1,4 +1,5 @@
 import Grammar from "../../components/grammar/Grammar";
+import { getGrammarById } from "../../modules/grammars/grammars";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increaseIndex,
@@ -6,8 +7,11 @@ import {
   clickSubmitButton,
   addIncorrectGrammarId,
 } from "../../modules/quiz/grammarQuiz";
+import CircleSpinner from "../../components/CircleSpinner";
+import NotFoundPage from "../../pages/NotFoundPage";
+import { useEffect } from "react";
 
-const GrammarContainer = ({ grammars }) => {
+const GrammarContainer = ({ grammarIds }) => {
   const currentGrammarIndex = useSelector(
     (state) => state.grammarQuiz.grammarIndex
   );
@@ -16,6 +20,9 @@ const GrammarContainer = ({ grammars }) => {
   );
   const isSubmit = useSelector((state) => state.grammarQuiz.isSubmit);
   const isAnswer = useSelector((state) => state.grammarQuiz.isAnswer);
+  const loading = useSelector((state) => state.grammars.grammar.loading);
+  const data = useSelector((state) => state.grammars.grammar.data);
+  const error = useSelector((state) => state.grammars.grammar.error);
   const dispatch = useDispatch();
 
   const handleNextGrammar = () => {
@@ -24,16 +31,24 @@ const GrammarContainer = ({ grammars }) => {
       dispatch(initializeClickExampleAndSubmit());
       dispatch(increaseIndex());
       if (!isAnswer) {
-        dispatch(addIncorrectGrammarId(grammars[currentGrammarIndex].id));
+        dispatch(addIncorrectGrammarId(grammarIds[currentGrammarIndex]));
       }
     }
-    if (currentGrammarIndex >= grammars.length) {
+    if (currentGrammarIndex >= grammarIds.length) {
       return;
     }
   };
+
+  useEffect(() => {
+    dispatch(getGrammarById(grammarIds[currentGrammarIndex]));
+  }, [dispatch, grammarIds, currentGrammarIndex]);
+
+  if (loading && !data) return <CircleSpinner />;
+  if (error) return <NotFoundPage />;
+
   return (
     <Grammar
-      currentGrammar={grammars[currentGrammarIndex]}
+      currentGrammar={data}
       onNextGrammar={handleNextGrammar}
       isExampleClicked={isExampleClicked}
       isAnswer={isAnswer}
