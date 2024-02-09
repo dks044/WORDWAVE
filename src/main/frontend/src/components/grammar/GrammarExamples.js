@@ -5,7 +5,7 @@ const ExampleGroup = styled(ButtonGroup)`
   //크기
   width: 80%;
   //위치
-  top: 60%;
+  top: 55%;
   left: 50%;
   transform: translateX(-50%);
 `;
