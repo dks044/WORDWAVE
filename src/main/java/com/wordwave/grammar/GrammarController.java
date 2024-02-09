@@ -14,8 +14,12 @@ public class GrammarController {
     private final GrammarService grammarService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<GrammarDto> getGrammar(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.grammarService.getGrammar(id));
+    public ResponseEntity<Object> getGrammar(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok().body(this.grammarService.getGrammar(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @PostMapping("/{id}")
