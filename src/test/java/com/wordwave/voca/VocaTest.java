@@ -1,5 +1,11 @@
 package com.wordwave.voca;
 
+import static org.mockito.ArgumentMatchers.anyList;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +33,9 @@ public class VocaTest {
 	private VocaDataCode vocaDataCode;
 	@Autowired
 	private VocaDataTool vocaDataTool;
-
+	@Autowired
+	private VocaRepository vocaRepository;
+	
 	@Test
 	@Transactional
 	@Rollback(false)
@@ -178,4 +186,20 @@ public class VocaTest {
 		String[] basicArr = vocaDataCode.basicVoca().split("\n");
 		vocaDataTool.insertVocaByString(basicArr, VOCABOOK_BASIC_ID,"기초");
 	}
+	
+	
+	@Test
+	@DisplayName("vocaBookId,Category로 vocaList얻어내기")
+	@Disabled
+	void getVocaListVocaByVocaBookIdAndCategory() {
+		List<Voca> vocaList = vocaRepository.findByVocaBookIdAndCategory(1L, "법률");
+		Collections.shuffle(vocaList);
+		for(Voca v : vocaList) {
+			System.out.println(v.getCategory());
+			System.out.println(v.getId());
+			System.out.println(v.getEngWord());
+		}
+		
+	}
+	
 }
