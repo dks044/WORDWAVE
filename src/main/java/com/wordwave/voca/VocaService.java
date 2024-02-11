@@ -1,6 +1,9 @@
 package com.wordwave.voca;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -37,4 +40,20 @@ public class VocaService {
 	    vocaBookRepository.save(vocaBook);
 	}
 
+	public List<VocaDTO> select(long vocaBookId, String category){
+		List<Voca> vocas = vocaRepository.findByVocaBookIdAndCategory(vocaBookId, category);
+		List<VocaDTO> vocaDTOs = new ArrayList<>();
+		for(Voca v : vocas) {
+			VocaDTO vd = VocaDTO.builder()
+								.id(v.getId())
+								.korWord(v.getKorWord())
+								.engWord(v.getEngWord())
+								.vocaBookId(v.getVocaBook().getId())
+								.imgURL(v.getImgURL())
+								.build();
+			vocaDTOs.add(vd);
+		}
+		Collections.shuffle(vocaDTOs);
+		return vocaDTOs;
+	}
 }
