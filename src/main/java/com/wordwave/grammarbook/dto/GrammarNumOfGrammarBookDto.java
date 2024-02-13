@@ -14,5 +14,5 @@ public class GrammarNumOfGrammarBookDto {
 
     private String name;
 
-    private Integer grammarNum;
+    private Long grammarNum;
 }
