@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getUserWrongGrammars } from "../../modules/wrong-grammars/wrongGrammars";
-import { getGrammarNumOfAllGrammarBooks } from "../../modules/grammarbooks/grammarBooks";
+import { getGrammarNumOfAllGrammarBooks } from "../../modules/grammars/grammars";
 import { useEffect } from "react";
 import CircleSpinner from "../../components/CircleSpinner";
 import UserWrongGrammars from "../../components/grammar/UserWrongGrammars";
+import NotFoundPage from "../../pages/NotFoundPage";
 
 const UserWrongGrammarsContainer = () => {
   const loadingWrongGrammars = useSelector(
@@ -16,13 +17,13 @@ const UserWrongGrammarsContainer = () => {
     (state) => state.wrongGrammars.userWrongGrammars.error
   );
   const loadingGrammarNums = useSelector(
-    (state) => state.grammarBooks.grammarNumOfAllGrammarBooks.loading
+    (state) => state.grammars.grammarNumOfAllGrammarBooks.loading
   );
   const dataGrammarNums = useSelector(
-    (state) => state.grammarBooks.grammarNumOfAllGrammarBooks.data
+    (state) => state.grammars.grammarNumOfAllGrammarBooks.data
   );
   const errorGrammarNums = useSelector(
-    (state) => state.grammarBooks.grammarNumOfAllGrammarBooks.error
+    (state) => state.grammars.grammarNumOfAllGrammarBooks.error
   );
 
   const user = useSelector((state) => state.auth.user);
@@ -56,23 +57,17 @@ const UserWrongGrammarsContainer = () => {
     return cnt;
   }
 
-  console.log(userGrammarBookData);
   if (
     (loadingWrongGrammars || loadingGrammarNums) &&
     !dataWrongGrammars &&
     !dataGrammarNums
   )
     return <CircleSpinner />;
-  if (errorWrongGrammars || errorGrammarNums)
-    return (
-      <div>
-        {errorWrongGrammars}, {errorGrammarNums}
-      </div>
-    );
+  if (errorWrongGrammars || errorGrammarNums) return <NotFoundPage />;
 
   return (
     <>
-      {dataWrongGrammars.wrongGrammars && (
+      {dataWrongGrammars && (
         <UserWrongGrammars userGrammarBookData={userGrammarBookData} />
       )}
     </>
