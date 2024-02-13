@@ -13,12 +13,12 @@ const TooltipBox = styled.div`
   padding: 10px;
 `;
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
       <TooltipBox className="custom-tooltip">
-        <p className="content">{`전체 문제 수: ${payload[0].value}`}</p>
-        <p className="content">{`틀린 문제 수: ${payload[1].value}`}</p>
+        <p className="content">{`전체 문제 수: ${payload[1].value}`}</p>
+        <p className="content">{`틀린 문제 수: ${payload[0].value}`}</p>
       </TooltipBox>
     );
   }
@@ -44,8 +44,8 @@ const UserWrongGrammars = ({ userGrammarBookData }) => {
         <XAxis type="number" unit="개" />
         <YAxis type="category" width={250} dataKey="grammarBookName" />
         <Tooltip content={<CustomTooltip />} />
-        <Bar dataKey="grammarNum" unit="개" stackId="a" fill="#8884d8" />
-        <Bar dataKey="wrongNum" stackId="a" fill="#82ca9d" />
+        <Bar dataKey="wrongNum" stackId="a" fill="#F07F87" />
+        <Bar dataKey="grammarNum" unit="개" stackId="a" fill="#96DEF5" />
       </BarChart>
     </BarBox>
   );
