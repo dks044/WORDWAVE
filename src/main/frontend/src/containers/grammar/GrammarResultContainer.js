@@ -3,7 +3,10 @@ import GrammarResult from "../../components/grammar/GrammarResult";
 import { useSelector, useDispatch } from "react-redux";
 import { saveUserWrongGrammars } from "../../modules/wrong-grammars/wrongGrammars";
 
-const GrammarResultContainer = ({ grammars }) => {
+const GrammarResultContainer = () => {
+  const grammarIds = useSelector(
+    (state) => state.grammarBooks.grammarBook.data.grammarIds
+  );
   const wrongGrammarIds = useSelector(
     (state) => state.grammarQuiz.incorrectGrammarIds
   );
@@ -32,17 +35,18 @@ const GrammarResultContainer = ({ grammars }) => {
     seconds;
 
   useEffect(() => {
-    if (grammars.length === grammarIndex) {
+    if (grammarIds.length === grammarIndex) {
       const wrongGrammarsDto = {
         userName: user.userName,
         wrongGrammarIds: wrongGrammarIds,
+        //grammarBookName 추가하기
         lastTryTime: lastTryTime,
       };
       dispatch(saveUserWrongGrammars(wrongGrammarsDto));
     }
   }, [
     dispatch,
-    grammars.length,
+    grammarIds,
     grammarIndex,
     user.userName,
     wrongGrammarIds,
@@ -51,10 +55,10 @@ const GrammarResultContainer = ({ grammars }) => {
 
   return (
     <>
-      {grammars.length === grammarIndex && (
+      {grammarIds.length === grammarIndex && (
         <GrammarResult
           wrongGrammarsSize={wrongGrammarIds.length}
-          grammarsSize={grammars.length}
+          grammarsSize={grammarIds.length}
         />
       )}
     </>
