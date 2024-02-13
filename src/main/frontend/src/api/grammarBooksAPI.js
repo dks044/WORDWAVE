@@ -9,8 +9,3 @@ export const getGrammarBookByName = async (grammarBookName) => {
   const response = await axios.get(`/api/grammarbook/${grammarBookName}`);
   return response.data;
 };
-
-export const getGrammarNumOfAllGrammarBooks = async () => {
-  const response = await axios.get("/api/grammarbook/all-grammar-num");
-  return response.data;
-};
