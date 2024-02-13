@@ -6,9 +6,12 @@ import com.wordwave.grammar.dto.GrammarDto;
 import com.wordwave.grammar.dto.GrammarExampleDto;
 import com.wordwave.grammarbook.GrammarBook;
 import com.wordwave.grammarbook.GrammarBookRepository;
+import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +34,11 @@ public class GrammarService {
 
     public Long getGrammarBookIdByGrammarId(Long grammarId) {
         return this.grammarRepository.findGrammarBookIdByGrammarId(grammarId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GrammarNumOfGrammarBookDto> getNumOfAllGrammarBooks() {
+        return this.grammarRepository.findNumOfAllGrammarBooks();
     }
 
     public void deleteGrammar(Long id) {
