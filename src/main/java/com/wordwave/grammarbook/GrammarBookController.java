@@ -34,15 +34,6 @@ public class GrammarBookController {
         }
     }
 
-    @GetMapping("/all-grammar-num")
-    public ResponseEntity<Object> getGrammarNumOfAllGrammarBooks() {
-        try {
-            return ResponseEntity.ok().body(this.grammarBookService.getGrammarNumOfAllGrammarBooks());
-        } catch (Exception e) {
-            return ResponseEntity.status(404).body(e.getMessage());
-        }
-    }
-
     @PutMapping("")
     public ResponseEntity<Object> updateGrammarBookName(@RequestBody ChangeGrammarBookNameDto changeGrammarBookNameDto) {
         this.grammarBookService.updateGrammarBookName(changeGrammarBookNameDto.getId(), changeGrammarBookNameDto.getNewName());
