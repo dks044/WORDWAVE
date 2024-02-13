@@ -34,6 +34,14 @@ class GrammarControllerTest {
     }
 
     @Test
+    @DisplayName("각 GrammarBook마다 Grammar 개수 조회 요청에 응답한다.")
+    void getGrammarNumOfAllGrammarBooksApiTest() {
+        ResponseEntity<Object> response = this.grammarController.getGrammarNumOfAllGrammarBooks();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    }
+
+    @Test
     @DisplayName("grammar에 example을 저장한다.")
     void saveGrammarExampleTest() {
         GrammarDto grammarDto = GrammarDto.builder()
