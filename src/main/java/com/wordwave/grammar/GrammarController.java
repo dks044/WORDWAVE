@@ -22,6 +22,15 @@ public class GrammarController {
         }
     }
 
+    @GetMapping("/num-each-grammarbook")
+    public ResponseEntity<Object> getGrammarNumOfAllGrammarBooks() {
+        try {
+            return ResponseEntity.ok().body(this.grammarService.getNumOfAllGrammarBooks());
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
     @PostMapping("/{id}")
     public ResponseEntity<Object> saveGrammarExample(@RequestBody GrammarDto grammarDto) {
         //grammarDto의 sentence와 grammarBookName은 필요없음
