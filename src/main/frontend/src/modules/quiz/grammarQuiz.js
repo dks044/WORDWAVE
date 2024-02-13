@@ -22,9 +22,10 @@ const grammarQuizSlice = createSlice({
       state.isExampleClicked = true;
       state.isAnswer = action.payload;
     },
-    initializeClickExampleAndSubmit: (state) => {
+    initializeClickExampleAndSubmitAndAnswer: (state) => {
       state.isExampleClicked = false;
       state.isSubmit = false;
+      state.isAnswer = false;
     },
     clickSubmitButton: (state) => {
       state.isSubmit = true;
@@ -42,7 +43,7 @@ export const {
   initializeIndex,
   increaseIndex,
   clickExample,
-  initializeClickExampleAndSubmit,
+  initializeClickExampleAndSubmitAndAnswer,
   clickSubmitButton,
   addIncorrectGrammarId,
   clearIncorrectGrammarIds,
