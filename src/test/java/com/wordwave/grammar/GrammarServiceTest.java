@@ -3,6 +3,7 @@ package com.wordwave.grammar;
 import com.wordwave.grammar.dto.ChangeSentenceDto;
 import com.wordwave.grammar.dto.GrammarDto;
 import com.wordwave.grammar.dto.GrammarExampleDto;
+import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -53,6 +54,14 @@ class GrammarServiceTest {
         GrammarDto grammarDto = this.grammarService.getGrammar(id);
 
         System.out.println(grammarDto.toString());
+    }
+
+    @Test
+    @DisplayName("모든 GrammarBook의 Grammar 개수를 조회한다.")
+    void getGrammarNumOfAllGrammarBooksTest() {
+        List<GrammarNumOfGrammarBookDto> grammarNumOfGrammarBookDtos = this.grammarService.getNumOfAllGrammarBooks();
+
+        System.out.println(grammarNumOfGrammarBookDtos);
     }
 
     @DisplayName("Grammar와 GrammarExample을 함께 저장한다.")
