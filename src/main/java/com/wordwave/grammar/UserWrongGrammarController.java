@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user-wrong-grammar")
-public class UserGrammarStatusController {
-    private final UserGrammarStatusService userGrammarStatusService;
+public class UserWrongGrammarController {
+    private final UserWrongGrammarService userWrongGrammarService;
 
     @GetMapping("/grammars")
     public ResponseEntity<?> getUserWrongGrammars(@RequestParam(value = "userName") String userName) {
         try {
-            return ResponseEntity.ok().body(this.userGrammarStatusService.getUserWrongGrammars(userName));
+            return ResponseEntity.ok().body(this.userWrongGrammarService.getUserWrongGrammars(userName));
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
@@ -25,7 +25,7 @@ public class UserGrammarStatusController {
             @RequestParam(value = "userName") String userName,
             @RequestParam(value = "grammarBookName") String grammarBookName) {
         try {
-            return ResponseEntity.ok().body(this.userGrammarStatusService.getUserWrongGrammarBook(userName, grammarBookName));
+            return ResponseEntity.ok().body(this.userWrongGrammarService.getUserWrongGrammarBook(userName, grammarBookName));
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
@@ -34,7 +34,7 @@ public class UserGrammarStatusController {
     @PostMapping()
     public ResponseEntity<?> saveUserWrongGrammars(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
-            this.userGrammarStatusService.saveUserWrongGrammars(wrongGrammarsDto);
+            this.userWrongGrammarService.saveUserWrongGrammars(wrongGrammarsDto);
             return ResponseEntity.ok().body("Saved wrong grammars.");
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());
@@ -44,7 +44,7 @@ public class UserGrammarStatusController {
     @PutMapping()
     public ResponseEntity<?> updateUserLastTryTime(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
-            this.userGrammarStatusService.updateUserLastTryTime(wrongGrammarsDto);
+            this.userWrongGrammarService.updateUserLastTryTime(wrongGrammarsDto);
             return ResponseEntity.ok().body("Updated last try time.");
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());
@@ -54,7 +54,7 @@ public class UserGrammarStatusController {
     @DeleteMapping()
     public ResponseEntity<?> deleteUserWrongGrammars(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
-            this.userGrammarStatusService.deleteUserWrongGrammars(wrongGrammarsDto);
+            this.userWrongGrammarService.deleteUserWrongGrammars(wrongGrammarsDto);
             return ResponseEntity.ok().body("Deleted wrong grammars.");
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());

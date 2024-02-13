@@ -23,9 +23,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class UserGrammarStatusControllerTest {
+class UserWrongGrammarControllerTest {
     @Autowired
-    UserGrammarStatusController userGrammarStatusController;
+    UserWrongGrammarController userWrongGrammarController;
 
     private void mockLogin() {
         // 인증 객체 생성
@@ -42,7 +42,7 @@ class UserGrammarStatusControllerTest {
     void getUserWrongGrammarsApiTest(String userName, int statusCode) {
         mockLogin();
 
-        ResponseEntity<?> response = this.userGrammarStatusController.getUserWrongGrammars(userName);
+        ResponseEntity<?> response = this.userWrongGrammarController.getUserWrongGrammars(userName);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(statusCode));
     }
@@ -53,7 +53,7 @@ class UserGrammarStatusControllerTest {
         String userName = "jjy1234";
         String grammarBookName = "현재와 현재진행";
 
-        ResponseEntity<?> response = this.userGrammarStatusController.getUserWrongGrammarBook(userName, grammarBookName);
+        ResponseEntity<?> response = this.userWrongGrammarController.getUserWrongGrammarBook(userName, grammarBookName);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
@@ -64,7 +64,7 @@ class UserGrammarStatusControllerTest {
     void saveUserWrongGrammarsApiTest() {
         mockLogin();
 
-        ResponseEntity<?> response = this.userGrammarStatusController.saveUserWrongGrammars(WrongGrammarsDto.builder()
+        ResponseEntity<?> response = this.userWrongGrammarController.saveUserWrongGrammars(WrongGrammarsDto.builder()
                 .userName("jjy1234")
                 .wrongGrammarIds(List.of(1L, 2L))
                 .build());
@@ -77,7 +77,7 @@ class UserGrammarStatusControllerTest {
     void updateUserLastTryTimeApiTest() {
         mockLogin();
 
-        ResponseEntity<?> response = this.userGrammarStatusController.updateUserLastTryTime(
+        ResponseEntity<?> response = this.userWrongGrammarController.updateUserLastTryTime(
                 WrongGrammarsDto.builder()
                         .userName("jjy1234")
                         .wrongGrammarIds(List.of(42L, 43L, 44L))
@@ -93,7 +93,7 @@ class UserGrammarStatusControllerTest {
     void deleteUserWrongGrammarsApiTest() {
         mockLogin();
 
-        ResponseEntity<?> response = this.userGrammarStatusController.deleteUserWrongGrammars(
+        ResponseEntity<?> response = this.userWrongGrammarController.deleteUserWrongGrammars(
                 WrongGrammarsDto.builder()
                         .userName("jjy1234")
                         .wrongGrammarIds(List.of(1L, 2L))
