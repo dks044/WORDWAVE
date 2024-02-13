@@ -6,7 +6,7 @@ const GrammarBookPage = () => {
 
   return (
     <>
-      <GrammarBookContainer grammarBookId={grammarBookName} />
+      <GrammarBookContainer grammarBookName={grammarBookName} />
     </>
   );
 };
