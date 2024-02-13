@@ -2,10 +2,8 @@ package com.wordwave.grammarbook;
 
 import com.wordwave.exception.DataNotFoundException;
 import com.wordwave.grammar.Grammar;
-import com.wordwave.grammar.GrammarRepository;
 import com.wordwave.grammarbook.dto.GrammarBookResponseDto;
 import com.wordwave.grammarbook.dto.GrammarIdsOfGrammarBookDto;
-import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GrammarBookService {
     private final GrammarBookRepository grammarBookRepository;
-    private final GrammarRepository grammarRepository;
 
     public GrammarIdsOfGrammarBookDto getGrammarBook(String grammarBookName) {
         GrammarBook grammarBook = this.grammarBookRepository.findByName(grammarBookName)
@@ -26,11 +23,11 @@ public class GrammarBookService {
         return GrammarIdsOfGrammarBookDto.builder()
                 .id(grammarBook.getId())
                 .name(grammarBookName)
-                .grammarIds(getGrammarIds(grammarBook.getGrammars()))
+                .grammarIds(collectGrammarIds(grammarBook.getGrammars()))
                 .build();
     }
 
-    private List<Long> getGrammarIds(List<Grammar> grammars) {
+    private List<Long> collectGrammarIds(List<Grammar> grammars) {
         List<Long> grammarIds = new ArrayList<>();
         for (Grammar grammar : grammars) {
             grammarIds.add(grammar.getId());
@@ -48,35 +45,6 @@ public class GrammarBookService {
             grammarBooks.add(responseDto);
         }
         return grammarBooks;
-    }
-
-    //N+1 발생
-    /**
-     * SELECT
-     *     gb.id,
-     *     gb.name,
-     *     COUNT(g.id) AS grammar_count
-     * FROM
-     *     grammar_book gb
-     * LEFT JOIN
-     *     grammar g
-     * ON
-     *     gb.id = g.grammar_book_id
-     * GROUP BY
-     *     gb.id, gb.name;
-     * */
-    public List<GrammarNumOfGrammarBookDto> getGrammarNumOfAllGrammarBooks() {
-        List<GrammarNumOfGrammarBookDto> responseDtos = new ArrayList<>();
-        for (GrammarBook grammarBook : this.grammarBookRepository.findAll()) {
-            responseDtos.add(
-                    GrammarNumOfGrammarBookDto.builder()
-                            .id(grammarBook.getId())
-                            .name(grammarBook.getName())
-                            .grammarNum(this.grammarRepository.findByGrammarBookId(grammarBook.getId()).size())
-                            .build()
-            );
-        }
-        return responseDtos;
     }
 
     public Long getGrammarBookIdByGrammarBookName(String grammarBookName) {
