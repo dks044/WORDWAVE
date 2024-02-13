@@ -12,6 +12,8 @@ public class WrongGrammarsDto {
 
     private String userName;
 
+    private String grammarBookName;
+
     private List<Long> wrongGrammarIds;
 
     private LocalDateTime lastTryTime;
