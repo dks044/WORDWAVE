@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface GrammarRepository extends JpaRepository<Grammar, Long> {
@@ -20,5 +21,6 @@ public interface GrammarRepository extends JpaRepository<Grammar, Long> {
 
     List<Grammar> findByGrammarBookId(Long grammarBookId);
 
-    List<Grammar> findByIdIn(List<Long> ids);
+    @EntityGraph(attributePaths = {"examples", "grammarBook"})
+    List<Grammar> findGrammarWithGrammarBookAndExampleByIdIn(Set<Long> ids);
 }
