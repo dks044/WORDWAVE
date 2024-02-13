@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGrammarBook } from "../../modules/grammarbooks/grammarBooks";
-import GrammarResultContainer from "./GrammarResultContainer";
 import GrammarBook from "../../components/grammar/GrammarBook";
 import CircleSpinner from "../../components/CircleSpinner";
 import NotFoundPage from "../../pages/NotFoundPage";
 
-const GrammarBookContainer = ({ grammarBookId }) => {
+const GrammarBookContainer = ({ grammarBookName }) => {
   const loading = useSelector(
     (state) => state.grammarBooks.grammarBook.loading
   );
@@ -16,8 +15,8 @@ const GrammarBookContainer = ({ grammarBookId }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getGrammarBook(grammarBookId));
-  }, [grammarBookId, dispatch]);
+    dispatch(getGrammarBook(grammarBookName));
+  }, [grammarBookName, dispatch]);
 
   if (loading && !data) return <CircleSpinner />;
   if (error) return <NotFoundPage />;
@@ -26,12 +25,7 @@ const GrammarBookContainer = ({ grammarBookId }) => {
 
   return (
     <>
-      {data && (
-        <>
-          <GrammarBook grammarBook={data} progressRate={progressRate} />
-          {/* <GrammarResultContainer grammars={data.grammars} /> */}
-        </>
-      )}
+      {data && <GrammarBook grammarBook={data} progressRate={progressRate} />}
     </>
   );
 };
