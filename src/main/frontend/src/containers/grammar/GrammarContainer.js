@@ -3,13 +3,14 @@ import { getGrammarById } from "../../modules/grammars/grammars";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increaseIndex,
-  initializeClickExampleAndSubmit,
+  initializeClickExampleAndSubmitAndAnswer,
   clickSubmitButton,
   addIncorrectGrammarId,
 } from "../../modules/quiz/grammarQuiz";
 import CircleSpinner from "../../components/CircleSpinner";
 import NotFoundPage from "../../pages/NotFoundPage";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const GrammarContainer = ({ grammarIds }) => {
   const currentGrammarIndex = useSelector(
@@ -24,23 +25,27 @@ const GrammarContainer = ({ grammarIds }) => {
   const data = useSelector((state) => state.grammars.grammar.data);
   const error = useSelector((state) => state.grammars.grammar.error);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleNextGrammar = () => {
     dispatch(clickSubmitButton());
     if (isSubmit) {
-      dispatch(initializeClickExampleAndSubmit());
-      dispatch(increaseIndex());
       if (!isAnswer) {
         dispatch(addIncorrectGrammarId(grammarIds[currentGrammarIndex]));
       }
-    }
-    if (currentGrammarIndex >= grammarIds.length) {
-      return;
+      dispatch(increaseIndex());
     }
   };
 
+  if (currentGrammarIndex > grammarIds.length - 1) {
+    navigate("/grammarbooks/result");
+  }
+
   useEffect(() => {
-    dispatch(getGrammarById(grammarIds[currentGrammarIndex]));
+    dispatch(initializeClickExampleAndSubmitAndAnswer());
+    if (currentGrammarIndex < grammarIds.length) {
+      dispatch(getGrammarById(grammarIds[currentGrammarIndex]));
+    }
   }, [dispatch, grammarIds, currentGrammarIndex]);
 
   if (loading && !data) return <CircleSpinner />;
