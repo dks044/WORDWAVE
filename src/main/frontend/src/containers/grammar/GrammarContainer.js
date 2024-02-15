@@ -10,7 +10,6 @@ import {
 import CircleSpinner from "../../components/CircleSpinner";
 import NotFoundPage from "../../pages/NotFoundPage";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const GrammarContainer = ({ grammarIds }) => {
   const currentGrammarIndex = useSelector(
@@ -25,7 +24,6 @@ const GrammarContainer = ({ grammarIds }) => {
   const data = useSelector((state) => state.grammars.grammar.data);
   const error = useSelector((state) => state.grammars.grammar.error);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleNextGrammar = () => {
     dispatch(clickSubmitButton());
@@ -36,10 +34,6 @@ const GrammarContainer = ({ grammarIds }) => {
       dispatch(increaseIndex());
     }
   };
-
-  if (currentGrammarIndex > grammarIds.length - 1) {
-    navigate("/grammarbooks/result");
-  }
 
   useEffect(() => {
     dispatch(initializeClickExampleAndSubmitAndAnswer());

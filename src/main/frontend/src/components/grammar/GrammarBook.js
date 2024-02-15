@@ -1,4 +1,5 @@
 import GrammarContainer from "../../containers/grammar/GrammarContainer";
+import GrammarResultContainer from "../../containers/grammar/GrammarResultContainer";
 import styled from "styled-components";
 import { ProgressBar } from "react-bootstrap";
 
@@ -23,7 +24,12 @@ const GrammarBook = ({ grammarBook, progressRate }) => {
     <>
       <ProgressBarCustom now={progressRate} />
       <Title>#{name}</Title>
-      {grammarIds && <GrammarContainer grammarIds={grammarIds} />}
+      {grammarIds && 0 <= progressRate && progressRate < 100 && (
+        <GrammarContainer grammarIds={grammarIds} />
+      )}
+      {progressRate === 100 && (
+        <GrammarResultContainer grammarIds={grammarIds} />
+      )}
     </>
   );
 };

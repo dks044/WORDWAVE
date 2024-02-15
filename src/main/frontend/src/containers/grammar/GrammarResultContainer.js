@@ -3,10 +3,7 @@ import GrammarResult from "../../components/grammar/GrammarResult";
 import { useSelector, useDispatch } from "react-redux";
 import { saveUserWrongGrammars } from "../../modules/wrong-grammars/wrongGrammars";
 
-const GrammarResultContainer = () => {
-  const grammarIds = useSelector(
-    (state) => state.grammarBooks.grammarBook.data.grammarIds
-  );
+const GrammarResultContainer = ({ grammarIds }) => {
   const wrongGrammarIds = useSelector(
     (state) => state.grammarQuiz.incorrectGrammarIds
   );
