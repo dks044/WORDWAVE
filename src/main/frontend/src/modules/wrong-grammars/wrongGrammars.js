@@ -4,6 +4,8 @@ import { reducerUtils } from "../../lib/asyncUtils";
 const initialState = {
   userWrongGrammars: reducerUtils.initial(),
   saveWrongGrammars: reducerUtils.initial(),
+  userWrongGrammarBook: reducerUtils.initial(),
+  isClickWrongGrammarSwitch: false,
 };
 
 const wrongGrammarsSlice = createSlice({
@@ -34,6 +36,24 @@ const wrongGrammarsSlice = createSlice({
       ...state,
       saveWrongGrammars: reducerUtils.error(action.error),
     }),
+    getUserWrongGrammarBook: (state) => ({
+      ...state,
+      userWrongGrammarBook: reducerUtils.loading(),
+    }),
+    getUserWrongGrammarBookSuccess: (state, action) => ({
+      ...state,
+      userWrongGrammarBook: reducerUtils.success(action.payload),
+    }),
+    getUserWrongGrammarBookError: (state, action) => ({
+      ...state,
+      userWrongGrammarBook: reducerUtils.error(action.error),
+    }),
+    clickWrongGrammarSwitch: (state) => {
+      state.isClickWrongGrammarSwitch = true;
+    },
+    initializeWrongGrammarSwitch: (state) => {
+      state.isClickWrongGrammarSwitch = false;
+    },
   },
 });
 
@@ -44,5 +64,10 @@ export const {
   saveUserWrongGrammars,
   saveUserWrongGrammarsSuccess,
   saveUserWrongGrammarsError,
+  getUserWrongGrammarBook,
+  getUserWrongGrammarBookSuccess,
+  getUserWrongGrammarBookError,
+  clickWrongGrammarSwitch,
+  initializeWrongGrammarSwitch,
 } = wrongGrammarsSlice.actions;
 export default wrongGrammarsSlice.reducer;
