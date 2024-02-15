@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -96,9 +93,7 @@ public class UserWrongGrammarService {
         List<UserWrongGrammar> userWrongGrammars = this.userWrongGrammarRepository.findByUserIdAndGrammarBookId(user.getId(), grammarBookId);
 
         if (userWrongGrammars.isEmpty()) {
-            for (Long wrongGrammarId : wrongGrammarsDto.getWrongGrammarIds()) {
-                saveNewUserWrongGrammar(user, wrongGrammarId, wrongGrammarsDto.getLastTryTime());
-            }
+            saveNewUserWrongGrammars(user, wrongGrammarsDto.getWrongGrammarIds(), wrongGrammarsDto.getLastTryTime());
         } else {
             updateUserWrongGrammars(user, wrongGrammarsDto, userWrongGrammars);
         }
@@ -107,21 +102,26 @@ public class UserWrongGrammarService {
     private void updateUserWrongGrammars(SiteUser user, WrongGrammarsDto wrongGrammarsDto, List<UserWrongGrammar> userWrongGrammars) {
         //3-2부터
         Set<Long> wrongGrammarIds = new HashSet<>(wrongGrammarsDto.getWrongGrammarIds());
-        Set<Long> userGrammarStatusWrongGrammarIds = collectWrongGrammarIds(userWrongGrammars);
+        Map<Long, Long> userWrongGrammarIdGraph = mappingUserWrongGrammarId(userWrongGrammars);
+        Set<Long> userWrongGrammarIds = userWrongGrammarIdGraph.keySet();
 
         //DTO - entity 차집합 : 저장
+        List<Long> wrongGrammarIdsNotInUserWrongGrammarIds = new ArrayList<>();
         for (Long id : wrongGrammarIds){
-            if (!userGrammarStatusWrongGrammarIds.contains(id)) {
-                saveNewUserWrongGrammar(user, id, wrongGrammarsDto.getLastTryTime());
+            if (!userWrongGrammarIds.contains(id)) {
+                wrongGrammarIdsNotInUserWrongGrammarIds.add(id);
             }
         }
+        saveNewUserWrongGrammars(user, wrongGrammarIdsNotInUserWrongGrammarIds, wrongGrammarsDto.getLastTryTime());
 
         //entity - DTO 차집합 : 삭제
-        for (Long id : userGrammarStatusWrongGrammarIds) {
+        List<Long> userWrongGrammarIdsNotInWrongGrammarIds = new ArrayList<>();
+        for (Long id : userWrongGrammarIds) {
             if (!wrongGrammarIds.contains(id)) {
-                this.userWrongGrammarRepository.deleteById(id);
+                userWrongGrammarIdsNotInWrongGrammarIds.add(userWrongGrammarIdGraph.get(id));
             }
         }
+        this.userWrongGrammarRepository.deleteByIds(userWrongGrammarIdsNotInWrongGrammarIds);
 
         //교집합 : 수정
         for (UserWrongGrammar userWrongGrammar : userWrongGrammars) {
@@ -131,13 +131,18 @@ public class UserWrongGrammarService {
         }
     }
 
-    private void saveNewUserWrongGrammar(SiteUser user, Long wrongGrammarId, LocalDateTime lastTryTime) {
-        this.userWrongGrammarRepository.save(UserWrongGrammar.builder()
-                .user(user)
-                .wrongGrammarId(wrongGrammarId)
-                .grammarBookId(this.grammarService.getGrammarBookIdByGrammarId(wrongGrammarId))
-                .lastTryTime(lastTryTime)
-                .build());
+    private void saveNewUserWrongGrammars(SiteUser user, List<Long> wrongGrammarIdsNotInUserWrongGrammarIds, LocalDateTime lastTryTime) {
+        List<UserWrongGrammar> userWrongGrammars = new ArrayList<>();
+        for (Long id : wrongGrammarIdsNotInUserWrongGrammarIds) {
+            userWrongGrammars.add(UserWrongGrammar.builder()
+                    .user(user)
+                    .wrongGrammarId(id)
+                    .grammarBookId(this.grammarService.getGrammarBookIdByGrammarId(id))
+                    .lastTryTime(lastTryTime)
+                    .build());
+        }
+
+        this.userWrongGrammarRepository.saveAll(userWrongGrammars);
     }
 
     @Transactional
@@ -169,6 +174,19 @@ public class UserWrongGrammarService {
             wrongGrammarIds.add(userWrongGrammar.getWrongGrammarId());
         }
         return wrongGrammarIds;
+    }
+
+    /**
+     * 사용자 id로 추출한 UserWrongGrammar에서 UserWrongGrammar의 id와 wrong_grammar_id를 매핑합니다.
+     * <p>key: UserWrongGrammar에 저장된 wrong_grammar_id</p>
+     * <p>value: UserWrongGrammar의 id</p>
+     */
+    private Map<Long, Long> mappingUserWrongGrammarId(List<UserWrongGrammar> userWrongGrammars) {
+        Map<Long, Long> userWrongGrammarIdGraph = new HashMap<>();
+        for (UserWrongGrammar userWrongGrammar : userWrongGrammars) {
+            userWrongGrammarIdGraph.put(userWrongGrammar.getWrongGrammarId(), userWrongGrammar.getId());
+        }
+        return userWrongGrammarIdGraph;
     }
 
     private Long getUserIdByUserName(String userName) {
