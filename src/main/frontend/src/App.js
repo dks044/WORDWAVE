@@ -14,7 +14,6 @@ import MyPage from "./pages/MyPage";
 import GrammarBooksPage from "./pages/grammar/GrammarBooksPage";
 import GrammarBookPage from "./pages/grammar/GrammarBookPage";
 import UserWrongGrammarsPage from "./pages/grammar/UserWrgonGrammarsPage";
-import GrammarResultPage from "./pages/grammar/GrammarResultPage";
 
 function App() {
   //authenticated
@@ -73,12 +72,6 @@ function App() {
             path="mypage/wrong-grammars"
             element={
               isLoging ? <UserWrongGrammarsPage /> : <Navigate to="/login" />
-            }
-          />
-          <Route
-            path="grammarbooks/result"
-            element={
-              isLoging ? <GrammarResultPage /> : <Navigate to="/login" />
             }
           />
           <Route
