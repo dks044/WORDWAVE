@@ -28,7 +28,10 @@ const GrammarBook = ({ grammarBook, progressRate }) => {
         <GrammarContainer grammarIds={grammarIds} />
       )}
       {progressRate === 100 && (
-        <GrammarResultContainer grammarIds={grammarIds} />
+        <GrammarResultContainer
+          grammarIds={grammarIds}
+          grammarBookName={name}
+        />
       )}
     </>
   );
