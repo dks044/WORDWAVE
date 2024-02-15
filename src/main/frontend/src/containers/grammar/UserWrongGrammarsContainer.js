@@ -49,9 +49,11 @@ const UserWrongGrammarsContainer = () => {
 
   function findWrongGrammarNum(name) {
     let cnt = 0;
-    for (let wrongGrammar of dataWrongGrammars.wrongGrammars) {
-      if (wrongGrammar.grammarBookName === name) {
-        cnt++;
+    if (dataWrongGrammars.wrongGrammars) {
+      for (let wrongGrammar of dataWrongGrammars.wrongGrammars) {
+        if (wrongGrammar.grammarBookName === name) {
+          cnt++;
+        }
       }
     }
     return cnt;
