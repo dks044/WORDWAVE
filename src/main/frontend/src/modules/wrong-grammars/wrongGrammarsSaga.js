@@ -39,6 +39,25 @@ function* postUserWrongGrammarsSaga(action) {
   }
 }
 
+function* fetchUserWrongGrammarBookSaga(action) {
+  try {
+    const userWrongGrammarBook = yield call(
+      wrongGrammarsAPI.getUserWrongGrammarBook,
+      action.payload
+    );
+    yield put({
+      type: "wrongGrammars/getUserWrongGrammarBookSuccess",
+      payload: userWrongGrammarBook,
+    });
+  } catch (error) {
+    yield put({
+      type: "wrongGrammars/getUserWrongGrammarBookError",
+      error: true,
+      payload: error,
+    });
+  }
+}
+
 function* wrongGrammarsSaga() {
   yield takeEvery(
     "wrongGrammars/getUserWrongGrammars",
@@ -47,6 +66,10 @@ function* wrongGrammarsSaga() {
   yield takeLatest(
     "wrongGrammars/saveUserWrongGrammars",
     postUserWrongGrammarsSaga
+  );
+  yield takeEvery(
+    "wrongGrammars/getUserWrongGrammarBook",
+    fetchUserWrongGrammarBookSaga
   );
 }
 
