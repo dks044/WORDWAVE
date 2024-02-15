@@ -7,6 +7,11 @@ import {
   clearIncorrectGrammarIds,
 } from "../../modules/quiz/grammarQuiz";
 import CircleSpinner from "../../components/CircleSpinner";
+import NotFoundPage from "../../pages/NotFoundPage";
+import {
+  clickWrongGrammarSwitch,
+  initializeWrongGrammarSwitch,
+} from "../../modules/wrong-grammars/wrongGrammars";
 
 const GrammarBooksContainer = () => {
   const loading = useSelector(
@@ -14,24 +19,37 @@ const GrammarBooksContainer = () => {
   );
   const data = useSelector((state) => state.grammarBooks.grammarBooks.data);
   const error = useSelector((state) => state.grammarBooks.grammarBooks.error);
+  const isLoging = useSelector((state) => state.auth.isLoging);
   const dispatch = useDispatch();
 
-  //각 GrammarBook마다 오답 문제만 나오는 체크 버튼 추가하기
-  //이 체크 버튼은 isLoging=true여야 보임
+  const handleWrongGrammarSwitch = () => {
+    dispatch(clickWrongGrammarSwitch());
+  };
 
   useEffect(() => {
     if (data) {
       dispatch(initializeIndex());
       dispatch(clearIncorrectGrammarIds());
+      dispatch(initializeWrongGrammarSwitch());
       return;
     }
     dispatch(getGrammarBooks());
   }, [data, dispatch]);
 
   if (loading && !data) return <CircleSpinner />;
-  if (error) return <div>{error.message}</div>;
+  if (error) return <NotFoundPage />;
 
-  return <>{data && <GrammarBooks grammarBooks={data} />}</>;
+  return (
+    <>
+      {data && (
+        <GrammarBooks
+          grammarBooks={data}
+          isLoging={isLoging}
+          onWrongGrammarSwitch={handleWrongGrammarSwitch}
+        />
+      )}
+    </>
+  );
 };
 
 export default GrammarBooksContainer;

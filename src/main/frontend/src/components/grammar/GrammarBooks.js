@@ -56,14 +56,14 @@ const Bubble = styled.div`
   background: #484848;
   color: white;
   border-radius: 5px;
-  padding: 12px 12.8px;
+  padding: 7px 12.8px;
   //크기
   width: 205px;
   height: 60px;
   //위치
   position: absolute;
   top: 12%;
-  left: 40%;
+  left: 55%;
 
   &:after {
     border-top: 10px solid #484848;
@@ -73,25 +73,28 @@ const Bubble = styled.div`
     content: "";
     position: absolute;
     top: 60px;
-    left: 160px;
+    left: 40%;
   }
 `;
 
-const GrammarBooks = ({ grammarBooks, isLoging }) => {
+const GrammarBooks = ({ grammarBooks, isLoging, onWrongGrammarSwitch }) => {
   return (
     <>
-      <Bubble>버튼을 클릭하면 틀린 문제만 풀 수 있어요!</Bubble>
+      {isLoging && <Bubble>버튼을 클릭하면 틀린 문제만 풀 수 있어요!</Bubble>}
       <Lists>
         {grammarBooks.map((grammarBook) => (
           <ListItem key={grammarBook.id} size="lg">
             <GrammarBookLink to={`/grammarbooks/${grammarBook.name}`}>
               {grammarBook.name}
             </GrammarBookLink>
-            <CheckCustom
-              type="switch"
-              id="custom-switch"
-              feedbackTooltip="true"
-            />
+            {isLoging && (
+              <CheckCustom
+                key={grammarBook.name}
+                type="switch"
+                id="custom-switch"
+                onClick={onWrongGrammarSwitch}
+              />
+            )}
           </ListItem>
         ))}
       </Lists>
