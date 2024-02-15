@@ -13,7 +13,10 @@ export const getUserWrongGrammars = async (userName) => {
   }
 };
 
-export const getUserWrongGrammarBook = async (userName, grammarBookName) => {
+export const getUserWrongGrammarBook = async ({
+  userName,
+  grammarBookName,
+}) => {
   try {
     const response = await axios.get("/api/user-wrong-grammar/grammarbook", {
       params: {
