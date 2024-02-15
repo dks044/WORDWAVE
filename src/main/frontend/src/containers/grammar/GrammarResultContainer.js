@@ -3,7 +3,7 @@ import GrammarResult from "../../components/grammar/GrammarResult";
 import { useSelector, useDispatch } from "react-redux";
 import { saveUserWrongGrammars } from "../../modules/wrong-grammars/wrongGrammars";
 
-const GrammarResultContainer = ({ grammarIds }) => {
+const GrammarResultContainer = ({ grammarIds, grammarBookName }) => {
   const wrongGrammarIds = useSelector(
     (state) => state.grammarQuiz.incorrectGrammarIds
   );
@@ -36,7 +36,7 @@ const GrammarResultContainer = ({ grammarIds }) => {
       const wrongGrammarsDto = {
         userName: user.userName,
         wrongGrammarIds: wrongGrammarIds,
-        //grammarBookName 추가하기
+        grammarBookName: grammarBookName,
         lastTryTime: lastTryTime,
       };
       dispatch(saveUserWrongGrammars(wrongGrammarsDto));
@@ -47,6 +47,7 @@ const GrammarResultContainer = ({ grammarIds }) => {
     grammarIndex,
     user.userName,
     wrongGrammarIds,
+    grammarBookName,
     lastTryTime,
   ]);
 
