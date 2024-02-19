@@ -1,16 +1,13 @@
 import React from "react";
 
-function Voca({ voca }) {
-  console.log(voca);
+function Voca({ voca,nextVoca }) {
+  if (!voca) return null;
   return (
-    <div>
-      {voca.map((v) => (
-        <div key={v.id}>
-          <p>{v.korWord}</p>
-          <p>{v.engWord}</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <p>{voca.korWord}</p>
+      <p>{voca.engWord}</p>
+      <button onClick={nextVoca}>Next</button>
+    </>
   );
 }
 
