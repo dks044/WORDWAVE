@@ -10,6 +10,8 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.wordwave.voca.VocaDTO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,19 +42,18 @@ public class VocaBookService {
 		return vocaBookDTOList;
 	}
 	
-	public Map<Long,List<String>> getCategoriesOfVocaBook(long vocaBookId) {
-	    Map<Long,List<String>> categoriesOfVocaBook = new HashMap<>();
-	    categoriesOfVocaBook.put(vocaBookId, new ArrayList<String>());
+	public VocaBookDTO getCategoriesOfVocaBook(long vocaBookId) {
 	    List<String> categories = vocaBookRepository.findCategoriesByVocaBookId(vocaBookId);
 	    Set<String> distinctCategories = new HashSet<>();
 	    for(String category : categories) distinctCategories.add(category);
-	    categoriesOfVocaBook.put(vocaBookId, new ArrayList<String>(distinctCategories));
-	    return categoriesOfVocaBook;
+	    String name = vocaBookRepository.findById(vocaBookId).get().getName();
+	    VocaBookDTO vocaBookDTO = VocaBookDTO.builder()
+	    						.id(vocaBookId)
+	    						.name(name)
+	    						.categories(distinctCategories)
+	    						.build();
+	    return vocaBookDTO;
 	}
-	
-	public String getVocaBookName(long vocaBookId) {
-		Optional<VocaBook> vb = vocaBookRepository.findById(vocaBookId);
-		return vb.get().getName();
-	}
+
 
 }

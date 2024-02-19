@@ -3,8 +3,7 @@ import { reducerUtils } from "../../lib/asyncUtils";
 
 const initialState = {
   vocaBooks : reducerUtils.initial(),
-  categoriesOfVocaBook : reducerUtils.initial(),
-  vocaBookName : reducerUtils.initial()
+  vocaBook : reducerUtils.initial(),
 };
 
 const vocaBookSlice = createSlice({
@@ -23,29 +22,17 @@ const vocaBookSlice = createSlice({
       ...state,
       vocaBooks: reducerUtils.error(action.error),
     }),
-    getCategoriesOfVocaBook: (state) => ({
+    getVocaBook: (state) => ({
       ...state,
-      categoriesOfVocaBook: reducerUtils.loading(),
+      vocaBook : reducerUtils.loading(),
     }),
-    getCategoriesOfVocaBookSuccess: (state, action) => ({
+    getVocaBookSuccess: (state, action) => ({
       ...state,
-      categoriesOfVocaBook: reducerUtils.success(action.payload),
+      vocaBook : reducerUtils.success(action.payload),
     }),
-    getCategoriesOfVocaBookError: (state, action) => ({
+    getVocaBookError: (state, action) => ({
       ...state,
-      categoriesOfVocaBook: reducerUtils.error(action.error),
-    }),
-    getVocaBookName: (state) => ({
-      ...state,
-      vocaBookName: reducerUtils.loading(),
-    }),
-    getVocaBookNameSuccess: (state, action) => ({
-      ...state,
-      vocaBookName: reducerUtils.success(action.payload),
-    }),
-    getVocaBookNameError: (state, action) => ({
-      ...state,
-      vocaBookName: reducerUtils.error(action.error),
+      vocaBook : reducerUtils.error(action.error),
     }),
   }
 })
@@ -54,11 +41,8 @@ export const {
   getVocaBooks,
   getVocaBooksSuccess,
   getVocaBooksError,
-  getCategoriesOfVocaBook,
-  getCategoriesOfVocaBookSuccess,
-  getCategoriesOfVocaBookError,
-  getVocaBookName,
-  getVocaBookNameSuccess,
-  getVocaBookNameError
+  getVocaBook,
+  getVocaBookSuccess,
+  getVocaBookError,
 } = vocaBookSlice.actions;
 export default vocaBookSlice.reducer;

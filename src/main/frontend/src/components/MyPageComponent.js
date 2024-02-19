@@ -21,8 +21,6 @@ export default function MyPageComponent(){
 
   function onMouseOverForEmail (){ return setShowEmail(true);}
   function onMouseOutForEmail(){ return setShowEmail(false);}
-  function onMouseOverForPhoneNumber() {return setShowPhoneNumber(true);}
-  function onMouseOutForPhoneNumber() {return setShowPhoneNumber(false);}
   //modal
   const [show, setShow] = useState(false);
   const handleClose = () =>{
@@ -120,12 +118,11 @@ export default function MyPageComponent(){
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos enim quod sequi nobis, praesentium, doloribus dolore ullam eum quis repellat repellendus aliquam voluptatibus deserunt harum ex. Qui adipisci consectetur nostrum?</p>
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <Title>내 프로필</Title>
-      <p>마우스를 올리면 유저정보가 보입니다.</p>
+      <p>마우스를 올리면 정보가 보입니다.</p>
       <hr/>
       <div className="d-grid gap-2">
         <h1>ID : {user.userName}</h1>
         <h3 onMouseOver={onMouseOverForEmail} onMouseOut={onMouseOutForEmail} >Email : {showEmail && user.email}</h3>
-        <h4 onMouseOver={onMouseOverForPhoneNumber} onMouseOut={onMouseOutForPhoneNumber}>number : {showPhoneNumber && user.phoneNumber}</h4>
         <Button onClick={onclickChangePwShowButton} variant="info">비밀번호 변경</Button>
         <Button onClick={onclickDeleteUserShowButton} variant="danger">회원 탈퇴</Button>
       </div>

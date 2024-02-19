@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import * as vocaAPI from "../../api/vocaAPI"
 
 function* fetchVocaBooksSaga(){
@@ -17,46 +17,27 @@ function* fetchVocaBooksSaga(){
     });
   }
 }
-
-function* fetchCategoriesOfVocaBook(action){
+function* fetchVocaBookSaga(action){
   try {
-    const categoriesOfVocaBook = yield call(vocaAPI.getVocaBookDetailByIdAPI,action.payload);
+    const vocaBook = yield call(vocaAPI.getVocaBookAPI, action.payload);
+    console.log('함수실행!');
     yield put ({
-      type : "vocaBook/getCategoriesOfVocaBookSuccess",
-      payload : categoriesOfVocaBook,
+      type : "vocaBook/getVocaBookSuccess",
+      payload : vocaBook,
     });
   } catch (e) {
     console.error(e);
     yield put({
-      type: "vocaBook/getCategoriesOfVocaBookError",
+      type: "vocaBook/getVocaBookError",
       error: true,
       payload: e.message,
     });
   }
 }
-
-function* fetchVocaBookName(action){
-  try {
-    const vocaBookName = yield call(vocaAPI.getVocaBookNameByIdAPI,action.payload);
-    yield put ({
-      type : "vocaBook/getVocaBookNameSuccess",
-      payload : vocaBookName,
-    });
-  } catch (e) {
-    console.error(e);
-    yield put({
-      type: "vocaBook/getVocaBookNameError",
-      error: true,
-      payload: e.message,
-    });
-  }
-}
-
 
 function* vocaBookSaga() {
   yield takeEvery("vocaBook/getVocaBooks", fetchVocaBooksSaga);
-  yield takeEvery("vocaBook/getCategoriesOfVocaBook", fetchCategoriesOfVocaBook);
-  yield takeEvery("vocaBook/getVocaBookName", fetchVocaBookName);
+  yield takeEvery("vocaBook/getVocaBook", fetchVocaBookSaga);
 }
 
 export default vocaBookSaga;

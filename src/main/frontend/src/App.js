@@ -68,7 +68,7 @@ function App() {
           {/* VOCA */}
           <Route path="vocabooks" 
           element={isLoging ? <VocaBooksPage /> : <Navigate to="/login" />}/>
-          <Route path="vocabooks/:vocaBookId" 
+          <Route path="vocabooks/:vocaBookId/" 
           element={isLoging ? <VocaBookPage /> : <Navigate to="/login" />}/>
           <Route path="vocabooks/:vocaBookId/:category" 
           element={isLoging ? <VocaPage /> : <Navigate to="/login" />}/>

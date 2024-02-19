@@ -56,6 +56,7 @@ function Voca({ voca,nextVoca }) {
                 dispatch(showPopup(`틀렸습니다! 정답은 ${voca.engWord} 입니다.🥹`));
                 setWrongCount(wrongCount +1);
                 setUserAnswer('');
+                setWrongQuiz([...wrongQuiz, { korWord: voca.korWord, engWord: voca.engWord }]);// 틀린 퀴즈의 정보 저장
                 nextVoca();
               }
             }}>
@@ -85,6 +86,7 @@ function Voca({ voca,nextVoca }) {
                 dispatch(showPopup(`틀렸습니다! 정답은 ${voca.engWord} 입니다.🥹`));
                 setWrongCount(wrongCount +1);
                 setUserAnswer('');
+                setWrongQuiz([...wrongQuiz, { korWord: voca.korWord, engWord: voca.engWord }]);// 틀린 퀴즈의 정보 저장
                 nextVoca();
               }
             }}>

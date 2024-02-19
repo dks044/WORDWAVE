@@ -38,22 +38,13 @@ public class VocaBookController {
 	@GetMapping("{vocaBookId}")
 	public ResponseEntity<?> getVocaBookDetail(@PathVariable("vocaBookId") long vocaBookId){
 		try {
-			Map<Long,List<String>> categories = vocaBookService.getCategoriesOfVocaBook(vocaBookId);
-			return ResponseEntity.ok().body(categories);
+			VocaBookDTO vocaBook = vocaBookService.getCategoriesOfVocaBook(vocaBookId);
+			return ResponseEntity.ok().body(vocaBook);
 		} catch (Exception e) {	
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("VocaBook 불러오기 실패!");
 		}
 	}
 	
-	@GetMapping("name/{vocaBookId}")
-	public ResponseEntity<String> getVocaBookName(@PathVariable("vocaBookId") long vocaBookId) {
-		try {
-			return ResponseEntity.ok().body(vocaBookService.getVocaBookName(vocaBookId));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body("VocaBookName 불러오기 실패!");
-		}
-	}
 	
 }
