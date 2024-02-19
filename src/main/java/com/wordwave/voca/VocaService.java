@@ -26,7 +26,7 @@ public class VocaService {
 	//문자열 길이가 넘을경우
 	private static final int OVER_FIVE = 2;
 	private static final int OVER_EIGHT = 3;
-	private static final int OVER_TEN = 10;
+	private static final int OVER_TEN = 4;
 	
 	public void create(VocaDTO vocaDTO,Long vocaBookId) {
 		VocaBook vocaBook = vocaBookRepository.findById(vocaBookId)
@@ -66,21 +66,23 @@ public class VocaService {
 	public String createhiddenEngWord(String engWord) {
 		int wordLength = engWord.length();
 		char[] word = engWord.toCharArray();
+		StringBuilder parseHiddenWord = new StringBuilder();
 		Set<Integer> random = new HashSet<>();
-		if(wordLength < 5) {
-			while(random.size()<=OVER_FIVE) {
+		if(wordLength <= 5) {
+			while(random.size()<2) {
 				random.add((int)(Math.random() * wordLength));
 			}
 		}else if(wordLength <= 8) {
-			while(random.size()<=OVER_EIGHT) {
+			while(random.size()<=3) {
 				random.add((int)(Math.random() * wordLength));
 			}
 		}else {
-			while(random.size()<=OVER_TEN) {
+			while(random.size()<=4) {
 				random.add((int)(Math.random() * wordLength));
 			}
 		}
 		for(int i : random) word[i] = '_';
-		return word.toString();
+		for(char c : word) parseHiddenWord.append(c);
+		return parseHiddenWord.toString();
 	}
 }
