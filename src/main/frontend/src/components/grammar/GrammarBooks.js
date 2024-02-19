@@ -47,8 +47,10 @@ const CheckCustom = styled(Form.Check)`
   //크기
   width: 50px;
   //위치
-  position: relative;
-  left: 110%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-30%);
+  top: 14%;
 `;
 
 const Bubble = styled.div`
@@ -63,41 +65,43 @@ const Bubble = styled.div`
   //위치
   position: absolute;
   top: 12%;
-  left: 55%;
+  right: 10px;
 
   &:after {
-    border-top: 10px solid #484848;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 0px solid transparent;
     content: "";
     position: absolute;
-    top: 60px;
-    left: 40%;
+    left: 10px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-right-color: #484848;
+    border-left: 0;
+    margin-top: -20px;
+    margin-left: -20px;
   }
 `;
 
 const GrammarBooks = ({ grammarBooks, isLoging, onWrongGrammarSwitch }) => {
   return (
     <>
-      {isLoging && <Bubble>버튼을 클릭하면 틀린 문제만 풀 수 있어요!</Bubble>}
+      <Bubble>버튼을 클릭하면 틀린 문제만 풀 수 있어요!</Bubble>
       <Lists>
         {grammarBooks.map((grammarBook) => (
           <ListItem key={grammarBook.id} size="lg">
             <GrammarBookLink to={`/grammarbooks/${grammarBook.name}`}>
               {grammarBook.name}
             </GrammarBookLink>
-            {isLoging && (
-              <CheckCustom
-                key={grammarBook.name}
-                type="switch"
-                id="custom-switch"
-                onClick={onWrongGrammarSwitch}
-              />
-            )}
           </ListItem>
         ))}
       </Lists>
+      {isLoging && (
+        <CheckCustom
+          type="switch"
+          id="custom-switch"
+          onClick={onWrongGrammarSwitch}
+        />
+      )}
     </>
   );
 };
