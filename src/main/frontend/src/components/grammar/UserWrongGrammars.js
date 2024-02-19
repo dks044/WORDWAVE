@@ -15,10 +15,19 @@ const TooltipBox = styled.div`
 
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
+    let pastTime = new Date(payload[0].payload.lastTryTime);
+    let currentTime = new Date();
+    let diffHours = Math.round((currentTime - pastTime) / 1000 / 60 / 60);
     return (
       <TooltipBox className="custom-tooltip">
-        <p className="content">{`전체 문제 수: ${payload[1].value}`}</p>
-        <p className="content">{`틀린 문제 수: ${payload[0].value}`}</p>
+        {payload[0].value ? (
+          <>
+            <p className="content">{`${payload[1].value} 문제 중 ${payload[0].value}개 틀렸어요.`}</p>
+            <p className="lastTryTime">약 {diffHours} 시간 전에 풀었어요.</p>
+          </>
+        ) : (
+          <p>틀린 문제가 없어요.</p>
+        )}
       </TooltipBox>
     );
   }
@@ -45,7 +54,7 @@ const UserWrongGrammars = ({ userGrammarBookData }) => {
         <YAxis type="category" width={250} dataKey="grammarBookName" />
         <Tooltip content={<CustomTooltip />} />
         <Bar dataKey="wrongNum" stackId="a" fill="#F07F87" />
-        <Bar dataKey="grammarNum" unit="개" stackId="a" fill="#96DEF5" />
+        <Bar dataKey="grammarNum" unit="개" stackId="a" fill="#63E6BE" />
       </BarChart>
     </BarBox>
   );
