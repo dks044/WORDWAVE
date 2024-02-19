@@ -1,9 +1,8 @@
 package com.wordwave.grammar;
 
 import com.wordwave.exception.DataNotFoundException;
-import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.WrongGrammarResponseDto;
 import com.wordwave.grammar.dto.WrongGrammarsDto;
-import com.wordwave.grammar.dto.WrongGrammarsResponseDto;
 import com.wordwave.grammarbook.GrammarBookService;
 import com.wordwave.grammarbook.dto.GrammarIdsOfGrammarBookDto;
 import com.wordwave.user.SiteUser;
@@ -19,42 +18,31 @@ import java.util.*;
 @RequiredArgsConstructor
 public class UserWrongGrammarService {
     private final UserWrongGrammarRepository userWrongGrammarRepository;
-    private final GrammarRepository grammarRepository;
     private final GrammarBookService grammarBookService;
     private final GrammarService grammarService;
     private final UserService userService;
 
     /**
      * userName으로 UserWrongGrammar레코드들을 조회한 뒤,
-     * 저장된 Grammar의 id들로 Grammar레코드를 가져옵니다.
-     * 이들과 lastTryTime과 함께 반환합니다.
+     * wrongGrammarId마다 grammarBookId와 lastTryTime을 리스트에 함께 담아 반환합니다.
      * */
     @Transactional(readOnly = true)
-    public WrongGrammarsResponseDto getUserWrongGrammars(String userName) {
+    public List<WrongGrammarResponseDto> getUserWrongGrammars(String userName) {
         Long userId = getUserIdByUserName(userName);
         List<UserWrongGrammar> userWrongGrammars = this.userWrongGrammarRepository.findByUserId(userId);
         if (userWrongGrammars.isEmpty()) {
-            return WrongGrammarsResponseDto.builder().build();
+            return new ArrayList<>();
         }
-
-        Set<Long> wrongGrammarIds = collectWrongGrammarIds(userWrongGrammars);
-        List<Grammar> wrongGrammars = this.grammarRepository.findGrammarWithGrammarBookAndExampleByIdIn(wrongGrammarIds);
-
-        List<GrammarDto> wrongGrammarDtos = new ArrayList<>();
-        for (Grammar wrongGrammar : wrongGrammars) {
-            wrongGrammarDtos.add(GrammarDto.builder()
-                    .id(wrongGrammar.getId())
-                    .sentence(wrongGrammar.getSentence())
-                    .grammarExamples(GrammarExampleToGrammarExampleDtoConverter.convert(wrongGrammar.getExamples()))
-                    .grammarBookName(wrongGrammar.getGrammarBook().getName())
-                    .build());
+        List<WrongGrammarResponseDto> wrongGrammarResponses = new ArrayList<>();
+        for (UserWrongGrammar userWrongGrammar : userWrongGrammars) {
+            wrongGrammarResponses.add(
+                    WrongGrammarResponseDto.builder()
+                            .grammarBookId(userWrongGrammar.getGrammarBookId())
+                            .lastTryTime(userWrongGrammar.getLastTryTime())
+                            .build()
+            );
         }
-
-
-        return WrongGrammarsResponseDto.builder()
-                .wrongGrammars(wrongGrammarDtos)
-                .lastTryTime(userWrongGrammars.get(userWrongGrammars.size()-1).getLastTryTime())
-                .build();
+        return wrongGrammarResponses;
     }
 
     /**
@@ -66,10 +54,14 @@ public class UserWrongGrammarService {
         Long grammarBookId = this.grammarBookService.getGrammarBookIdByGrammarBookName(grammarBookName);
         List<UserWrongGrammar> userWrongGrammars = this.userWrongGrammarRepository.findByUserIdAndGrammarBookId(userId, grammarBookId);
         if (userWrongGrammars.isEmpty()) {
-            return GrammarIdsOfGrammarBookDto.builder().build();
+            return GrammarIdsOfGrammarBookDto.builder()
+                    .id(grammarBookId)
+                    .name(grammarBookName)
+                    .grammarIds(new ArrayList<>())
+                    .build();
         }
-        Set<Long> wrongGrammarIds = collectWrongGrammarIds(userWrongGrammars);
 
+        Set<Long> wrongGrammarIds = collectWrongGrammarIds(userWrongGrammars);
         return GrammarIdsOfGrammarBookDto.builder()
                 .id(grammarBookId)
                 .name(grammarBookName)
