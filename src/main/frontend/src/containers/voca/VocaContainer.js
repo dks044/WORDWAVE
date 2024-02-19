@@ -9,8 +9,11 @@ import { ProgressBar } from "react-bootstrap";
 const VocaContainerBlock = styled.div`
   padding: 10% 15% 10%;
   overflow-y: scroll;
+  text-align: center;
 `
-  
+const ProgressBarBlock = styled.div`
+  margin-bottom: 5%;
+`
 function VocaContainer({vocaBookId,category}){
   const loading = useSelector((state) => state.voca.voca.loading);
   const data = useSelector((state) => state.voca.voca.data);
@@ -20,7 +23,7 @@ function VocaContainer({vocaBookId,category}){
   const [currentVoca, setCurrentVoca] = useState(null); //현재voca
   const [remaining, setRemaining] = useState(0); //남은단어
   const [total, setTotal] = useState(0);  // 전체 단어의 수
-  
+   
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getVoca({ vocaBookId, category }));
@@ -43,11 +46,44 @@ function VocaContainer({vocaBookId,category}){
     setRemaining(newStack.length);
   };
 
+  //제한시간 로직
+  const [timeLeft, setTimeLeft] = useState(15); 
+  const [variant, setVariant] = useState('info'); 
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => {
+        if (prevTimeLeft <= 1) {
+          clearInterval(timerId);
+          nextVoca();
+          return 0;
+        } else {
+          const newTimeLeft = prevTimeLeft - 1;
+          if (newTimeLeft <= 5) {
+            setVariant('danger');  
+          }
+          return newTimeLeft;
+        }
+      });
+    }, 1000); 
+  
+    return () => {
+      clearInterval(timerId);  
+    };
+  }, []);
+  
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;
   return (
     <VocaContainerBlock>
-      <ProgressBar animated now={((total - remaining) / total) * 100} />;
+      <ProgressBarBlock>
+        <h2>😀진행률😀</h2>
+        <ProgressBar animated now={((total - remaining) / total) * 100} />
+      </ProgressBarBlock>
+      <ProgressBarBlock>
+        <h4>남은시간⏱️ : {timeLeft}</h4>
+        <ProgressBar animated variant={variant} now={(timeLeft / 15) * 100} />
+      </ProgressBarBlock>
       <Voca voca={currentVoca} nextVoca={nextVoca}/>
     </VocaContainerBlock>
   )

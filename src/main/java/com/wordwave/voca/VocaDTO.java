@@ -24,6 +24,6 @@ public class VocaDTO {
     private String imgURL;
     //중간에 빈칸이 있는 영단어
     public String hiddenEngWord;
-    //한글퀴즈 : 1 / 영어퀴즈 : 2
+    //영어퀴즈 : 1 | 한글퀴즈 : 2
     public int quizStatus;
 }
