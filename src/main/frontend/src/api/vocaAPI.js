@@ -15,7 +15,7 @@ export async function getVocaBookNameByIdAPI(vocaBookId){
   return response.data;
 }
 
-export async function getVocaAPI(vocaBookId,category){
+export async function getVocaAPI({vocaBookId,category}){
   const response =  await axios.get(`/api/voca/${vocaBookId}/${category}`);
   return response.data;
 }

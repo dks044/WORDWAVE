@@ -1,8 +1,11 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import * as vocaAPI from "../../api/vocaAPI"
+
 function* fetchVocaSaga(action){
   try {
-    const voca = yield call(vocaAPI.getVocaAPI,action.payload);
+    console.log('API 요청 전:', action);
+    const voca = yield call(vocaAPI.getVocaAPI, action.payload);
+    console.log('API 요청 후:', voca);
     yield put ({
       type : "voca/getVocaSuccess",
       payload : voca
@@ -19,8 +22,8 @@ function* fetchVocaSaga(action){
 
 
 
-function* vocaBookSaga() {
+function* vocaSaga() {
   yield takeEvery("voca/getVoca", fetchVocaSaga);
 }
 
-export default vocaBookSaga;
+export default vocaSaga;

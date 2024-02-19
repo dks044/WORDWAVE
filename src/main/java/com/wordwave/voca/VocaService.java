@@ -48,6 +48,7 @@ public class VocaService {
 								.id(v.getId())
 								.korWord(v.getKorWord())
 								.engWord(v.getEngWord())
+								.category(v.getCategory())
 								.vocaBookId(v.getVocaBook().getId())
 								.imgURL(v.getImgURL())
 								.build();

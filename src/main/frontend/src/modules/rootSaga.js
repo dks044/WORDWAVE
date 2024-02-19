@@ -6,8 +6,8 @@ import vocaSaga from "./voca/vocaSaga";
 const sagaMiddleware = createSagaMiddleware();
 
 export function* rootSaga() {
-  yield all([call(vocaBookSaga)]);
   yield all([call(vocaSaga)]);
+  yield all([call(vocaBookSaga)]);
 }
 
 export default sagaMiddleware;
