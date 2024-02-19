@@ -14,7 +14,7 @@ import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
 import VocaBookPage from "./pages/voca/VocaBookPage";
-
+import VocaPage from "./pages/voca/VocaPage";
 
 function App() {
   //authenticated
@@ -68,6 +68,8 @@ function App() {
           element={isLoging ? <VocaBooksPage /> : <Navigate to="/login" />}/>
           <Route path="vocabooks/:vocaBookId" 
           element={isLoging ? <VocaBookPage /> : <Navigate to="/login" />}/>
+          <Route path="vocabooks/:vocaBookId/:category" 
+          element={isLoging ? <VocaPage /> : <Navigate to="/login" />}/>
         </Route>
       </Routes>
     </>

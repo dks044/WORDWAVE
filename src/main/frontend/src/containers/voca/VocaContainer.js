@@ -5,3 +5,5 @@ function VocaContainer(){
     
   )
 }
+
+export default React.memo(VocaContainer);
