@@ -44,6 +44,4 @@ public class Voca {
     	this.vocaBook = vocaBook;
     }
     
-    //중간에 빈칸이 있는 영단어
-    public String hiddenEngWord;
 }

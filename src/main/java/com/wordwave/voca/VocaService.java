@@ -56,6 +56,7 @@ public class VocaService {
 								.category(v.getCategory())
 								.vocaBookId(v.getVocaBook().getId())
 								.imgURL(v.getImgURL())
+								.hiddenEngWord(createhiddenEngWord(v.getEngWord()))
 								.build();
 			vocaDTOs.add(vd);
 		}
