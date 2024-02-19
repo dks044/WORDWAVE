@@ -6,6 +6,7 @@ import { getUserWrongGrammarBook } from "../../modules/wrong-grammars/wrongGramm
 import GrammarBook from "../../components/grammar/GrammarBook";
 import CircleSpinner from "../../components/CircleSpinner";
 import NotFoundPage from "../../pages/NotFoundPage";
+import { Alert } from "react-bootstrap";
 
 const selectLoading = createSelector(
   [
@@ -68,13 +69,18 @@ const GrammarBookContainer = ({ grammarBookName }) => {
   if (loading && !data) return <CircleSpinner />;
   if (error) return <NotFoundPage />;
 
-  const progressRate = (grammarIndex / data.grammarIds.length) * 100;
+  const progressRate =
+    data && data.grammarIds ? (grammarIndex / data.grammarIds.length) * 100 : 0;
 
-  return (
-    <>
-      {data && <GrammarBook grammarBook={data} progressRate={progressRate} />}
-    </>
-  );
+  if (data && data.grammarIds.length !== 0) {
+    return (
+      <>
+        {data && <GrammarBook grammarBook={data} progressRate={progressRate} />}
+      </>
+    );
+  } else {
+    return <Alert variant="info">틀린 문제가 없어요.</Alert>;
+  }
 };
 
 export default GrammarBookContainer;
