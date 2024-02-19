@@ -38,25 +38,37 @@ const UserWrongGrammarsContainer = () => {
 
   if (dataWrongGrammars && dataGrammarNums) {
     for (let grammarBook of dataGrammarNums) {
+      const { wrongNum, lastTryTime } = calcWrongGrammarNumAndLastTryTime(
+        grammarBook.id
+      );
       userGrammarBookData.push({
         id: grammarBook.id,
         grammarBookName: grammarBook.name,
         grammarNum: grammarBook.grammarNum,
-        wrongNum: findWrongGrammarNum(grammarBook.name),
+        wrongNum: wrongNum,
+        lastTryTime: lastTryTime,
       });
     }
   }
 
-  function findWrongGrammarNum(name) {
+  function calcWrongGrammarNumAndLastTryTime(id) {
     let cnt = 0;
-    if (dataWrongGrammars.wrongGrammars) {
-      for (let wrongGrammar of dataWrongGrammars.wrongGrammars) {
-        if (wrongGrammar.grammarBookName === name) {
+    let currentLastTryTime = 0;
+    if (dataWrongGrammars) {
+      const dates = [];
+      for (let wrongGrammar of dataWrongGrammars) {
+        if (wrongGrammar.grammarBookId === id) {
           cnt++;
+          dates.push(new Date(wrongGrammar.lastTryTime));
         }
       }
+      if (dates.length > 0) {
+        currentLastTryTime = new Date(
+          Math.max.apply(null, dates)
+        ).toISOString();
+      }
     }
-    return cnt;
+    return { wrongNum: cnt, lastTryTime: currentLastTryTime };
   }
 
   if (
