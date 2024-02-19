@@ -15,6 +15,8 @@ import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
 import VocaBookPage from "./pages/voca/VocaBookPage";
 import VocaPage from "./pages/voca/VocaPage";
+import styled from "styled-components";
+
 
 function App() {
   //authenticated
@@ -47,8 +49,8 @@ function App() {
 
   return (
     <>
-      <ToastContainer position='middle-center'>
-        <ToastComponent show={show} onClose={() => {
+      <ToastContainer  position='static' style={{ zIndex: 1, top: '59%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+        <ToastComponent  show={show} onClose={() => {
           dispatch(closePopup());
           setShow(false);
         }} message={message}/>

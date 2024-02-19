@@ -42,20 +42,24 @@ function VocaContainer({vocaBookId,category}){
     const newStack = [...stack];
     newStack.pop();
     setStack(newStack);
+    setTimeLeft(20);
     setCurrentVoca(newStack[newStack.length - 1]);
     setRemaining(newStack.length);
+    setVariant('info');
   };
 
   //제한시간 로직
-  const [timeLeft, setTimeLeft] = useState(15); 
+  const [timeLeft, setTimeLeft] = useState(20); 
   const [variant, setVariant] = useState('info'); 
 
   useEffect(() => {
+    if (((total - remaining) / total) * 100 === 100) {
+      return;
+    }
     const timerId = setInterval(() => {
       setTimeLeft((prevTimeLeft) => {
         if (prevTimeLeft <= 1) {
           clearInterval(timerId);
-          nextVoca();
           return 0;
         } else {
           const newTimeLeft = prevTimeLeft - 1;
@@ -70,8 +74,16 @@ function VocaContainer({vocaBookId,category}){
     return () => {
       clearInterval(timerId);  
     };
-  }, []);
+  }, [timeLeft]);
   
+  useEffect(() => {
+    if (timeLeft === 0) {
+      nextVoca();
+      setTimeLeft(20);
+      setVariant('info');
+    }
+  }, [timeLeft]);
+
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;
   return (
@@ -82,7 +94,7 @@ function VocaContainer({vocaBookId,category}){
       </ProgressBarBlock>
       <ProgressBarBlock>
         <h4>남은시간⏱️ : {timeLeft}</h4>
-        <ProgressBar animated variant={variant} now={(timeLeft / 15) * 100} />
+        <ProgressBar animated variant={variant} now={(timeLeft / 20) * 100} />
       </ProgressBarBlock>
       <Voca voca={currentVoca} nextVoca={nextVoca}/>
     </VocaContainerBlock>
