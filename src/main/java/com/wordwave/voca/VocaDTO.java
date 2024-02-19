@@ -1,6 +1,8 @@
 package com.wordwave.voca;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.wordwave.user.UserDTO;
 
@@ -24,6 +26,8 @@ public class VocaDTO {
     private String imgURL;
     //중간에 빈칸이 있는 영단어
     public String hiddenEngWord;
-    //영어퀴즈 : 1 | 한글퀴즈 : 2
+    //영어빈칸퀴즈 : 1 | 한글제시퀴즈 : 2
     public int quizStatus;
+    
+    public Set<String> randomEngWord = new HashSet<>();
 }

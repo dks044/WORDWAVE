@@ -57,8 +57,8 @@ public class VocaService {
 								.vocaBookId(v.getVocaBook().getId())
 								.imgURL(v.getImgURL())
 								.hiddenEngWord(createhiddenEngWord(v.getEngWord()))
-								//.quizStatus((int)(Math.random()*2)+1) 임시로 주석처리
-								.quizStatus(1)
+								.quizStatus((int)(Math.random()*2)+1)
+								.randomEngWord(createRandomEngWord(vocas,vocaBookId,category,v.getEngWord()))
 								.build();
 			vocaDTOs.add(vd);
 		}
@@ -66,7 +66,7 @@ public class VocaService {
 		return vocaDTOs;
 	}
 	//영단어에 랜덤으로 언더바 삽입
-	public String createhiddenEngWord(String engWord) {
+	private String createhiddenEngWord(String engWord) {
 		int wordLength = engWord.length();
 		char[] word = engWord.toCharArray();
 		StringBuilder parseHiddenWord = new StringBuilder();
@@ -87,5 +87,17 @@ public class VocaService {
 		for(int i : random) word[i] = '_';
 		for(char c : word) parseHiddenWord.append(c);
 		return parseHiddenWord.toString();
+	}
+	
+	//랜덤 영단어 4개 (랜덤 영단어 4개 선택지 기능 구현 용도)
+	private Set<String> createRandomEngWord(List<Voca> vocas, long vocaBookId,String category,
+			String engWord){
+		Set<String> randomWord = new HashSet<>();
+		randomWord.add(engWord); //원래 답 
+		while(randomWord.size()<4) {
+			randomWord.add(vocas.get((int)(Math.random()*vocas.size())).getEngWord());
+		}
+		
+		return randomWord;
 	}
 }

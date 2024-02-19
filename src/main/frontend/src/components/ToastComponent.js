@@ -7,6 +7,9 @@ const ToastLogo = styled.img`
   width: 20px;  
   height: 20px; 
 `;
+const Text = styled.p`
+  font-weight: bolder;
+`
 
 function ToastComponent({show, onClose,message}){
   return(
@@ -21,7 +24,7 @@ function ToastComponent({show, onClose,message}){
             <strong className="me-auto">WORDWAVE</strong>
             {/* <small>11 mins ago</small> */}
           </Toast.Header>
-          <Toast.Body>{message}</Toast.Body>
+          <Toast.Body><Text>{message}</Text></Toast.Body>
       </Toast>
     </>
   )

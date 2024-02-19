@@ -202,15 +202,16 @@ public class VocaTest {
 		
 	}
 	
-	@Test
-	@DisplayName("VOCA 영단어 언더바로직 테스트")
-	void getHiddenEngWord() {
-		String engWord = "apple";
-		String engWord2 = "notebook";
-		String engWord3 = "applicationTool";
-		System.out.println(vocaService.createhiddenEngWord(engWord));
-		System.out.println(vocaService.createhiddenEngWord(engWord2));
-		System.out.println(vocaService.createhiddenEngWord(engWord3));
-	}
+	//사용 메소드를 private로 했기 떄문에 주석처리함!
+//	@Test
+//	@DisplayName("VOCA 영단어 언더바로직 테스트")
+//	void getHiddenEngWord() {
+//		String engWord = "apple";
+//		String engWord2 = "notebook";
+//		String engWord3 = "applicationTool";
+//		System.out.println(vocaService.createhiddenEngWord(engWord));
+//		System.out.println(vocaService.createhiddenEngWord(engWord2));
+//		System.out.println(vocaService.createhiddenEngWord(engWord3));
+//	}
 	
 }

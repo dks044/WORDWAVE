@@ -7,13 +7,21 @@ import Voca from "../../components/voca/Voca";
 import { ProgressBar } from "react-bootstrap";
 
 const VocaContainerBlock = styled.div`
-  padding: 10% 15% 10%;
+  padding: 5% 7% 5%;
   overflow-y: scroll;
   text-align: center;
 `
 const ProgressBarBlock = styled.div`
   margin-bottom: 5%;
 `
+const H2 = styled.h2`
+  font-weight: bolder;
+`
+const H4 = styled.h5`
+  /* color: red; 제한시간 빨간색 보류*/
+  font-weight: bolder;
+`
+
 function VocaContainer({vocaBookId,category}){
   const loading = useSelector((state) => state.voca.voca.loading);
   const data = useSelector((state) => state.voca.voca.data);
@@ -89,11 +97,11 @@ function VocaContainer({vocaBookId,category}){
   return (
     <VocaContainerBlock>
       <ProgressBarBlock>
-        <h2>😀진행률😀</h2>
+        <H2>😀진행률😀</H2>
         <ProgressBar animated now={((total - remaining) / total) * 100} />
       </ProgressBarBlock>
       <ProgressBarBlock>
-        <h4>남은시간⏱️ : {timeLeft}</h4>
+        <H4>남은시간⏱️ : {timeLeft}</H4>
         <ProgressBar animated variant={variant} now={(timeLeft / 20) * 100} />
       </ProgressBarBlock>
       <Voca voca={currentVoca} nextVoca={nextVoca}/>
