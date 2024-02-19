@@ -57,6 +57,7 @@ public class VocaService {
 								.vocaBookId(v.getVocaBook().getId())
 								.imgURL(v.getImgURL())
 								.hiddenEngWord(createhiddenEngWord(v.getEngWord()))
+								.quizStatus((int)(Math.random()*2)+1)
 								.build();
 			vocaDTOs.add(vd);
 		}
