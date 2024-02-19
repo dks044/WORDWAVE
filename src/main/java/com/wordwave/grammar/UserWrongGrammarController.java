@@ -12,7 +12,7 @@ public class UserWrongGrammarController {
     private final UserWrongGrammarService userWrongGrammarService;
 
     @GetMapping("/grammars")
-    public ResponseEntity<?> getUserWrongGrammars(@RequestParam(value = "userName") String userName) {
+    public ResponseEntity<Object> getUserWrongGrammars(@RequestParam(value = "userName") String userName) {
         try {
             return ResponseEntity.ok().body(this.userWrongGrammarService.getUserWrongGrammars(userName));
         } catch (Exception e) {
@@ -21,7 +21,7 @@ public class UserWrongGrammarController {
     }
 
     @GetMapping("/grammarbook")
-    public ResponseEntity<?> getUserWrongGrammarBook(
+    public ResponseEntity<Object> getUserWrongGrammarBook(
             @RequestParam(value = "userName") String userName,
             @RequestParam(value = "grammarBookName") String grammarBookName) {
         try {
@@ -32,7 +32,7 @@ public class UserWrongGrammarController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> saveUserWrongGrammars(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
+    public ResponseEntity<Object> saveUserWrongGrammars(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
             this.userWrongGrammarService.saveUserWrongGrammars(wrongGrammarsDto);
             return ResponseEntity.ok().body("Saved wrong grammars.");
@@ -42,7 +42,7 @@ public class UserWrongGrammarController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateUserLastTryTime(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
+    public ResponseEntity<Object> updateUserLastTryTime(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
             this.userWrongGrammarService.updateUserLastTryTime(wrongGrammarsDto);
             return ResponseEntity.ok().body("Updated last try time.");
@@ -52,7 +52,7 @@ public class UserWrongGrammarController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<?> deleteUserWrongGrammars(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
+    public ResponseEntity<Object> deleteUserWrongGrammars(@RequestBody WrongGrammarsDto wrongGrammarsDto) {
         try {
             this.userWrongGrammarService.deleteUserWrongGrammars(wrongGrammarsDto);
             return ResponseEntity.ok().body("Deleted wrong grammars.");
