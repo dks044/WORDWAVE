@@ -34,7 +34,6 @@ function VocaContainer({vocaBookId,category}){
       setRemaining(data.length);
     }
   }, [data]);
-  console.log(remaining);
 
   const nextVoca = () => {
     const newStack = [...stack];
@@ -48,7 +47,7 @@ function VocaContainer({vocaBookId,category}){
   if (error) return <div>{error.message}</div>;
   return (
     <VocaContainerBlock>
-      <ProgressBar animated now={(remaining / total) * 100} />;
+      <ProgressBar animated now={((total - remaining) / total) * 100} />;
       <Voca voca={currentVoca} nextVoca={nextVoca}/>
     </VocaContainerBlock>
   )
