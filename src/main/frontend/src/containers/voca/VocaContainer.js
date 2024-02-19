@@ -12,9 +12,9 @@ const VocaContainerBlock = styled.div`
   text-align: center;
 `
 const ProgressBarBlock = styled.div`
-  margin-bottom: 5%;
+  margin-bottom: 3%;
 `
-const H2 = styled.h2`
+const H2 = styled.h5`
   font-weight: bolder;
 `
 const H4 = styled.h5`
@@ -86,6 +86,7 @@ function VocaContainer({vocaBookId,category}){
   
   useEffect(() => {
     if (timeLeft === 0) {
+      alert('제한시간이 다됐습니다!');
       nextVoca();
       setTimeLeft(20);
       setVariant('info');

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Button, Form, InputGroup, ProgressBar } from "react-bootstrap";
+import React, { useState } from "react";
+import { Badge, Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { showPopup } from "../../modules/popup";
@@ -10,17 +10,26 @@ const HidenEngWord = styled.h1`
 const KorWord = styled.h2`
   font-weight: bolder;
 `
+const CountBlock = styled.div`
+  position: absolute;
+  z-index: 1;
+  left: 5%;
+  transform: translateX(-50%);
+  top: 10%;
+`
 
 function Voca({ voca,nextVoca }) {
   const [answerCount,setAnswerCount] = useState(0);
   const [wrongCount,setWrongCount] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
+  const [wrongQuiz,setWrongQuiz] = useState([]);
   const dispatch = useDispatch();
 
   if (!voca) return null;
 
   return (
     <div>
+      <br/>
       {/* 영어부터 제시하는 퀴즈일 경우 */}
       {voca.quizStatus === 1 && 
       <>
@@ -84,8 +93,11 @@ function Voca({ voca,nextVoca }) {
           </div>
         );
       })}
-    </>
+    </> 
     }
+    <CountBlock>
+      <Badge bg="success">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
+    </CountBlock>
     </div>
   );
 }
