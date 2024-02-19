@@ -1,7 +1,7 @@
 package com.wordwave.grammar;
 
+import com.wordwave.grammar.dto.WrongGrammarResponseDto;
 import com.wordwave.grammar.dto.WrongGrammarsDto;
-import com.wordwave.grammar.dto.WrongGrammarsResponseDto;
 import com.wordwave.grammarbook.dto.GrammarIdsOfGrammarBookDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class UserWrongGrammarServiceTest {
         int meanTime = 0;
         while (cnt < max) {
             long beforeTime = System.currentTimeMillis();
-            WrongGrammarsResponseDto response = this.userWrongGrammarService.getUserWrongGrammars(userName);
+            List<WrongGrammarResponseDto> response = this.userWrongGrammarService.getUserWrongGrammars(userName);
             long afterTime = System.currentTimeMillis();
             meanTime += (int) (afterTime - beforeTime);
             System.out.println(response);
