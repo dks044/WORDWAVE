@@ -3,6 +3,7 @@ package com.wordwave.voca;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +23,10 @@ public class VocaService {
 	
 	private final VocaRepository vocaRepository;
 	private final VocaBookRepository vocaBookRepository;
+	//문자열 길이가 넘을경우
+	private static final int OVER_FIVE = 2;
+	private static final int OVER_EIGHT = 3;
+	private static final int OVER_TEN = 10;
 	
 	public void create(VocaDTO vocaDTO,Long vocaBookId) {
 		VocaBook vocaBook = vocaBookRepository.findById(vocaBookId)
@@ -56,5 +61,26 @@ public class VocaService {
 		}
 		Collections.shuffle(vocaDTOs);
 		return vocaDTOs;
+	}
+	//영단어에 랜덤으로 언더바 삽입
+	public String createhiddenEngWord(String engWord) {
+		int wordLength = engWord.length();
+		char[] word = engWord.toCharArray();
+		Set<Integer> random = new HashSet<>();
+		if(wordLength < 5) {
+			while(random.size()<=OVER_FIVE) {
+				random.add((int)(Math.random() * wordLength));
+			}
+		}else if(wordLength <= 8) {
+			while(random.size()<=OVER_EIGHT) {
+				random.add((int)(Math.random() * wordLength));
+			}
+		}else {
+			while(random.size()<=OVER_TEN) {
+				random.add((int)(Math.random() * wordLength));
+			}
+		}
+		for(int i : random) word[i] = '_';
+		return word.toString();
 	}
 }
