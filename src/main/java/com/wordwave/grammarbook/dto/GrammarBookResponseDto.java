@@ -1,6 +1,6 @@
 package com.wordwave.grammarbook.dto;
 
-import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.GrammarChoiceDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +18,5 @@ public class GrammarBookResponseDto {
 
     private String name;
 
-    private List<GrammarDto> grammars;
+    private List<GrammarChoiceDto> grammars;
 }
