@@ -1,4 +1,4 @@
-import Grammar from "../../components/grammar/Grammar";
+import GrammarChoice from "../../components/grammar/GrammarChoice";
 import { getGrammarById } from "../../modules/grammars/grammars";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -10,6 +10,7 @@ import {
 import CircleSpinner from "../../components/CircleSpinner";
 import NotFoundPage from "../../pages/NotFoundPage";
 import { useEffect } from "react";
+import GrammarWrite from "../../components/grammar/GrammarWrite";
 
 const GrammarContainer = ({ grammarIds }) => {
   const currentGrammarIndex = useSelector(
@@ -23,6 +24,7 @@ const GrammarContainer = ({ grammarIds }) => {
   const loading = useSelector((state) => state.grammars.grammar.loading);
   const data = useSelector((state) => state.grammars.grammar.data);
   const error = useSelector((state) => state.grammars.grammar.error);
+  const isChoice = useSelector((state) => state.grammars.isChoice);
   const dispatch = useDispatch();
 
   const handleNextGrammar = () => {
@@ -38,21 +40,32 @@ const GrammarContainer = ({ grammarIds }) => {
   useEffect(() => {
     dispatch(initializeClickExampleAndSubmitAndAnswer());
     if (currentGrammarIndex < grammarIds.length) {
-      dispatch(getGrammarById(grammarIds[currentGrammarIndex]));
+      dispatch(
+        getGrammarById({
+          id: grammarIds[currentGrammarIndex],
+          isChoice: isChoice,
+        })
+      );
     }
-  }, [dispatch, grammarIds, currentGrammarIndex]);
+  }, [dispatch, grammarIds, currentGrammarIndex, isChoice]);
 
-  if (loading && !data) return <CircleSpinner />;
+  if (loading || !data) return <CircleSpinner />;
   if (error) return <NotFoundPage />;
 
   return (
-    <Grammar
-      currentGrammar={data}
-      onNextGrammar={handleNextGrammar}
-      isExampleClicked={isExampleClicked}
-      isAnswer={isAnswer}
-      isSubmit={isSubmit}
-    />
+    <>
+      {isChoice ? (
+        <GrammarChoice
+          currentGrammar={data}
+          onNextGrammar={handleNextGrammar}
+          isExampleClicked={isExampleClicked}
+          isAnswer={isAnswer}
+          isSubmit={isSubmit}
+        />
+      ) : (
+        <GrammarWrite currentGrammar={data} />
+      )}
+    </>
   );
 };
 
