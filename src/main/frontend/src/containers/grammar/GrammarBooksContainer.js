@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getGrammarBooks,
-  initializeGrammarBooks,
+  initializeGrammarBooksAndGrammarBook,
 } from "../../modules/grammarbooks/grammarBooks";
 import GrammarBooks from "../../components/grammar/GrammarBooks";
 import {
@@ -39,7 +39,7 @@ const GrammarBooksContainer = () => {
   };
 
   useEffect(() => {
-    dispatch(initializeGrammarBooks());
+    dispatch(initializeGrammarBooksAndGrammarBook());
     dispatch(initializeIndex());
     dispatch(clearIncorrectGrammarIds());
     dispatch(initializeWrongGrammarSwitch());
