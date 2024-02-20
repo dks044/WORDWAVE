@@ -1,7 +1,7 @@
 package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.ChangeSentenceDto;
-import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.GrammarChoiceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +13,15 @@ import org.springframework.web.bind.annotation.*;
 public class GrammarController {
     private final GrammarService grammarService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getGrammar(@PathVariable Long id) {
+    @GetMapping("")
+    public ResponseEntity<Object> getGrammar(
+            @RequestParam(value = "id") Long id,
+            @RequestParam(value = "isChoice") boolean isChoice) {
         try {
-            return ResponseEntity.ok().body(this.grammarService.getGrammar(id));
+            if (isChoice) {
+                return ResponseEntity.ok().body(this.grammarService.getGrammarWithGrammarBookAndExampleById(id));
+            }
+            return ResponseEntity.ok().body(this.grammarService.getGrammarSentenceAndKoreanById(id));
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
@@ -32,9 +37,9 @@ public class GrammarController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Object> saveGrammarExample(@RequestBody GrammarDto grammarDto) {
+    public ResponseEntity<Object> saveGrammarExample(@RequestBody GrammarChoiceDto grammarChoiceDto) {
         //grammarDto의 sentence와 grammarBookName은 필요없음
-        this.grammarService.saveGrammarExamples(grammarDto);
+        this.grammarService.saveGrammarExamples(grammarChoiceDto);
         return ResponseEntity.status(HttpStatus.OK).body("Saved examples");
     }
 
