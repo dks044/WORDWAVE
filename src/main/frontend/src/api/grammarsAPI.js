@@ -1,7 +1,12 @@
 import axios from "axios";
 
-export const getGrammarById = async (grammarId) => {
-  const response = await axios.get(`/api/grammar/${grammarId}`);
+export const getGrammarById = async ({ id, isChoice }) => {
+  const response = await axios.get("/api/grammar", {
+    params: {
+      id: id,
+      isChoice: isChoice,
+    },
+  });
   return response.data;
 };
 
