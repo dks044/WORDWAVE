@@ -3,6 +3,7 @@ import GrammarResult from "../../components/grammar/GrammarResult";
 import { useSelector, useDispatch } from "react-redux";
 import { saveUserWrongGrammars } from "../../modules/wrong-grammars/wrongGrammars";
 
+//GrammarBook 컴포넌트에서 import하고 있습니다.
 const GrammarResultContainer = ({ grammarIds, grammarBookName }) => {
   const wrongGrammarIds = useSelector(
     (state) => state.grammarQuiz.incorrectGrammarIds
