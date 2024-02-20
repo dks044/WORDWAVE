@@ -17,14 +17,14 @@ public class GrammarBookController {
         try {
             return ResponseEntity
                     .ok()
-                    .body(this.grammarBookService.getGrammarBook(grammarBookName));
+                    .body(this.grammarBookService.getGrammarIdsOfGrammarBook(grammarBookName));
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Object> getGrammarIdsOfAllGrammarBooks() {
+    public ResponseEntity<Object> getAllGrammarBooksWithoutGrammars() {
         try {
             return ResponseEntity
                     .ok()

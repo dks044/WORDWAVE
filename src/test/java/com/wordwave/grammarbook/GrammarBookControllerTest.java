@@ -33,7 +33,7 @@ class GrammarBookControllerTest {
     @Test
     @DisplayName("전체 GrammarBook 조회 요청에 대해 응답한다.")
     void getGrammarIdsOfAllGrammarBooksApiTest() {
-        ResponseEntity<Object> response = this.grammarBookController.getGrammarIdsOfAllGrammarBooks();
+        ResponseEntity<Object> response = this.grammarBookController.getAllGrammarBooksWithoutGrammars();
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
