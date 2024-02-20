@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGrammarBooks } from "../../modules/grammarbooks/grammarBooks";
+import {
+  getGrammarBooks,
+  initializeGrammarBooks,
+} from "../../modules/grammarbooks/grammarBooks";
 import GrammarBooks from "../../components/grammar/GrammarBooks";
 import {
   initializeIndex,
@@ -12,6 +15,11 @@ import {
   clickWrongGrammarSwitch,
   initializeWrongGrammarSwitch,
 } from "../../modules/wrong-grammars/wrongGrammars";
+import {
+  clickWriteSwitch,
+  initializeGrammar,
+  initializeWriteSwitch,
+} from "../../modules/grammars/grammars";
 
 const GrammarBooksContainer = () => {
   const loading = useSelector(
@@ -26,15 +34,19 @@ const GrammarBooksContainer = () => {
     dispatch(clickWrongGrammarSwitch());
   };
 
+  const handleWriteSwitch = () => {
+    dispatch(clickWriteSwitch());
+  };
+
   useEffect(() => {
-    if (data) {
-      dispatch(initializeIndex());
-      dispatch(clearIncorrectGrammarIds());
-      dispatch(initializeWrongGrammarSwitch());
-      return;
-    }
+    dispatch(initializeGrammarBooks());
+    dispatch(initializeIndex());
+    dispatch(clearIncorrectGrammarIds());
+    dispatch(initializeWrongGrammarSwitch());
+    dispatch(initializeWriteSwitch());
+    dispatch(initializeGrammar());
     dispatch(getGrammarBooks());
-  }, [data, dispatch]);
+  }, [dispatch]);
 
   if (loading && !data) return <CircleSpinner />;
   if (error) return <NotFoundPage />;
@@ -46,6 +58,7 @@ const GrammarBooksContainer = () => {
           grammarBooks={data}
           isLoging={isLoging}
           onWrongGrammarSwitch={handleWrongGrammarSwitch}
+          onWriteSwitch={handleWriteSwitch}
         />
       )}
     </>
