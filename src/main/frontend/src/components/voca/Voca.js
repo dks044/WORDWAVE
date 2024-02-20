@@ -15,7 +15,7 @@ const CountBlock = styled.div`
   z-index: 1;
   left: 50%;
   transform: translateX(-50%);
-  top: 10%;
+  top: 17%;
 `
 
 function Voca({ voca,nextVoca }) {
@@ -29,7 +29,7 @@ function Voca({ voca,nextVoca }) {
 
   return (
     <div>
-      <br/>
+      <br/><br/><br/><br/>
       {/* 영어부터 제시하는 퀴즈일 경우 */}
       {voca.quizStatus === 1 && 
       <>

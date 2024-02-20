@@ -7,7 +7,7 @@ import Voca from "../../components/voca/Voca";
 import { ProgressBar } from "react-bootstrap";
 
 const VocaContainerBlock = styled.div`
-  padding: 5% 7% 5%;
+
   overflow-y: scroll;
   text-align: center;
 `
@@ -99,11 +99,9 @@ function VocaContainer({vocaBookId,category}){
   return (
     <VocaContainerBlock>
       <ProgressBarBlock>
-        <H2>😀진행률😀</H2>
         <ProgressBar animated now={((total - remaining) / total) * 100} />
       </ProgressBarBlock>
       <ProgressBarBlock>
-        <H4>남은시간⏱️ : {timeLeft}</H4>
         <ProgressBar animated variant={variant} now={(timeLeft / 20) * 100} />
       </ProgressBarBlock>
       <Voca voca={currentVoca} nextVoca={nextVoca}/>
