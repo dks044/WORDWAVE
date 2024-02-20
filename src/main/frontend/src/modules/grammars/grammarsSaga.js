@@ -1,5 +1,5 @@
 import * as grammarsAPI from "../../api/grammarsAPI";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 function* fetchGrammarById(action) {
   try {
@@ -34,7 +34,7 @@ function* fetchGrammarNumOfAllGrammarBooksSaga() {
 }
 
 function* grammarsSaga() {
-  yield takeEvery("grammars/getGrammarById", fetchGrammarById);
+  yield takeLatest("grammars/getGrammarById", fetchGrammarById);
   yield takeEvery(
     "grammars/getGrammarNumOfAllGrammarBooks",
     fetchGrammarNumOfAllGrammarBooksSaga
