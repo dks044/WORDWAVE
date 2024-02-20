@@ -46,7 +46,7 @@ public class Grammar {
         return "grammar id: " + this.id +
                 ", sentence: " + this.sentence +
                 ", korean: " + this.korean +
-                ", book name: " + this.grammarBook.getName() +
+                ", book id: " + this.grammarBook.getId() +
                 ", examples: " + this.examples;
     }
 }
