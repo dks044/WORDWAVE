@@ -16,11 +16,11 @@ class GrammarRepositoryTest {
     private GrammarRepository grammarRepository;
 
     @Test
-    @DisplayName("EntityGraph로 이중 join을 할 수 있다.")
+    @DisplayName("EntityGraph로 GrammarExample만 join한다.")
     void findGrammarWithGrammarBookAndExampleByIdTest() {
         Long grammarId = 95L;
 
-        Grammar grammar = this.grammarRepository.findGrammarWithGrammarBookAndExampleById(grammarId)
+        Grammar grammar = this.grammarRepository.findGrammarWithGrammarExampleById(grammarId)
                 .orElseThrow(() -> new DataNotFoundException("Grammar not found"));
 
         System.out.println(grammar);
