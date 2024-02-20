@@ -1,8 +1,9 @@
 package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.ChangeSentenceDto;
-import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.GrammarChoiceDto;
 import com.wordwave.grammar.dto.GrammarExampleDto;
+import com.wordwave.grammar.dto.GrammarWriteDto;
 import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,13 +48,23 @@ class GrammarServiceTest {
     }
 
     @Test
-    @DisplayName("Grammar id로 Grammar를 조회한다.")
-    void getGrammarTest() {
+    @DisplayName("grammarId로 Grammar와 그 grammarBook, grammarExample을 조회한다.")
+    void getGrammarChoiceTest() {
         Long id = 108L;
 
-        GrammarDto grammarDto = this.grammarService.getGrammar(id);
+        GrammarChoiceDto grammarChoiceDto = this.grammarService.getGrammarWithGrammarBookAndExampleById(id);
 
-        System.out.println(grammarDto.toString());
+        System.out.println(grammarChoiceDto.toString());
+    }
+
+    @Test
+    @DisplayName("grammarId로 Grammar의 sentence, korean을 조회한다.")
+    void getGrammarWriteTest() {
+        Long id = 155L;
+
+        GrammarWriteDto grammarWriteDto = this.grammarService.getGrammarSentenceAndKoreanById(id);
+
+        System.out.println(grammarWriteDto.toString());
     }
 
     @Test
@@ -88,24 +99,24 @@ class GrammarServiceTest {
                 .example(ex3)
                 .isAnswer(isAnswer3)
                 .build());
-        GrammarDto grammarDto = GrammarDto.builder()
+        GrammarChoiceDto grammarChoiceDto = GrammarChoiceDto.builder()
                 .grammarBookName(grammarBoonName)
                 .sentence(sentence)
                 .grammarExamples(grammarExampleDtos)
                 .build();
 
-        this.grammarService.saveGrammarAndGrammarExamples(grammarDto);
+        this.grammarService.saveGrammarAndGrammarExamples(grammarChoiceDto);
     }
 
     @Test
     @DisplayName("GrammarExample이 없는 Grammar를 저장한다.")
     void saveGrammarTest() {
-        GrammarDto grammarDto = GrammarDto.builder()
+        GrammarChoiceDto grammarChoiceDto = GrammarChoiceDto.builder()
                 .grammarBookName("현재와 현재진행")
                 .sentence("We _ busy. Let's watch a movie together")
                 .build();
 
-        Long grammarId = this.grammarService.saveGrammar(grammarDto).getId();
+        Long grammarId = this.grammarService.saveGrammar(grammarChoiceDto).getId();
 
         System.out.println("============assert=============");
         System.out.println(grammarId);
@@ -115,7 +126,7 @@ class GrammarServiceTest {
     @DisplayName("이미 존재하는 Grammar에 GrammarExample을 저장한다.")
     void saveGrammarExampleTest() {
         Long grammarId = 153L;
-        GrammarDto grammarDto = GrammarDto.builder()
+        GrammarChoiceDto grammarChoiceDto = GrammarChoiceDto.builder()
                 .id(grammarId)
                 .grammarExamples(
                         List.of(
@@ -126,7 +137,7 @@ class GrammarServiceTest {
                 )
                 .build();
 
-        this.grammarService.saveGrammarExamples(grammarDto);
+        this.grammarService.saveGrammarExamples(grammarChoiceDto);
     }
 
     @Test
