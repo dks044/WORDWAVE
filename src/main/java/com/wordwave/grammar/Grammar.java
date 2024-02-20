@@ -21,6 +21,9 @@ public class Grammar {
     @Column
     private String sentence;
 
+    @Column
+    private String korean;
+
     @OneToMany(mappedBy = "grammar", cascade = CascadeType.ALL)
     private List<GrammarExample> examples = new ArrayList<>();
 
@@ -41,7 +44,8 @@ public class Grammar {
     @Override
     public String toString() {
         return "grammar id: " + this.id +
-                ", sentence: " + sentence +
+                ", sentence: " + this.sentence +
+                ", korean: " + this.korean +
                 ", book name: " + this.grammarBook.getName() +
                 ", examples: " + this.examples;
     }
