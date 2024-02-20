@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public interface GrammarRepository extends JpaRepository<Grammar, Long> {
@@ -19,9 +18,6 @@ public interface GrammarRepository extends JpaRepository<Grammar, Long> {
 
     @Query("select g.grammarBook.id from Grammar g where g.id = :id")
     Long findGrammarBookIdByGrammarId(@Param("id") Long id);
-
-    @EntityGraph(attributePaths = {"examples", "grammarBook"})
-    List<Grammar> findGrammarWithGrammarBookAndExampleByIdIn(Set<Long> ids);
 
     @Query("select new com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto(g.grammarBook.id, g.grammarBook.name, count(*)) from Grammar g group by g.grammarBook.id")
     List<GrammarNumOfGrammarBookDto> findNumOfAllGrammarBooks();
