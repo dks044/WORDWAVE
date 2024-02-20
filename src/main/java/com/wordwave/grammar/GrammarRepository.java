@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public interface GrammarRepository extends JpaRepository<Grammar, Long> {
 
-    @EntityGraph(attributePaths = {"examples", "grammarBook"})
-    Optional<Grammar> findGrammarWithGrammarBookAndExampleById(Long id);
+    @EntityGraph(attributePaths = {"examples"})
+    Optional<Grammar> findGrammarWithGrammarExampleById(Long id);
 
     @Query("select g.grammarBook.id from Grammar g where g.id = :id")
     Long findGrammarBookIdByGrammarId(@Param("id") Long id);
