@@ -30,7 +30,6 @@ public class GrammarService {
         return GrammarChoiceDto.builder()
                 .id(id)
                 .sentence(grammar.getSentence())
-                .grammarBookName(grammar.getGrammarBook().getName())
                 .grammarExamples(GrammarExampleToGrammarExampleDtoConverter.convert(grammar.getExamples()))
                 .build();
     }
