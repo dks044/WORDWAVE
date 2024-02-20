@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GrammarDto {
+public class GrammarChoiceDto {
 
     private Long id;
 
