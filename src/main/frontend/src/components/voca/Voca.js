@@ -13,7 +13,7 @@ const KorWord = styled.h2`
 const CountBlock = styled.div`
   position: absolute;
   z-index: 1;
-  left: 5%;
+  left: 50%;
   transform: translateX(-50%);
   top: 10%;
 `
