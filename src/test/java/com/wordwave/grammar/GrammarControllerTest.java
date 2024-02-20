@@ -1,11 +1,14 @@
 package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.ChangeSentenceDto;
-import com.wordwave.grammar.dto.GrammarDto;
+import com.wordwave.grammar.dto.GrammarChoiceDto;
 import com.wordwave.grammar.dto.GrammarExampleDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +26,13 @@ class GrammarControllerTest {
     @Autowired
     GrammarController grammarController;
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
     @DisplayName("grammar 조회 요청에 응답한다.")
-    void getGrammarApiTest() {
+    void getGrammarApiTest(boolean isChoice) {
         Long id = 16L;
 
-        ResponseEntity<Object> response = this.grammarController.getGrammar(id);
+        ResponseEntity<Object> response = this.grammarController.getGrammar(id, isChoice);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
@@ -44,7 +48,7 @@ class GrammarControllerTest {
     @Test
     @DisplayName("grammar에 example을 저장한다.")
     void saveGrammarExampleTest() {
-        GrammarDto grammarDto = GrammarDto.builder()
+        GrammarChoiceDto grammarChoiceDto = GrammarChoiceDto.builder()
                 .id(91L)
                 .grammarExamples(List.of(
                         new GrammarExampleDto("is", true),
@@ -52,7 +56,7 @@ class GrammarControllerTest {
                         new GrammarExampleDto("am", false)
                 ))
                 .build();
-        ResponseEntity<Object> response = this.grammarController.saveGrammarExample(grammarDto);
+        ResponseEntity<Object> response = this.grammarController.saveGrammarExample(grammarChoiceDto);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
