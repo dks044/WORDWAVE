@@ -25,17 +25,19 @@ class GrammarBookServiceTest {
     GrammarBookRepository grammarBookRepository;
 
     @Test
-    @DisplayName("GrammarBook id로 GrammarBook을 조회한다.")
+    @DisplayName("GrammarBook name으로 해당 GrammarBook의 GrammarId들을 조회한다.")
     void getGrammarBookTest() {
-        String grammarBookName = "조동사";
+        for (int i = 0; i < 5; i++) {
+            String grammarBookName = "조동사";
 
-        GrammarIdsOfGrammarBookDto dto = grammarBookService.getGrammarBook(grammarBookName);
+            GrammarIdsOfGrammarBookDto dto = grammarBookService.getGrammarIdsOfGrammarBook(grammarBookName);
 
-        System.out.println(dto.toString());
+            System.out.println(dto.toString());
+        }
     }
 
     @Test
-    @DisplayName("모든 GrammarBook의 이름을 조회한다.")
+    @DisplayName("모든 GrammarBook의 id와 이름을 조회한다.")
     void getAllGrammarBookNamesTest() {
         List<GrammarBookResponseDto> grammarBooks = this.grammarBookService.getAllGrammarBooksWithoutGrammars();
 
