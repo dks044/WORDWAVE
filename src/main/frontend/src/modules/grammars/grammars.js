@@ -4,6 +4,7 @@ import { reducerUtils } from "../../lib/asyncUtils";
 const initialState = {
   grammar: reducerUtils.initial(),
   grammarNumOfAllGrammarBooks: reducerUtils.initial(),
+  isChoice: true,
 };
 
 const grammarsSlice = createSlice({
@@ -34,6 +35,15 @@ const grammarsSlice = createSlice({
       ...state,
       grammarNumOfAllGrammarBooks: reducerUtils.error(action.error),
     }),
+    clickWriteSwitch: (state) => {
+      state.isChoice = state.isChoice ? false : true;
+    },
+    initializeWriteSwitch: (state) => {
+      state.isChoice = true;
+    },
+    initializeGrammar: (state) => {
+      state.grammar = reducerUtils.initial();
+    },
   },
 });
 
@@ -44,5 +54,8 @@ export const {
   getGrammarNumOfAllGrammarBooks,
   getGrammarNumOfAllGrammarBooksSuccess,
   getGrammarNumOfAllGrammarBooksError,
+  clickWriteSwitch,
+  initializeWriteSwitch,
+  initializeGrammar,
 } = grammarsSlice.actions;
 export default grammarsSlice.reducer;
