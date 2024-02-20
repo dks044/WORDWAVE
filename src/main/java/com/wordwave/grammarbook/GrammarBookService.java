@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,22 +17,23 @@ import java.util.List;
 public class GrammarBookService {
     private final GrammarBookRepository grammarBookRepository;
 
-    public GrammarIdsOfGrammarBookDto getGrammarBook(String grammarBookName) {
+    public GrammarIdsOfGrammarBookDto getGrammarIdsOfGrammarBook(String grammarBookName) {
         GrammarBook grammarBook = this.grammarBookRepository.findByName(grammarBookName)
                 .orElseThrow(() -> new DataNotFoundException("Grammar book not found"));
 
         return GrammarIdsOfGrammarBookDto.builder()
                 .id(grammarBook.getId())
                 .name(grammarBookName)
-                .grammarIds(collectGrammarIds(grammarBook.getGrammars()))
+                .grammarIds(collectAndShuffleGrammarIds(grammarBook.getGrammars()))
                 .build();
     }
 
-    private List<Long> collectGrammarIds(List<Grammar> grammars) {
+    private List<Long> collectAndShuffleGrammarIds(List<Grammar> grammars) {
         List<Long> grammarIds = new ArrayList<>();
         for (Grammar grammar : grammars) {
             grammarIds.add(grammar.getId());
         }
+        Collections.shuffle(grammarIds);
         return grammarIds;
     }
 
