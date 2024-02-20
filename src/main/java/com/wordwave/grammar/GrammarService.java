@@ -20,9 +20,11 @@ public class GrammarService {
     private final GrammarRepository grammarRepository;
     private final GrammarBookRepository grammarBookRepository;
     private final GrammarExampleRepository grammarExampleRepository;
+    private final static String GRAMMAR_EXAMPLE_DELIMITER = ",";
+    private final static String GRAMMAR_SENTENCE_BLANK = "_";
 
     public GrammarChoiceDto getGrammarWithGrammarBookAndExampleById(Long id) {
-        Grammar grammar = this.grammarRepository.findGrammarWithGrammarBookAndExampleById(id)
+        Grammar grammar = this.grammarRepository.findGrammarWithGrammarExampleById(id)
                 .orElseThrow(() -> new DataNotFoundException("Grammar not found"));
 
         return GrammarChoiceDto.builder()
@@ -34,12 +36,23 @@ public class GrammarService {
     }
 
     public GrammarWriteDto getGrammarSentenceAndKoreanById(Long id) {
-        Grammar grammar = this.grammarRepository.findById(id)
+        Grammar grammar = this.grammarRepository.findGrammarWithGrammarExampleById(id)
                 .orElseThrow(() -> new DataNotFoundException("Grammar not found"));
+
+        GrammarExample grammarExample = grammar.getExamples().stream()
+                .filter(GrammarExample::getIsAnswer)
+                .findFirst()
+                .orElseThrow(() -> new DataNotFoundException("GrammarExample not found"));
+
+        String[] examples = grammarExample.getExample().split(GRAMMAR_EXAMPLE_DELIMITER);
+        String sentence = grammar.getSentence();
+        for (String ex : examples) {
+            sentence = sentence.replaceFirst(GRAMMAR_SENTENCE_BLANK, ex.strip());
+        }
 
         return GrammarWriteDto.builder()
                 .id(id)
-                .sentence(grammar.getSentence())
+                .sentence(sentence)
                 .korean(grammar.getKorean())
                 .build();
     }
