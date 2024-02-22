@@ -56,6 +56,9 @@ const wrongGrammarsSlice = createSlice({
     initializeWrongGrammarSwitch: (state) => {
       state.isClickWrongGrammarSwitch = false;
     },
+    initializeUserWrongGrammarBook: (state) => {
+      state.userWrongGrammarBook = reducerUtils.initial();
+    },
   },
 });
 
@@ -71,5 +74,6 @@ export const {
   getUserWrongGrammarBookError,
   clickWrongGrammarSwitch,
   initializeWrongGrammarSwitch,
+  initializeUserWrongGrammarBook,
 } = wrongGrammarsSlice.actions;
 export default wrongGrammarsSlice.reducer;
