@@ -14,6 +14,7 @@ import NotFoundPage from "../../pages/NotFoundPage";
 import {
   clickWrongGrammarSwitch,
   initializeWrongGrammarSwitch,
+  initializeUserWrongGrammarBook,
 } from "../../modules/wrong-grammars/wrongGrammars";
 import {
   clickWriteSwitch,
@@ -40,6 +41,7 @@ const GrammarBooksContainer = () => {
 
   useEffect(() => {
     dispatch(initializeGrammarBooksAndGrammarBook());
+    dispatch(initializeUserWrongGrammarBook());
     dispatch(initializeIndex());
     dispatch(clearIncorrectGrammarIds());
     dispatch(initializeWrongGrammarSwitch());
