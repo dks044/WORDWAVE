@@ -1,13 +1,13 @@
-import GrammarExamples from "../../components/grammar/GrammarExamples";
+import GrammarChoiceExamples from "../../components/grammar/GrammarChoiceExamples";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback } from "react";
 import { clickExample } from "../../modules/quiz/grammarQuiz";
 
-const GrammarExamplesContainer = ({ grammarExamples }) => {
+const GrammarChoiceExamplesContainer = ({ grammarExamples }) => {
   const isSubmit = useSelector((state) => state.grammarQuiz.isSubmit);
   const dispatch = useDispatch();
 
-  const onClickGrammarExample = useCallback(
+  const onClickGrammarChoiceExamples = useCallback(
     (isAnswer) => {
       dispatch(clickExample(isAnswer));
     },
@@ -15,12 +15,12 @@ const GrammarExamplesContainer = ({ grammarExamples }) => {
   );
 
   return (
-    <GrammarExamples
+    <GrammarChoiceExamples
       grammarExamples={grammarExamples}
-      onClickExample={onClickGrammarExample}
+      onClickExample={onClickGrammarChoiceExamples}
       isSubmit={isSubmit}
     />
   );
 };
 
-export default GrammarExamplesContainer;
+export default GrammarChoiceExamplesContainer;

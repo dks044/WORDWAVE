@@ -19,7 +19,11 @@ const ExampleButton = styled(ToggleButton)`
     props.disabled && !props.$isAnswer && "#E83B46"} !important;
 `;
 
-const GrammarExamples = ({ grammarExamples, onClickExample, isSubmit }) => {
+const GrammarChoiceExamples = ({
+  grammarExamples,
+  onClickExample,
+  isSubmit,
+}) => {
   return (
     <ExampleGroup>
       {grammarExamples.map((ge, idx) => (
@@ -39,4 +43,4 @@ const GrammarExamples = ({ grammarExamples, onClickExample, isSubmit }) => {
   );
 };
 
-export default GrammarExamples;
+export default GrammarChoiceExamples;
