@@ -63,7 +63,14 @@ const GrammarContainer = ({ grammarIds }) => {
           isSubmit={isSubmit}
         />
       ) : (
-        <GrammarWrite currentGrammar={data} />
+        <GrammarWrite
+          currentGrammar={data}
+          onNextGrammar={handleNextGrammar}
+          isExampleClicked={isExampleClicked}
+          isAnswer={isAnswer}
+          isSubmit={isSubmit}
+          currentGrammarIndex={currentGrammarIndex}
+        />
       )}
     </>
   );
