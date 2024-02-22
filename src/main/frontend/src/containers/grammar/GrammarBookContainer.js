@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
-import { getGrammarBook } from "../../modules/grammarbooks/grammarBooks";
-import { getUserWrongGrammarBook } from "../../modules/wrong-grammars/wrongGrammars";
+import {
+  getGrammarBook,
+  initializeGrammarBook,
+} from "../../modules/grammarbooks/grammarBooks";
+import {
+  getUserWrongGrammarBook,
+  initializeUserWrongGrammarBook,
+} from "../../modules/wrong-grammars/wrongGrammars";
 import GrammarBook from "../../components/grammar/GrammarBook";
 import CircleSpinner from "../../components/CircleSpinner";
 import NotFoundPage from "../../pages/NotFoundPage";
@@ -54,6 +60,8 @@ const GrammarBookContainer = ({ grammarBookName }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(initializeGrammarBook());
+    dispatch(initializeUserWrongGrammarBook());
     if (isClickWrongGrammarSwitch) {
       dispatch(
         getUserWrongGrammarBook({
