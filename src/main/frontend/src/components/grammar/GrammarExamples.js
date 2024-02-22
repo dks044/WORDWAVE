@@ -14,9 +14,9 @@ const ExampleButton = styled(ToggleButton)`
   border-color: #63e6be;
   font-size: 30px;
   background-color: ${(props) =>
-    props.disabled && props.isAnswer && "#63e6be"} !important;
+    props.disabled && props.$isAnswer && "#63e6be"} !important;
   background-color: ${(props) =>
-    props.disabled && !props.isAnswer && "#E83B46"} !important;
+    props.disabled && !props.$isAnswer && "#E83B46"} !important;
 `;
 
 const GrammarExamples = ({ grammarExamples, onClickExample, isSubmit }) => {
@@ -28,7 +28,7 @@ const GrammarExamples = ({ grammarExamples, onClickExample, isSubmit }) => {
           id={`ge-${idx}`}
           variant={isSubmit ? "secondary" : "outline-success"}
           name="grammarExample"
-          isAnswer={ge.isAnswer}
+          $isAnswer={ge.isAnswer}
           onClick={() => onClickExample(ge.isAnswer)}
           disabled={isSubmit}
         >
