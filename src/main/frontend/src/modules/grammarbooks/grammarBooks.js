@@ -38,6 +38,9 @@ const grammarBooksSlice = createSlice({
       state.grammarBooks = reducerUtils.initial();
       state.grammarBook = reducerUtils.initial();
     },
+    initializeGrammarBook: (state) => {
+      state.grammarBook = reducerUtils.initial();
+    },
   },
 });
 
@@ -49,5 +52,6 @@ export const {
   getGrammarBookSuccess,
   getGrammarBookError,
   initializeGrammarBooksAndGrammarBook,
+  initializeGrammarBook,
 } = grammarBooksSlice.actions;
 export default grammarBooksSlice.reducer;
