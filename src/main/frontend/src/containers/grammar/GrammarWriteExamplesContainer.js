@@ -61,12 +61,6 @@ const GrammarWriteExamplesContainer = ({ quiz, examples }) => {
     [dispatch]
   );
 
-  /**
-   * GrammarWrtieAnswerContainer에서는 특정 ex를 클릭하면 아예 제거하고
-   * 해당 ex는 Example에서 다시 나타나도록하기
-   * stack.length === shuffledExamples.length면 정답과 비교하고 clickExample 디스패치하기
-   */
-
   return (
     <Examples>
       {shuffledExamples.map((ex, idx) => (
