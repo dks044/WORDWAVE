@@ -7,6 +7,7 @@ const initialState = {
   isAnswer: false,
   incorrectGrammarIds: [],
   writeAnswer: [],
+  writeAnswerIsClick: {},
 };
 
 const grammarQuizSlice = createSlice({
@@ -39,12 +40,15 @@ const grammarQuizSlice = createSlice({
     },
     addWriteAnswer: (state, action) => {
       state.writeAnswer.push(action.payload);
+      state.writeAnswerIsClick[action.payload] = true;
     },
-    popWriteAnswer: (state) => {
-      state.writeAnswer.pop();
+    popWriteAnswer: (state, action) => {
+      const current = state.writeAnswer.splice(action.payload, 1);
+      state.writeAnswerIsClick[current] = false;
     },
     clearWriteAnswer: (state) => {
       state.writeAnswer = [];
+      state.writeAnswerIsClick = {};
     },
   },
 });
@@ -57,6 +61,8 @@ export const {
   clickSubmitButton,
   addIncorrectGrammarId,
   clearIncorrectGrammarIds,
+  addWriteAnswer,
+  popWriteAnswer,
   clearWriteAnswer,
 } = grammarQuizSlice.actions;
 export default grammarQuizSlice.reducer;
