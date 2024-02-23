@@ -1,5 +1,6 @@
 import GrammarChoiceExamplesContainer from "../../containers/grammar/GrammarChoiceExamplesContainer";
 import styled from "styled-components";
+import { Alert } from "react-bootstrap";
 
 const Sentence = styled.p`
   font-size: 30px;
@@ -44,7 +45,7 @@ const NextButton = styled.button`
   }
 `;
 
-const Answer = styled.div`
+const Check = styled(Alert)`
   //위치
   position: absolute;
   top: 60%;
@@ -74,9 +75,9 @@ const GrammarChoice = ({
           ) : (
             <div>보기가 없습니다.</div>
           )}
-          {isSubmit && isAnswer && <Answer>정답입니다!</Answer>}
+          {isSubmit && isAnswer && <Check variant="info">정답입니다!</Check>}
           {isSubmit && !isAnswer && (
-            <Answer>틀렸어요..나중에 다시 풀어봐요!</Answer>
+            <Check variant="danger">틀렸어요..나중에 다시 풀어봐요!</Check>
           )}
           <NextButton onClick={onNextGrammar} disabled={!isExampleClicked}>
             {isSubmit ? "계속하기" : "확인"}
