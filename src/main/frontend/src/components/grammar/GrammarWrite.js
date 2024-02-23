@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import GrammarWriteExamplesContainer from "../../containers/grammar/GrammarWriteExamplesContainer";
 import GrammarWriteAnswerContainer from "../../containers/grammar/GrammarWriteAnswerContainer";
+import { Alert } from "react-bootstrap";
 
 const NextButton = styled.button`
   //스타일
@@ -29,10 +30,12 @@ const NextButton = styled.button`
   }
 `;
 
-const Answer = styled.div`
+const Check = styled(Alert)`
+  //스타일
+  text-align: center;
   //위치
   position: absolute;
-  top: 60%;
+  bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
 `;
@@ -55,9 +58,15 @@ const SentenceBox = styled.div`
 
 function splitKoreanOrSentence(currentGrammarIndex, sentence, korean) {
   if (currentGrammarIndex % 2 === 0) {
-    return { quiz: sentence, examples: korean.split(" ") };
+    return {
+      quiz: sentence,
+      examples: korean.toLowerCase().replace(".", "").split(" "),
+    };
   }
-  return { quiz: korean, examples: sentence.split(" ") };
+  return {
+    quiz: korean,
+    examples: sentence.toLowerCase().replace(".", "").split(" "),
+  };
 }
 
 const GrammarWrite = ({
@@ -84,12 +93,16 @@ const GrammarWrite = ({
       </SentenceBox>
 
       {examples && (
-        <GrammarWriteExamplesContainer quiz={quiz} examples={examples} />
+        <GrammarWriteExamplesContainer
+          quiz={quiz}
+          examples={examples}
+          isSubmit={isSubmit}
+        />
       )}
 
-      {isSubmit && isAnswer && <Answer>정답입니다!</Answer>}
+      {isSubmit && isAnswer && <Check variant="info">정답입니다!</Check>}
       {isSubmit && !isAnswer && (
-        <Answer>틀렸어요..나중에 다시 풀어봐요!</Answer>
+        <Check variant="danger">틀렸어요..나중에 다시 풀어봐요!</Check>
       )}
       <NextButton onClick={onNextGrammar} disabled={!isExampleClicked}>
         {isSubmit ? "계속하기" : "확인"}
