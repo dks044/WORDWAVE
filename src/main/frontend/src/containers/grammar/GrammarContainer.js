@@ -6,6 +6,7 @@ import {
   initializeClickExampleAndSubmitAndAnswer,
   clickSubmitButton,
   addIncorrectGrammarId,
+  clearWriteAnswer,
 } from "../../modules/quiz/grammarQuiz";
 import CircleSpinner from "../../components/CircleSpinner";
 import NotFoundPage from "../../pages/NotFoundPage";
@@ -39,6 +40,7 @@ const GrammarContainer = ({ grammarIds }) => {
 
   useEffect(() => {
     dispatch(initializeClickExampleAndSubmitAndAnswer());
+    dispatch(clearWriteAnswer());
     if (currentGrammarIndex < grammarIds.length) {
       dispatch(
         getGrammarById({
