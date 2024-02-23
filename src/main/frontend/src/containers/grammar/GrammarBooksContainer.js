@@ -5,10 +5,6 @@ import {
   initializeGrammarBooksAndGrammarBook,
 } from "../../modules/grammarbooks/grammarBooks";
 import GrammarBooks from "../../components/grammar/GrammarBooks";
-import {
-  initializeIndex,
-  clearIncorrectGrammarIds,
-} from "../../modules/quiz/grammarQuiz";
 import CircleSpinner from "../../components/CircleSpinner";
 import NotFoundPage from "../../pages/NotFoundPage";
 import {
@@ -42,8 +38,6 @@ const GrammarBooksContainer = () => {
   useEffect(() => {
     dispatch(initializeGrammarBooksAndGrammarBook());
     dispatch(initializeUserWrongGrammarBook());
-    dispatch(initializeIndex());
-    dispatch(clearIncorrectGrammarIds());
     dispatch(initializeWrongGrammarSwitch());
     dispatch(initializeWriteSwitch());
     dispatch(initializeGrammar());
