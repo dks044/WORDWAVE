@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
 import {
+  initializeIndex,
+  clearIncorrectGrammarIds,
+  clearWriteAnswer,
+} from "../../modules/quiz/grammarQuiz";
+import {
   getGrammarBook,
   initializeGrammarBook,
 } from "../../modules/grammarbooks/grammarBooks";
@@ -62,6 +67,9 @@ const GrammarBookContainer = ({ grammarBookName }) => {
   useEffect(() => {
     dispatch(initializeGrammarBook());
     dispatch(initializeUserWrongGrammarBook());
+    dispatch(initializeIndex());
+    dispatch(clearIncorrectGrammarIds());
+    dispatch(clearWriteAnswer());
     if (isClickWrongGrammarSwitch) {
       dispatch(
         getUserWrongGrammarBook({
