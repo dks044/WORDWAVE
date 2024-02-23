@@ -45,6 +45,7 @@ const grammarQuizSlice = createSlice({
     popWriteAnswer: (state, action) => {
       const current = state.writeAnswer.splice(action.payload, 1);
       state.writeAnswerIsClick[current] = false;
+      state.isExampleClicked = false;
     },
     clearWriteAnswer: (state) => {
       state.writeAnswer = [];
