@@ -1,7 +1,7 @@
 package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.ChangeSentenceDto;
-import com.wordwave.grammar.dto.GrammarChoiceDto;
+import com.wordwave.grammar.dto.GrammarDto;
 import com.wordwave.grammar.dto.GrammarExampleDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-@Rollback(false)
+@Rollback
 class GrammarControllerTest {
     @Autowired
     GrammarController grammarController;
@@ -45,17 +45,19 @@ class GrammarControllerTest {
     }
 
     @Test
-    @DisplayName("grammar에 example을 저장한다.")
+    @DisplayName("grammar와 grammarExample을 함께 저장하는 요청에 응답한다.")
     void saveGrammarExampleTest() {
-        GrammarChoiceDto grammarChoiceDto = GrammarChoiceDto.builder()
-                .id(91L)
+        GrammarDto grammarDto = GrammarDto.builder()
+                .sentence("This is test sentence.")
+                .korean("이것은 테스트 문장입니다.")
+                .grammarBookName("테스트북")
                 .grammarExamples(List.of(
                         new GrammarExampleDto("is", true),
                         new GrammarExampleDto("are", false),
                         new GrammarExampleDto("am", false)
                 ))
                 .build();
-        ResponseEntity<Object> response = this.grammarController.saveGrammarExample(grammarChoiceDto);
+        ResponseEntity<Object> response = this.grammarController.saveGrammarAndGrammarExamples(grammarDto);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     }
