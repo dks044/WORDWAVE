@@ -32,8 +32,9 @@ public class Grammar {
     private GrammarBook grammarBook;
 
     @Builder
-    public Grammar(String sentence, GrammarBook grammarBook) {
+    public Grammar(String sentence, String korean, GrammarBook grammarBook) {
         this.sentence = sentence;
+        this.korean = korean;
         this.grammarBook = grammarBook;
     }
 
