@@ -1,10 +1,7 @@
 package com.wordwave.grammar;
 
 import com.wordwave.exception.DataNotFoundException;
-import com.wordwave.grammar.dto.ChangeSentenceDto;
-import com.wordwave.grammar.dto.GrammarChoiceDto;
-import com.wordwave.grammar.dto.GrammarExampleDto;
-import com.wordwave.grammar.dto.GrammarWriteDto;
+import com.wordwave.grammar.dto.*;
 import com.wordwave.grammarbook.GrammarBook;
 import com.wordwave.grammarbook.GrammarBookRepository;
 import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
@@ -76,16 +73,28 @@ public class GrammarService {
     }
 
     /**
-     * grammarBookName과 sentence가 담긴 DTO를 받아 GrammarExample이 없는 Grammar를 저장합니다.
+     * grammarBookName, sentence, grammarExamples가 들어있는 DTO를 받아
+     * Grammar와 GrammarExamples을 함께 저장합니다.
+     * */
+    @Transactional
+    public void saveGrammarAndGrammarExamples(GrammarDto grammarDto) {
+        Long grammarId = saveOnlyGrammar(grammarDto).getId();
+        grammarDto.setId(grammarId);
+        saveGrammarExamples(grammarDto);
+    }
+
+    /**
+     * grammarBookName, sentence, korean이 담긴 DTO를 받아 GrammarExample이 없는 Grammar를 저장합니다.
      * 받아온 grammarBookName을 가진 GrammarBook이 존재하지 않는다면, 새로운 GrammarBook을 만듭니다.
      * */
     @Transactional
-    public GrammarChoiceDto saveGrammar(GrammarChoiceDto grammarChoiceDto) {
-        GrammarBook grammarBook = this.grammarBookRepository.findByName(grammarChoiceDto.getGrammarBookName())
-                .orElseGet(() -> createGrammarBook(grammarChoiceDto.getGrammarBookName()));
+    private GrammarChoiceDto saveOnlyGrammar(GrammarDto grammarDto) {
+        GrammarBook grammarBook = this.grammarBookRepository.findByName(grammarDto.getGrammarBookName())
+                .orElseGet(() -> createGrammarBook(grammarDto.getGrammarBookName()));
 
         Grammar grammar = Grammar.builder()
-                .sentence(grammarChoiceDto.getSentence())
+                .sentence(grammarDto.getSentence())
+                .korean(grammarDto.getKorean())
                 .grammarBook(grammarBook)
                 .build();
         this.grammarRepository.save(grammar);
@@ -103,10 +112,10 @@ public class GrammarService {
      * 이미 존재하는 Grammar에 GrammarExample을 저장합니다.
      * */
     @Transactional
-    public void saveGrammarExamples(GrammarChoiceDto grammarChoiceDto) {
-        Grammar grammar = getGrammarById(grammarChoiceDto.getId());
-        if (grammarChoiceDto.getGrammarExamples() != null) {
-            for (GrammarExampleDto grammarExampleDto : grammarChoiceDto.getGrammarExamples()) {
+    private void saveGrammarExamples(GrammarDto grammarDto) {
+        Grammar grammar = getGrammarById(grammarDto.getId());
+        if (grammarDto.getGrammarExamples() != null) {
+            for (GrammarExampleDto grammarExampleDto : grammarDto.getGrammarExamples()) {
                 GrammarExample grammarExample = GrammarExample.builder()
                         .example(grammarExampleDto.getExample())
                         .isAnswer(grammarExampleDto.getIsAnswer())
@@ -115,17 +124,6 @@ public class GrammarService {
                 this.grammarExampleRepository.save(grammarExample);
             }
         }
-    }
-
-    /**
-     * grammarBookName, sentence, grammarExamples가 들어있는 DTO를 받아
-     * Grammar와 GrammarExamples을 함께 저장합니다.
-     * */
-    @Transactional
-    public void saveGrammarAndGrammarExamples(GrammarChoiceDto grammarChoiceDto) {
-        Long grammarId = saveGrammar(grammarChoiceDto).getId();
-        grammarChoiceDto.setId(grammarId);
-        saveGrammarExamples(grammarChoiceDto);
     }
 
     private Grammar getGrammarById(Long id) {
