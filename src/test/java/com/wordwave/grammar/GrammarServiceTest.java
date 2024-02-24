@@ -1,9 +1,6 @@
 package com.wordwave.grammar;
 
-import com.wordwave.grammar.dto.ChangeSentenceDto;
-import com.wordwave.grammar.dto.GrammarChoiceDto;
-import com.wordwave.grammar.dto.GrammarExampleDto;
-import com.wordwave.grammar.dto.GrammarWriteDto;
+import com.wordwave.grammar.dto.*;
 import com.wordwave.grammarbook.dto.GrammarNumOfGrammarBookDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-@Rollback(false)
+@Rollback
 class GrammarServiceTest {
     @Autowired
     GrammarService grammarService;
@@ -99,45 +96,13 @@ class GrammarServiceTest {
                 .example(ex3)
                 .isAnswer(isAnswer3)
                 .build());
-        GrammarChoiceDto grammarChoiceDto = GrammarChoiceDto.builder()
+        GrammarDto grammarDto = GrammarDto.builder()
                 .grammarBookName(grammarBoonName)
                 .sentence(sentence)
                 .grammarExamples(grammarExampleDtos)
                 .build();
 
-        this.grammarService.saveGrammarAndGrammarExamples(grammarChoiceDto);
-    }
-
-    @Test
-    @DisplayName("GrammarExample이 없는 Grammar를 저장한다.")
-    void saveGrammarTest() {
-        GrammarChoiceDto grammarChoiceDto = GrammarChoiceDto.builder()
-                .grammarBookName("현재와 현재진행")
-                .sentence("We _ busy. Let's watch a movie together")
-                .build();
-
-        Long grammarId = this.grammarService.saveGrammar(grammarChoiceDto).getId();
-
-        System.out.println("============assert=============");
-        System.out.println(grammarId);
-    }
-
-    @Test
-    @DisplayName("이미 존재하는 Grammar에 GrammarExample을 저장한다.")
-    void saveGrammarExampleTest() {
-        Long grammarId = 153L;
-        GrammarChoiceDto grammarChoiceDto = GrammarChoiceDto.builder()
-                .id(grammarId)
-                .grammarExamples(
-                        List.of(
-                                new GrammarExampleDto("Is, raining", false),
-                                new GrammarExampleDto("Was, raining", true),
-                                new GrammarExampleDto("Was, rain", false)
-                        )
-                )
-                .build();
-
-        this.grammarService.saveGrammarExamples(grammarChoiceDto);
+        this.grammarService.saveGrammarAndGrammarExamples(grammarDto);
     }
 
     @Test
