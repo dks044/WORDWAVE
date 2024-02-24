@@ -1,7 +1,7 @@
 package com.wordwave.grammar;
 
 import com.wordwave.grammar.dto.ChangeSentenceDto;
-import com.wordwave.grammar.dto.GrammarChoiceDto;
+import com.wordwave.grammar.dto.GrammarDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +37,9 @@ public class GrammarController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Object> saveGrammarExample(@RequestBody GrammarChoiceDto grammarChoiceDto) {
+    public ResponseEntity<Object> saveGrammarAndGrammarExamples(@RequestBody GrammarDto grammarDto) {
         //grammarDto의 sentence와 grammarBookName은 필요없음
-        this.grammarService.saveGrammarExamples(grammarChoiceDto);
+        this.grammarService.saveGrammarAndGrammarExamples(grammarDto);
         return ResponseEntity.status(HttpStatus.OK).body("Saved examples");
     }
 
