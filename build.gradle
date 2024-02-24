@@ -47,6 +47,14 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+//테스트할때만 리액트 앱 빌드 안함
+def skipReactBuild = project.hasProperty('skipReactBuild')
+tasks.matching { it.name in ['installReact', 'buildReact', 'copyReactBuildFiles'] }.configureEach {
+	onlyIf { !project.hasProperty('skipReactBuild') }
+}
+
+
 //SpringBoot 프로젝트가 build 될 때 React 프로젝트가 먼저 build되고, 결과물을 SpringBoot 프로젝트 build 결과물에 포함 스크립트 시작
 def frontendDir = "$projectDir/src/main/frontend"
 
