@@ -7,7 +7,7 @@ import styled from 'styled-components';
 //   transition: 0.25s all ease-in-out;
 // `
 
-const COLORS = ['#1692f0','#e1161a'];
+const COLORS = ['#1692f0','#ca6c98'];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name }) => {
@@ -16,7 +16,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+    <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central" fontWeight="bold">
       {`${name}: ${(percent * 100).toFixed(0)}%`}
     </text>
   );
@@ -25,7 +25,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 const SimplePieChart = ({data}) => {
   return (
     // <AnimatedContainer>
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer width="100%" height={230}>
         <PieChart width={780} height={780}>
           <Pie
             data={data}

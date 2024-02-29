@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, Form } from "react-bootstrap";
+import { Badge, Button, Card, Form, ListGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { showPopup } from "../../modules/popup";
@@ -18,6 +18,17 @@ const CountBlock = styled.div`
   transform: translateX(-50%);
   top: 17%;
 `
+const Title = styled.h1`
+  font-weight: bolder;
+`
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; // Card 사이의 여백
+`;
+
+
 
 function Voca({ voca,nextVoca,stackSize }) {
   const [answerCount,setAnswerCount] = useState(0);
@@ -28,8 +39,8 @@ function Voca({ voca,nextVoca,stackSize }) {
   const dispatch = useDispatch();
   //차트
   const data = [
-    { name: '정답비율', value: answerCount },
-    { name: '오답비율', value: wrongCount }
+    { name: '정답', value: answerCount },
+    { name: '오답', value: wrongCount }
   ];
   console.log(stackSize);
 
@@ -38,12 +49,29 @@ function Voca({ voca,nextVoca,stackSize }) {
       {stackSize === 0 &&
         <>
           <br />
-          <h1>정답 오답 비율</h1>
+          <Title>결과</Title>
           <SimplePieChart data={data}/>
+          <br />
+          <Title>틀린 단어들</Title>
+          <CardContainer>
+            {wrongQuiz.map((quiz, index) => {
+              return (
+                <Card style={{ width: '18rem' }} key={index} border="warning" bg="warning" text="white">
+                  <Card.Header>틀린단어 #{index}</Card.Header>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>{quiz.engWord}</ListGroup.Item>
+                    <ListGroup.Item>{quiz.korWord}</ListGroup.Item>
+                  </ListGroup>
+                </Card>
+              )
+            })}
+          </CardContainer>
         </>
       }
+      <br/><br/><br/><br/><br/><br/><br/>
     </div>
   )
+  
 
   return (
     <div>
