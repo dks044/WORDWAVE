@@ -26,14 +26,13 @@ function Voca({ voca,nextVoca,done }) {
   const [wrongQuiz,setWrongQuiz] = useState([]);
 
   const dispatch = useDispatch();
-  console.log(done);
   //차트
   const data = [
     { name: '정답 수', value: answerCount },
     { name: '오답 수', value: wrongCount }
   ];
   const COLORS = ['#00C49F', '#FF8042'];
-
+  console.log(done);
   if (!voca) return null;
 
   return (
@@ -123,25 +122,9 @@ function Voca({ voca,nextVoca,done }) {
       })}
     </> 
     }
-    {done && 
-      <>
-        <PieChart width={400} height={400}>
-          <Pie
-            data={data}
-            cx={200}
-            cy={200}
-            labelLine={false}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-          >
-            {
-              data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-            }
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </>
+    { done &&
+      <>하이요</>
+
     }
     <CountBlock>
       <Badge bg="success">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
@@ -150,4 +133,4 @@ function Voca({ voca,nextVoca,done }) {
   );
 }
 
-export default React.memo(Voca);
+export default Voca

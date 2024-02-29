@@ -55,7 +55,12 @@ function VocaContainer({vocaBookId,category}){
     setCurrentVoca(newStack[newStack.length - 1]);
     setRemaining(newStack.length);
     setVariant('info');
+  
+    if (newStack.length === 0) {
+      setDone(true);
+    }
   };
+  
 
   //제한시간 로직
   const [timeLeft, setTimeLeft] = useState(20); 
@@ -94,15 +99,6 @@ function VocaContainer({vocaBookId,category}){
       setVariant('info');
     }
   }, [timeLeft]);
-
-
-  useEffect(() => {
-    if (remaining === 0 && total !== 0) {
-      console.log(done);
-      setDone(true);
-      console.log(done);
-    }
-  }, [total, remaining,done]);
 
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;
