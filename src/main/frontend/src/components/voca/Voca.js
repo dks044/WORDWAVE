@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Badge, Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { showPopup } from "../../modules/popup";
-import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import SimplePieChart from "../SimplePieChart";
 
 const HidenEngWord = styled.h1`
   font-weight: bolder;
@@ -19,21 +19,31 @@ const CountBlock = styled.div`
   top: 17%;
 `
 
-function Voca({ voca,nextVoca,done }) {
+function Voca({ voca,nextVoca,stackSize }) {
   const [answerCount,setAnswerCount] = useState(0);
   const [wrongCount,setWrongCount] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
   const [wrongQuiz,setWrongQuiz] = useState([]);
-
+  
   const dispatch = useDispatch();
   //차트
   const data = [
-    { name: '정답 수', value: answerCount },
-    { name: '오답 수', value: wrongCount }
+    { name: '정답비율', value: answerCount },
+    { name: '오답비율', value: wrongCount }
   ];
-  const COLORS = ['#00C49F', '#FF8042'];
-  console.log(done);
-  if (!voca) return null;
+  console.log(stackSize);
+
+  if (!voca) return (
+    <div>
+      {stackSize === 0 &&
+        <>
+          <br />
+          <h1>정답 오답 비율</h1>
+          <SimplePieChart data={data}/>
+        </>
+      }
+    </div>
+  )
 
   return (
     <div>
@@ -121,10 +131,6 @@ function Voca({ voca,nextVoca,done }) {
         );
       })}
     </> 
-    }
-    { done &&
-      <>하이요</>
-
     }
     <CountBlock>
       <Badge bg="success">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
