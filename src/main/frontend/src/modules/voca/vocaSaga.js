@@ -3,9 +3,7 @@ import * as vocaAPI from "../../api/vocaAPI"
 
 function* fetchVocaSaga(action){
   try {
-    console.log('API 요청 전:', action);
     const voca = yield call(vocaAPI.getVocaAPI, action.payload);
-    console.log('API 요청 후:', voca);
     yield put ({
       type : "voca/getVocaSuccess",
       payload : voca

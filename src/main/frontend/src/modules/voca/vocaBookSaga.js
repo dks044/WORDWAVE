@@ -20,7 +20,6 @@ function* fetchVocaBooksSaga(){
 function* fetchVocaBookSaga(action){
   try {
     const vocaBook = yield call(vocaAPI.getVocaBookAPI, action.payload);
-    console.log('함수실행!');
     yield put ({
       type : "vocaBook/getVocaBookSuccess",
       payload : vocaBook,

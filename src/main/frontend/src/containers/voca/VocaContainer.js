@@ -31,7 +31,8 @@ function VocaContainer({vocaBookId,category}){
   const [currentVoca, setCurrentVoca] = useState(null); //현재voca
   const [remaining, setRemaining] = useState(0); //남은단어
   const [total, setTotal] = useState(0);  // 전체 단어의 수
-   
+  const [done,setDone] = useState(false); //퀴즈가 다 끝났는지
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getVoca({ vocaBookId, category }));
@@ -94,6 +95,15 @@ function VocaContainer({vocaBookId,category}){
     }
   }, [timeLeft]);
 
+
+  useEffect(() => {
+    if (remaining === 0 && total !== 0) {
+      console.log(done);
+      setDone(true);
+      console.log(done);
+    }
+  }, [total, remaining,done]);
+
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;
   return (
@@ -104,7 +114,7 @@ function VocaContainer({vocaBookId,category}){
       <ProgressBarBlock>
         <ProgressBar animated variant={variant} now={(timeLeft / 20) * 100} />
       </ProgressBarBlock>
-      <Voca voca={currentVoca} nextVoca={nextVoca}/>
+      <Voca voca={currentVoca} nextVoca={nextVoca} done={done}/>
     </VocaContainerBlock>
   )
 }
