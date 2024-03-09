@@ -213,20 +213,6 @@ public class VocaTest {
 //		System.out.println(vocaService.createhiddenEngWord(engWord2));
 //		System.out.println(vocaService.createhiddenEngWord(engWord3));
 //	}
-	
-	
-	@Test
-	void ssibal() {
-		String a = "fare|	요금|	중고	\r\n"
-				+ "fascinate|	황홀케 하다|	중고	\r\n"
-				+ "fasten|	단단히 고정시키다|	중고	\r\n"
-				+ "fate|	숙명|	중고	\r\n";
-		String[] b = a.split("\n");
-		vocaDataTool.insertVocaByString(b, VOCABOOK_BASIC_ID, "중고");
-		
-		
-	}
-	
-	
+
 	
 }
