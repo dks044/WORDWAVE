@@ -147,7 +147,7 @@ function NavComponent(){
               <Icon as={IoMdLogOut} onClick={handleShow}/>
             </IconBox>
           </NavItem>}
-          {(!isLoging || isLoging === null && user === null) &&
+          {!isLoging &&
             <NavItem>
               <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">같이 영어 공부해요!😝</Tooltip>}>
                 <span className="d-inline-block">

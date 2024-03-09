@@ -7,27 +7,29 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import VocaBooksPage from "./pages/voca/VocaBooksPage";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
-import { isLoggedIn } from "./modules/auth";
-import { ToastContainer } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { isLoggedIn, logout } from "./modules/auth";
+import { ToastContainer } from "react-bootstrap";   
 import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
 import VocaBookPage from "./pages/voca/VocaBookPage";
 import VocaPage from "./pages/voca/VocaPage";
-import styled from "styled-components";
 
 
 function App() {
   //authenticated
   const { isLoging } = useSelector(state=>state.auth);
+  console.log(isLoging);
   const {isOpen, message} = useSelector(state=>state.popup);
   const dispatch = useDispatch();
   console.log(isLoging);
+
   useEffect(() => {
       console.log('check the user..');
       dispatch(isLoggedIn());
   }, [dispatch,isLoging]);
+
   //authenticated
   //toast
   const [show, setShow] = useState(false);
