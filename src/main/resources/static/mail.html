@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #89CFF0;
+}
+
+.messageBox {
+    border: 2px solid red;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #FFF;
+}
+
+h1, h3 {
+    color: #333;
+}
+</style>
+</head>
+<body>
+<div class="messageBox">
+    <h1 th:text="${mainSubject}"></h1>
+    <hr>
+    <p th:utext="${text}"></p> <!-- utext를 사용하여 HTML 태그 적용 -->
+</div>
+</body>
+</html>
