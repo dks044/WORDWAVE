@@ -106,7 +106,7 @@ function VocaContainer({vocaBookId,category}){
       <ProgressBarBlock>
         <ProgressBar animated variant={variant} now={(timeLeft / 20) * 100} />
       </ProgressBarBlock>
-      <Voca voca={currentVoca} nextVoca={nextVoca} stackSize={stackSize} />
+      <Voca voca={currentVoca} nextVoca={nextVoca} stackSize={stackSize} timeLeft={timeLeft} />
     </VocaContainerBlock>
   )
 }

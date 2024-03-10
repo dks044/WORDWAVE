@@ -30,19 +30,24 @@ const CardContainer = styled.div`
 
 
 
-function Voca({ voca,nextVoca,stackSize }) {
+function Voca({ voca,nextVoca,stackSize,timeLeft }) {
   const [answerCount,setAnswerCount] = useState(0);
   const [wrongCount,setWrongCount] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
   const [wrongQuiz,setWrongQuiz] = useState([]);
-  
   const dispatch = useDispatch();
   //차트
   const data = [
     { name: '정답', value: answerCount },
     { name: '오답', value: wrongCount }
   ];
-  console.log(stackSize);
+
+  useEffect(()=>{
+    //제한시간이 끝나도 못 풀었을 경우
+    if(timeLeft === 0){
+     setWrongCount(wrongCount +1);
+    }
+  },[timeLeft,wrongCount])
 
   if (!voca) return (
     <div>
