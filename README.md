@@ -7,16 +7,6 @@
 
 **구현 단계 :** 24.1.1 ~ 
 
-# 팀 - 광안리형제들 🌊
-
-### AJN - 팀장 (풀스택)
-
-[dks044 - Overview](https://github.com/dks044)
-
-### JJY (풀스택)
-
-[ddolboghi - Overview](https://github.com/ddolboghi)
-
 # **🎯 기획 배경**
 
 ## **🖊**영어 공부와 프로그래밍 공부를 동시에 하고싶어서
@@ -76,3 +66,23 @@
 [백엔드 트러블슈팅](https://storm-wormhole-609.notion.site/fc10406a146d436c907531ca4e276e07)   
 [프론트 트러블슈팅](https://storm-wormhole-609.notion.site/74f729e1799c46b4ac20476c78b3ded1)   
 [보안 트러블슈팅](https://storm-wormhole-609.notion.site/b64b79f8c9c04ac39881e1c258bf0c1d)
+
+# 🌊팀 - 광안리형제들
+
+### AJN - 팀장 (풀스택)
+
+[dks044 - Overview](https://github.com/dks044)
+
+- 전반적인 기능 및 아이디어 기획
+- 전반적인 프론트 레이아웃 디자인 및 구현
+- 회원로직
+    - JWT 토큰 인증방식
+- 영어 단어 퀴즈
+- 실시간 영어단어 퀴즈
+
+### JJY (풀스택)
+
+[ddolboghi - Overview](https://github.com/ddolboghi)
+
+- 전반적인 보안, 성능 취약점 검사
+- 영어 문법 퀴즈
