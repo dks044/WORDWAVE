@@ -1,6 +1,6 @@
 # WORDWAVE
 
-미완성
+![중간점검](https://github.com/dks044/WORDWAVE/assets/74749417/0cd53517-e5f6-4660-8df9-8e005eeadb75)
 
 # **📅**기간
 
