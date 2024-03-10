@@ -1,3 +1,2 @@
 # WORDWAVE
- 개발용 브렌치!
-![이미지 설명](https://onedrive.live.com/embed?resid=64DC08F20910D73C%2126241&authkey=%21AFeWs34jOCUv328&width=1024)
+![중간점검](https://github.com/dks044/WORDWAVE/assets/74749417/c551dd2e-2559-4426-8462-86f9ebc8444b)
