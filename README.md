@@ -63,6 +63,6 @@
 
 # **📋**트러블슈팅 희고록
 
-[백엔드 트러블슈팅](https://storm-wormhole-609.notion.site/fc10406a146d436c907531ca4e276e07)
-[프론트 트러블슈팅](https://storm-wormhole-609.notion.site/74f729e1799c46b4ac20476c78b3ded1)
+[백엔드 트러블슈팅](https://storm-wormhole-609.notion.site/fc10406a146d436c907531ca4e276e07)   
+[프론트 트러블슈팅](https://storm-wormhole-609.notion.site/74f729e1799c46b4ac20476c78b3ded1)   
 [보안 트러블슈팅](https://storm-wormhole-609.notion.site/b64b79f8c9c04ac39881e1c258bf0c1d)
