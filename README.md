@@ -7,6 +7,16 @@
 
 **구현 단계 :** 24.1.1 ~ 
 
+# 팀 - 광안리형제들 🌊
+
+### AJN - 팀장 (풀스택)
+
+[dks044 - Overview](https://github.com/dks044)
+
+### JJY (풀스택)
+
+[ddolboghi - Overview](https://github.com/ddolboghi)
+
 # **🎯 기획 배경**
 
 ## **🖊**영어 공부와 프로그래밍 공부를 동시에 하고싶어서
