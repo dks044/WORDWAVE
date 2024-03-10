@@ -1,6 +1,7 @@
 # WORDWAVE
 
 ![중간점검](https://github.com/dks044/WORDWAVE/assets/74749417/0cd53517-e5f6-4660-8df9-8e005eeadb75)
+<img src="https://onedrive.live.com/embed?resid=64DC08F20910D73C%2126251&authkey=%21AIr5oPYq3MeR228&width=200&height=200" width="200" height="200" />
 
 # **📅**기간
 
