@@ -8,18 +8,23 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import com.wordwave.vocabook.VocaBook;
 import com.wordwave.vocabook.VocaBookDTO;
+import com.wordwave.vocabook.VocaBookRepository;
 import com.wordwave.vocabook.VocaBookService;
 
 @SpringBootTest
 public class VocaBookTest {
 	@Autowired
 	private VocaBookService vocaBookService;
+	@Autowired
+	private VocaBookRepository vocaBookRepository;
 	
 	@Test
 	@Disabled
@@ -55,5 +60,23 @@ public class VocaBookTest {
 		}
 	}
 	
+	@Test
+	@Rollback(false)
+	@DisplayName("vocaBook 생성 테스트") //테스트 성공
+	@Disabled
+	void createVocaBookTest() {
+		VocaBookDTO toeic = VocaBookDTO.builder()
+											 .name("TOEIC")
+											 .imageURL("https://wordwave-bucket.s3.ap-northeast-2.amazonaws.com/voca/toeic.png")
+											 .build();
+		VocaBookDTO basic = VocaBookDTO.builder()
+				 .name("BASIC")
+				 .imageURL("https://wordwave-bucket.s3.ap-northeast-2.amazonaws.com/voca/basic.png")
+				 .build();
+		
+		
+		vocaBookService.create(toeic);
+		vocaBookService.create(basic);
+	}
 	
 }

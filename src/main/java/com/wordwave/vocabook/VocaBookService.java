@@ -19,6 +19,16 @@ import lombok.RequiredArgsConstructor;
 public class VocaBookService {
 	private final VocaBookRepository vocaBookRepository;
 	
+	//DTO를 VocaBook으로
+	public void create(VocaBookDTO vocaBookDTO) {
+		VocaBook vb = VocaBook.builder()
+						.name(vocaBookDTO.getName())
+						.imageURL(vocaBookDTO.getImageURL())
+						.build();
+		vocaBookRepository.save(vb);
+	}
+	
+	
 	public Map<Long,String> getVocaBookNameList(){
 		Map<Long,String> vocaBookNames = new HashMap<>();
 		List<VocaBook> vocaBookList = vocaBookRepository.findAll();
@@ -54,6 +64,7 @@ public class VocaBookService {
 	    						.build();
 	    return vocaBookDTO;
 	}
-
+	
+	
 
 }

@@ -12,6 +12,8 @@ import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -39,4 +41,11 @@ public class VocaBook {
     }
 	//s3경로
 	private String imageURL;
+	
+	@Builder
+	VocaBook(String name, String imageURL){
+		this.name = name;
+		this.imageURL = imageURL;
+	}
+	
 }

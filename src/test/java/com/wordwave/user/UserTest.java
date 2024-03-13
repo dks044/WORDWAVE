@@ -24,8 +24,8 @@ public class UserTest {
     
     @Test
     @Transactional
-//    @Rollback(false)
-//    @Disabled
+    @Rollback(false)
+    @Disabled
     void createSiteUserTest() {//테스트성공
         UserDTO ud = UserDTO.builder()
                 .userName("테스트계정")
