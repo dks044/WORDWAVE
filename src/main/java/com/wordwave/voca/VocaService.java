@@ -100,4 +100,6 @@ public class VocaService {
 		
 		return randomWord;
 	}
+	
+	
 }
