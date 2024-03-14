@@ -2,6 +2,8 @@ package com.wordwave.user.userLearnPerformance;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserLearnPerformanceRepository extends JpaRepository<UserLearnPerformance, Long>{
+import com.wordwave.user.SiteUser;
 
+public interface UserLearnPerformanceRepository extends JpaRepository<UserLearnPerformance, Long>{
+	UserLearnPerformance findByUserAndCategory(SiteUser user, String category);
 }

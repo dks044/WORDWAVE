@@ -11,10 +11,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
+import lombok.Getter;
 
 //SiteUser가 틀린 단어,문법 퀴즈를 카운팅 받는 엔티티
 @Entity
 @Builder
+@Getter
 public class UserLearnPerformance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,4 +56,10 @@ public class UserLearnPerformance {
 		this.lastAttempted = LocalDateTime.now();
 	}
     
+    public void updatePerformance(int answerCount, int wrongCount) {
+        this.answerCount = answerCount;
+        this.wrongCount = wrongCount;
+        this.lastAttempted = LocalDateTime.now();
+    }
+
 }
