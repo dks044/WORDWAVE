@@ -37,4 +37,21 @@ public class UserLearnPerformanceService {
 		}
 		userLearnPerformanceRepository.save(userLearn);
 	}
+	
+	
+	public UserLearnHistoryDTO getUserLearnHistory(String category,long userId) {
+		SiteUser user = userService.getByUserId(userId);
+		UserLearnPerformance userLearn = userLearnPerformanceRepository.findByUserAndCategory(user, category);
+		if(userLearn == null) {
+			return UserLearnHistoryDTO.builder().existence(false).build();
+		}else {
+			return UserLearnHistoryDTO.builder()
+									  .answerCount(userLearn.getAnswerCount())
+									  .wrongCount(userLearn.getWrongCount())
+									  .existence(true)
+									  .lastAttempted(userLearn.getLastAttempted())
+									  .build();
+		}
+	}
+	
 }
