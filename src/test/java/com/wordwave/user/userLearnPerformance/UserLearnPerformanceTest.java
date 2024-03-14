@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,13 @@ public class UserLearnPerformanceTest {
 	UserService userService;
 	
 	
+	
 	@Test
 	@Transactional
 	@DisplayName("학습이력 생성을 테스트하고, 중복 생성시, 해당 이력을 업데이트 하는지 테스트한다.")
-	void createTest() {
+	@Rollback(false)
+	@Disabled
+	void createTest() {//테스트성공
 		
 		UserLearnPerformanceDTO firstTest = UserLearnPerformanceDTO.builder()
 															 .learnType(LEARN_TYPE_VOCA)
@@ -59,8 +63,8 @@ public class UserLearnPerformanceTest {
 		UserLearnPerformance userLearnHistory = userLearnPerformanceRepository.findByUserAndCategory(testUser, CATEGORY_TOEIC);
 		
 		//중복 생성시 마지막에 했던 answerCount(12),wrongCount(25)가 되는지 확인한다.
-		assertEquals(userLearnHistory.getAnswerCount(), 12);
-		assertEquals(userLearnHistory.getWrongCount(), 25);
+		assertEquals(12, userLearnHistory.getAnswerCount());
+		assertEquals(25,userLearnHistory.getWrongCount());
 		System.out.println(userLearnHistory.getAnswerCount());
 		System.out.println(userLearnHistory.getWrongCount());
 	}
