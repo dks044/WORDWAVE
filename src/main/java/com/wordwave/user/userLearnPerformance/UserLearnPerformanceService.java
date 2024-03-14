@@ -17,7 +17,8 @@ public class UserLearnPerformanceService {
 	private final UserService userService;
 	
 	@Transactional
-	public void create(UserLearnPerformanceDTO userLearnPerformanceDTO,long userId) {
+	public void create(UserLearnPerformanceDTO userLearnPerformanceDTO) {
+		long userId = userLearnPerformanceDTO.getUserId();
 		SiteUser user = userService.getByUserId(userId);
 		UserLearnPerformance userLearn = userLearnPerformanceRepository.findByUserAndCategory(user, userLearnPerformanceDTO.getCategory());
 		//학습한적이 없다면

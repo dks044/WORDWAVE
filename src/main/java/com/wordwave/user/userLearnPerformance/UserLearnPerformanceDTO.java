@@ -17,7 +17,7 @@ public class UserLearnPerformanceDTO {
 
 	private Long id;
 	
-    private SiteUser user;
+    private long userId;
     
     //종류(어떤것인지 : 보카, 그래머)
     // 1 : 보카

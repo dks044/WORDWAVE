@@ -42,22 +42,24 @@ public class UserLearnPerformanceTest {
 		
 		UserLearnPerformanceDTO firstTest = UserLearnPerformanceDTO.builder()
 															 .learnType(LEARN_TYPE_VOCA)
+															 .userId(TEST_USER_ID)
 															 .category(CATEGORY_OF_TOEIC )
 															 .answerCount(5)
 															 .wrongCount(33)
 															 .lastAttempted(LocalDateTime.now())
 															 .build();
 															 
-		userLearnPerformanceService.create(firstTest, TEST_USER_ID);
+		userLearnPerformanceService.create(firstTest);
 		
 		UserLearnPerformanceDTO secondTest = UserLearnPerformanceDTO.builder()
 				 .learnType(LEARN_TYPE_VOCA)
+				 .userId(TEST_USER_ID)
 				 .category(CATEGORY_OF_TOEIC )
 				 .answerCount(12)
 				 .wrongCount(25)
 				 .lastAttempted(LocalDateTime.now())
 				 .build();
-		userLearnPerformanceService.create(secondTest, TEST_USER_ID);
+		userLearnPerformanceService.create(secondTest);
 		
 		SiteUser testUser = userService.getByUserId(TEST_USER_ID);
 		UserLearnPerformance userLearnHistory = userLearnPerformanceRepository.findByUserAndCategory(testUser, CATEGORY_OF_TOEIC);
