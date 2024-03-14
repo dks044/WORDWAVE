@@ -11,6 +11,7 @@ import com.wordwave.voca.data.VocaDataCode;
 import com.wordwave.voca.data.VocaDataTool;
 import com.wordwave.vocabook.VocaBookRepository;
 
+//VOCA DATA 생성 테스트
 @SpringBootTest
 public class VocaDataTest {
 	private static final long VOCABOOK_TOEIC_ID = 1; //토익

@@ -12,11 +12,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 //SiteUser가 틀린 단어,문법 퀴즈를 카운팅 받는 엔티티
 @Entity
 @Builder
 @Getter
+@NoArgsConstructor
 public class UserLearnPerformance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

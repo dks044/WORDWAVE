@@ -21,7 +21,7 @@ public class UserLearnPerformanceTest {
 	private static final long TEST_USER_ID = 2;
 	private static final int LEARN_TYPE_VOCA = 1;
 	private static final int LEARN_TYPE_GRAMMER = 2;
-	private static final String CATEGORY_TOEIC = "TOEIC";
+	private static final String CATEGORY_OF_TOEIC = "채용";
 	
 	
 	@Autowired
@@ -42,7 +42,7 @@ public class UserLearnPerformanceTest {
 		
 		UserLearnPerformanceDTO firstTest = UserLearnPerformanceDTO.builder()
 															 .learnType(LEARN_TYPE_VOCA)
-															 .category(CATEGORY_TOEIC)
+															 .category(CATEGORY_OF_TOEIC )
 															 .answerCount(5)
 															 .wrongCount(33)
 															 .lastAttempted(LocalDateTime.now())
@@ -52,7 +52,7 @@ public class UserLearnPerformanceTest {
 		
 		UserLearnPerformanceDTO secondTest = UserLearnPerformanceDTO.builder()
 				 .learnType(LEARN_TYPE_VOCA)
-				 .category(CATEGORY_TOEIC)
+				 .category(CATEGORY_OF_TOEIC )
 				 .answerCount(12)
 				 .wrongCount(25)
 				 .lastAttempted(LocalDateTime.now())
@@ -60,7 +60,7 @@ public class UserLearnPerformanceTest {
 		userLearnPerformanceService.create(secondTest, TEST_USER_ID);
 		
 		SiteUser testUser = userService.getByUserId(TEST_USER_ID);
-		UserLearnPerformance userLearnHistory = userLearnPerformanceRepository.findByUserAndCategory(testUser, CATEGORY_TOEIC);
+		UserLearnPerformance userLearnHistory = userLearnPerformanceRepository.findByUserAndCategory(testUser, CATEGORY_OF_TOEIC);
 		
 		//중복 생성시 마지막에 했던 answerCount(12),wrongCount(25)가 되는지 확인한다.
 		assertEquals(12, userLearnHistory.getAnswerCount());
@@ -69,5 +69,16 @@ public class UserLearnPerformanceTest {
 		System.out.println(userLearnHistory.getWrongCount());
 	}
 	
+	@Test
+	@DisplayName("학습이력 조회 테스트")
+	@Disabled
+	void getUserLearnHistoryTest() { //테스트성공
+		UserLearnHistoryDTO userLearnHistoryDTO = userLearnPerformanceService.getUserLearnHistory(CATEGORY_OF_TOEIC, TEST_USER_ID);
+		System.out.println("======= USER 학습이력 테스트 =======");
+		System.out.println(userLearnHistoryDTO.getAnswerCount());
+		System.out.println(userLearnHistoryDTO.getWrongCount());
+		System.out.println(userLearnHistoryDTO.getLastAttempted());
+		System.out.println("======= USER 학습이력 테스트 =======");
+	}
 	
 }

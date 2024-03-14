@@ -42,9 +42,12 @@ public class UserLearnPerformanceService {
 	public UserLearnHistoryDTO getUserLearnHistory(String category,long userId) {
 		SiteUser user = userService.getByUserId(userId);
 		UserLearnPerformance userLearn = userLearnPerformanceRepository.findByUserAndCategory(user, category);
+		//학습이력이 존재하지 않다면
 		if(userLearn == null) {
 			return UserLearnHistoryDTO.builder().existence(false).build();
-		}else {
+		}//학습이력이 존재하다면
+		else {
+			
 			return UserLearnHistoryDTO.builder()
 									  .answerCount(userLearn.getAnswerCount())
 									  .wrongCount(userLearn.getWrongCount())
