@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 
-//SiteUser가 틀린 단어를 카운팅 받는 엔티티
+//SiteUser가 틀린 단어,문법 퀴즈를 카운팅 받는 엔티티
 @Entity
 @Builder
 public class UserLearnPerformance {
