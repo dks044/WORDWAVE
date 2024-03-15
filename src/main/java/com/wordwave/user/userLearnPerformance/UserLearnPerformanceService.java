@@ -39,10 +39,11 @@ public class UserLearnPerformanceService {
 		userLearnPerformanceRepository.save(userLearn);
 	}
 	
-	
+	@Transactional
 	public UserLearnHistoryDTO getUserLearnHistory(String category,long userId) {
 		SiteUser user = userService.getByUserId(userId);
 		UserLearnPerformance userLearn = userLearnPerformanceRepository.findByUserAndCategory(user, category);
+		//System.out.println(userLearn); //null이 나옴.
 		//학습이력이 존재하지 않다면
 		if(userLearn == null) {
 			return UserLearnHistoryDTO.builder().existence(false).build();
@@ -58,5 +59,6 @@ public class UserLearnPerformanceService {
 									  .build();
 		}
 	}
+
 	
 }

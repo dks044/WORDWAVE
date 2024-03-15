@@ -83,4 +83,13 @@ public class UserLearnPerformanceTest {
 		System.out.println("======= USER 학습이력 테스트 =======");
 	}
 	
+	@Test
+	@DisplayName("findByUserAndCategory 이 제대로 동작하는지 테스트한다.")
+	void getUserLearnPerformanceByUserAndCategory() {
+		SiteUser user = userService.getByUserId(TEST_USER_ID);
+		UserLearnPerformance userLearn = userLearnPerformanceRepository.findByUserAndCategory(user, CATEGORY_OF_TOEIC);
+		System.out.println(userLearn.getAnswerCount());
+	}
+	
+	
 }

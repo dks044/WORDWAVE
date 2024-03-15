@@ -24,7 +24,7 @@ function VocaBooksContainer(){
 
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;
-  console.log(data);
+  
   return (
     <VocaBooksContainerBlock>
       <VocaBooks vocaBooks={data}/>

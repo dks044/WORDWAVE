@@ -14,13 +14,6 @@ const VocaContainerBlock = styled.div`
 const ProgressBarBlock = styled.div`
   margin-bottom: 3%;
 `
-const H2 = styled.h5`
-  font-weight: bolder;
-`
-const H4 = styled.h5`
-  /* color: red; 제한시간 빨간색 보류*/
-  font-weight: bolder;
-`
 
 function VocaContainer({vocaBookId,category}){
   const loading = useSelector((state) => state.voca.voca.loading);

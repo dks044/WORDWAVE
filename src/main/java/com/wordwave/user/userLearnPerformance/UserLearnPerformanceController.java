@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -26,13 +27,13 @@ public class UserLearnPerformanceController {
 	}
 	
 	@GetMapping("/get_userLearnHistory")
-	public ResponseEntity<?> getUserLearnHistory(@RequestBody UserLearnPerformanceDTO userLearnPerformanceDTO){
-		try {
-			return ResponseEntity.ok().body(userLearnPerformanceService.getUserLearnHistory(userLearnPerformanceDTO.getCategory(),
-																	userLearnPerformanceDTO.getUserId()));
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body("학습이력 불러오기 실패!");
-		}
+	public ResponseEntity<?> getUserLearnHistory(@RequestParam("category") String category, 
+	                                             @RequestParam("userId") long userId) {
+	    try {
+	        return ResponseEntity.ok().body(userLearnPerformanceService.getUserLearnHistory(category, userId));
+	    } catch (Exception e) {
+	        return ResponseEntity.badRequest().body("학습이력 불러오기 실패!");
+	    }
 	}
 	
 }
