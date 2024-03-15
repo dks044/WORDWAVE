@@ -10,3 +10,8 @@ export async function createUserLearnPerformanceAPI({userId, category, learnType
   });
   return response.data;
 }
+
+export async function getUserLearnHistoryAPI({category,userId}){
+  const response = await axios.get('/api/userLearn/get_userLearnHistory',{category,userId});
+  return response.data;
+}
