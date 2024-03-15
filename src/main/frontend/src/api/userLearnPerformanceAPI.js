@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function createUserLearnPerformance({userId, category, learnType, answerCount, wrongCount}){
+export async function createUserLearnPerformanceAPI({userId, category, learnType, answerCount, wrongCount}){
   const response = await axios.post('/api/userLearn/create_userLearnPerformance', {
     userId, 
     category, 

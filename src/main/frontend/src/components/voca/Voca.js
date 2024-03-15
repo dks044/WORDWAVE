@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Badge, Button, Card, Form, ListGroup } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { showPopup } from "../../modules/popup";
 import SimplePieChart from "../SimplePieChart";
+import {createUserLearnPerformanceAPI} from "../../api/userLearnPerformanceAPI"
 
 const HidenEngWord = styled.h1`
   font-weight: bolder;
@@ -30,12 +31,14 @@ const CardContainer = styled.div`
 
 
 
-function Voca({ voca,nextVoca,stackSize,timeLeft }) {
+function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
   const [answerCount,setAnswerCount] = useState(0);
   const [wrongCount,setWrongCount] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
   const [wrongQuiz,setWrongQuiz] = useState([]);
   const dispatch = useDispatch();
+  const {user} = useSelector(state=>state.auth);
+
   //차트
   const data = [
     { name: '정답', value: answerCount },
@@ -49,12 +52,28 @@ function Voca({ voca,nextVoca,stackSize,timeLeft }) {
     }
   },[timeLeft,wrongCount])
 
+  useEffect(()=>{
+    if(stackSize ===0){
+      createUserLearnPerformanceAPI({
+        userId: user.id,
+        category: category,
+        learnType: 1,
+        answerCount: answerCount,
+        wrongCount: wrongCount
+      });
+    }
+  });
+
+
   if (!voca) return (
     <div>
       {stackSize === 0 &&
         <>
           <br />
           <Title>결과</Title>
+          <CountBlock>
+            <Badge bg="success">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
+          </CountBlock>
           <SimplePieChart data={data}/>
           <br />
           <Title>틀린 단어들</Title>
