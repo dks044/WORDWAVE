@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserLearnHistoryDTO {
 	int answerCount;
 	int wrongCount;
+	int learnType;
 	boolean existence; //학습기록 존재 여부
 	private LocalDateTime lastAttempted;
 }

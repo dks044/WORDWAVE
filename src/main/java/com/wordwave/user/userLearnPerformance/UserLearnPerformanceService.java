@@ -50,6 +50,7 @@ public class UserLearnPerformanceService {
 		else {
 			
 			return UserLearnHistoryDTO.builder()
+									  .learnType(userLearn.getLearnType())
 									  .answerCount(userLearn.getAnswerCount())
 									  .wrongCount(userLearn.getWrongCount())
 									  .existence(true)
