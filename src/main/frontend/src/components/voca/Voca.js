@@ -71,9 +71,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
         <>
           <br />
           <Title>결과</Title>
-          <CountBlock>
             <Badge bg="success">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
-          </CountBlock>
           <SimplePieChart data={data}/>
           <br />
           <Title>틀린 단어들</Title>
