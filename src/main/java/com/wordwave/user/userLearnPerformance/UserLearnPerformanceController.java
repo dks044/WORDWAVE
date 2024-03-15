@@ -24,4 +24,14 @@ public class UserLearnPerformanceController {
 		}
 	}
 	
+	@GetMapping("/get_userLearnHistory")
+	public ResponseEntity<?> getUserLearnHistory(@RequestBody UserLearnPerformanceDTO userLearnPerformanceDTO){
+		try {
+			return ResponseEntity.ok().body(userLearnPerformanceService.getUserLearnHistory(userLearnPerformanceDTO.getCategory(),
+																	userLearnPerformanceDTO.getUserId()));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("학습이력 불러오기 실패!");
+		}
+	}
+	
 }
