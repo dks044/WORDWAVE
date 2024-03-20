@@ -74,6 +74,8 @@ function App() {
           element={isLoging ? <VocaBookPage /> : <Navigate to="/login" />}/>
           <Route path="vocabooks/:vocaBookId/:category" 
           element={isLoging ? <VocaPage /> : <Navigate to="/login" />}/>
+          {/* Grammar */}
+          
         </Route>
       </Routes>
     </>

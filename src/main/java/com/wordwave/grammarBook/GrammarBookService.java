@@ -1,5 +1,6 @@
 package com.wordwave.grammarBook;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class GrammarBookService {
 		}else {
 			return grammarBook.get();
 		}
+	}
+	
+	public List<GrammarBook> getGrammerBookList(){
+		return grammarBookRepository.findAll();
 	}
 	
 }
