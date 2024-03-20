@@ -139,7 +139,7 @@ function DialMenu() {
     <>
       <CircleMenu open={open}>
         {open && (
-          <GrammarLink to="/grammars" onClick={onToggle} open={open}>
+          <GrammarLink to="/grammarbooks" onClick={onToggle} open={open}>
             <FaSpellCheck size={40}/>
             Grammar
           </GrammarLink>
