@@ -9,12 +9,12 @@ import lombok.RequiredArgsConstructor;
 
 
 @RestController
-@RequestMapping("/api/grammarBook")
+@RequestMapping("/api/grammarbook")
 @RequiredArgsConstructor
 public class GrammarBookController {
 	private final GrammarBookService grammarBookService;
 	
-	@GetMapping("grammarBookList")
+	@GetMapping("grammarbook_List")
 	public ResponseEntity<?> getGrammarBookList(){
 		try {
 			return ResponseEntity.ok().body(grammarBookService.getGrammerBookList());
