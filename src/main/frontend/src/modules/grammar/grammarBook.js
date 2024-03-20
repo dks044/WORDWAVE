@@ -3,6 +3,7 @@ import { reducerUtils } from "../../lib/asyncUtils";
 
 const initialState = {
   grammarBooks : reducerUtils.initial(),
+  grammarBook : reducerUtils.initial(),
 };
 
 const grammarBookSlice = createSlice({
@@ -21,6 +22,18 @@ const grammarBookSlice = createSlice({
       ...state,
       grammarBooks: reducerUtils.error(action.error),
     }),
+    getGrammarBook: (state) => ({
+      ...state,
+      grammarBook: reducerUtils.loading(),
+    }),
+    getGrammarBookSuccess: (state, action) => ({
+      ...state,
+      grammarBook: reducerUtils.success(action.payload),
+    }),
+    getGrammarBookError: (state, action) => ({
+      ...state,
+      grammarBook: reducerUtils.error(action.error),
+    }),
   }
 })
 
@@ -28,7 +41,10 @@ const grammarBookSlice = createSlice({
 export const {
   getGrammarBooks,
   getGrammarBooksSuccess,
-  getGrammarBooksError
+  getGrammarBooksError,
+  getGrammarBook,
+  getGrammarBookSuccess,
+  getGrammarBookError
 } = grammarBookSlice.actions;
 
 export default grammarBookSlice.reducer;

@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import VocaBooksPage from "./pages/voca/VocaBooksPage";
+import GrammarBookPage from "./pages/grammar/GrammarBookPage";
 import GrammarBooksPage from "./pages/grammar/GrammarBooksPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -75,6 +76,8 @@ function App() {
           element={isLoging ? <VocaPage /> : <Navigate to="/login" />}/>
           {/* Grammar */}
           <Route path="grammarbooks" element={isLoging ? <GrammarBooksPage /> : <Navigate to="/login" />} />
+          <Route path="grammarbooks/:grammarBookId/" 
+          element={isLoging ? <GrammarBookPage /> : <Navigate to="/login" />}/>
         </Route>
       </Routes>
     </>

@@ -19,8 +19,27 @@ function* fetchGrammarBooksSaga(){
   }
 }
 
+function* fetchGrammarBookSaga(action){
+  console.log(action.payload);
+  try {
+    const grammarBook = yield call(grammarAPI.getGrammarBookAPI,action.payload);
+    yield put ({
+      type: "grammarBook/getGrammarBookSuccess",
+      payload : grammarBook
+    });
+    //console.log(GrammarBook);
+  } catch (e) {
+    yield put({
+      type: "grammarBook/getGrammarBookError",
+      error: true,
+      payload: e.message,
+    });
+  }
+}
+
 function* grammarBookSaga() {
   yield takeEvery("grammarBook/getGrammarBooks", fetchGrammarBooksSaga);
+  yield takeEvery("grammarBook/getGrammarBook", fetchGrammarBookSaga);
 }
 
 export default grammarBookSaga;
