@@ -2,10 +2,16 @@ package com.wordwave.grammar;
 
 import java.util.List;
 
+import com.wordwave.grammarBook.GrammarBook;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,11 +37,15 @@ public class Grammar {
 	//ex: "is reading"
 	private String answer;
 	
+	@ElementCollection(fetch = FetchType.LAZY)
 	private List<String> blackOptions;
 	
 	//userLearnPerformance와 연계됨.
 	//ex: "현재와 현재진행"
 	private String category;
 	
-
+	// Grammar 클래스 내 추가
+	@ManyToOne
+	@JoinColumn(name = "grammarBook_id")
+	private GrammarBook grammarBook;
 }
