@@ -1,11 +1,11 @@
 import LayoutContainer from "./containers/LayoutContainer";
-import GrammarPage from "./pages/GrammarPage";
 import { Navigate, Route, Routes } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import VocaBooksPage from "./pages/voca/VocaBooksPage";
+import GrammarBooksPage from "./pages/grammar/GrammarBooksPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { isLoggedIn, logout } from "./modules/auth";
@@ -61,7 +61,6 @@ function App() {
         <Route path="/" element={<LayoutContainer />}>
           <Route index element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="grammar" element={isLoging ? <GrammarPage /> : <Navigate to="/login" />} />
           <Route path="mypage" element={isLoging ? <MyPage /> : <Navigate to="/login" />} />
           <Route path="login" 
           element={isLoging === false ? <LoginPage /> : <Navigate to="/" />} />
@@ -75,7 +74,7 @@ function App() {
           <Route path="vocabooks/:vocaBookId/:category" 
           element={isLoging ? <VocaPage /> : <Navigate to="/login" />}/>
           {/* Grammar */}
-          
+          <Route path="grammars" element={isLoging ? <GrammarBooksPage /> : <Navigate to="/login" />} />
         </Route>
       </Routes>
     </>
