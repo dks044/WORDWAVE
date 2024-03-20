@@ -30,4 +30,17 @@ public class GrammarBookTest {
 																.build();
 		grammarBookService.create(grammarBookDTO);
 	}
+	
+	@Test
+	@Transactional
+	@DisplayName("grammarBookid에 따른 카테고리가 보여지는지 테스트")
+	@Disabled
+	void getCategoriesOfGrammarBookTest() { //테스트 성공
+		GrammarBookDTO grammarBookDTO = grammarBookService.getCategoriesOfGrammarBook(1);
+		System.out.println("===테스트===");
+		for(String category : grammarBookDTO.getCategories()) {
+			System.out.println(category);
+		}
+		System.out.println("===테스트===");
+	}
 }

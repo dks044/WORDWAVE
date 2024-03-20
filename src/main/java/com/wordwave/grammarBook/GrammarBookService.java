@@ -1,12 +1,15 @@
 package com.wordwave.grammarBook;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import com.wordwave.grammar.GrammarDTO;
+import com.wordwave.vocabook.VocaBookDTO;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +52,20 @@ public class GrammarBookService {
 		}
 		return grammarBookDTOs;
 	}
+	
+	public GrammarBookDTO getCategoriesOfGrammarBook(long grammarBookId) {
+	    List<String> categories = grammarBookRepository.findCategoriesByGrammarBookId(grammarBookId);
+	    Set<String> distinctCategories = new HashSet<>();
+	    for(String category : categories) distinctCategories.add(category);
+	    String name = grammarBookRepository.findById(grammarBookId).get().getName();
+	    GrammarBookDTO grammarBookDTO = GrammarBookDTO.builder()
+	    						.id(grammarBookId)
+	    						.name(name)
+	    						.categories(distinctCategories)
+	    						.build();
+	    return grammarBookDTO;
+	}
+	
+
 	
 }

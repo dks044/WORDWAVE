@@ -1,7 +1,9 @@
 package com.wordwave.grammarBook;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.wordwave.grammar.Grammar;
 
@@ -17,4 +19,5 @@ public class GrammarBookDTO {
 	private String name;
 	private List<Grammar> grammars = new ArrayList<>();
 	private String imageURL;
+	private Set<String> categories = new HashSet<>();
 }
