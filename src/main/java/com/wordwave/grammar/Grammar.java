@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -48,4 +49,15 @@ public class Grammar {
 	@ManyToOne
 	@JoinColumn(name = "grammarBook_id")
 	private GrammarBook grammarBook;
+	
+	@Builder
+	Grammar(String engSentence, String originEngSentence,String korSentence, String answer, List<String> blackOptions,
+			String category){
+		this.engSentence = engSentence;
+		this.originEngSentence = originEngSentence;
+		this.korSentence = korSentence;
+		this.answer = answer;
+		this.blackOptions = blackOptions;
+		this.category = category;
+	}
 }
