@@ -1,9 +1,12 @@
 package com.wordwave.grammarBook;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.wordwave.grammar.GrammarDTO;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +35,19 @@ public class GrammarBookService {
 		}
 	}
 	
-	public List<GrammarBook> getGrammerBookList(){
-		return grammarBookRepository.findAll();
+	@Transactional
+	public List<GrammarBookDTO> getGrammerBookList(){
+		List<GrammarBook> grammarBooks = grammarBookRepository.findAll();
+		List<GrammarBookDTO> grammarBookDTOs = new ArrayList<>();
+		for(GrammarBook gb : grammarBooks) {
+			GrammarBookDTO grammarBookDTO = GrammarBookDTO.builder()
+														  .id(gb.getId())
+														  .name(gb.getName())
+														  .imageURL(gb.getImageURL())
+														  .build();
+			grammarBookDTOs.add(grammarBookDTO);
+		}
+		return grammarBookDTOs;
 	}
 	
 }

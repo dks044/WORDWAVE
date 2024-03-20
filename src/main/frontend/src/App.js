@@ -51,7 +51,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer  position='static' style={{ zIndex: 1, top: '59%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+      <ToastContainer  position='static' style={{ zIndex: 5, top: '59%', left: '50%', transform: 'translate(-50%, -50%)' }}>
         <ToastComponent  show={show} onClose={() => {
           dispatch(closePopup());
           setShow(false);
