@@ -39,6 +39,7 @@ public class Grammar {
 	private String answer;
 	
 	@ElementCollection(fetch = FetchType.LAZY)
+	//ex: ["read", "reads", "is reading", "are reading"]
 	private List<String> blackOptions;
 	
 	//userLearnPerformance와 연계됨.
@@ -52,12 +53,13 @@ public class Grammar {
 	
 	@Builder
 	Grammar(String engSentence, String originEngSentence,String korSentence, String answer, List<String> blackOptions,
-			String category){
+			String category,GrammarBook grammarBook){
 		this.engSentence = engSentence;
 		this.originEngSentence = originEngSentence;
 		this.korSentence = korSentence;
 		this.answer = answer;
 		this.blackOptions = blackOptions;
 		this.category = category;
+		this.grammarBook = grammarBook;
 	}
 }
