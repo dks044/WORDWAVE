@@ -28,7 +28,7 @@ function GrammarContainer({grammarBookId,category}){
   const [total, setTotal] = useState(0);  // 전체 단어의 수
 
   //제한시간 로직
-  const [timeLeft, setTimeLeft] = useState(20); 
+  const [timeLeft, setTimeLeft] = useState(60); 
   const [variant, setVariant] = useState('info'); 
 
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function GrammarContainer({grammarBookId,category}){
       const newStack = [...stack];
       newStack.shift(); 
       setStack(newStack);
-      setTimeLeft(20);
+      setTimeLeft(60);
       setCurrentGrammar(newStack[0]); 
       setRemaining(newStack.length);
       setVariant('info');
@@ -86,7 +86,7 @@ function GrammarContainer({grammarBookId,category}){
       if (timeLeft === 0) {
         dispatch(showPopup('제한시간이 다 됐습니다!'));
         nextGrammar();
-        setTimeLeft(20);
+        setTimeLeft(60);
         setVariant('info');
       }
     }, [timeLeft]);
@@ -100,7 +100,7 @@ function GrammarContainer({grammarBookId,category}){
           <ProgressBar animated now={((total - remaining) / total) * 100} />
         </ProgressBarBlock>
         <ProgressBarBlock>
-          <ProgressBar animated variant={variant} now={(timeLeft / 20) * 100} />
+          <ProgressBar animated variant={variant} now={(timeLeft / 60) * 100} />
         </ProgressBarBlock>
         <Grammar grammar={currentGrammar} nextGrammar={nextGrammar} stackSize={stackSize} timeLeft={timeLeft} category={category} />
       </GrammarContainerBlock>
