@@ -5,6 +5,7 @@ import { getVoca } from "../../modules/voca/voca";
 import CircleSpinner from "../../components/CircleSpinner";
 import Voca from "../../components/voca/Voca";
 import { ProgressBar } from "react-bootstrap";
+import { showPopup } from "../../modules/popup";
 
 const VocaContainerBlock = styled.div`
 
@@ -82,7 +83,7 @@ function VocaContainer({vocaBookId,category}){
 
   useEffect(() => {
     if (timeLeft === 0) {
-      alert('제한시간이 다됐습니다!');
+      dispatch(showPopup('제한시간이 다 됐습니다!'));
       nextVoca();
       setTimeLeft(20);
       setVariant('info');

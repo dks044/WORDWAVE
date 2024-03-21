@@ -31,5 +31,5 @@ public class GrammarDTO {
 	
 	//퀴즈용도
 	// 1 (객관식) , 2 (주관식)
-	private int quizStatus = (int)(Math.random()*2)+1;;
+	private int quizStatus;
 }

@@ -32,14 +32,17 @@ public class GrammarService {
 	public List<GrammarDTO> select(long grammarBookId, String category){
 		List<Grammar> grammars = grammarRepository.findByGrammarBookIdAndCategory(grammarBookId, category);
 		List<GrammarDTO> grammarsDTO = new ArrayList<>();
+		long id = 0;
 		for(Grammar g : grammars) {
 			GrammarDTO gDTO = GrammarDTO.builder()
+										.id(id++)
 										.engSentence(g.getEngSentence())
 										.originEngSentence(g.getOriginEngSentence())
 										.korSentence(g.getKorSentence())
 										.answer(g.getAnswer())
 										.blackOptions(g.getBlackOptions())
 										.category(g.getCategory())
+										.quizStatus((int)(Math.random()*2)+1)
 										.build();
 			grammarsDTO.add(gDTO);
 		}
