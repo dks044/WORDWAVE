@@ -8,7 +8,6 @@ import { ProgressBar } from "react-bootstrap";
 import Grammar from "../../components/grammar/Grammar"
 
 const GrammarContainerBlock = styled.div`
-
   overflow-y: scroll;
   text-align: center;
 `
@@ -103,7 +102,9 @@ function GrammarContainer({grammarBookId,category}){
         <ProgressBarBlock>
           <ProgressBar animated variant={variant} now={(timeLeft / 20) * 100} />
         </ProgressBarBlock>
-        <Grammar Grammar={currentGrammar} nextGrammar={nextGrammar} stackSize={stackSize} timeLeft={timeLeft} category={category} />
+        <Grammar grammar={currentGrammar} nextGrammar={nextGrammar} stackSize={stackSize} timeLeft={timeLeft} category={category} />
       </GrammarContainerBlock>
     )
 }
+
+export default React.memo(GrammarContainer);

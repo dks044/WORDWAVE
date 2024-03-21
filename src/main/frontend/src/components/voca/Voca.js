@@ -65,8 +65,9 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
     }
   });
 
-
+  //voca가 없을경우
   if (!voca) return (
+    //stackSize가 0일경우 (퀴즈를 다 풀었을 경우)
     <div>
       {stackSize === 0 &&
         <>

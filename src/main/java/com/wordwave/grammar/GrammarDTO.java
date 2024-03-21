@@ -30,6 +30,6 @@ public class GrammarDTO {
 	private GrammarBook grammarBook;
 	
 	//퀴즈용도
-	// 1 (객관식) , 2 (주관식)
+	// 1 (객관식) , 2 (퍼즐식)
 	private int quizStatus;
 }

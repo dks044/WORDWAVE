@@ -5,11 +5,12 @@ import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import VocaBooksPage from "./pages/voca/VocaBooksPage";
+import GrammarPage from "./pages/grammar/GrammarPage";
 import GrammarBookPage from "./pages/grammar/GrammarBookPage";
 import GrammarBooksPage from "./pages/grammar/GrammarBooksPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { isLoggedIn, logout } from "./modules/auth";
+import { isLoggedIn } from "./modules/auth";
 import { ToastContainer } from "react-bootstrap";   
 import ToastComponent from "./components/ToastComponent";
 import { closePopup } from "./modules/popup";
@@ -78,6 +79,8 @@ function App() {
           <Route path="grammarbooks" element={isLoging ? <GrammarBooksPage /> : <Navigate to="/login" />} />
           <Route path="grammarbooks/:grammarBookId/" 
           element={isLoging ? <GrammarBookPage /> : <Navigate to="/login" />}/>
+          <Route path="grammarbooks/:grammarBookId/:category" 
+          element={isLoging ? <GrammarPage /> : <Navigate to="/login" />}/>
         </Route>
       </Routes>
     </>
