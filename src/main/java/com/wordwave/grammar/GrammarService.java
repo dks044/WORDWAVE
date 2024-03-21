@@ -42,8 +42,7 @@ public class GrammarService {
 										.answer(g.getAnswer())
 										.blackOptions(g.getBlackOptions())
 										.category(g.getCategory())
-//										.quizStatus((int)(Math.random()*2)+1) 테스트를 위해 임시로 주석처리
-										.quizStatus(2)
+										.quizStatus((int)(Math.random()*2)+1)
 										.wordBlocks(wordBlocks(g.getOriginEngSentence()))
 										.build();
 			grammarsDTO.add(gDTO);

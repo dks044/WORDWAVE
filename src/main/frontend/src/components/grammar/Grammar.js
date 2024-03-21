@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { showPopup } from "../../modules/popup";
 import { useDispatch, useSelector } from "react-redux";
 import SimplePieChart from "../SimplePieChart";
+import {createUserLearnPerformanceAPI} from "../../api/userLearnPerformanceAPI"
+
 
 const EngSentence = styled.h3`
   font-weight: bolder;

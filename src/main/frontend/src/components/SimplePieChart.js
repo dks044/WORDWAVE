@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 import styled from 'styled-components';
 
 const COLORS = ['#0d6efd','#dd3546'];
+const AnimatedBlock = styled.div`
+  opacity: ${props => props.opacity};
+  transition: opacity 0.325s;
+`
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name }) => {
@@ -18,27 +22,35 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 const SimplePieChart = ({data}) => {
+  const [opacity, setOpacity] = useState(0); // 초기 opacity를 0으로 설정
+
+  useEffect(() => {
+    setOpacity(1); // 컴포넌트가 마운트되면 opacity를 1로 변경하여 애니메이션 효과를 줌
+  }, []);
+
   return (
-    <ResponsiveContainer width="100%" height={230}>
-      <PieChart width={780} height={780}>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          label={renderCustomizedLabel}
-          outerRadius={80} // 도넛의 바깥쪽 반지름
-          innerRadius={40} // 도넛의 안쪽 반지름
-          fill="#8884d8"
-          dataKey="value"
-          nameKey="name"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
-    </ResponsiveContainer>
+    <AnimatedBlock>
+      <ResponsiveContainer width="100%" height={230}>
+        <PieChart width={780} height={780}>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={80} // 도넛의 바깥쪽 반지름
+            innerRadius={40} // 도넛의 안쪽 반지름
+            fill="#8884d8"
+            dataKey="value"
+            nameKey="name"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </AnimatedBlock>
   );
 };
 
