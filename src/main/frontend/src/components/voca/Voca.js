@@ -73,7 +73,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
         <>
           <br />
           <Title>결과</Title>
-            <Badge bg="success">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
+            <Badge bg="primary">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
           <SimplePieChart data={data}/>
           <br />
           <Title>틀린 단어들</Title>
@@ -185,7 +185,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
     </> 
     }
     <CountBlock>
-      <Badge bg="success">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
+      <Badge bg="primary">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
     </CountBlock>
     </div>
   );

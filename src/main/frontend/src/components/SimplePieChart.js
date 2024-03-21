@@ -7,7 +7,7 @@ import styled from 'styled-components';
 //   transition: 0.25s all ease-in-out;
 // `
 
-const COLORS = ['#1692f0','#ca6c98'];
+const COLORS = ['#0d6efd','#dd3546'];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name }) => {

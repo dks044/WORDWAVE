@@ -63,7 +63,7 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
         </>
       }
       <CountBlock>
-        <Badge bg="success">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
+        <Badge bg="primary">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
       </CountBlock>
     </div>
   )
