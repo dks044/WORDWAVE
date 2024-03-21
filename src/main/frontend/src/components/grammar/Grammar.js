@@ -127,7 +127,7 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
             {wrongQuiz.map((quiz, index) => {
               return (
                 <Card style={{ width: '18rem' }} key={index} border="warning" bg="warning" text="white">
-                  <Card.Header>틀린단어 #{index}</Card.Header>
+                  <Card.Header>틀린문제 #{index}</Card.Header>
                   <ListGroup variant="flush">
                     <ListGroup.Item>{quiz.engSentence}</ListGroup.Item>
                     <ListGroup.Item>{quiz.answer}</ListGroup.Item>
@@ -239,6 +239,7 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
             dispatch(showPopup(`정답은 ${grammar.originEngSentence}`));
             setWrongCount(wrongCount +1);
             setPuzzleQuizWordBlock([]);
+            setWrongQuiz([...wrongQuiz, { engSentence: grammar.engSentence, answer: grammar.answer, korSentence: grammar.korSentence }]);// 틀린 퀴즈의 정보 저장
             nextGrammar();
            }}
           >
