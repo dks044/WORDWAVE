@@ -48,10 +48,10 @@ function GrammarContainer({grammarBookId,category}){
     //다음 퀴즈로 전환(진행)
     const nextGrammar = () => {
       const newStack = [...stack];
-      newStack.pop();
+      newStack.shift(); 
       setStack(newStack);
       setTimeLeft(20);
-      setCurrentGrammar(newStack[newStack.length - 1]);
+      setCurrentGrammar(newStack[0]); 
       setRemaining(newStack.length);
       setVariant('info');
     };
@@ -79,7 +79,7 @@ function GrammarContainer({grammarBookId,category}){
       return () => {
         clearInterval(timerId);  
       };
-    }, [remaining, timeLeft, total]);
+    }, [timeLeft]);
 
     //제한시간이 다 될 경우
     useEffect(() => {

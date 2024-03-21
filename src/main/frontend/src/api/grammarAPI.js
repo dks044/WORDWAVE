@@ -11,6 +11,6 @@ export async function getGrammarBookAPI({grammarBookId}){
 }
 
 export async function getGrammarAPI({grammarBookId,category}){
-  const response = await axios.get(`api/grammar/${grammarBookId}/${category}`);
+  const response = await axios.get(`/api/grammar/${grammarBookId}/${category}`);
   return response.data;
 }
