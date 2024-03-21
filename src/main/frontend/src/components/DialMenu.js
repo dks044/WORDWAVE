@@ -32,7 +32,7 @@ const CircleButton = styled.button`
     background: #20c997;
   }
   //애니메이션 설정
-  transition: 0.325s all ease-in;
+  transition: 0.325s all ease-out;
   //사용자정의 이벤트 설정
   ${(props) =>
     props.open &&
