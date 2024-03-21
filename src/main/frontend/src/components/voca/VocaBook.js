@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getUserLearnHistory } from "../../modules/userLearnPerformance/userLearnPerformance";
-import CircleSpinner from "../CircleSpinner";
 
 const Title = styled.h1`
   font-weight: bold;

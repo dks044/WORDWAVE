@@ -52,6 +52,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
     }
   },[timeLeft,wrongCount])
 
+  //learnType : 1(VOCA) , 2(GRAMMAR)
   useEffect(()=>{
     if(stackSize ===0){
       createUserLearnPerformanceAPI({
