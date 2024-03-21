@@ -41,6 +41,7 @@ function VocaContainer({vocaBookId,category}){
     }
   }, [data]);
 
+  //다음 퀴즈로 전환(진행)
   const nextVoca = () => {
     const newStack = [...stack];
     newStack.pop();
@@ -56,6 +57,7 @@ function VocaContainer({vocaBookId,category}){
   const [timeLeft, setTimeLeft] = useState(20); 
   const [variant, setVariant] = useState('info'); 
 
+  //제한시간에 따른 진행도bar
   useEffect(() => {
     if (((total - remaining) / total) * 100 === 100) {
       return;
@@ -80,7 +82,7 @@ function VocaContainer({vocaBookId,category}){
     };
   }, [timeLeft]);
   
-
+  //제한시간이 다 될 경우
   useEffect(() => {
     if (timeLeft === 0) {
       dispatch(showPopup('제한시간이 다 됐습니다!'));
