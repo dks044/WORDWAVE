@@ -43,7 +43,8 @@ public class GrammarService {
 										.blackOptions(g.getBlackOptions())
 										.category(g.getCategory())
 //										.quizStatus((int)(Math.random()*2)+1) 테스트를 위해 임시로 주석처리
-										.quizStatus(1)
+										.quizStatus(2)
+										.wordBlocks(wordBlocks(g.getOriginEngSentence()))
 										.build();
 			grammarsDTO.add(gDTO);
 		}
@@ -51,7 +52,14 @@ public class GrammarService {
 		return grammarsDTO;
 	}
 	
-	
+	//영어문장(originEngSentence)을 각 단어별로 분해한 리스트
+	private List<String> wordBlocks(String originEngSentence){
+		String[] words = originEngSentence.split(" ");
+		List<String> wordBlock = new ArrayList<>();
+		for(String word : words) wordBlock.add(word); 
+		Collections.shuffle(wordBlock);
+		return wordBlock;
+	}
 	
 	
 }

@@ -22,6 +22,12 @@ const CountBlock = styled.div`
 const Title = styled.h1`
   font-weight: bolder;
 `
+const CategoryTitle = styled.h5`
+  margin-top: 10px;
+  font-weight: bolder;
+  color: skyblue;
+`
+
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -71,6 +77,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
     <div>
       {stackSize === 0 &&
         <>
+          <CategoryTitle>{category}</CategoryTitle>
           <br />
           <Title>결과</Title>
             <Badge bg="primary">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
@@ -186,6 +193,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
     }
     <CountBlock>
       <Badge bg="primary">{answerCount}</Badge><Badge bg="danger">{wrongCount}</Badge>
+      <CategoryTitle>{category}</CategoryTitle>
     </CountBlock>
     </div>
   );
