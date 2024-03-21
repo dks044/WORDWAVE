@@ -84,6 +84,7 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
   const [puzzleQuizWordBlock,setPuzzleQuizWordBlock] = useState([]); //퍼즐퀴즈 제출공간
   const [puzzleUserAnser,setPuzzleUserAnser] = useState(''); //사용자 제출 답안
   const [wordBlocks, setWordBlock] = useState(grammar ? grammar.wordBlocks : []); //퀴즈 블록
+  const {user} = useSelector(state=>state.auth);
   //차트
   const data = [
     { name: '정답', value: answerCount },
@@ -111,6 +112,21 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
     setPuzzleUserAnser(updatedPuzzleUserAnswer);
     console.log(updatedPuzzleUserAnswer);
   }, [puzzleQuizWordBlock]); 
+
+  //퀴즈를 다풀면 학습이력을 서버에 전송
+  //learnType : 1(VOCA) , 2(GRAMMAR)
+  useEffect(()=>{
+    if(stackSize ===0){
+      createUserLearnPerformanceAPI({
+        userId: user.id,
+        category: category,
+        learnType: 2,
+        answerCount: answerCount,
+        wrongCount: wrongCount
+      });
+    }
+  });
+
 
   //grammar가 없을경우(퀴즈를 다 풀었을경우)
   if (!grammar) return (

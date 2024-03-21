@@ -22,10 +22,10 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 const SimplePieChart = ({data}) => {
-  const [opacity, setOpacity] = useState(0); // 초기 opacity를 0으로 설정
+  const [opacity, setOpacity] = useState(0); 
 
   useEffect(() => {
-    setOpacity(1); // 컴포넌트가 마운트되면 opacity를 1로 변경하여 애니메이션 효과를 줌
+    setOpacity(1); 
   }, []);
 
   return (
