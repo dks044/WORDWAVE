@@ -58,6 +58,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
     }
   },[timeLeft,wrongCount])
 
+  //퀴즈를 다풀면 학습이력을 서버에 전송
   //learnType : 1(VOCA) , 2(GRAMMAR)
   useEffect(()=>{
     if(stackSize ===0){

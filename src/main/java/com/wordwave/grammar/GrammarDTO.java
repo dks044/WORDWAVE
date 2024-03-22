@@ -34,4 +34,5 @@ public class GrammarDTO {
 	private int quizStatus;
 	
 	private List<String> wordBlocks;
+	
 }

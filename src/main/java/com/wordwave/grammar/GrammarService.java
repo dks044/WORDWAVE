@@ -43,8 +43,12 @@ public class GrammarService {
 										.blackOptions(g.getBlackOptions())
 										.category(g.getCategory())
 										.quizStatus((int)(Math.random()*2)+1)
-										.wordBlocks(wordBlocks(g.getOriginEngSentence()))
 										.build();
+		    if(gDTO.getQuizStatus() == 2) {
+		        List<String> blocks = wordBlocks(g.getOriginEngSentence());
+		        gDTO.setWordBlocks(blocks); // wordBlocks 필드에 값을 할당
+		    }
+			
 			grammarsDTO.add(gDTO);
 		}
 		Collections.shuffle(grammarsDTO);
