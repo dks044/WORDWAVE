@@ -171,7 +171,7 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
           <KorSentence>{grammar.korSentence}</KorSentence>
           <hr/>
           <p>문장의 빈칸과 뜻을 참고하고 알맞은 정답을 누르세요!</p>
-          {grammar.blackOptions.map((data,index)=>{
+          {Array.isArray(grammar.blackOptions) && grammar.blackOptions.map((data, index)=>{
             return (
               <div key={index} className="d-grid gap-2">
                 <Button variant="outline-primary" size="lg" value={data} onClick={() => {
@@ -182,7 +182,7 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
                   } else {
                     dispatch(showPopup(`틀렸습니다! 정답은 ${grammar.answer} 입니다.🥹`));
                     setWrongCount(wrongCount +1);
-                    setWrongQuiz([...wrongQuiz, { engSentence: grammar.engSentence, answer: grammar.answer, korSentence: grammar.korSentence }]);// 틀린 퀴즈의 정보 저장
+                    setWrongQuiz([...wrongQuiz, { engSentence: grammar.engSentence, answer: grammar.answer, korSentence: grammar.korSentence }]);
                     nextGrammar();
                   }
                 }}>

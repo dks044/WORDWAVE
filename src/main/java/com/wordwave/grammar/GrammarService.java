@@ -42,12 +42,9 @@ public class GrammarService {
 										.answer(g.getAnswer())
 										.blackOptions(g.getBlackOptions())
 										.category(g.getCategory())
+										.wordBlocks(wordBlocks(g.getOriginEngSentence()))
 										.quizStatus((int)(Math.random()*2)+1)
 										.build();
-		    if(gDTO.getQuizStatus() == 2) {
-		        List<String> blocks = wordBlocks(g.getOriginEngSentence());
-		        gDTO.setWordBlocks(blocks); // wordBlocks 필드에 값을 할당
-		    }
 			
 			grammarsDTO.add(gDTO);
 		}
