@@ -27,11 +27,15 @@ function GrammarBook({ grammarBook }) {
   const {user} = useSelector(state=>state.auth);
   const {userLearnHistory} = useSelector(state=>state.userLearnPerformance);
   const dispatch = useDispatch();
+  const [selectedCategory, setSelectedCategory] = useState(null); //현재 선택된 카테고리를 저장
 
   //modal
   const [modalShow, setModalShow] = useState(false);
   const handleClose = () => setModalShow(false);
-  const handleShow = () => setModalShow(true);
+  const handleShow = (category) => {
+    setModalShow(true);
+    setSelectedCategory(category); // 현재 선택된 카테고리 저장
+  };
   
 
   const handleClick = async (event,index,category) => {
@@ -63,7 +67,7 @@ function GrammarBook({ grammarBook }) {
               style={{ marginBottom: "20px", width: '100%' }}
               onMouseOver={(event) => handleClick(event, index,category)}
               onMouseOut={(event) => handleClick(event, index,category)}
-              onClick={() => handleShow()}
+              onClick={() => handleShow(category)} //각 카테고리 버튼의 onClick 이벤트에서 handleShow 함수를 호출할 때 현재 카테고리를 인자로 전달.
             >
               {category}
             </Button>
@@ -120,8 +124,9 @@ function GrammarBook({ grammarBook }) {
               <Button variant="secondary" onClick={handleClose}>
                 나중에하기
               </Button>
-              <Button onClick={() => navigate(`/grammarBooks/${grammarBook.id}/${category}`)} 
-              variant="primary">공부하기!</Button>
+              <Button onClick={() => navigate(`/grammarBooks/${grammarBook.id}/${selectedCategory}`)} variant="primary">
+                공부하기!
+              </Button>
             </Modal.Footer>
           </Modal>
           </div>
