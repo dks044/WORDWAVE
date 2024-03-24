@@ -1,12 +1,18 @@
 package com.wordwave.user;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.wordwave.security.Key;
+import com.wordwave.user.userLearnPerformance.UserLearnPerformance;
+import com.wordwave.user.userLearnPerformance.UserLearnPerformanceRepository;
 
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.Cookie;
@@ -22,6 +28,7 @@ public class UserService {
 	private final UserRepository userRepository;
 	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
 	private final PasswordEncoder passwordEncoder;
+	private final UserLearnPerformanceRepository userLearnPerformanceRepository;
 	
     public SiteUser convertDtoToEntity(UserDTO userDto) {
         return SiteUser.builder()
@@ -141,15 +148,36 @@ public class UserService {
 	//사용자의 연속학습일 설정 (초기화)
 	public void resetUserConsecutiveLearningDays(long userId) {
 		SiteUser user = getByUserId(userId);
-		user.changeConsecutiveLearningDays(0);
+		user.changeConsecutiveLearningDays(1);
 		userRepository.save(user);
 	}
-	//TODO: 연속학습일 차이 계산 로직 추가해야함.
+
 	//로그인 타임스탬프
 	public void setLoginTimeStamp(SiteUser user) {
 		user.changeLoginTimeStamp(LocalDateTime.now());
 		userRepository.save(user);
 	}
 	
+	//로그인 타임스탬프와 비교하여 연속학습일을 계산한다
+	public void calculateConsecutiveLearningDays(SiteUser user) {
+		LocalDateTime userlastAttempted = null;
+		Pageable pageable = PageRequest.of(0, 1); 
+		List<UserLearnPerformance> results = userLearnPerformanceRepository.findLastAttemptedByUserId(user.getId(),pageable);
+		//사용자 마지막 학습이력
+		userlastAttempted = null;
+		if (!results.isEmpty()) {
+			userlastAttempted = results.get(0).getLastAttempted();	
+		}
+		//사용자학습이력이 존재할 경우
+		if(userlastAttempted !=null) {
+			LocalDateTime currentLoginTime = user.getLoginTimeStamp();
+			long daysBetween = 1;
+			daysBetween = ChronoUnit.DAYS.between(userlastAttempted, currentLoginTime);
+			if (daysBetween > 1) {
+	            // 연속 출석일 리셋
+	            resetUserConsecutiveLearningDays(user.getId());
+	        }
+		}
+	}
 	
 }

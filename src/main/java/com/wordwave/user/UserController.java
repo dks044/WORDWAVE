@@ -149,6 +149,7 @@ public class UserController {
 	        cookie.setHttpOnly(true);
 	        response.addCookie(cookie);
 	        userService.setLoginTimeStamp(user); //로그인 타임스탬프
+	        userService.calculateConsecutiveLearningDays(user); //로그인 타임스탬프와 마지막 학습이력 계산 후 연속학습일 할당
 	        return ResponseEntity.ok().body(responseDTO);
 	    }else {
 	        ResponseDTO responseDTO = ResponseDTO.builder()
