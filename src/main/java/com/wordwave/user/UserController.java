@@ -147,6 +147,7 @@ public class UserController {
 	        Cookie cookie = new Cookie("token", token);
 	        cookie.setHttpOnly(true);
 	        response.addCookie(cookie);
+	        userService.setLoginTimeStamp(user); //로그인 타임스탬프
 	        return ResponseEntity.ok().body(responseDTO);
 	    }else {
 	        ResponseDTO responseDTO = ResponseDTO.builder()
