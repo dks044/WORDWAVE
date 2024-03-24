@@ -16,12 +16,13 @@ public class UserLearnPerformanceService {
 	private final UserLearnPerformanceRepository userLearnPerformanceRepository;
 	private final UserService userService;
 	
+	//TODO: 학습이력 생성 및 연속 학습일 계산
 	@Transactional
 	public void create(UserLearnPerformanceDTO userLearnPerformanceDTO) {
 		long userId = userLearnPerformanceDTO.getUserId();
 		SiteUser user = userService.getByUserId(userId);
 		UserLearnPerformance userLearn = userLearnPerformanceRepository.findByUserAndCategory(user, userLearnPerformanceDTO.getCategory());
-		//학습한적이 없다면
+		//해당 카테고리를 학습한적이 없다면
 		if(userLearn == null) {
 			userLearn = UserLearnPerformance.builder()
 					.user(user)
@@ -32,7 +33,7 @@ public class UserLearnPerformanceService {
 					.lastAttempted(LocalDateTime.now())
 					.build();
 
-		}//학습한적이 있다면
+		}//해당 카테고리를 학습한적이 있다면
 		else {
 			userLearn.updatePerformance(userLearnPerformanceDTO.getAnswerCount(), userLearnPerformanceDTO.getWrongCount());
 		}
