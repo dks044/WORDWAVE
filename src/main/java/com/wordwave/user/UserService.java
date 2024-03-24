@@ -129,4 +129,19 @@ public class UserService {
 	public boolean equalsDatabaseByEmail(String email) {
 		return userRepository.existsByEmail(email);
 	}
+	
+	//사용자의 연속학습일 설정 (증감)
+	public void increaseUserConsecutiveLearningDays(long userId) {
+		SiteUser user = getByUserId(userId);
+		long userConsecutiveLearningDays = userRepository.findConsecutiveLearningDaysById(userId);
+		user.changeConsecutiveLearningDays(userConsecutiveLearningDays+1);
+		userRepository.save(user);
+	}
+	//사용자의 연속학습일 설정 (초기화)
+	public void resetUserConsecutiveLearningDays(long userId) {
+		SiteUser user = getByUserId(userId);
+		user.changeConsecutiveLearningDays(0);
+		userRepository.save(user);
+	}
+	
 }

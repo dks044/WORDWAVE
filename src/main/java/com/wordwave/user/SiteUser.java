@@ -47,7 +47,17 @@ public class SiteUser {
     @Convert(converter = UserRoleConverter.class)
     private UserRole role = UserRole.USER;
     
+    //연속학습일
+    private long consecutiveLearningDays;
+    
+    //마지막로그인
+    private LocalDateTime loginTimeStamp;
+    
     public void changePassword(String newPassword) {
         this.password = newPassword;
     }
+    public void changeConsecutiveLearningDays(long setDays) {
+    	this.consecutiveLearningDays = setDays;
+    }
+    
 }
