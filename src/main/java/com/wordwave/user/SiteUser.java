@@ -59,5 +59,8 @@ public class SiteUser {
     public void changeConsecutiveLearningDays(long setDays) {
     	this.consecutiveLearningDays = setDays;
     }
+    public void changeLoginTimeStamp(LocalDateTime loginTimeStamp) {
+    	this.loginTimeStamp = loginTimeStamp;
+    }
     
 }

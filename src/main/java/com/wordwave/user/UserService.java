@@ -1,5 +1,6 @@
 package com.wordwave.user;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -143,5 +144,12 @@ public class UserService {
 		user.changeConsecutiveLearningDays(0);
 		userRepository.save(user);
 	}
+	//TODO: 연속학습일 차이 계산 로직 추가해야함.
+	//로그인 타임스탬프
+	public void setLoginTimeStamp(SiteUser user) {
+		user.changeLoginTimeStamp(LocalDateTime.now());
+		userRepository.save(user);
+	}
+	
 	
 }
