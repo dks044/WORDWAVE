@@ -142,7 +142,8 @@ public class UserController {
 	        final UserDTO responseDTO = UserDTO.builder()
 	                .userName(user.getUserName())
 	                .email(user.getEmail())
-	                .phoneNumber(user.getPhoneNumber())
+	                //.phoneNumber(user.getPhoneNumber()) 보류
+	                .consecutiveLearningDays(user.getConsecutiveLearningDays())
 	                .id(user.getId())
 	                .build();
 	        Cookie cookie = new Cookie("token", token);

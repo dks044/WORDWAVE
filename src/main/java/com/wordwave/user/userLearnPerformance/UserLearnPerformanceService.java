@@ -1,6 +1,7 @@
 package com.wordwave.user.userLearnPerformance;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class UserLearnPerformanceService {
 					.category(userLearnPerformanceDTO.getCategory())
 					.answerCount(userLearnPerformanceDTO.getAnswerCount())
 					.wrongCount(userLearnPerformanceDTO.getWrongCount())
-					.lastAttempted(LocalDateTime.now())
+					.lastAttempted(LocalDateTime.now(ZoneId.of("UTC")))
 					.build();
 		}//해당 카테고리를 학습한적이 있다면
 		else {

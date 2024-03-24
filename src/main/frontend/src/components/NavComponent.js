@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { IoMdLogOut } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Badge, Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { logout } from "../modules/auth";
 
 const SignUpFormText = styled.h6`
@@ -132,7 +132,7 @@ function NavComponent(){
   return(
     <Navbar>
       <NavListLeft>
-        {isLoging && user.userName && <NavItem>{user.userName} HI!😄</NavItem>}
+        {isLoging && user.userName && <NavItem>{user.userName} HI!😄<Badge bg="primary">연속학습일수: {user.consecutiveLearningDays}</Badge></NavItem>}
       </NavListLeft>
       <NavListCenter>
         <Link to="/">
