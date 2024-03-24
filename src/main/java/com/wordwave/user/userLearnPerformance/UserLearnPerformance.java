@@ -3,12 +3,12 @@ package com.wordwave.user.userLearnPerformance;
 import java.time.LocalDateTime;
 
 import com.wordwave.user.SiteUser;
-import com.wordwave.voca.Voca;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +23,7 @@ public class UserLearnPerformance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
     @ManyToOne
     private SiteUser user;
     

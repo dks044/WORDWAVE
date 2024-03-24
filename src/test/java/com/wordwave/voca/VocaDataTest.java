@@ -14,6 +14,8 @@ import com.wordwave.vocabook.VocaBookRepository;
 //VOCA DATA 생성 테스트
 @SpringBootTest
 public class VocaDataTest {
+	
+	//TODO: VOCABOOK DATA부터 넣어야함 !!!
 	private static final long VOCABOOK_TOEIC_ID = 1; //토익
 	private static final long VOCABOOK_BASIC_ID = 2; //기초
 	

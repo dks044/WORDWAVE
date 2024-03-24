@@ -119,6 +119,7 @@ public class UserController {
 										 .phoneNumber(registeredUser.getPhoneNumber())
 										 .createUserDate(registeredUser.getCreateUserDate())
 										 .point(registeredUser.getPoint())
+										 .consecutiveLearningDays(0)
 										 .build();
 			return ResponseEntity.ok().body(responseDTO);
 		} catch (Exception e) {

@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/userLearn")
@@ -32,6 +34,8 @@ public class UserLearnPerformanceController {
 	    try {
 	        return ResponseEntity.ok().body(userLearnPerformanceService.getUserLearnHistory(category, userId));
 	    } catch (Exception e) {
+	    	e.printStackTrace(); // 콘솔에 스택 트레이스 출력
+	        log.error("학습이력 생성 오류: ", e); // 로그 파일에 오류 기록
 	        return ResponseEntity.badRequest().body("학습이력 불러오기 실패!");
 	    }
 	}

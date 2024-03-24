@@ -36,7 +36,6 @@ public class UserLearnPerformanceService {
 		if (!results.isEmpty()) {
 			userlastAttempted = results.get(0).getLastAttempted();
 		}
-
 		
 		//해당 카테고리를 학습한적이 없다면
 		if(userLearn == null) {
@@ -65,7 +64,6 @@ public class UserLearnPerformanceService {
             // 연속 출석일 리셋
             userService.resetUserConsecutiveLearningDays(userId);
         }
-				
 		userLearnPerformanceRepository.save(userLearn);
 	}
 	

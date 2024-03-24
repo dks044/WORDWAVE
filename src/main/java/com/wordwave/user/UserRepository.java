@@ -1,6 +1,8 @@
 package com.wordwave.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<SiteUser, Long> {
 	SiteUser findByUserName(String userName);
@@ -10,6 +12,7 @@ public interface UserRepository extends JpaRepository<SiteUser, Long> {
 	Boolean existsByPhoneNumber(String phoneNumber);
 	SiteUser findByEmail(String email);
 	SiteUser findByUserNameAndEmail(String userName,String email);
-	Long findConsecutiveLearningDaysById(Long id);
+    @Query("SELECT u.consecutiveLearningDays FROM SiteUser u WHERE u.id = :userId")
+    Long findConsecutiveLearningDaysById(@Param("userId") Long userId); //userId로 연속학습일 얻어내기
 	
 }

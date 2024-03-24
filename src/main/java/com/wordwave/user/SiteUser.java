@@ -1,13 +1,19 @@
 package com.wordwave.user;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.wordwave.user.userLearnPerformance.UserLearnPerformance;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,6 +58,9 @@ public class SiteUser {
     
     //마지막로그인
     private LocalDateTime loginTimeStamp;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserLearnPerformance> performances = new ArrayList<>();
     
     public void changePassword(String newPassword) {
         this.password = newPassword;

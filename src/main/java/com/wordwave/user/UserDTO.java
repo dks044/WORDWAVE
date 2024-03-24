@@ -21,5 +21,6 @@ public class UserDTO {
 	private LocalDateTime createUserDate;
 	private UserRole role;
 	private long point;
-	private LocalDateTime consecutiveLearningDays;
+	private long consecutiveLearningDays;
+	private LocalDateTime loginTimeStamp;
 }

@@ -54,5 +54,14 @@ public class UserTest {
         assertDoesNotThrow(() -> userService.getUserNameByEmail(notErrorEmail), "에러가 없어야함.");
     }
     
-    
+    @Test
+    @Transactional
+    void setConsecutiveLearningDaysTest() {
+    	try {
+    		SiteUser user = userService.getByUserId(1);
+    		userService.increaseUserConsecutiveLearningDays(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 }
