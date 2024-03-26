@@ -81,7 +81,7 @@ export const isLoggedIn = () => async dispatch => {
     console.log('validate success');
     return response.data;
   } catch (e) {
-    if (e.response && e.response.status === 401) {//비로그인 사용자 예외처리
+    if (e.response && e.response.status === 401) {//비로그인 사용자 예외처리 및 토큰 예외처리
       dispatch({ type: LOGOUT });
       console.log('비로그인 사용자임(토큰없음)');
     } else {

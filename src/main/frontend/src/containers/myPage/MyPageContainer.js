@@ -1,6 +1,6 @@
 import React from "react";
-import MyPageComponent from "../components/MyPageComponent";
 import styled from "styled-components";
+import MyPageComponent from "../../components/myPage/MyPageComponent";
 
 const MyPageContainerBlock = styled.div`
   overflow-y: scroll;

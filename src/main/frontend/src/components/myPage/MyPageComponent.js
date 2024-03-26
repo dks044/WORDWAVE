@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Button, FloatingLabel, Form, Modal, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { showPopup } from "../modules/popup";
-import { changePw, deleteUser, logout } from "../modules/auth";
+import { changePw, deleteUser, logout } from "../../modules/auth";
 import { useNavigate } from "react-router-dom";
+import { showPopup } from "../../modules/popup";
 
 const Title = styled.h1`
   text-align: center;
@@ -109,14 +109,8 @@ export default function MyPageComponent(){
 
   return(
     <>
-      <Title>🆎VOCA🆑</Title>
-      <hr/>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos enim quod sequi nobis, praesentium, doloribus dolore ullam eum quis repellat repellendus aliquam voluptatibus deserunt harum ex. Qui adipisci consectetur nostrum?</p>
-      <br />
-      <Title>💁🏼‍♂️Grammer💁🏼‍♀️</Title>
-      <hr/>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos enim quod sequi nobis, praesentium, doloribus dolore ullam eum quis repellat repellendus aliquam voluptatibus deserunt harum ex. Qui adipisci consectetur nostrum?</p>
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <Title>학습이력</Title>
+      
       <Title>내 프로필</Title>
       <p>마우스를 올리면 정보가 보입니다.</p>
       <hr/>
