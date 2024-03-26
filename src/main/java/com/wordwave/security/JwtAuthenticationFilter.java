@@ -16,6 +16,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -51,7 +52,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				securityContext.setAuthentication(authentication);
 				SecurityContextHolder.setContext(securityContext);
 			}
-		} catch (Exception e) {
+		} catch (ExpiredJwtException e) {
+	        logger.error("Token expired", e);
+	        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // http status : 401 
+	        response.getWriter().write("{\"error\": \"Token expired\"}");
+	        return;
+	    } catch (Exception e) {
 			logger.error("Could not set user authentication in security context",e);
 		}
 		

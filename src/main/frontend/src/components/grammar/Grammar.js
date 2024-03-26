@@ -171,10 +171,10 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
           <KorSentence>{grammar.korSentence}</KorSentence>
           <hr/>
           <p>문장의 빈칸과 뜻을 참고하고 알맞은 정답을 누르세요!</p>
-          {Array.isArray(grammar.blackOptions) && grammar.blackOptions.map((data, index)=>{
+          {grammar.blackOptions.map((data, index)=>{
             return (
               <div key={index} className="d-grid gap-2">
-                <Button variant="outline-primary" size="lg" value={data} onClick={() => {
+                <Button key={index} variant="outline-primary" size="lg" value={data} onClick={() => {
                   if (data === grammar.answer) {
                     setAnswerCount(answerCount + 1);
                     dispatch(showPopup('정답입니다!😎'));

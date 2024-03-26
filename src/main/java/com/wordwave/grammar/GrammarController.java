@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/grammar")
@@ -21,6 +23,7 @@ public class GrammarController {
 		try {
 			return ResponseEntity.ok().body(grammarService.select(grammarBookId, category));
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.badRequest().body("grammar 퀴즈 데이터 불러오기 실패!");
 		}
 	}

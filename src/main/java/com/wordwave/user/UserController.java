@@ -167,7 +167,7 @@ public class UserController {
 	    cookie.setHttpOnly(true);
 	    cookie.setMaxAge(0); 
 	    response.addCookie(cookie); //HTTP 응답에 쿠키를 추가
-	    return ResponseEntity.ok().body("Logged out");
+	    return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Logged out");
 	}
 	
 	@PostMapping("/validateToken")
@@ -201,6 +201,7 @@ public class UserController {
 			ResponseDTO responseDTO = ResponseDTO.builder()
 					.error("Token is invalid")
 					.build();
+			e.printStackTrace();
 			return ResponseEntity.badRequest().body(responseDTO);
 		}
 		return ResponseEntity.ok().body("validate success");
@@ -285,6 +286,18 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
 		}
 	}
-	
-	
+	@GetMapping("/select_consecutiveLearningDays")
+	public ResponseEntity<?> selectCLD(HttpServletRequest request){
+		try {
+			String token = userService.getTokenFromRequest(request);
+			if(token == null) return ResponseEntity.badRequest().body("Token is empty");
+		    long userId = userService.getUserIdFromJwt(token);
+	    	SiteUser user = userService.getByUserId(userId);
+	    	return ResponseEntity.ok().body(user.getConsecutiveLearningDays());
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.warn(e.getMessage());
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

@@ -20,7 +20,7 @@ const grammarBookSlice = createSlice({
     }),
     getGrammarBooksError: (state, action) => ({
       ...state,
-      grammarBooks: reducerUtils.error(action.error),
+      grammarBooks: reducerUtils.error(action.payload),
     }),
     getGrammarBook: (state) => ({
       ...state,
@@ -32,7 +32,7 @@ const grammarBookSlice = createSlice({
     }),
     getGrammarBookError: (state, action) => ({
       ...state,
-      grammarBook: reducerUtils.error(action.error),
+      grammarBook: reducerUtils.error(action.payload),
     }),
   }
 })

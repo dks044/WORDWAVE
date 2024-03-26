@@ -7,6 +7,8 @@ import { IoMdLogOut } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Badge, Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { logout } from "../modules/auth";
+import {getUserCLDAPI} from "../api/userLearnPerformanceAPI";
+
 
 const SignUpFormText = styled.h6`
   display: inline;
@@ -109,6 +111,21 @@ function NavComponent(){
   const handleLogout = () => setOnLogout(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  //사용자의 연속 학습 일수
+  const [consecutiveLearningDays,setConsecutiveLearningDays] = useState(0);
+  useEffect(() => {
+    const fetchConsecutiveLearningDays = async () => {
+      try {
+        const days = await getUserCLDAPI(); 
+        setConsecutiveLearningDays(days); 
+      } catch (error) {
+        console.error('Failed to fetch consecutive learning days:', error);
+      }
+    };
+
+    fetchConsecutiveLearningDays();
+  }, []); 
   
   console.log(onLogout);
   useEffect(()=>{
@@ -132,7 +149,7 @@ function NavComponent(){
   return(
     <Navbar>
       <NavListLeft>
-        {isLoging && user.userName && <NavItem>{user.userName} HI!😄<Badge bg="primary">연속학습일수: {user.consecutiveLearningDays}</Badge></NavItem>}
+        {isLoging && user.userName && <NavItem>{user.userName} HI!😄<Badge bg="primary">연속학습일수: {consecutiveLearningDays}</Badge></NavItem>}
       </NavListLeft>
       <NavListCenter>
         <Link to="/">

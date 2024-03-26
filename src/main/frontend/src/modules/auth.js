@@ -195,7 +195,7 @@ export const validEmailCode = (email,emailCode) => async dispatch => {
 const initialState = {
   auth: reducerUtils.initial(),
   isLoging: false,
-  user : {},
+  user : reducerUtils.initial(),
 };
 
 export default function auth(state = initialState, action) {
@@ -213,7 +213,7 @@ export default function auth(state = initialState, action) {
       return {
         ...handleAsyncActions(LOGOUT, 'auth')(state, action),
         isLoging: false, 
-        user: {},
+        user: reducerUtils.initial(),
         auth: reducerUtils.initial()
       };
     case IS_LOGGED_IN:
