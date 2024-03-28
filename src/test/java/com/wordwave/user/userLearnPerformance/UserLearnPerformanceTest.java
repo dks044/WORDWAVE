@@ -91,5 +91,23 @@ public class UserLearnPerformanceTest {
 		System.out.println(userLearn.getAnswerCount());
 	}
 	
+	@Test
+	@DisplayName("user학습이력 페이징 조회를 위한 데이터 생성 50개 테스트")
+	@Rollback(false)
+	@Disabled
+	void selectUserLearnPerformancePagingTest() {
+		for(int i=1;i<=50;i++) {
+			UserLearnPerformanceDTO userLearnPerformanceDTO = UserLearnPerformanceDTO.builder()
+															  .userId(1)
+															  .learnType(1)
+															  .category("테스트중.."+i)
+															  .answerCount(5)
+															  .wrongCount(5)
+															  .lastAttempted(LocalDateTime.now())
+															  .build();
+			userLearnPerformanceService.create(userLearnPerformanceDTO);
+		}
+	}
+	
 	
 }
