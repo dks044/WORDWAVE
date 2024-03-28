@@ -307,10 +307,10 @@ public class UserController {
 		}
 	}
 	
-	private void clearTokenCookie(HttpServletResponse response) {
-	    Cookie cookie = new Cookie("token", null);
-	    cookie.setHttpOnly(true);
-	    cookie.setMaxAge(0); // 쿠키 만료
-	    response.addCookie(cookie); // 쿠키 제거
-	}
+//	private void clearTokenCookie(HttpServletResponse response) {
+//	    Cookie cookie = new Cookie("token", null);
+//	    cookie.setHttpOnly(true);
+//	    cookie.setMaxAge(0); // 쿠키 만료
+//	    response.addCookie(cookie); // 쿠키 제거
+//	}
 }

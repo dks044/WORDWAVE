@@ -1,13 +1,8 @@
 import React from "react";
-import { useState } from "react";
 import { Table } from "react-bootstrap";
 
 function MyPageUserLearnPerformance({ data }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // 한 페이지에 보여줄 항목 수
-
-  
-  if(!data) return <p>데이터가 없어요.</p>
+  if (!data) return <p>데이터가 없어요.</p>
 
   return (
     <>
@@ -22,7 +17,15 @@ function MyPageUserLearnPerformance({ data }) {
           </tr>
         </thead>
         <tbody>
-
+          {data.content.map((item, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{item.category}</td>
+              <td>{item.answerCount}</td>
+              <td>{item.wrongCount}</td>
+              <td>{item.lastAttempted}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </>
