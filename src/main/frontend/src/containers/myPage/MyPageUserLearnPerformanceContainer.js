@@ -4,6 +4,7 @@ import { getAllUserLearnPerformance } from "../../modules/userLearnPerformance/u
 
 import CircleSpinner from "../../components/CircleSpinner";
 import MyPageUserLearnPerformance from "../../components/myPage/MyPageUserLearnPerformance";
+import { Pagination } from "react-bootstrap";
 
 
 function MyPageUserLearnPerformanceContainer({userId}){
@@ -29,11 +30,13 @@ function MyPageUserLearnPerformanceContainer({userId}){
     <MyPageUserLearnPerformance data={data} />
     <div>
         {/* 페이지네이션 버튼 */}
-        {pages.map(page => (
-          <button key={page} onClick={() => setPageNum(page)}>
-            {page + 1}
-          </button>
-        ))}
+        <Pagination>
+          {pages.map(page => (
+            <Pagination.Item key={page} active={page === pageNum} onClick={() => setPageNum(page)}>
+              {page + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
       </div>
    </>
   )

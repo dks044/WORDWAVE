@@ -1,5 +1,6 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import SimpleDateText from "../../lib/SimpleDateText"
 
 function MyPageUserLearnPerformance({ data }) {
   if (!data) return <p>데이터가 없어요.</p>
@@ -9,7 +10,7 @@ function MyPageUserLearnPerformance({ data }) {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
+            <th>종류</th>
             <th>카테고리</th>
             <th>정답 수</th>
             <th>오답 수</th>
@@ -19,11 +20,15 @@ function MyPageUserLearnPerformance({ data }) {
         <tbody>
           {data.content.map((item, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
+              <td>
+                {item.learnType === 1 && "VOCA"}
+                {item.learnType === 2 && "GRAMMAR"}
+                {(item.learnType !== 1 && item.learnType !== 2) && "기타"}
+              </td>
               <td>{item.category}</td>
               <td>{item.answerCount}</td>
               <td>{item.wrongCount}</td>
-              <td>{item.lastAttempted}</td>
+              <td><SimpleDateText dateString={item.lastAttempted}/></td>
             </tr>
           ))}
         </tbody>

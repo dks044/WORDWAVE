@@ -94,9 +94,8 @@ public class UserLearnPerformanceService {
 
 	public Page<UserLearnPerformanceDTO> getAllUserLearnPerformance(long userId,int pageNum){
 		//descending() 최신순
-		Pageable pageable = PageRequest.of(pageNum, 8, Sort.by("lastAttempted").descending());
+		Pageable pageable = PageRequest.of(pageNum, 5, Sort.by("lastAttempted").descending());
 		Page<UserLearnPerformance> ulpPage = userLearnPerformanceRepository.findAllByUserId(userId, pageable);
-		
 		// Java 8 스트림 API를 사용하여 엔티티 리스트를 DTO 리스트로 변환합니다.
 				Page<UserLearnPerformanceDTO> ulpDTOPage = ulpPage.map(ulp -> UserLearnPerformanceDTO.builder()
 																			.learnType(ulp.getLearnType())
@@ -105,6 +104,7 @@ public class UserLearnPerformanceService {
 																			.wrongCount(ulp.getWrongCount())
 																			.lastAttempted(ulp.getLastAttempted())
 																			.build());
+				
 
 		return ulpDTOPage;
 	}

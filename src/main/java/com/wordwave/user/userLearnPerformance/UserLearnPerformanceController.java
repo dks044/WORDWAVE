@@ -43,7 +43,7 @@ public class UserLearnPerformanceController {
 	
 	@GetMapping("/get_allUserLearnPerformance")
 	public ResponseEntity<?> getAllUserLearnPerformance(@RequestParam("userId") long userId,
-														@RequestParam(value = "page", defaultValue = "0") int pageNum){
+														@RequestParam(value = "pageNum", defaultValue = "0") int pageNum){
 		try {
 			return ResponseEntity.ok().body(userLearnPerformanceService.getAllUserLearnPerformance(userId,pageNum));
 		} catch (Exception e) {
