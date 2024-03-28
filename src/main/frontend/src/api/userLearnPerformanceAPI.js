@@ -16,7 +16,13 @@ export async function getUserLearnHistoryAPI({ category, userId }) {
   return response.data;
 }
 
+//사용자의 연속학습일 조회
 export async function getUserCLDAPI() {
   const response = await axios.get('/api/auth/select_consecutiveLearningDays');
+  return response.data;
+}
+
+export async function getAllUserLearnPerformanceAPI({userId,pageNum}){
+  const response = await axios.get(`/api/userLearn/get_allUserLearnPerformance?userId=${userId}&pageNum=${pageNum}`);
   return response.data;
 }

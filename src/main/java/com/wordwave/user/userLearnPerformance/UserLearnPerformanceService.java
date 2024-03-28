@@ -5,8 +5,11 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.wordwave.user.SiteUser;
@@ -89,5 +92,21 @@ public class UserLearnPerformanceService {
 		}
 	}
 
+	public Page<UserLearnPerformanceDTO> getAllUserLearnPerformance(long userId,int pageNum){
+		//descending() 최신순
+		Pageable pageable = PageRequest.of(pageNum, 8, Sort.by("lastAttempted").descending());
+		Page<UserLearnPerformance> ulpPage = userLearnPerformanceRepository.findAllByUserId(userId, pageable);
+		
+		// Java 8 스트림 API를 사용하여 엔티티 리스트를 DTO 리스트로 변환합니다.
+				Page<UserLearnPerformanceDTO> ulpDTOPage = ulpPage.map(ulp -> UserLearnPerformanceDTO.builder()
+																			.learnType(ulp.getLearnType())
+																			.category(ulp.getCategory())
+																			.answerCount(ulp.getAnswerCount())
+																			.wrongCount(ulp.getWrongCount())
+																			.lastAttempted(ulp.getLastAttempted())
+																			.build());
+
+		return ulpDTOPage;
+	}
 	
 }

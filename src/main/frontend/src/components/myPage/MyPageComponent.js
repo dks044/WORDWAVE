@@ -1,26 +1,33 @@
 import React, { useState } from "react";
-import { Button, FloatingLabel, Form, Modal, Spinner } from "react-bootstrap";
+import { Badge, Button, Col, Container, FloatingLabel, Form, Modal, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { changePw, deleteUser, logout } from "../../modules/auth";
 import { useNavigate } from "react-router-dom";
 import { showPopup } from "../../modules/popup";
+import SimpleDateText from "../../lib/SimpleDateText";
+import MyPageUserLearnPerformanceContainer from "../../containers/myPage/MyPageUserLearnPerformanceContainer";
 
 const Title = styled.h1`
   text-align: center;
   font-weight: bolder;
   `
+const ProfileText = styled.h2`
+  font-weight: bold;
+`
+const ProfileSubText = styled.h4`
+  font-weight: bold;
+`
 
 export default function MyPageComponent(){
   const {user} = useSelector(state=>state.auth);
-  const [showEmail,setShowEmail] = useState(false);
-  const [showPhoneNumber,setShowPhoneNumber] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function onMouseOverForEmail (){ return setShowEmail(true);}
-  function onMouseOutForEmail(){ return setShowEmail(false);}
+  // 학습 이력 페이지네이션 관련 상태
+  const [learnPerformancePage, setLearnPerformancePage] = useState(0);
+
   //modal
   const [show, setShow] = useState(false);
   const handleClose = () =>{
@@ -109,14 +116,28 @@ export default function MyPageComponent(){
 
   return(
     <>
-      <Title>학습이력</Title>
-      
-      <Title>내 프로필</Title>
-      <p>마우스를 올리면 정보가 보입니다.</p>
+      <Title>😀내 프로필</Title>
+      <Container>
+          <Row className="justify-content-between">
+            <Col xs="auto">
+              <h2><Badge bg="primary">ID</Badge></h2>
+              <h2><Badge bg="primary">가입일</Badge></h2>
+            </Col>
+            <Col xs="auto">
+              <ProfileText>{user.userName}</ProfileText>
+              <ProfileSubText>
+                <SimpleDateText dateString={user.createUserDate} />
+              </ProfileSubText>
+            </Col>
+          </Row>
+      </Container>
+      <hr />
+      <Title>📋학습 이력</Title>
+      <MyPageUserLearnPerformanceContainer userId={user.id} pageNum={learnPerformancePage}/>
       <hr/>
       <div className="d-grid gap-2">
-        <h1>ID : {user.userName}</h1>
-        <h3 onMouseOver={onMouseOverForEmail} onMouseOut={onMouseOutForEmail} >Email : {showEmail && user.email}</h3>
+        {/* <h1><Badge bg="secondary">이름</Badge> {user.userName}</h1>
+        <h4>{user.createUserDate}</h4> */}
         <Button onClick={onclickChangePwShowButton} variant="info">비밀번호 변경</Button>
         <Button onClick={onclickDeleteUserShowButton} variant="danger">회원 탈퇴</Button>
       </div>

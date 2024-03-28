@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class UserLearnPerformanceController {
 	private final UserLearnPerformanceService userLearnPerformanceService;
 	
+	//TODO:학습이력을 조회하고, 그에따라 사용자에게 점수 부여하는 기능 추가해야함
 	@PostMapping("/create_userLearnPerformance")
 	public ResponseEntity<?> createUserLearnPerformance(@RequestBody UserLearnPerformanceDTO userLearnPerformanceDTO){
 		try {
@@ -36,8 +37,20 @@ public class UserLearnPerformanceController {
 	    } catch (Exception e) {
 	    	e.printStackTrace(); // 콘솔에 스택 트레이스 출력
 	        log.error("학습이력 생성 오류: ", e); // 로그 파일에 오류 기록
-	        return ResponseEntity.badRequest().body("학습이력 불러오기 실패!");
+	        return ResponseEntity.badRequest().body("사용자 학습기록 불러오기 실패!");
 	    }
+	}
+	
+	@GetMapping("/get_allUserLearnPerformance")
+	public ResponseEntity<?> getAllUserLearnPerformance(@RequestParam("userId") long userId,
+														@RequestParam(value = "page", defaultValue = "0") int pageNum){
+		try {
+			return ResponseEntity.ok().body(userLearnPerformanceService.getAllUserLearnPerformance(userId,pageNum));
+		} catch (Exception e) {
+	    	e.printStackTrace(); // 콘솔에 스택 트레이스 출력
+	        log.error("학습이력 생성 오류: ", e); // 로그 파일에 오류 기록
+	        return ResponseEntity.badRequest().body("사용자 학습이력 불러오기 실패!");
+		}
 	}
 	
 }

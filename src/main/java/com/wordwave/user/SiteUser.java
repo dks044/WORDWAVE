@@ -33,6 +33,9 @@ public class SiteUser {
 	
 	private String token;
 	
+    @Column(length = 512)
+    private String refreshToken;
+	
 	@Column(unique = true, nullable = false, length = 10)
 	private String userName;
 	

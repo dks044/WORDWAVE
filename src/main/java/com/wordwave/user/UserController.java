@@ -25,6 +25,7 @@ import com.wordwave.util.MailDTO;
 import com.wordwave.util.MailService;
 import com.wordwave.util.ResponseDTO;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.Cookie;
@@ -137,28 +138,33 @@ public class UserController {
 	        HttpServletResponse response
 	        ){
 	    SiteUser user = userService.getByUserName(userDTO.getUserName());
-	    if(user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
-	        final String token = tokenProvider.create(user,response);
-	        final UserDTO responseDTO = UserDTO.builder()
-	                .userName(user.getUserName())
-	                .email(user.getEmail())
-	                //.phoneNumber(user.getPhoneNumber()) 보류
-	                .consecutiveLearningDays(user.getConsecutiveLearningDays())
-	                .id(user.getId())
-	                .build();
-	        Cookie cookie = new Cookie("token", token);
-	        cookie.setHttpOnly(true);
-	        response.addCookie(cookie);
-	        userService.setLoginTimeStamp(user); //로그인 타임스탬프
-	        userService.calculateConsecutiveLearningDays(user); //로그인 타임스탬프와 마지막 학습이력 계산 후 연속학습일 할당
-	        return ResponseEntity.ok().body(responseDTO);
-	    }else {
+	    try {
+		    if(user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
+		        final String token = tokenProvider.create(user,response);
+		        final String refreshToken = tokenProvider.createRefreshToken(user);
+		        final UserDTO responseDTO = UserDTO.builder()
+		                .userName(user.getUserName())
+		                .email(user.getEmail())
+		                //.phoneNumber(user.getPhoneNumber()) 보류
+		                .consecutiveLearningDays(user.getConsecutiveLearningDays())
+		                .createUserDate(user.getCreateUserDate())
+		                .id(user.getId())
+		                .build();
+		        Cookie cookie = new Cookie("token", token);
+		        cookie.setHttpOnly(true);
+		        response.addCookie(cookie);
+		        userService.setLoginTimeStamp(user); //로그인 타임스탬프
+		        userService.calculateConsecutiveLearningDays(user); //로그인 타임스탬프와 마지막 학습이력 계산 후 연속학습일 할당
+		        return ResponseEntity.ok().body(responseDTO);
+		    }
+		} catch (Exception e) {
 	        ResponseDTO responseDTO = ResponseDTO.builder()
 	                .error("Login Failed")
 	                .build();
 	        log.info("utf-8", responseDTO.getError(), responseDTO);
 	        return ResponseEntity.badRequest().body(responseDTO);
-	    }
+		}
+		return null;
 	}
 	
 	@PostMapping("/signout")
@@ -299,5 +305,12 @@ public class UserController {
 			log.warn(e.getMessage());
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+	
+	private void clearTokenCookie(HttpServletResponse response) {
+	    Cookie cookie = new Cookie("token", null);
+	    cookie.setHttpOnly(true);
+	    cookie.setMaxAge(0); // 쿠키 만료
+	    response.addCookie(cookie); // 쿠키 제거
 	}
 }
