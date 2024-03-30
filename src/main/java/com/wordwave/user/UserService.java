@@ -148,7 +148,7 @@ public class UserService {
 	//사용자의 연속학습일 설정 (초기화)
 	public void resetUserConsecutiveLearningDays(long userId) {
 		SiteUser user = getByUserId(userId);
-		user.changeConsecutiveLearningDays(1);
+		user.changeConsecutiveLearningDays(0);
 		userRepository.save(user);
 	}
 
@@ -160,24 +160,28 @@ public class UserService {
 	
 	//로그인 타임스탬프와 비교하여 연속학습일을 계산한다
 	public void calculateConsecutiveLearningDays(SiteUser user) {
-		LocalDateTime userlastAttempted = null;
-		Pageable pageable = PageRequest.of(0, 1); 
-		List<UserLearnPerformance> results = userLearnPerformanceRepository.findLastAttemptedByUserId(user.getId(),pageable);
-		//사용자 마지막 학습이력
-		userlastAttempted = null;
-		if (!results.isEmpty()) {
-			userlastAttempted = results.get(0).getLastAttempted();	
-		}
-		//사용자학습이력이 존재할 경우
-		if(userlastAttempted !=null) {
-			LocalDateTime currentLoginTime = user.getLoginTimeStamp();
-			long daysBetween = 1;
-			daysBetween = ChronoUnit.DAYS.between(userlastAttempted, currentLoginTime);
-			if (daysBetween > 1) {
+	    LocalDateTime userLastAttempted = null;
+	    Pageable pageable = PageRequest.of(0, 1); 
+	    List<UserLearnPerformance> results = userLearnPerformanceRepository.findLastAttemptedByUserId(user.getId(), pageable);
+	    // 사용자 마지막 학습이력
+	    if (!results.isEmpty()) {
+	        userLastAttempted = results.get(0).getLastAttempted();	
+	    }
+	    // 사용자학습이력이 존재할 경우
+	    if(userLastAttempted != null) {
+	        LocalDateTime currentLoginTime = user.getLoginTimeStamp();
+	        long daysBetween = ChronoUnit.DAYS.between(userLastAttempted.toLocalDate(), currentLoginTime.toLocalDate());
+	        if (daysBetween >= 2) {
 	            // 연속 출석일 리셋
 	            resetUserConsecutiveLearningDays(user.getId());
-	        }
-		}
+	        } 
+	        //else if (daysBetween == 1) {
+	            // 연속 출석일 증가
+	            //increaseUserConsecutiveLearningDays(user.getId());
+	        //}
+	        //연속 출석일 증가 로직 제거 이유 : 로그인과 학습은 관련없다는 판단하에 제거.
+	    }
 	}
+
 	
 }
