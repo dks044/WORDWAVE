@@ -6,10 +6,12 @@ import voca from "./voca/voca";
 import grammarBook from "./grammar/grammarBook";
 import grammar from "./grammar/grammar"
 import userLearnPerformance from "./userLearnPerformance/userLearnPerformance";
+import myVocaBook from "./myVoca/myVocaBook";
 
 const rootReducer = combineReducers({
   voca,
   vocaBook,
+  myVocaBook,
   grammarBook,
   grammar,
   auth,

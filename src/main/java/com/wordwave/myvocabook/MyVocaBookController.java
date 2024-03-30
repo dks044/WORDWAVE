@@ -25,4 +25,5 @@ public class MyVocaBookController {
 			return ResponseEntity.badRequest().body("myVocaBook import falid");
 		}
 	}
+	
 }
