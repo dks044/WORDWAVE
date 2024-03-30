@@ -30,15 +30,12 @@ public class MyVoca {
 	@ManyToOne
 	@JsonBackReference
 	private MyVocaBook myVocaBook;
-	
-    private String imgURL;
     
     @Builder
     public MyVoca(String korWord, String engWord,String category, String imgURL,MyVocaBook myVocaBook) {
     	this.korWord = korWord;
     	this.engWord = engWord;
     	this.category = category;
-    	this.imgURL = imgURL;
     	this.myVocaBook = myVocaBook;
     }
     
