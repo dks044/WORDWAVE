@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.wordwave.user.SiteUser;
 
-public interface MyVocaRepository extends JpaRepository<MyVocaBook, Long>{
+public interface MyVocaBookRepository extends JpaRepository<MyVocaBook, Long>{
 	List<MyVocaBook> findAllByUser(SiteUser user);
 	
 	

@@ -48,9 +48,10 @@ public class MyVocaBook {
 	private String imageURL;
 	
 	@Builder
-	MyVocaBook(String name, String imageURL){
+	MyVocaBook(String name, String imageURL,SiteUser user){
 		this.name = name;
 		this.imageURL = imageURL;
+		this.user = user;
 	}
 	
 }
