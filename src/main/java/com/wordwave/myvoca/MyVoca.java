@@ -1,11 +1,8 @@
 package com.wordwave.myvoca;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.wordwave.vocabook.VocaBook;
+import com.wordwave.myvocabook.MyVocaBook;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,17 +29,17 @@ public class MyVoca {
 	
 	@ManyToOne
 	@JsonBackReference
-	private VocaBook vocaBook;
+	private MyVocaBook myVocaBook;
 	
     private String imgURL;
     
     @Builder
-    public MyVoca(String korWord, String engWord,String category, String imgURL,VocaBook vocaBook) {
+    public MyVoca(String korWord, String engWord,String category, String imgURL,MyVocaBook myVocaBook) {
     	this.korWord = korWord;
     	this.engWord = engWord;
     	this.category = category;
     	this.imgURL = imgURL;
-    	this.vocaBook = vocaBook;
+    	this.myVocaBook = myVocaBook;
     }
     
 }
