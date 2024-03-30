@@ -14,5 +14,8 @@ public interface UserRepository extends JpaRepository<SiteUser, Long> {
 	SiteUser findByUserNameAndEmail(String userName,String email);
     @Query("SELECT u.consecutiveLearningDays FROM SiteUser u WHERE u.id = :userId")
     Long findConsecutiveLearningDaysById(@Param("userId") Long userId); //userId로 연속학습일 얻어내기
-	
+    
+    @Query("SELECT u.refreshToken FROM SiteUser u WHERE u.id = :userId")
+    String findRefreshTokenById(@Param("userId") Long userId); //userId로 refreshToken 얻어내기
+    
 }

@@ -52,7 +52,7 @@ public class TokenProvider {
 		
 		return token;
 	}
-	
+	//검증된 사용자의 userId을 조회
 	public String validateAndGetUserId(String token) {
 		
 		Claims claims = Jwts.parserBuilder()

@@ -16,7 +16,9 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserRepository;
+import com.wordwave.user.UserService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -34,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	@Autowired
-	private TokenProvider tokenProvider;
+	private final TokenProvider tokenProvider;
 	private final UserRepository userRepository;
 	
 	@Override
@@ -54,39 +56,39 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				securityContext.setAuthentication(authentication);
 				SecurityContextHolder.setContext(securityContext);
 			}
-		}  catch (ExpiredJwtException e) {
+		}catch (ExpiredJwtException e) {
 		    logger.error("Token expired", e);
+		    String token = parseBearerToken(request);
 		    try {
-		        // 리프레시 토큰 쿠키에서 가져오기
-		        Cookie[] cookies = request.getCookies();
-		        String refreshToken = null;
-		        if (cookies != null) {
-		            for (Cookie cookie : cookies) {
-		                if (cookie.getName().equals("refreshToken")) {
-		                    refreshToken = cookie.getValue();
-		                    break;
+		        // 클라이언트로부터 사용자 식별 정보 받아오기 (예: 사용자 ID)
+		        String userId = tokenProvider.validateAndGetUserId(token);
+		        if (userId != null && !userId.isEmpty()) {
+		            // 서버에서 리프레시 토큰 검색
+		            String refreshToken = userRepository.findRefreshTokenById(Long.parseLong(userId));
+		            SiteUser user = userRepository.findById(Long.parseLong(userId)).get();
+		            
+		            if (refreshToken != null) {
+		                try {
+		                    // 새로운 액세스 토큰 생성 및 발급
+		                    String newToken = tokenProvider.create(user, response);
+		                    logger.info("New token issued");
+
+		                    // 새 토큰을 응답 헤더나 바디에 추가
+		                    response.setHeader("Authorization", "Bearer " + newToken);
+		                } catch (Exception re) {
+		                    logger.error("Invalid refresh token", re);
+		                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		                    response.getWriter().write("{\"error\": \"Invalid refresh token\"}");
+		                    return;
 		                }
-		            }
-		        }
-
-		        // 리프레시 토큰 검증
-		        if (refreshToken != null && !refreshToken.isEmpty()) {
-		            try {
-		                String userId = tokenProvider.validateAndGetUserId(refreshToken); // 리프레시 토큰 검증
-
-		                // 새로운 액세스 토큰 생성 및 쿠키에 저장
-		                String newToken = tokenProvider.create(userRepository.findById(Long.parseLong(userId)).orElse(null), response);
-		                logger.info("New token issued");
-
-		            } catch (Exception re) {
-		                logger.error("Invalid refresh token", re);
+		            } else {
 		                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		                response.getWriter().write("{\"error\": \"Invalid refresh token\"}");
+		                response.getWriter().write("{\"error\": \"Refresh token is missing\"}");
 		                return;
 		            }
 		        } else {
 		            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		            response.getWriter().write("{\"error\": \"Refresh token is missing\"}");
+		            response.getWriter().write("{\"error\": \"User identification is missing\"}");
 		            return;
 		        }
 
@@ -96,7 +98,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		        response.getWriter().write("{\"error\": \"Could not refresh token\"}");
 		        return;
 		    }
-		} catch (Exception e) {
+		}catch (Exception e) {
 		    logger.error("Could not set user authentication in security context", e);
 		}
 		

@@ -158,6 +158,8 @@ public class UserController {
 		        return ResponseEntity.ok().body(responseDTO);
 		    }
 		} catch (Exception e) {
+			System.out.println("오류발생 : "+e.getMessage());
+			e.printStackTrace();
 	        ResponseDTO responseDTO = ResponseDTO.builder()
 	                .error("Login Failed")
 	                .build();

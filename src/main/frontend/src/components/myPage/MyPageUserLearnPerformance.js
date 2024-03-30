@@ -21,8 +21,8 @@ function MyPageUserLearnPerformance({ data }) {
           {data.content.map((item, index) => (
             <tr key={index}>
               <td>
-                {item.learnType === 1 && "VOCA"}
-                {item.learnType === 2 && "GRAMMAR"}
+                {item.learnType === 1 && "단어"}
+                {item.learnType === 2 && "문법"}
                 {(item.learnType !== 1 && item.learnType !== 2) && "기타"}
               </td>
               <td>{item.category}</td>
