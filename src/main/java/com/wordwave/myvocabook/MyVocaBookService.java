@@ -22,6 +22,7 @@ public class MyVocaBookService {
 		List<MyVocaBook> myVocaBook = myVocaBookRepository.findAllByUser(user);
 		List<MyVocaBookDTO> response = new ArrayList<>();
 		for(MyVocaBook mb : myVocaBook) {
+			System.out.println(mb.getId());
 			MyVocaBookDTO myVocaBookDTO = MyVocaBookDTO.builder()
 													   .id(mb.getId())
 													   .name(mb.getName())

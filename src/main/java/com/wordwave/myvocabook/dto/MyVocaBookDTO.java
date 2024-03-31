@@ -1,7 +1,6 @@
 package com.wordwave.myvocabook.dto;
 
 
-import com.wordwave.user.SiteUser;
 
 import lombok.Builder;
 
@@ -17,7 +16,8 @@ public class MyVocaBookDTO {
 	private String imageURL;
 	
 	@Builder
-	MyVocaBookDTO(String name, String imageURL,SiteUser user){
+	MyVocaBookDTO(Long id,String name, String imageURL){
+		this.id = id;
 		this.name = name;
 		this.imageURL = imageURL;
 	}
