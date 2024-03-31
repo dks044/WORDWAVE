@@ -4,6 +4,7 @@ import { TiWaves } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { FaBook } from "react-icons/fa6";
 import { FaSpellCheck } from "react-icons/fa";
+import { FaMarker } from "react-icons/fa";
 
 const CircleButton = styled.button`
   //스타일
@@ -128,6 +129,32 @@ const VocaLink = styled(Link)`
   }
 `;
 
+const MyVocaLink = styled(Link)`
+  //스타일
+  color: black;
+  text-decoration: none;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //사이즈 설정
+  width: 100px;
+  height: 100px;
+  //다이얼 메뉴내 GrammaarLink의 위치
+  position: absolute;
+  left: 3%;
+  top: 18%;
+  transform: rotate( -40deg );
+  transition: 0.35s all ease-in-out;
+  &:hover {
+    color: #54535a;
+  }
+  &:active {
+    color: #2c2b2d;
+  }
+`;
+
 function DialMenu() {
   const [open, setOpen] = useState(false);
   const onToggle = () => {
@@ -149,6 +176,12 @@ function DialMenu() {
             <FaBook size={50}/>
             VOCA
           </VocaLink>
+        )}
+        {open && (
+          <MyVocaLink to="/myvocabooks" onClick={onToggle} open={open}>
+            <FaMarker size={50}/>
+            MY VOCA
+          </MyVocaLink>
         )}
       </CircleMenu>
       <CircleButton onClick={onToggle} open={open}>

@@ -17,7 +17,7 @@ import { closePopup } from "./modules/popup";
 import MyPage from "./pages/MyPage";
 import VocaBookPage from "./pages/voca/VocaBookPage";
 import VocaPage from "./pages/voca/VocaPage";
-
+import MyVocaBooksPage from "./pages/myVoca/MyVocaBooksPage"
 
 function App() {
   //authenticated
@@ -81,6 +81,8 @@ function App() {
           element={isLoging ? <GrammarBookPage /> : <Navigate to="/login" />}/>
           <Route path="grammarbooks/:grammarBookId/:category" 
           element={isLoging ? <GrammarPage /> : <Navigate to="/login" />}/>
+          {/* MyVoca */}
+          <Route path="myvocabooks" element={isLoging ? <MyVocaBooksPage /> : <Navigate to="/login" />} />
         </Route>
       </Routes>
     </>

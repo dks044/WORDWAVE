@@ -9,7 +9,12 @@ function VocaBooks({vocaBooks})  {
       {vocaBooks && vocaBooks.map((vocaBook) => (
       <Container key={vocaBook.id} className="d-flex justify-content-center mt-3">
         <Card key={vocaBook.id} style={{ width: '18rem' }} border="info" className="text-center">
-          <Card.Img variant="top" src={vocaBook.imageURL} />
+          {vocaBook.imageURL && (
+            <Card.Img variant="top" src={vocaBook.imageURL} />
+          )}
+          {!vocaBook.imageURL && (
+            <Card.Img variant="top" src={"https://cdn.pixabay.com/photo/2020/01/23/21/07/seascape-4788749_1280.jpg"} />
+          )}
           <Card.Body>
             <Card.Title className="fw-bold">{vocaBook.name}</Card.Title>
             <Container className="d-flex justify-content-center mt-3">
