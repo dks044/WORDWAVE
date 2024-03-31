@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyVocaBooks } from "../../modules/myVoca/myVocaBook";
 import CircleSpinner from "../../components/CircleSpinner"
 import styled from "styled-components";
 import MyVocaBooks from "../../components/myVoca/MyVocaBooks";
-import { Badge, Button } from "react-bootstrap";
+import { Badge, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 const MyVocaBooksContainerBlock = styled.div`
   padding: 10% 5% 10%;
@@ -17,6 +17,7 @@ const Title = styled.h1`
 
 
 function MyVocaBooksContainer(){
+  const [isImport,setIsImport] = useState(false);
   const loading = useSelector(
     (state) => state.myVocaBook.myVocaBooks.loading
   );
@@ -31,17 +32,24 @@ function MyVocaBooksContainer(){
 
 
   useEffect(() => {
-    if (data) return;
-    dispatch(getMyVocaBooks( {userId : user.id}));
-  }, [data, dispatch, user.id]);
+    if(data) return;
+    dispatch(getMyVocaBooks({ userId: user.id }));
+  }, [dispatch,data,user.id]); // 의존성 배열에서는 user.id만을 추적
 
   if (loading && !data) return <CircleSpinner />;
   if (error) return <div>{error.message}</div>;
   
+  const onImport = () =>{
+    dispatch(getMyVocaBooks({ userId: user.id }));
+  }
+
   return (
     <MyVocaBooksContainerBlock>
       <br/>
-      <Title>나만의 단어장</Title>
+      <Title>
+        나만의 단어장
+        <span><Button variant="info" onClick={onImport}>불러오기</Button></span>
+      </Title>
       <hr />
       <div className="d-grid gap-2">
         <Button variant="outline-primary" onClick={onNavigate}>나만의 단어장 만들기</Button>
