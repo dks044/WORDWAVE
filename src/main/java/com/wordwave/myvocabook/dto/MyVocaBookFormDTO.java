@@ -1,22 +1,22 @@
 package com.wordwave.myvocabook.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 public class MyVocaBookFormDTO {
 	private String name;
-	private MultipartFile image;
+	private long userId;
 	
 	@Builder
-	MyVocaBookFormDTO(String name, MultipartFile image){
+	MyVocaBookFormDTO(String name,long userId){
 		this.name = name;
-		this.image = image;
+		this.userId = userId;
 	}
 }

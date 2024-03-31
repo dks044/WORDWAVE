@@ -32,4 +32,8 @@ public class MyVocaBookService {
 		
 		return response;
 	}
+	
+	public void create(MyVocaBook myVocaBook) {
+		myVocaBookRepository.save(myVocaBook);
+	}
 }

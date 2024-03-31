@@ -30,6 +30,7 @@ public class UserLearnPerformance {
     //종류(어떤것인지 : 보카, 그래머)
     // 1 : 보카
     // 2 : 그래머
+    // 3 : 사용자단어장
     private Integer learnType;
     
     //카테고리(챕터)
