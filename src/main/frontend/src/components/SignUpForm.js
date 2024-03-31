@@ -210,6 +210,7 @@ function SignUpForm() {
           </Form>
         </Col>
       </Row>
+      <br /><br /><br /><br /><br /><br />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title><ModalTitle>😥회원가입 오류</ModalTitle></Modal.Title>

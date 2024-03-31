@@ -5,6 +5,7 @@ import CircleSpinner from "../../components/CircleSpinner"
 import styled from "styled-components";
 import MyVocaBooks from "../../components/myVoca/MyVocaBooks";
 import { Badge, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 const MyVocaBooksContainerBlock = styled.div`
   padding: 10% 5% 10%;
   overflow-y: scroll;
@@ -23,6 +24,11 @@ function MyVocaBooksContainer(){
   const error = useSelector((state) => state.myVocaBook.myVocaBooks.error);
   const {user} = useSelector(state=>state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onNavigate = () =>{
+    navigate('/myvocabooks/create');
+  }
+
 
   useEffect(() => {
     if (data) return;
@@ -38,7 +44,7 @@ function MyVocaBooksContainer(){
       <Title>나만의 단어장</Title>
       <hr />
       <div className="d-grid gap-2">
-        <Button variant="outline-primary">나만의 단어장 만들기</Button>{' '}
+        <Button variant="outline-primary" onClick={onNavigate}>나만의 단어장 만들기</Button>
       </div>
       <MyVocaBooks myVocaBooks={data}/>
       <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
