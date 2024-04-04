@@ -19,3 +19,8 @@ export async function createMyVocaBookAPI(name, userId, imageFile) {
       }
   });
 }
+
+export async function getMyVocaBookAPI({myVocaBookId}){
+  const response = await axios.get(`/api/myvocabook/${myVocaBookId}`)
+  return response.data;
+}
