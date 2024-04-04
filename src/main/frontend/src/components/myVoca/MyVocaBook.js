@@ -131,6 +131,9 @@ function MyVocaBook({ myVocaBook }) {
           </Modal>
           </div>
         ))}
+        <div className="d-grid gap-2">
+          <Button variant="outline-primary">+</Button>
+        </div>
       </div>
     </>
   );

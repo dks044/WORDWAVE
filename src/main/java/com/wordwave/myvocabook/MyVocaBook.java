@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wordwave.myvoca.MyVoca;
 import com.wordwave.user.SiteUser;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class MyVocaBook {
     @ManyToOne
     private SiteUser user;
 	
-	@OneToMany(mappedBy = "myVocaBook")
+    @OneToMany(mappedBy = "myVocaBook", cascade = CascadeType.ALL) 
 	@JsonManagedReference
 	private List<MyVoca> myVocas = new ArrayList<>();
 	

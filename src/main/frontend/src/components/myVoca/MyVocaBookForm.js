@@ -60,6 +60,7 @@ function MyVocaBookForm(){
   
     await createMyVocaBookAPI(name, userId, fileName); 
     navigate('/myvocabooks');
+    dispatch(showPopup('나만의 단어장 생성이 완료됐습니다.'));
   }
 
 

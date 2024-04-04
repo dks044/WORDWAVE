@@ -35,7 +35,6 @@ public class VocaService {
 	                    .korWord(vocaDTO.getKorWord())
 	                    .engWord(vocaDTO.getEngWord())
 	                    .category(vocaDTO.getCategory())
-	                    .imgURL(vocaDTO.getImgURL())
 	                    .vocaBook(vocaBook)
 	                    .build();
 	    
@@ -55,7 +54,6 @@ public class VocaService {
 								.engWord(v.getEngWord())
 								.category(v.getCategory())
 								.vocaBookId(v.getVocaBook().getId())
-								.imgURL(v.getImgURL())
 								.hiddenEngWord(createhiddenEngWord(v.getEngWord()))
 								.quizStatus((int)(Math.random()*2)+1)
 								.randomEngWord(createRandomEngWord(vocas,vocaBookId,category,v.getEngWord()))

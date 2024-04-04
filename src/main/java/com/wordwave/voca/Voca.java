@@ -1,7 +1,5 @@
 package com.wordwave.voca;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.wordwave.vocabook.VocaBook;
@@ -32,15 +30,13 @@ public class Voca {
 	@ManyToOne
 	@JsonBackReference
 	private VocaBook vocaBook;
-	
-    private String imgURL;
+
     
     @Builder
     public Voca(String korWord, String engWord,String category, String imgURL,VocaBook vocaBook) {
     	this.korWord = korWord;
     	this.engWord = engWord;
     	this.category = category;
-    	this.imgURL = imgURL;
     	this.vocaBook = vocaBook;
     }
     
