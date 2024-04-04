@@ -62,4 +62,15 @@ public class MyVocaBookController {
 		}
 	}
 	
+	@GetMapping("{myVocaBookId}")
+	public ResponseEntity<?> getMyVocaBookDetail(@PathVariable("myVocaBookId") long myVocaBookId){
+		try {
+			return ResponseEntity.ok().body(myVocaBookService.getCategoriesOfMyVocaBook(myVocaBookId));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("VocaBook 불러오기 실패!");
+		}
+	}
+	
+	
 }

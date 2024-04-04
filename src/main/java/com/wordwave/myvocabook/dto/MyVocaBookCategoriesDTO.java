@@ -12,5 +12,6 @@ import lombok.Setter;
 @Builder
 public class MyVocaBookCategoriesDTO {
 	private Long id;
+	private String name;
 	private Set<String> categories = new HashSet<>();
 }
