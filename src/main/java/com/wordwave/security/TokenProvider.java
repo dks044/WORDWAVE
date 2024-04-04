@@ -14,6 +14,7 @@ import com.wordwave.user.UserRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -72,6 +73,7 @@ public class TokenProvider {
 				.setIssuer(ISSUER)
 				.setIssuedAt(new Date())
 				.setExpiration(expiryDate)
+				.claim("token_type", "refresh")
 				.signWith(secretKey,SignatureAlgorithm.HS512)
 				.compact();
 
@@ -81,4 +83,20 @@ public class TokenProvider {
 	    return refreshToken;
 	}
 	
+	public boolean validateRefreshToken(String token) {
+	    try {
+	        Claims claims = Jwts.parserBuilder()
+	                .setSigningKey(JWT_SECRET_KEY)
+	                .build()
+	                .parseClaimsJws(token)
+	                .getBody();
+
+	        // 리프레시 토큰임을 나타내는 'token_type' 클레임 검증
+	        String tokenType = claims.get("token_type", String.class);
+	        return "refresh".equals(tokenType);
+	    } catch (JwtException | IllegalArgumentException e) {
+	        log.error("Invalid JWT token", e);
+	        return false;
+	    }
+	}
 }

@@ -58,47 +58,47 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			}
 		}catch (ExpiredJwtException e) {
 		    logger.error("Token expired", e);
-		    String token = parseBearerToken(request);
-		    try {
-		        // 클라이언트로부터 사용자 식별 정보 받아오기 (예: 사용자 ID)
-		        String userId = tokenProvider.validateAndGetUserId(token);
-		        if (userId != null && !userId.isEmpty()) {
-		            // 서버에서 리프레시 토큰 검색
-		            String refreshToken = userRepository.findRefreshTokenById(Long.parseLong(userId));
-		            SiteUser user = userRepository.findById(Long.parseLong(userId)).get();
-		            
-		            if (refreshToken != null) {
-		                try {
-		                    // 새로운 액세스 토큰 생성 및 발급
-		                    String newToken = tokenProvider.create(user, response);
-		                    logger.info("New token issued");
+		    // 만료된 액세스 토큰으로부터 사용자 ID 추출
+		    String expiredTokenUserId = e.getClaims().getSubject();
 
-		                    // 새 토큰을 응답 헤더나 바디에 추가
-		                    response.setHeader("Authorization", "Bearer " + newToken);
-		                } catch (Exception re) {
-		                    logger.error("Invalid refresh token", re);
+		    if (expiredTokenUserId != null) {
+		        try {
+		            // 데이터베이스에서 사용자와 연관된 리프레시 토큰 조회
+		            SiteUser user = userRepository.findById(Long.parseLong(expiredTokenUserId)).orElse(null);
+		            if (user != null) {
+		                String refreshTokenFromDB = user.getRefreshToken(); 
+		                System.out.println("맛잇는 리프래쉬 토큰이 왔어요~"+refreshTokenFromDB);
+		                // 리프레시 토큰이 존재하며 유효한지 확인
+		                if (refreshTokenFromDB != null && tokenProvider.validateRefreshToken(refreshTokenFromDB)) {
+		                	System.out.println("// 리프레시 토큰이 존재하며 유효한지 확인");
+		                    // 새로운 액세스 토큰 생성 및 발급
+		                    String newAccessToken = tokenProvider.create(user, response);
+//		                    logger.info("New token issued");
+//		                    response.setHeader("Authorization", "Bearer " + newAccessToken);
+		    		        Cookie cookie = new Cookie("token", newAccessToken);
+		    		        cookie.setHttpOnly(true);
+		    		        response.addCookie(cookie);
+		    		        System.out.println("맛잇는 쿠키 왔어요~"+cookie);
+		                    // TODO:필요하다면 새로운 리프레시 토큰도 발급하고 데이터베이스 업데이트
+		                } else {
 		                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		                    response.getWriter().write("{\"error\": \"Invalid refresh token\"}");
+		                    response.getWriter().write("{\"error\": \"Invalid or expired refresh token\"}");
 		                    return;
 		                }
-		            } else {
-		                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		                response.getWriter().write("{\"error\": \"Refresh token is missing\"}");
-		                return;
 		            }
-		        } else {
+		        } catch (Exception re) {
+		            logger.error("Could not refresh token", re);
 		            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		            response.getWriter().write("{\"error\": \"User identification is missing\"}");
+		            response.getWriter().write("{\"error\": \"Could not refresh token\"}");
 		            return;
 		        }
-
-		    } catch (Exception re) {
-		        logger.error("Could not refresh token", re);
+		    } else {
 		        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		        response.getWriter().write("{\"error\": \"Could not refresh token\"}");
+		        response.getWriter().write("{\"error\": \"User identification is missing\"}");
 		        return;
 		    }
-		}catch (Exception e) {
+		}
+		catch (Exception e) {
 		    logger.error("Could not set user authentication in security context", e);
 		}
 		
