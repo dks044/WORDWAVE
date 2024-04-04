@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { FaBook } from "react-icons/fa6";
 import { FaSpellCheck } from "react-icons/fa";
 import { FaMarker } from "react-icons/fa";
+import { FaDiscord } from "react-icons/fa";
+
+
 
 const CircleButton = styled.button`
   //스타일
@@ -78,7 +81,7 @@ const CircleMenu = styled.div`
 
 const GrammarLink = styled(Link)`
   //스타일
-  color: black;
+  color: #000080;
   text-decoration: none;
   display: flex;
   flex-direction: column;
@@ -92,7 +95,7 @@ const GrammarLink = styled(Link)`
   position: absolute;
   left: 50%;
   top: 5%;
-  transform: translateX(-50%);
+  transform: translateX(-48%);
   transition: 0.35s all ease-in-out;
   &:hover {
     color: #54535a;
@@ -105,7 +108,7 @@ const GrammarLink = styled(Link)`
 
 const VocaLink = styled(Link)`
   //스타일
-  color: black;
+  color: #000080;
   text-decoration: none;
   font-weight: bolder;
   display: flex;
@@ -117,9 +120,9 @@ const VocaLink = styled(Link)`
   height: 100px;
   //다이얼 메뉴내 GrammaarLink의 위치
   position: absolute;
-  left: 60%;
-  top: 15%;
-  transform: rotate( 45deg );
+  left: 65%;
+  top: 33%;
+  transform: rotate( 90deg );
   transition: 0.35s all ease-in-out;
   &:hover {
     color: #54535a;
@@ -131,7 +134,7 @@ const VocaLink = styled(Link)`
 
 const MyVocaLink = styled(Link)`
   //스타일
-  color: black;
+  color: #000080;
   text-decoration: none;
   font-weight: bolder;
   display: flex;
@@ -144,8 +147,34 @@ const MyVocaLink = styled(Link)`
   //다이얼 메뉴내 GrammaarLink의 위치
   position: absolute;
   left: 3%;
-  top: 18%;
-  transform: rotate( -40deg );
+  top: 33%;
+  transform: rotate( -90deg );
+  transition: 0.35s all ease-in-out;
+  &:hover {
+    color: #54535a;
+  }
+  &:active {
+    color: #2c2b2d;
+  }
+`;
+
+const Discord = styled.a`
+  //스타일
+  color: #000080;
+  text-decoration: none;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //사이즈 설정
+  width: 100px;
+  height: 100px;
+  //다이얼 메뉴내 GrammaarLink의 위치
+  position: absolute;
+  left: 34%;
+  top: 65%;
+  transform: rotate( -180deg );
   transition: 0.35s all ease-in-out;
   &:hover {
     color: #54535a;
@@ -182,6 +211,12 @@ function DialMenu() {
             <FaMarker size={50}/>
             MY VOCA
           </MyVocaLink>
+        )}
+        {open && (
+          <Discord href="https://discord.gg/WCbzvzZst7" onClick={onToggle} open={open} target="_blank" rel="noopener noreferrer">
+            <FaDiscord size={50}/>
+            DISCORD
+          </Discord>
         )}
       </CircleMenu>
       <CircleButton onClick={onToggle} open={open}>
