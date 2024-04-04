@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Alert, Button, FloatingLabel, Form } from "react-bootstrap";
 import styled from "styled-components";
+import {createMyVocaBookAPI} from "../../api/myVocaAPI"
+import { useDispatch, useSelector } from "react-redux";
+import { showPopup } from "../../modules/popup";
+import { useNavigate } from "react-router-dom";
 
 const Title = styled.h1`
   font-weight: bolder;
@@ -10,9 +14,22 @@ const Title = styled.h1`
 function MyVocaBookForm(){
   const [fileError, setFileError] = useState(""); // 파일 에러 상태메시지
   const [isFileError,setIsFileError] = useState(false) //파일 에러 유무 
+  const [fileName, setFileName] = useState();
+
+  const {user} = useSelector(state=>state.auth);
+  const [name, setName] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleNameChange = (e) => {
+    setName(e.target.value); // 사용자 입력에 따라 name 상태 업데이트
+  };
+  
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0]; 
+    const file = e.target.files[0];
+    setFileName(file);
     if (file) {
       // 파일 크기 검증
       if (file.size > 2 * 1024 * 1024) { // 2MB 이상인 경우
@@ -31,6 +48,21 @@ function MyVocaBookForm(){
     }
   };
 
+  const handleSubMit = async (event) => {
+    event.preventDefault(); 
+  
+    var userId = user.id;
+  
+    if(!name){
+      dispatch(showPopup('이름은 필수입력 입니다!'));
+      return;
+    }
+  
+    await createMyVocaBookAPI(name, userId, fileName); 
+    navigate('/myvocabooks');
+  }
+
+
   return(
     <>
       <br /><br /><br /><br />
@@ -43,7 +75,7 @@ function MyVocaBookForm(){
               label="단어장 이름 입력!"
               className="mb-3"
             >
-              <Form.Control type="text" placeholder="나만의 단어장 이름을 입력하세요" name="name" maxlength='10'/>
+              <Form.Control onChange={handleNameChange} type="text" placeholder="나만의 단어장 이름을 입력하세요" name="name" maxlength='10'/>
           </FloatingLabel>
           <Form.Group controlId="formFileLg" className="mb-3">
             <Form.Label>썸네일 이미지 입력</Form.Label>
@@ -51,7 +83,7 @@ function MyVocaBookForm(){
             {fileError && <Alert variant="danger">{fileError}</Alert>} {/* 에러 메시지 표시 */}
           </Form.Group>
           <div className="d-grid gap-2">
-            <Button variant="outline-primary" type="submit">만들기</Button>
+            <Button onClick={handleSubMit} variant="outline-primary" type="submit">만들기</Button>
           </div>
         </Form>
       </div>

@@ -68,7 +68,7 @@ public class MyVocaBookController {
 			return ResponseEntity.ok().body(myVocaBookService.getCategoriesOfMyVocaBook(myVocaBookId));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest().body("VocaBook 불러오기 실패!");
+			return ResponseEntity.badRequest().body("MyVocaBook 불러오기 실패!");
 		}
 	}
 	
