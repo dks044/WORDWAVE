@@ -102,8 +102,8 @@ export default function MyPageComponent(){
       setLoading(true); //로딩시작
       await dispatch(deleteUser(email,password));
       await dispatch(logout());
-      navigate('/');
-      await dispatch(showPopup('계정 탈퇴가 완료됐습니다, 이후에 또 만나길 바랍니다!😎'))
+      await dispatch(showPopup('계정 탈퇴가 완료됐습니다, 이후에 또 만나길 바랍니다!😎'));
+      window.location.href = '/';
     } catch (error) {
       await dispatch(showPopup('입력하신 비밀번호와 이메일이 회원정보와 일치하지 않습니다.'));
       return;

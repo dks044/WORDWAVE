@@ -43,8 +43,8 @@ public class MyVocaBookService {
 	}
 	
 	
-	public MyVocaBookCategoriesDTO getCategoriesOfMyVocaBook(long myVocaBookId) {
-		List<String> categories = myVocaBookRepository.findCategoriesByMyVocaBookId(myVocaBookId);
+	public MyVocaBookCategoriesDTO getCategoriesOfMyVocaBook(long myVocaBookId,long userId) {
+		List<String> categories = myVocaBookRepository.findCategoriesByMyVocaBookIdAndUserId(myVocaBookId, userId);
 		Set<String> distinctCategories = new HashSet<>();
 		for(String category : categories) distinctCategories.add(category);
 		String name = myVocaBookRepository.findById(myVocaBookId).get().getName();

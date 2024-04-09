@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wordwave.myvocabook.MyVocaBook;
 import com.wordwave.user.userLearnPerformance.UserLearnPerformance;
 
 import jakarta.persistence.CascadeType;
@@ -64,6 +65,9 @@ public class SiteUser {
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserLearnPerformance> performances = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MyVocaBook> myVocaBooks = new ArrayList<>();
     
     public void changePassword(String newPassword) {
         this.password = newPassword;

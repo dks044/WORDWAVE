@@ -12,7 +12,9 @@ public interface MyVocaBookRepository extends JpaRepository<MyVocaBook, Long>{
 	List<MyVocaBook> findAllByUser(SiteUser user);
 	
 	@Query("select mv.category "
-			+"from MyVoca mv "
-			+ "where mv.myVocaBook.id = :myVocaBookId")
-    List<String> findCategoriesByMyVocaBookId(@Param("myVocaBookId") long myVocaBookId);
+		       + "from MyVoca mv "
+		       + "join mv.myVocaBook mvb "
+		       + "where mvb.id = :myVocaBookId and mvb.user.id = :userId")
+		List<String> findCategoriesByMyVocaBookIdAndUserId(@Param("myVocaBookId") long myVocaBookId, @Param("userId") long userId);
+
 }

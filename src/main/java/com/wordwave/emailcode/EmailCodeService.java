@@ -25,4 +25,8 @@ public class EmailCodeService {
 		return emailCodeRepository.existsByEmail(email);
 	}
 	
+	public void delete(String email) {
+		EmailCode emailCode = emailCodeRepository.findByEmail(email);
+		emailCodeRepository.delete(emailCode);
+	}
 }

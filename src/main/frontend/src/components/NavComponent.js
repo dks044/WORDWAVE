@@ -100,7 +100,6 @@ function NavComponent(){
 
 
   const { isLoging, user} = useSelector(state=>state.auth);
-
   //Modal(로그아웃)
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -133,7 +132,7 @@ function NavComponent(){
       dispatch(logout());
       setShow(false);
       setOnLogout(false);
-      navigate('/');
+      window.location.href = '/';
     }
   },[onLogout,show]);
 

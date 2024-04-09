@@ -31,7 +31,7 @@ public class MyVocaBook {
 	
 	private String name;
 	
-    @ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
     private SiteUser user;
 	
     @OneToMany(mappedBy = "myVocaBook", cascade = CascadeType.ALL) 

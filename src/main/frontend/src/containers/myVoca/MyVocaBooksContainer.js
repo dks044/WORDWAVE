@@ -30,6 +30,11 @@ function MyVocaBooksContainer(){
     navigate('/myvocabooks/create');
   }
 
+  
+  useEffect(() => {
+    dispatch(getMyVocaBooks({ userId: user.id }));
+  },[]);
+
 
   useEffect(() => {
     if(data) return;

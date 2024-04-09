@@ -18,6 +18,8 @@ import com.wordwave.user.UserService;
 import com.wordwave.util.ResponseDTO;
 
 import groovy.util.logging.Slf4j;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Slf4j
@@ -64,14 +66,27 @@ public class MyVocaBookController {
 	}
 	
 	@GetMapping("{myVocaBookId}")
-	public ResponseEntity<?> getMyVocaBookDetail(@PathVariable("myVocaBookId") long myVocaBookId){
+	public ResponseEntity<?> getMyVocaBookDetail(HttpServletRequest request,
+												 @PathVariable("myVocaBookId") long myVocaBookId
+												 ){
 		try {
-			return ResponseEntity.ok().body(myVocaBookService.getCategoriesOfMyVocaBook(myVocaBookId));
+			String token = userService.getTokenFromRequest(request);
+			System.out.println(token);
+			long userId = -1;
+			if(token !=null) {
+				userId = userService.getUserIdFromJwt(token);
+				System.out.println(userId);
+			}
+			if(token == null) {
+				return ResponseEntity.badRequest().body("잘못된 요청");
+			}
+			return ResponseEntity.ok().body(myVocaBookService.getCategoriesOfMyVocaBook(myVocaBookId, userId));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("MyVocaBook 불러오기 실패!");
 		}
 	}
+	
 	//myVocaBook 업데이트 폼 활용
 	@GetMapping("get/{myVocaBookId}")
 	public ResponseEntity<?> getMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId){

@@ -114,16 +114,16 @@ public class UserService {
 	}
 	//쿠키에서 토큰을 가져온다.
 	public String getTokenFromRequest(HttpServletRequest request) {
+	    // 쿠키에서 토큰 가져오기
 	    Cookie[] cookies = request.getCookies();
-	    if (cookies == null) throw new RuntimeException("cookies is empty");
-	    String token = null;
-	    for (Cookie cookie : cookies) {
-	        if (cookie.getName().equals("token")) {
-	            token = cookie.getValue();
-	            break;
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if (cookie.getName().equals("token")) {
+	                return cookie.getValue();
+	            }
 	        }
 	    }
-	    return token;
+	    return null;
 	}
 	
 	public void deleteUser(SiteUser user) {

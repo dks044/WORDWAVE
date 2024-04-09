@@ -81,7 +81,7 @@ function App() {
           <Route path="myvocabooks" element={isLoging ? <MyVocaBooksPage /> : <Navigate to="/login" />} />
           <Route path="myvocabooks/create" element={isLoging ? <MyVocaBookFormPage /> : <Navigate to="/login" />} />
           <Route path="myvocabooks/update/:myVocaBookId/" element={isLoging ? <MyVocaBookUpdateFormPage /> : <Navigate to="/login" />} />
-          <Route path="myvocabooks/:myVocaBookId/" 
+          <Route path="myvocabooks/:myVocaBookId" 
           element={isLoging ? <MyVocaBookPage /> : <Navigate to="/login" />}/>
         </Route>
       </Routes>

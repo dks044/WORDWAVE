@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
 import styled, { css } from "styled-components";
 import { FaPencilAlt } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 
 const CloseButtonContainer = styled.div`
   position: absolute;
@@ -17,6 +18,10 @@ const UpdateButtonContainer = styled.div`
 
 function MyVocaBooks({myVocaBooks})  {
   const navigate = useNavigate();
+  const {user} = useSelector(state=>state.auth);
+  const onClickToDelete = (myVocaBookId) =>{
+    
+  }
 
   const onClickToUpdate = (myVocaBookId) =>{
     console.log('이동!');

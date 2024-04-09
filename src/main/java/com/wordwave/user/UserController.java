@@ -287,11 +287,13 @@ public class UserController {
 	public ResponseEntity<?> deleteUser(HttpServletRequest request, @RequestBody MyPageDTO myPageDTO){
 		try {
 			String token = userService.getTokenFromRequest(request);
+			System.out.println(token);
 			SiteUser user = userService.getByUserId(userService.getUserIdFromJwt(token));
 			if(!user.getEmail().equals(myPageDTO.getEmail()) || !passwordEncoder.matches(myPageDTO.getPassword(), user.getPassword())) {
 				return ResponseEntity.status(401).body("입력한 비밀번호와 이메일이 가입 정보와 다릅니다.");
 			}
 			userService.deleteUser(user);
+			emailCodeService.delete(user.getEmail());
 			return ResponseEntity.ok().body(user.getId()+"<= user deleted.");
 		} catch (JwtException e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
