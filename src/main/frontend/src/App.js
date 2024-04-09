@@ -20,20 +20,14 @@ import VocaPage from "./pages/voca/VocaPage";
 import MyVocaBooksPage from "./pages/myVoca/MyVocaBooksPage";
 import MyVocaBookFormPage from "./pages/myVoca/MyVocaBookFormPage";
 import MyVocaBookPage from "./pages/myVoca/MyVocaBookPage"
+import MyVocaBookUpdateFormPage from "./pages/myVoca/MyVocaBookUpdateFormPage";
 
 function App() {
   //authenticated
   const { isLoging } = useSelector(state=>state.auth);
-  console.log(isLoging);
   const {isOpen, message} = useSelector(state=>state.popup);
   const dispatch = useDispatch();
   console.log(isLoging);
-
-  useEffect(() => {
-      console.log('check the user..');
-      dispatch(isLoggedIn());
-  }, [dispatch,isLoging]);
-
   //authenticated
   //toast
   const [show, setShow] = useState(false);
@@ -86,6 +80,7 @@ function App() {
           {/* MyVoca */}
           <Route path="myvocabooks" element={isLoging ? <MyVocaBooksPage /> : <Navigate to="/login" />} />
           <Route path="myvocabooks/create" element={isLoging ? <MyVocaBookFormPage /> : <Navigate to="/login" />} />
+          <Route path="myvocabooks/update/:myVocaBookId/" element={isLoging ? <MyVocaBookUpdateFormPage /> : <Navigate to="/login" />} />
           <Route path="myvocabooks/:myVocaBookId/" 
           element={isLoging ? <MyVocaBookPage /> : <Navigate to="/login" />}/>
         </Route>

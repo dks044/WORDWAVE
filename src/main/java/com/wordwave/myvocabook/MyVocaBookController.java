@@ -1,6 +1,7 @@
 package com.wordwave.myvocabook;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,6 +72,25 @@ public class MyVocaBookController {
 			return ResponseEntity.badRequest().body("MyVocaBook 불러오기 실패!");
 		}
 	}
-	
+	//myVocaBook 업데이트 폼 활용
+	@GetMapping("get/{myVocaBookId}")
+	public ResponseEntity<?> getMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId){
+		try {
+			return ResponseEntity.ok().body(myVocaBookService.getMyVocaBookById(myVocaBookId));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("MyVocaBook 불러오기 실패!");
+		}
+	}
+	@DeleteMapping("delete/{myVocaBookId}")
+	public ResponseEntity<?> deleteMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId){
+		try {
+			myVocaBookService.delete(myVocaBookId);
+			return ResponseEntity.ok().body("해당 myVocaBook 제거 완료.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("MyVocaBook 삭제 실패!");
+		}
+	}
 	
 }

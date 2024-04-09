@@ -33,12 +33,28 @@ function* fetchMyVocaBookSaga(action){
     });
   }
 }
-
+function* fetchMyVocaBookOneSaga(action){
+  try {
+    const myVocaBookOne = yield call(myVocaAPI.getOneMyVocaBookAPI,action.payload);
+    yield put ({
+      type: "myVocaBook/getMyVocaBookOneSuccess",
+      payload : myVocaBookOne
+    });
+    
+  } catch (e) {
+    yield put({
+      type: "myVocaBook/getMyVocaBookOneError",
+      error: true,
+      payload: e.message,
+    });
+  }
+}
 
 
 function* myVocaBookSaga() {
   yield takeEvery("myVocaBook/getMyVocaBooks", fetchMyVocaBooksSaga);
   yield takeEvery("myVocaBook/getMyVocaBook", fetchMyVocaBookSaga);
+  yield takeEvery("myVocaBook/getMyVocaBookOne",fetchMyVocaBookOneSaga)
 }
 
 export default myVocaBookSaga;

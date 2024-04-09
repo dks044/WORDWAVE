@@ -1,14 +1,39 @@
 import React from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import CloseButton from 'react-bootstrap/CloseButton';
+import styled, { css } from "styled-components";
+import { FaPencilAlt } from "react-icons/fa";
+
+const CloseButtonContainer = styled.div`
+  position: absolute;
+  left: 91%;
+`
+const UpdateButtonContainer = styled.div`
+  position: absolute;
+  left: 85%;
+  cursor: pointer;
+`
 
 function MyVocaBooks({myVocaBooks})  {
   const navigate = useNavigate();
+
+  const onClickToUpdate = (myVocaBookId) =>{
+    console.log('이동!');
+    navigate(`/myvocabooks/update/${myVocaBookId}`);
+  }
+
   return (
     <>
       {myVocaBooks && myVocaBooks.map((myVocaBook) => (
       <Container key={myVocaBook.id} className="d-flex justify-content-center mt-3">
         <Card key={myVocaBook.id} style={{ width: '18rem' }} border="info" className="text-center">
+        <CloseButtonContainer>
+          <CloseButton />
+        </CloseButtonContainer>
+        <UpdateButtonContainer>
+          <FaPencilAlt onClick={() => onClickToUpdate(myVocaBook.id)}/>
+        </UpdateButtonContainer>
           {myVocaBook.imageURL && (
             <Card.Img variant="top" src={myVocaBook.imageURL} />
           )}

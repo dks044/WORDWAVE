@@ -8,9 +8,9 @@ export async function logoutApi(){
   return await axios.post('/api/auth/signout');
 }
 
-export async function validateTokenApi(){
-  return await axios.post('/api/auth/validateToken');
-}
+// export async function validateTokenApi(){
+//   return await axios.post('/api/auth/validateToken');
+// }
 
 export async function signupApi(userName,password,email,phoneNumber){
   return await axios.post('/api/auth/signup',{userName,password,email,phoneNumber})

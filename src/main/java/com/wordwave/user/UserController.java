@@ -133,41 +133,38 @@ public class UserController {
 	}
 	
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticate(
-	        @RequestBody UserDTO userDTO,
-	        HttpServletResponse response
-	        ){
-	    SiteUser user = userService.getByUserName(userDTO.getUserName());
-	    try {
-		    if(user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
-		        final String token = tokenProvider.create(user,response);
-		        final String refreshToken = tokenProvider.createRefreshToken(user);
-		        final UserDTO responseDTO = UserDTO.builder()
-		                .userName(user.getUserName())
-		                .email(user.getEmail())
-		                //.phoneNumber(user.getPhoneNumber()) 보류
-		                .consecutiveLearningDays(user.getConsecutiveLearningDays())
-		                .createUserDate(user.getCreateUserDate())
-		                .id(user.getId())
-		                .build();
-		        Cookie cookie = new Cookie("token", token);
-		        cookie.setHttpOnly(true);
-		        response.addCookie(cookie);
-		        userService.setLoginTimeStamp(user); //로그인 타임스탬프
-		        userService.calculateConsecutiveLearningDays(user); //로그인 타임스탬프와 마지막 학습이력 계산 후 연속학습일 할당
-		        return ResponseEntity.ok().body(responseDTO);
-		    }
-		} catch (Exception e) {
-			System.out.println("오류발생 : "+e.getMessage());
-			e.printStackTrace();
-	        ResponseDTO responseDTO = ResponseDTO.builder()
-	                .error("Login Failed")
-	                .build();
-	        log.info("utf-8", responseDTO.getError(), responseDTO);
-	        return ResponseEntity.badRequest().body(responseDTO);
-		}
-		return null;
+	public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO, HttpServletResponse response){
+		SiteUser user = userService.getByUserName(userDTO.getUserName());
+	    if (user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
+	        try {
+	            final String token = tokenProvider.create(user, response);
+	            final String refreshToken = tokenProvider.createRefreshToken(user);
+	            final UserDTO responseDTO = UserDTO.builder()
+	                    .userName(user.getUserName())
+	                    .email(user.getEmail())
+	                    // .phoneNumber(user.getPhoneNumber()) 보류
+	                    .consecutiveLearningDays(user.getConsecutiveLearningDays())
+	                    .createUserDate(user.getCreateUserDate())
+	                    .id(user.getId())
+	                    .build();
+	            Cookie cookie = new Cookie("token", token);
+	            cookie.setHttpOnly(true);
+	            response.addCookie(cookie);
+	            userService.setLoginTimeStamp(user); //로그인 타임스탬프
+	            userService.calculateConsecutiveLearningDays(user); //로그인 타임스탬프와 마지막 학습이력 계산 후 연속학습일 할당
+	            return ResponseEntity.ok().body(responseDTO);
+	        } catch (Exception e) {
+	            System.out.println("오류발생 : " + e.getMessage());
+	            e.printStackTrace();
+	            log.error(e.getMessage());
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류"
+	            		+ e.getMessage());
+	        }
+	    } else {
+	        return ResponseEntity.status(401).body("인증 실패");
+	    }
 	}
+
 	
 	@PostMapping("/signout")
 	public ResponseEntity<?> signOut(HttpServletResponse response){
@@ -208,6 +205,12 @@ public class UserController {
 		} catch (JwtException e) {
 			ResponseDTO responseDTO = ResponseDTO.builder()
 					.error("Token is invalid")
+					.build();
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(responseDTO);
+		} catch (Exception e) {
+			ResponseDTO responseDTO = ResponseDTO.builder()
+					.error(e.getMessage())
 					.build();
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(responseDTO);

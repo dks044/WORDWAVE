@@ -3,6 +3,7 @@ package com.wordwave.myvocabook;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -55,5 +56,30 @@ public class MyVocaBookService {
 		return myVocaBookCategoriesDTO;
 	}
 	
+	
+	public MyVocaBookDTO getMyVocaBookById(long myVocaBookId) {
+		Optional<MyVocaBook> validateMb = myVocaBookRepository.findById(myVocaBookId);
+		
+		if(validateMb != null) {
+			MyVocaBookDTO mb = MyVocaBookDTO.builder()
+											.id(validateMb.get().getId())
+											.name(validateMb.get().getName())
+											.imageURL(validateMb.get().getImageURL())
+											.build();
+			return mb;
+		}else {
+			throw new RuntimeException("유효하지 않은 myVocaBookId 입니다.");
+		}
+	}
+	
+	public void delete(long myVocaBookId) {
+	    Optional<MyVocaBook> validateMb = myVocaBookRepository.findById(myVocaBookId);
+	    if(validateMb.isPresent()) { // Optional 객체의 존재 유무를 올바르게 확인
+	        myVocaBookRepository.delete(validateMb.get());
+	    } else {
+	        throw new RuntimeException("유효하지 않은 myVocaBookId 입니다.");
+	    }
+	}
+
 	
 }

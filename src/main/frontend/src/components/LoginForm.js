@@ -63,11 +63,13 @@ export default function LoginForm(){
     try {
       await dispatch(login(userName,password));
       navigate(-1); 
-    } catch (error) {
-      console.error('로그인 실패:', error);
-      setValidLogin(true);
+    } catch (e) {
+      if(e.response && e.response.status === 401){
+        setValidLogin(true);
+      }
     }
   };
+  
   const [emailForFindId, setEmailForFindId] = useState('');
   const [userNameForFindPw, setUserNameForFindPw] = useState('');
   const [emailForFindPw, setEmailForFindPw] = useState('');

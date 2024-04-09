@@ -73,23 +73,23 @@ export const logout = () => async dispatch => {
   }
 };
 
-export const isLoggedIn = () => async dispatch => {
-  dispatch({ type : IS_LOGGED_IN });
-  try {
-    const response = await authAPI.validateTokenApi();
-    dispatch({ type : IS_LOGGED_IN_SUCCESS, payload: response.data});
-    console.log('validate success');
-    return response.data;
-  } catch (e) {
-    if (e.response && e.response.status === 401) {//비로그인 사용자 예외처리 및 토큰 예외처리
-      dispatch({ type: LOGOUT });
-      console.log('비로그인 사용자임(토큰없음)');
-    } else {
-      dispatch({ type : IS_LOGGED_IN_FAILURE, error: e});
-      throw e;
-    }
-  }
-}
+// export const isLoggedIn = () => async dispatch => {
+//   dispatch({ type : IS_LOGGED_IN });
+//   try {
+//     const response = await authAPI.validateTokenApi();
+//     dispatch({ type : IS_LOGGED_IN_SUCCESS, payload: response.data});
+//     console.log('validate success');
+//     return response.data;
+//   } catch (e) {
+//     if (e.response && e.response.status === 401) {//비로그인 사용자 예외처리 및 토큰 예외처리
+//       dispatch({ type: LOGOUT });
+//       console.log('비로그인 사용자임(토큰없음)');
+//     } else {
+//       dispatch({ type : IS_LOGGED_IN_FAILURE, error: e});
+//       throw e;
+//     }
+//   }
+// }
 
 export const signUp = (userName,password,email,phoneNumber) => async dispatch => {
   dispatch({type : SIGNUP});
@@ -216,13 +216,13 @@ export default function auth(state = initialState, action) {
         user: reducerUtils.initial(),
         auth: reducerUtils.initial()
       };
-    case IS_LOGGED_IN:
-    case IS_LOGGED_IN_SUCCESS:
-    case IS_LOGGED_IN_FAILURE:
-      return {
-        ...handleAsyncActions(IS_LOGGED_IN, 'auth')(state, action),
-        isLoging: action.type === IS_LOGGED_IN_SUCCESS ? true : state.isLoging,
-      };
+    // case IS_LOGGED_IN:
+    // case IS_LOGGED_IN_SUCCESS:
+    // case IS_LOGGED_IN_FAILURE:
+    //   return {
+    //     ...handleAsyncActions(IS_LOGGED_IN, 'auth')(state, action),
+    //     isLoging: action.type === IS_LOGGED_IN_SUCCESS ? true : state.isLoging,
+    //   };
     case SIGNUP:
     case SIGNUP_SUCCESS:
     case SIGNUP_FAILURE:

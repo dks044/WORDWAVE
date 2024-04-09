@@ -115,6 +115,7 @@ public class UserService {
 	//쿠키에서 토큰을 가져온다.
 	public String getTokenFromRequest(HttpServletRequest request) {
 	    Cookie[] cookies = request.getCookies();
+	    if (cookies == null) throw new RuntimeException("cookies is empty");
 	    String token = null;
 	    for (Cookie cookie : cookies) {
 	        if (cookie.getName().equals("token")) {
@@ -122,7 +123,6 @@ public class UserService {
 	            break;
 	        }
 	    }
-	    if(cookies == null) throw new RuntimeException("cookies is empty");
 	    return token;
 	}
 	

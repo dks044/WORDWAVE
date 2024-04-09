@@ -4,6 +4,7 @@ import { reducerUtils } from "../../lib/asyncUtils";
 const initialState = {
   myVocaBooks : reducerUtils.initial(),
   myVocaBook : reducerUtils.initial(),
+  myVocaBookOne : reducerUtils.initial(),
 }
 
 const myVocaBookSlice = createSlice({
@@ -34,6 +35,18 @@ const myVocaBookSlice = createSlice({
       ...state,
       myVocaBook: reducerUtils.error(action.error),
     }),
+    getMyVocaBookOne: (state) => ({
+      ...state,
+      myVocaBookOne: reducerUtils.loading(),
+    }),
+    getMyVocaBookOneSuccess: (state, action) => ({
+      ...state,
+      myVocaBookOne: reducerUtils.success(action.payload),
+    }),
+    getMyVocaBookOneError: (state, action) => ({
+      ...state,
+      myVocaBookOne: reducerUtils.error(action.error),
+    }),
 
 }})
 
@@ -43,7 +56,10 @@ export const {
   getMyVocaBooksError,
   getMyVocaBook,
   getMyVocaBookSuccess,
-  getMyVocaBookError
+  getMyVocaBookError,
+  getMyVocaBookOne,
+  getMyVocaBookOneSuccess,
+  getMyVocaBookOneError
 } = myVocaBookSlice.actions;
 
 export default myVocaBookSlice.reducer;

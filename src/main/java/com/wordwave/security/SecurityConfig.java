@@ -25,7 +25,9 @@ public class SecurityConfig {
     
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
-
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
@@ -41,8 +43,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                     .requestMatchers("/", "/api/**").permitAll()
                     .anyRequest().authenticated());
-        
-        http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);
+
+        http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class)
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(customAuthenticationEntryPoint));
         
         return http.build();
     }
