@@ -20,9 +20,11 @@ export async function createMyVocaBookAPI(name, userId, imageFile) {
   });
 }
 
-//myVocaBook의 디테일(카테고리들)
+// myVocaBook의 디테일(카테고리들)을 가져오는 API
 export async function getMyVocaBookAPI({myVocaBookId}){
-  const response = await axios.get(`/api/myvocabook/${myVocaBookId}`)
+  const response = await axios.get(`/api/myvocabook/${myVocaBookId}`, {
+    withCredentials: true // 쿠키를 요청과 함께 전송하기 위한 설정
+  });
   return response.data;
 }
 

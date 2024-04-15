@@ -32,8 +32,6 @@ public class SiteUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private String token;
-	
     @Column(length = 512)
     private String refreshToken;
 	

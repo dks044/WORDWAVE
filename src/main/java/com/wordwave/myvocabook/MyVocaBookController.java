@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wordwave.aws.S3Service;
 import com.wordwave.myvocabook.dto.MyVocaBookFormDTO;
+import com.wordwave.security.Key;
+import com.wordwave.security.TokenProvider;
 import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserService;
 import com.wordwave.util.ResponseDTO;
@@ -66,12 +68,13 @@ public class MyVocaBookController {
 	}
 	
 	@GetMapping("{myVocaBookId}")
-	public ResponseEntity<?> getMyVocaBookDetail(HttpServletRequest request,
-												 @PathVariable("myVocaBookId") long myVocaBookId
+	public ResponseEntity<?> getMyVocaBookDetail(
+												 @PathVariable("myVocaBookId") long myVocaBookId,
+												 HttpServletRequest request
 												 ){
+		String token = userService.getTokenFromRequest(request);
+		System.out.println(token);
 		try {
-			String token = userService.getTokenFromRequest(request);
-			System.out.println(token);
 			long userId = -1;
 			if(token !=null) {
 				userId = userService.getUserIdFromJwt(token);

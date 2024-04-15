@@ -67,7 +67,7 @@ public class MyVocaTest {
 //		myVocaRepository.save(myVoca);
 		
 		
-		List<String> list = myVocaBookRepository.findCategoriesByMyVocaBookId(4);
+		List<String> list = myVocaBookRepository.findCategoriesByMyVocaBookIdAndUserId(TEST_USER_ID, TEST_USER_ID);
 		// 결과 검증
 		assertThat(list).isNotNull();
 		assertThat(list).hasSize(1); // 저장한 데이터가 정확히 1개인지 검증
