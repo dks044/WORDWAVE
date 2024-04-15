@@ -15,12 +15,13 @@ function MyVocaBookContainer( {myVocaBookId} ){
   const loading = useSelector((state) => state.myVocaBook.myVocaBook.loading);
   const data = useSelector((state) => state.myVocaBook.myVocaBook.data);
   const error = useSelector((state) => state.myVocaBook.myVocaBook.error);
+  const {user} = useSelector(state=>state.auth);
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(getMyVocaBook({myVocaBookId}));
+    dispatch(getMyVocaBook({myVocaBookId,userId:user.id}));
 
-  },[dispatch,myVocaBookId])
+  },[dispatch,myVocaBookId,user])
 
   if (loading && !data) return <CircleSpinner />;
 

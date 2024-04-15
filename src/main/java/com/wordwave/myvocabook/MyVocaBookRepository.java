@@ -11,10 +11,8 @@ import com.wordwave.user.SiteUser;
 public interface MyVocaBookRepository extends JpaRepository<MyVocaBook, Long>{
 	List<MyVocaBook> findAllByUser(SiteUser user);
 	
-	@Query("select mv.category "
-		       + "from MyVoca mv "
-		       + "join mv.myVocaBook mvb "
-		       + "where mvb.id = :myVocaBookId and mvb.user.id = :userId")
-		List<String> findCategoriesByMyVocaBookIdAndUserId(@Param("myVocaBookId") long myVocaBookId, @Param("userId") long userId);
+	MyVocaBook findByIdAndUser(long id,SiteUser user);
+
+
 
 }

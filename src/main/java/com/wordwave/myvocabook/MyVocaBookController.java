@@ -67,22 +67,12 @@ public class MyVocaBookController {
 		}
 	}
 	
-	@GetMapping("{myVocaBookId}")
+	@GetMapping("{myVocaBookId}/{userId}")
 	public ResponseEntity<?> getMyVocaBookDetail(
 												 @PathVariable("myVocaBookId") long myVocaBookId,
-												 HttpServletRequest request
+												 @PathVariable("userId") long userId
 												 ){
-		String token = userService.getTokenFromRequest(request);
-		System.out.println(token);
 		try {
-			long userId = -1;
-			if(token !=null) {
-				userId = userService.getUserIdFromJwt(token);
-				System.out.println(userId);
-			}
-			if(token == null) {
-				return ResponseEntity.badRequest().body("잘못된 요청");
-			}
 			return ResponseEntity.ok().body(myVocaBookService.getCategoriesOfMyVocaBook(myVocaBookId, userId));
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -274,7 +274,7 @@ public class UserController {
 		    if(token == null) return ResponseEntity.badRequest().body("Token is empty");
 		    long userId = userService.getUserIdFromJwt(token);
 	    	SiteUser user = userService.getByUserId(userId);
-	    	if(!passwordEncoder.matches(passwordEncoder.encode(myPageDTO.getPassword()) ,user.getPassword())){
+	    	if(!passwordEncoder.matches(myPageDTO.getPassword() ,user.getPassword())){
 	    		return ResponseEntity.status(401).body("원래 비밀번호와 입력한 비밀번호가 다릅니다.");
 	    	}
 	    	userService.changeUserPassword(user, passwordEncoder.encode(myPageDTO.getNewPassword()));

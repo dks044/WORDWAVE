@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.wordwave.myvoca.MyVoca;
 import com.wordwave.myvocabook.dto.MyVocaBookCategoriesDTO;
 import com.wordwave.myvocabook.dto.MyVocaBookDTO;
 import com.wordwave.user.SiteUser;
@@ -44,16 +45,15 @@ public class MyVocaBookService {
 	
 	
 	public MyVocaBookCategoriesDTO getCategoriesOfMyVocaBook(long myVocaBookId,long userId) {
-		List<String> categories = myVocaBookRepository.findCategoriesByMyVocaBookIdAndUserId(myVocaBookId, userId);
-		Set<String> distinctCategories = new HashSet<>();
-		for(String category : categories) distinctCategories.add(category);
-		String name = myVocaBookRepository.findById(myVocaBookId).get().getName();
-		MyVocaBookCategoriesDTO myVocaBookCategoriesDTO = MyVocaBookCategoriesDTO.builder()
-																				  .id(myVocaBookId)
-																				  .name(name)
-																				  .categories(distinctCategories)
-																				  .build();
-		return myVocaBookCategoriesDTO;
+		SiteUser user = userService.getByUserId(userId);
+		MyVocaBook myVocaBook = myVocaBookRepository.findByIdAndUser(myVocaBookId, user);
+		List<MyVoca> myVocas = myVocaBook.getMyVocas();
+		Set<String> categories = new HashSet<>();
+		for(MyVoca mv : myVocas) categories.add(mv.getCategory());
+		return MyVocaBookCategoriesDTO.builder().id(myVocaBook.getId())
+												.name(myVocaBook.getName())
+												.categories(categories)
+												.build();
 	}
 	
 	
