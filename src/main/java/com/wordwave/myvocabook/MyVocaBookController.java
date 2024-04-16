@@ -94,6 +94,7 @@ public class MyVocaBookController {
 	public ResponseEntity<?> deleteMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId){
 		try {
 			myVocaBookService.delete(myVocaBookId);
+			
 			return ResponseEntity.ok().body("해당 myVocaBook 제거 완료.");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,10 +1,11 @@
-import React from "react";
-import { Button, Card, Container } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Card, Container, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
 import styled, { css } from "styled-components";
 import { FaPencilAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import {deleteMyVocaBookAPI} from "../../api/myVocaAPI";
 
 const CloseButtonContainer = styled.div`
   position: absolute;
@@ -19,9 +20,26 @@ const UpdateButtonContainer = styled.div`
 function MyVocaBooks({myVocaBooks})  {
   const navigate = useNavigate();
   const {user} = useSelector(state=>state.auth);
-  const onClickToDelete = (myVocaBookId) =>{
-    
+  const [myVocaBookId,setMyVocaBookId] = useState(null);
+
+  //modal
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+    setMyVocaBookId(null);
   }
+  const handleShow = () => setShow(true);
+  const [modalText, setModalText] = useState('');
+
+  const onClickToDeleteModal = (myVocaBookId,name) =>{
+    handleShow();
+    setModalText(name);
+    setMyVocaBookId(myVocaBookId);
+  }
+  const onClickToDelete = () =>{
+    deleteMyVocaBookAPI({myVocaBookId});
+    window.location.href = '/myvocabooks';
+  } 
 
   const onClickToUpdate = (myVocaBookId) =>{
     console.log('이동!');
@@ -34,7 +52,7 @@ function MyVocaBooks({myVocaBooks})  {
       <Container key={myVocaBook.id} className="d-flex justify-content-center mt-3">
         <Card key={myVocaBook.id} style={{ width: '18rem' }} border="info" className="text-center">
         <CloseButtonContainer>
-          <CloseButton />
+          <CloseButton onClick={()=>onClickToDeleteModal(myVocaBook.id,myVocaBook.name)}/>
         </CloseButtonContainer>
         <UpdateButtonContainer>
           <FaPencilAlt onClick={() => onClickToUpdate(myVocaBook.id)}/>
@@ -53,10 +71,30 @@ function MyVocaBooks({myVocaBooks})  {
           </Card.Body>
         </Card>
         <br />
+        
       </Container>
       ))}
-  
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>삭제</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          '{modalText}'을 삭제하시겠습니까?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            닫기
+          </Button>
+          <Button variant="danger" onClick={()=>onClickToDelete()}>삭제하기</Button>
+        </Modal.Footer>
+      </Modal>
     </>
+
   )
 }
 

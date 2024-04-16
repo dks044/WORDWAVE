@@ -31,3 +31,9 @@ export async function getOneMyVocaBookAPI({myVocaBookId}){
   const response = await axios.get(`/api/myvocabook/get/${myVocaBookId}`)
   return response.data;
 }
+
+//MyVocaBook 삭제
+export async function deleteMyVocaBookAPI({myVocaBookId}){
+  const response = await axios.delete(`/api/myvocabook/delete/${myVocaBookId}`)
+  return response.data;
+}

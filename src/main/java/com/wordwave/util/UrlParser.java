@@ -2,6 +2,9 @@ package com.wordwave.util;
 
 import java.net.URL;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UrlParser {
     public static String getKeyFromUrl(String urlString) throws Exception {
         URL url = new URL(urlString);

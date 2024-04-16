@@ -8,11 +8,13 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.wordwave.aws.S3Service;
 import com.wordwave.myvoca.MyVoca;
 import com.wordwave.myvocabook.dto.MyVocaBookCategoriesDTO;
 import com.wordwave.myvocabook.dto.MyVocaBookDTO;
 import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserService;
+import com.wordwave.util.UrlParser;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class MyVocaBookService {
 	private final MyVocaBookRepository myVocaBookRepository;
 	private final UserService userService;
+	private final S3Service s3Service;
+	private final UrlParser urlParser;
 	
 	public List<MyVocaBookDTO> getMyVocaBookList(long userId){
 		SiteUser user = userService.getByUserId(userId);
@@ -72,9 +76,19 @@ public class MyVocaBookService {
 		}
 	}
 	
-	public void delete(long myVocaBookId) {
+	public MyVocaBook getMyVocaBook(long myVocaBookId) {
+		Optional<MyVocaBook> validateMb = myVocaBookRepository.findById(myVocaBookId);
+		if(validateMb.isPresent()) {
+			return validateMb.get();
+		}else throw new RuntimeException("유효하지 않은 myVocaBookId 입니다.");
+	}
+	
+	//TODO: S3에 저장된 파일까지 삭제해야함.
+	public void delete(long myVocaBookId) throws Exception {
 	    Optional<MyVocaBook> validateMb = myVocaBookRepository.findById(myVocaBookId);
 	    if(validateMb.isPresent()) { // Optional 객체의 존재 유무를 올바르게 확인
+	    	String keyName = UrlParser.getKeyFromUrl(validateMb.get().getImageURL());
+	    	s3Service.delete(keyName);
 	        myVocaBookRepository.delete(validateMb.get());
 	    } else {
 	        throw new RuntimeException("유효하지 않은 myVocaBookId 입니다.");
