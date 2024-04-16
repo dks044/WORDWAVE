@@ -29,7 +29,6 @@ function MyVocaBooksContainer(){
   const onNavigate = () =>{
     navigate('/myvocabooks/create');
   }
-
   
   useEffect(() => {
     dispatch(getMyVocaBooks({ userId: user.id }));
