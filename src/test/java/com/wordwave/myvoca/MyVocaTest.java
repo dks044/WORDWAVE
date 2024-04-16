@@ -13,6 +13,8 @@ import org.springframework.test.annotation.Rollback;
 
 import com.wordwave.myvocabook.MyVocaBook;
 import com.wordwave.myvocabook.MyVocaBookRepository;
+import com.wordwave.myvocabook.MyVocaBookService;
+import com.wordwave.myvocabook.dto.MyVocaBookCategoriesDTO;
 import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserService;
 
@@ -26,6 +28,9 @@ public class MyVocaTest {
 	MyVocaBookRepository myVocaBookRepository;
 	@Autowired
 	MyVocaRepository myVocaRepository;
+	@Autowired
+	MyVocaBookService myVocaBookService;
+	
 	
 	@Autowired
 	UserService userService;
@@ -52,26 +57,15 @@ public class MyVocaTest {
 	
 	@Transactional
 	@Test
-	@DisplayName("findCategoriesByMyVocaBookId 메소드가 정상적으로 데이터를 조회할 수 있는지 테스트한다.")
+	@DisplayName("getCategoriesOfMyVocaBook 서비스 메소드가 정상적으로 데이터를 조회할 수 있는지 테스트한다.")
 	//@Rollback(false)
 	@Disabled
 	void findCategoriesByMyVocaBookIdTest() {
-		
-//		MyVocaBook testDataMyBook = MyVocaBook.builder().name("테스트데이터").build(); 
-//		myVocaBookRepository.save(testDataMyBook);
-		
-//		MyVocaBook testDataMyBook = myVocaBookRepository.findById((long) 4).get(); //실제 있는 데이터로 할당했음.
-//		
-//		MyVoca myVoca = MyVoca.builder().korWord("테스트 한글데이터").engWord("Test end data").myVocaBook(testDataMyBook)
-//				.category("테스트 카테고리").build();
-//		myVocaRepository.save(myVoca);
-		
-		
-		List<String> list = myVocaBookRepository.findCategoriesByMyVocaBookIdAndUserId(TEST_USER_ID, TEST_USER_ID);
+		//TODO: 실제있는 데이터로 해야함.
+		MyVocaBookCategoriesDTO myVocaBookCategoriesDTO = myVocaBookService.getCategoriesOfMyVocaBook(17, 36);
 		// 결과 검증
-		assertThat(list).isNotNull();
-		assertThat(list).hasSize(1); // 저장한 데이터가 정확히 1개인지 검증
-		assertThat(list.get(0));
+		assertThat(myVocaBookCategoriesDTO.getCategories()).isNotNull();
+		assertThat(myVocaBookCategoriesDTO.getCategories()).hasSize(1); // 저장한 데이터가 정확히 1개인지 검증
 		
 		
 	}
