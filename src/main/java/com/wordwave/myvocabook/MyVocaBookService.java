@@ -61,18 +61,19 @@ public class MyVocaBookService {
 	}
 	
 	
-	public MyVocaBookDTO getMyVocaBookById(long myVocaBookId) {
-		Optional<MyVocaBook> validateMb = myVocaBookRepository.findById(myVocaBookId);
+	public MyVocaBookDTO getMyVocaBookById(long myVocaBookId,long userId) {
+		SiteUser user = userService.getByUserId(userId);
+		MyVocaBook myVocaBook = myVocaBookRepository.findByIdAndUser(myVocaBookId, user);
 		
-		if(validateMb != null) {
+		if(myVocaBook  != null) {
 			MyVocaBookDTO mb = MyVocaBookDTO.builder()
-											.id(validateMb.get().getId())
-											.name(validateMb.get().getName())
-											.imageURL(validateMb.get().getImageURL())
+											.id(myVocaBook.getId())
+											.name(myVocaBook.getName())
+											.imageURL(myVocaBook.getImageURL())
 											.build();
 			return mb;
 		}else {
-			throw new RuntimeException("유효하지 않은 myVocaBookId 입니다.");
+			throw new RuntimeException("유효하지 않은 myVocaBookId와 userId 입니다.");
 		}
 	}
 	

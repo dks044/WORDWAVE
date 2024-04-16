@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Button, FloatingLabel, Form } from "react-bootstrap";
+import { Alert, Button, Card, FloatingLabel, Form } from "react-bootstrap";
 import styled from "styled-components";
 import {createMyVocaBookAPI} from "../../api/myVocaAPI"
 import { useDispatch, useSelector } from "react-redux";
@@ -10,11 +10,18 @@ const Title = styled.h1`
   font-weight: bolder;
   text-align: center;
 `
+const CardWrapper = styled.div`
+  display: flex;
+  justify-content: center; // 가로 중앙 정렬
+  align-items: center; // 세로 중앙 정렬
+  margin-bottom: 20px; // 필요에 따라 마진 추가
+`;
 
 function MyVocaBookForm(){
   const [fileError, setFileError] = useState(""); // 파일 에러 상태메시지
   const [isFileError,setIsFileError] = useState(false) //파일 에러 유무 
   const [fileName, setFileName] = useState();
+  const [previewUrl, setPreviewUrl] = useState(); // 이미지 미리보기 URL 상태 추가
 
   const {user} = useSelector(state=>state.auth);
   const [name, setName] = useState("");
@@ -45,6 +52,12 @@ function MyVocaBookForm(){
       }
       // 문제가 없으면 에러 메시지 초기화
       setFileError("");
+      // FileReader를 사용하여 파일 읽기
+      const reader = new FileReader();
+      reader.onload = () => {
+          setPreviewUrl(reader.result); 
+        };
+      reader.readAsDataURL(file); 
     }
   };
 
@@ -80,6 +93,14 @@ function MyVocaBookForm(){
           </FloatingLabel>
           <Form.Group controlId="formFileLg" className="mb-3">
             <Form.Label>썸네일 이미지 입력</Form.Label>
+            {/*이미지 미리보기*/ }
+                        {previewUrl &&
+            <CardWrapper>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={previewUrl} />
+              </Card>
+            </CardWrapper>
+            } 
             <Form.Control type="file" size="lg" onChange={handleFileChange} />
             {fileError && <Alert variant="danger">{fileError}</Alert>} {/* 에러 메시지 표시 */}
           </Form.Group>
@@ -88,6 +109,7 @@ function MyVocaBookForm(){
           </div>
         </Form>
       </div>
+      <br /><br /><br /><br /><br /><br /><br />
     </>
   )
 }

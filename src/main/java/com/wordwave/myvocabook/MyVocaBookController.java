@@ -81,10 +81,11 @@ public class MyVocaBookController {
 	}
 	
 	//myVocaBook 업데이트 폼 활용
-	@GetMapping("get/{myVocaBookId}")
-	public ResponseEntity<?> getMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId){
+	@GetMapping("get/{myVocaBookId}/{userId}")
+	public ResponseEntity<?> getMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId,
+											@PathVariable("userId") long userId){
 		try {
-			return ResponseEntity.ok().body(myVocaBookService.getMyVocaBookById(myVocaBookId));
+			return ResponseEntity.ok().body(myVocaBookService.getMyVocaBookById(myVocaBookId,userId));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("MyVocaBook 불러오기 실패!");

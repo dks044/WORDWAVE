@@ -26,9 +26,9 @@ export async function getMyVocaBookAPI({myVocaBookId,userId}){
   return response.data;
 }
 
-//myVocaBook의 정보
-export async function getOneMyVocaBookAPI({myVocaBookId}){
-  const response = await axios.get(`/api/myvocabook/get/${myVocaBookId}`)
+//myVocaBook의 정보(업데이트폼 활용)
+export async function getOneMyVocaBookAPI({myVocaBookId,userId}){
+  const response = await axios.get(`/api/myvocabook/get/${myVocaBookId}/${userId}`)
   return response.data;
 }
 

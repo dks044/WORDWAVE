@@ -3,7 +3,7 @@ import MyVocaBookUpdateFormContainer from "../../containers/myVoca/MyVocaBookUpd
 import { useParams } from "react-router-dom";
 
 const MyVocaBookUpdateFormPage = () => {
-  const myVocaBookId = useParams();
+  const { myVocaBookId } = useParams();
 
   return (
     <MyVocaBookUpdateFormContainer myVocaBookId={myVocaBookId}/>
