@@ -6,6 +6,7 @@ import { createMyVocaBookAPI } from "../../api/myVocaAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
+import {updateMyVocaBookAPI} from "../../api/myVocaAPI";
 
 const Title = styled.h1`
   font-weight: bolder;
@@ -23,11 +24,11 @@ function MyVocaBookUpdateForm({myVocaBook}){
   const [fileError, setFileError] = useState(""); // 파일 에러 상태메시지
   const [isFileError,setIsFileError] = useState(false) //파일 에러 유무 
   const [fileName, setFileName] = useState();
-  const [previewUrl, setPreviewUrl] = useState(); // 이미지 미리보기 URL 상태 추가
+  const [previewUrl, setPreviewUrl] = useState(myVocaBook.imageURL); // 이미지 미리보기 URL 상태 추가
 
   const {user} = useSelector(state=>state.auth);
-  const [name, setName] = useState("");
-
+  const [name, setName] = useState(myVocaBook.name); // 초기값을 myVocaBook.name으로 설정
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -57,25 +58,26 @@ function MyVocaBookUpdateForm({myVocaBook}){
       // FileReader를 사용하여 파일 읽기
       const reader = new FileReader();
       reader.onload = () => {
-          setPreviewUrl(reader.result); // 읽기가 성공적으로 완료되면 결과를 previewUrl 상태에 저장
+          setPreviewUrl(reader.result); 
         };
-      reader.readAsDataURL(file); // 파일을 Data URL 형식으로 읽습니다.
+      reader.readAsDataURL(file); 
     }
   };
 
   const handleSubMit = async (event) => {
     event.preventDefault(); 
-  
+
     var userId = user.id;
-  
+    var myVocaBookId = myVocaBook.id;
+
     if(!name){
       dispatch(showPopup('이름은 필수입력 입니다!'));
       return;
     }
   
-    await createMyVocaBookAPI(name, userId, fileName); 
+    await updateMyVocaBookAPI(name, myVocaBookId,userId, fileName); 
     navigate('/myvocabooks');
-    dispatch(showPopup('나만의 단어장 생성이 완료됐습니다.'));
+    dispatch(showPopup('나만의 단어장 수정이 완료됐습니다.'));
   }
 
   return(
@@ -90,7 +92,7 @@ function MyVocaBookUpdateForm({myVocaBook}){
               label="단어장 이름 입력!"
               className="mb-3"
             >
-              <Form.Control onChange={handleNameChange} type="text" placeholder="나만의 단어장 이름을 입력하세요" name="name" maxlength='10' value={myVocaBook.name}/>
+              <Form.Control onChange={handleNameChange} type="text" placeholder="나만의 단어장 이름을 입력하세요" name="name" maxlength='10' value={name}/>
           </FloatingLabel>
           <Form.Group controlId="formFileLg" className="mb-3">
             <Form.Label>썸네일 이미지 입력</Form.Label>

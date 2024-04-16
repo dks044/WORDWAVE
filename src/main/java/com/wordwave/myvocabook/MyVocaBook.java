@@ -54,5 +54,9 @@ public class MyVocaBook {
 		this.user = user;
 	}
 	
+	public void updateNameAndImageURL(String name, String imageURL) {
+		this.name = name;
+		this.imageURL = imageURL;
+	}
 }
 

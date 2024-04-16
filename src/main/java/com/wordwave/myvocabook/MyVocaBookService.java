@@ -7,11 +7,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wordwave.aws.S3Service;
 import com.wordwave.myvoca.MyVoca;
 import com.wordwave.myvocabook.dto.MyVocaBookCategoriesDTO;
 import com.wordwave.myvocabook.dto.MyVocaBookDTO;
+import com.wordwave.myvocabook.dto.MyVocaBookFormDTO;
 import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserService;
 import com.wordwave.util.UrlParser;
@@ -96,5 +98,13 @@ public class MyVocaBookService {
 	    }
 	}
 
+	public void update(MyVocaBookFormDTO myVocaBookFormDTO ,MultipartFile imageFile) throws Exception {
+		SiteUser user = userService.getByUserId(myVocaBookFormDTO.getUserId());
+		MyVocaBook myVocaBook = myVocaBookRepository.findByIdAndUser(myVocaBookFormDTO.getMyVocaBookId(), user);
+		String keyName = UrlParser.getKeyFromUrl(myVocaBook.getImageURL());
+		s3Service.delete(keyName);
+		myVocaBook.updateNameAndImageURL(myVocaBookFormDTO.getName(), s3Service.saveFile(imageFile));
+		myVocaBookRepository.save(myVocaBook);
+	}
 	
 }

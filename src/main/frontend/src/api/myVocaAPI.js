@@ -37,3 +37,18 @@ export async function deleteMyVocaBookAPI({myVocaBookId}){
   const response = await axios.delete(`/api/myvocabook/delete/${myVocaBookId}`)
   return response.data;
 }
+
+export async function updateMyVocaBookAPI(name, myVocaBookId, userId, imageFile) {
+  // FormData 객체 생성
+  const formData = new FormData();
+  // 필드 
+  formData.append('request', new Blob([JSON.stringify({name, myVocaBookId,userId})], {type: "application/json"}));
+  formData.append('imageFile', imageFile);
+
+  // axios 요청 시 FormData 객체와 적절한 Content-Type 설정으로 전송
+  return await axios.patch(`/api/myvocabook/patch/myVocaBook`, formData, {
+      headers: {
+          'Content-Type': 'multipart/form-data'
+      }
+  });
+}

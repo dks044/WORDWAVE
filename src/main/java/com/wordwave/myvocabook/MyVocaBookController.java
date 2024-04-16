@@ -3,6 +3,7 @@ package com.wordwave.myvocabook;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -103,4 +104,16 @@ public class MyVocaBookController {
 		}
 	}
 	
+	@PatchMapping(value = "patch/myVocaBook",consumes = "multipart/form-data")
+	public ResponseEntity<?> patchMyVocaBook(@RequestPart(value = "request") MyVocaBookFormDTO request,
+											 @RequestPart(value = "imageFile") MultipartFile imageFile)
+	{
+		try {
+			myVocaBookService.update(request, imageFile);
+			return ResponseEntity.ok().body(request.getMyVocaBookId() +" <= 수정완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("MyVocaBook 수정 실패!");
+		}
+	}
 }

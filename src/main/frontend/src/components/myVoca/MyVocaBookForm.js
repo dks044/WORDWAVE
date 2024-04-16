@@ -94,13 +94,13 @@ function MyVocaBookForm(){
           <Form.Group controlId="formFileLg" className="mb-3">
             <Form.Label>썸네일 이미지 입력</Form.Label>
             {/*이미지 미리보기*/ }
-                        {previewUrl &&
+            {previewUrl &&
             <CardWrapper>
               <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={previewUrl} />
               </Card>
             </CardWrapper>
-            } 
+            }
             <Form.Control type="file" size="lg" onChange={handleFileChange} />
             {fileError && <Alert variant="danger">{fileError}</Alert>} {/* 에러 메시지 표시 */}
           </Form.Group>

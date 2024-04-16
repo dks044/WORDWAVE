@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MyVocaBookFormDTO {
 	private String name;
+	private long myVocaBookId;
 	private long userId;
 	
 	@Builder
