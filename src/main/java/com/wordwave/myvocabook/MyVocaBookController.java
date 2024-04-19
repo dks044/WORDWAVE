@@ -46,18 +46,28 @@ public class MyVocaBookController {
 	
 	@PostMapping(value = "create", consumes = "multipart/form-data")
 	public ResponseEntity<?> create(@RequestPart(value = "request") MyVocaBookFormDTO request,
-									@RequestPart(value = "imageFile") MultipartFile imageFile){
+									@RequestPart(value = "imageFile" ,required = false) MultipartFile imageFile){
 		try {
 			if(request == null || request.getName() == null) {
 				throw new RuntimeException("empty name.");
 			}
 			SiteUser user = userService.getByUserId(request.getUserId());
-			MyVocaBook myVocaBook = MyVocaBook.builder()
-											   .name(request.getName())
-											   .imageURL(s3Service.saveFile(imageFile))
-											   .user(user)
-											   .build();
-			myVocaBookService.create(myVocaBook);
+			//이미지 파일이 없을경우
+			if (imageFile == null || imageFile.isEmpty()) {
+				MyVocaBook myVocaBook = MyVocaBook.builder()
+						   .name(request.getName())
+						   .user(user)
+						   .build();
+				myVocaBookService.create(myVocaBook);
+			//이미지 파일이 있을경우	
+			}else {
+				MyVocaBook myVocaBook = MyVocaBook.builder()
+						.name(request.getName())
+						.imageURL(s3Service.saveFile(imageFile))
+						.user(user)
+						.build();
+				myVocaBookService.create(myVocaBook);
+			}
 			return ResponseEntity.ok().body("myVocaBook 생성 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
