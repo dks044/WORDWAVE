@@ -98,12 +98,21 @@ public class MyVocaBookService {
 	    }
 	}
 
+	//이름과 이미지파일까지 같이 수정할경우
 	public void update(MyVocaBookFormDTO myVocaBookFormDTO ,MultipartFile imageFile) throws Exception {
 		SiteUser user = userService.getByUserId(myVocaBookFormDTO.getUserId());
 		MyVocaBook myVocaBook = myVocaBookRepository.findByIdAndUser(myVocaBookFormDTO.getMyVocaBookId(), user);
 		String keyName = UrlParser.getKeyFromUrl(myVocaBook.getImageURL());
 		s3Service.delete(keyName);
 		myVocaBook.updateNameAndImageURL(myVocaBookFormDTO.getName(), s3Service.saveFile(imageFile));
+		myVocaBookRepository.save(myVocaBook);
+	}
+	
+	//이름만 수정할경우
+	public void update(MyVocaBookFormDTO myVocaBookFormDTO) {
+		SiteUser user = userService.getByUserId(myVocaBookFormDTO.getUserId());
+		MyVocaBook myVocaBook = myVocaBookRepository.findByIdAndUser(myVocaBookFormDTO.getMyVocaBookId(), user);
+		myVocaBook.updateName(myVocaBookFormDTO.getName());
 		myVocaBookRepository.save(myVocaBook);
 	}
 	

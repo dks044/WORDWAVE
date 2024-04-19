@@ -104,16 +104,21 @@ public class MyVocaBookController {
 		}
 	}
 	
-	@PatchMapping(value = "patch/myVocaBook",consumes = "multipart/form-data")
+	@PatchMapping(value = "patch/myVocaBook", consumes = "multipart/form-data")
 	public ResponseEntity<?> patchMyVocaBook(@RequestPart(value = "request") MyVocaBookFormDTO request,
-											 @RequestPart(value = "imageFile") MultipartFile imageFile)
-	{
-		try {
-			myVocaBookService.update(request, imageFile);
-			return ResponseEntity.ok().body(request.getMyVocaBookId() +" <= 수정완료");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body("MyVocaBook 수정 실패!");
-		}
+	                                         @RequestPart(value = "imageFile", required = false) MultipartFile imageFile) {
+	    try {
+	        // 이미지 파일이 없을 경우
+	        if (imageFile == null || imageFile.isEmpty()) {
+	            myVocaBookService.update(request);
+	        } else { // 이미지 파일이 존재할 경우
+	            myVocaBookService.update(request, imageFile);
+	        }
+	        return ResponseEntity.ok().body(request.getMyVocaBookId() + " <= 수정완료");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.badRequest().body("MyVocaBook 수정 실패!");
+	    }
 	}
+
 }
