@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getValidateMyVocaBook } from "../../modules/myVoca/myVocaBook";
 
 const MyVocaFormBlock = styled.div`
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
   overflow-y: scroll;
+  overflow-x: hidden;
 `
 
 function MyVocaFormContainer({myVocaBookId}){
