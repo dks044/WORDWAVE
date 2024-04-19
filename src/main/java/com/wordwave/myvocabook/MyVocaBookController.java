@@ -131,8 +131,17 @@ public class MyVocaBookController {
 	    }
 	}
 	
-	//해당 MyVocaBook의 id가 해당 사용자의 소유가 맞는지 검증하는 api!!!!
 	
+	//해당 MyVocaBook의 id가 해당 사용자의 소유가 맞는지 검증하는 api!!!!
+	@GetMapping("validate/{myVocaBookId}/{userId}")
+	public ResponseEntity<?> validateMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId,
+												@PathVariable("userId") long userId){
+		if(myVocaBookService.validateMyVocaBookId(myVocaBookId, userId)) {
+			return ResponseEntity.ok().body("인증완료");
+		}else {
+			return ResponseEntity.badRequest().body("인증실패!");
+		}
+	}
 	
 	
 

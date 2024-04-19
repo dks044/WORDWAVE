@@ -116,4 +116,13 @@ public class MyVocaBookService {
 		myVocaBookRepository.save(myVocaBook);
 	}
 	
+	//해당 MyVocaBook의 id가 해당 사용자의 소유가 맞는지 검증한다.
+	public boolean validateMyVocaBookId(long myVocaBookId,long userId) {
+		Optional<MyVocaBook> myVocaBook = myVocaBookRepository.findById(myVocaBookId);
+		if(myVocaBook.get().getUser().getId() != userId) {
+			return false;
+		}
+		return true;
+	}
+	
 }
