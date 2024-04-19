@@ -6,7 +6,7 @@ import styled from "styled-components";
 function MyVocaForm () {
   return(
     <>
-    
+      안녕
     </>
   )
 }

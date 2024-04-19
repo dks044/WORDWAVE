@@ -1,19 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import MyVocaForm from "../../components/myVoca/MyVocaForm";
+import { useSelector } from "react-redux";
 
 const MyVocaFormBlock = styled.div`
-  width: 80%;
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-left: 5%;
+  margin-right: 5%;
+  overflow-y: scroll;
 `
 
-function MyVocaFormContainer(){
+function MyVocaFormContainer({myVocaBookId}){
+  const {user} = useSelector(state=>state.auth);
+
+
+
   return(
     <MyVocaFormBlock>
       <MyVocaForm />
     </MyVocaFormBlock>
   )
 }
+
+export default MyVocaFormContainer;

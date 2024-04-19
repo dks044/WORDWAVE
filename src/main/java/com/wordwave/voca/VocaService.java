@@ -65,6 +65,7 @@ public class VocaService {
 	}
 	//영단어에 랜덤으로 언더바 삽입
 	//MEMO : 난이도 하향
+	//TODO: 추후 난이도 알아서 조정
 	private String createhiddenEngWord(String engWord) {
 		int wordLength = engWord.length();
 		char[] word = engWord.toCharArray();
@@ -74,15 +75,11 @@ public class VocaService {
 			while(random.size()<2) {
 				random.add((int)(Math.random() * wordLength));
 			}
-		}else if(wordLength <= 8) {
+		}else {
 			while(random.size()<=3) {
 				random.add((int)(Math.random() * wordLength));
 			}
-//		}else {
-//			while(random.size()<=4) {
-//				random.add((int)(Math.random() * wordLength));
-//			}
-//		}
+		}
 		for(int i : random) word[i] = '_';
 		for(char c : word) parseHiddenWord.append(c);
 		return parseHiddenWord.toString();

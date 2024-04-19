@@ -46,12 +46,16 @@ function MyVocaBook({ myVocaBook }) {
 
   };
 
+  //날짜데이터를 깔끔하게 (yy-mm-dd)
   function formatDateString(dateString) {
     const date = new Date(dateString);
     const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
     return new Intl.DateTimeFormat('ko-KR', options).format(date);
   }
 
+  const handleClickToCreate = () => {
+    navigate(`/myvocabooks/${myVocaBook.id}/create`);
+  }
 
 
   if (!myVocaBook) return null;
@@ -132,7 +136,7 @@ function MyVocaBook({ myVocaBook }) {
           </div>
         ))}
         <div className="d-grid gap-2">
-          <Button variant="outline-primary">+</Button>
+          <Button variant="outline-primary" onClick={()=>handleClickToCreate()}>+</Button>
         </div>
       </div>
     </>

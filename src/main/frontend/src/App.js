@@ -21,6 +21,8 @@ import MyVocaBooksPage from "./pages/myVoca/MyVocaBooksPage";
 import MyVocaBookFormPage from "./pages/myVoca/MyVocaBookFormPage";
 import MyVocaBookPage from "./pages/myVoca/MyVocaBookPage"
 import MyVocaBookUpdateFormPage from "./pages/myVoca/MyVocaBookUpdateFormPage";
+import MyVocaFormPage from "./pages/myVoca/MyVocaFormPage";
+
 
 function App() {
   //authenticated
@@ -83,6 +85,8 @@ function App() {
           <Route path="myvocabooks/update/:myVocaBookId/" element={isLoging ? <MyVocaBookUpdateFormPage /> : <Navigate to="/login" />} />
           <Route path="myvocabooks/:myVocaBookId" 
           element={isLoging ? <MyVocaBookPage /> : <Navigate to="/login" />}/>
+          <Route path="myvocabooks/:myVocaBookId/create" 
+          element={isLoging ? <MyVocaFormPage /> : <Navigate to="/login" />}/>
         </Route>
       </Routes>
     </>
