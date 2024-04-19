@@ -139,7 +139,7 @@ public class MyVocaBookController {
 		if(myVocaBookService.validateMyVocaBookId(myVocaBookId, userId)) {
 			return ResponseEntity.ok().body("인증완료");
 		}else {
-			return ResponseEntity.badRequest().body("인증실패!");
+			return ResponseEntity.status(500).body("인증실패!");
 		}
 	}
 	

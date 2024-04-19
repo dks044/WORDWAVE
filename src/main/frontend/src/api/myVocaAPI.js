@@ -38,6 +38,7 @@ export async function deleteMyVocaBookAPI({myVocaBookId}){
   return response.data;
 }
 
+//MyVocaBook 수정
 export async function updateMyVocaBookAPI(name, myVocaBookId, userId, imageFile) {
   const formData = new FormData();
   formData.append('request', new Blob([JSON.stringify({name, myVocaBookId, userId})], {type: "application/json"}));
@@ -50,4 +51,10 @@ export async function updateMyVocaBookAPI(name, myVocaBookId, userId, imageFile)
       'Content-Type': 'multipart/form-data'
     }
   });
+}
+
+//MyVocaBook 검증(해당 사용자의 것이 맞는지)
+export async function validateMyVocaBookAPI({myVocaBookId,userId}){
+  const response = await axios.get(`/api/myvocabook/validate/${myVocaBookId}/${userId}`)
+  return response.data;
 }

@@ -5,6 +5,7 @@ const initialState = {
   myVocaBooks : reducerUtils.initial(),
   myVocaBook : reducerUtils.initial(),
   myVocaBookOne : reducerUtils.initial(),
+  validateMyVocaBook : reducerUtils.initial(),
 }
 
 const myVocaBookSlice = createSlice({
@@ -47,7 +48,19 @@ const myVocaBookSlice = createSlice({
       ...state,
       myVocaBookOne: reducerUtils.error(action.error),
     }),
-
+    getValidateMyVocaBook: (state) => ({
+      ...state,
+      validateMyVocaBook: reducerUtils.loading(),
+    }),
+    getValidateMyVocaBookSuccess: (state, action) => ({
+      ...state,
+      validateMyVocaBook: reducerUtils.success(action.payload),
+    }),
+    getValidateMyVocaBookError: (state, action) => ({
+      ...state,
+      validateMyVocaBook: reducerUtils.error(action.error),
+    }),
+    
 }})
 
 export const {
@@ -59,7 +72,10 @@ export const {
   getMyVocaBookError,
   getMyVocaBookOne,
   getMyVocaBookOneSuccess,
-  getMyVocaBookOneError
+  getMyVocaBookOneError,
+  getValidateMyVocaBook,
+  getValidateMyVocaBookSuccess,
+  getValidateMyVocaBookError
 } = myVocaBookSlice.actions;
 
 export default myVocaBookSlice.reducer;

@@ -49,12 +49,28 @@ function* fetchMyVocaBookOneSaga(action){
     });
   }
 }
-
+function* fetchValidateMyVocaBookSaga(action){
+  try {
+    const validateMyVocaBook = yield call(myVocaAPI.validateMyVocaBookAPI,action.payload);
+    yield put ({
+      type: "myVocaBook/getValidateMyVocaBookSuccess",
+      payload : validateMyVocaBook
+    });
+    
+  } catch (e) {
+    yield put({
+      type: "myVocaBook/getValidateMyVocaBookError",
+      error: true,
+      payload: e.message,
+    });
+  }
+}
 
 function* myVocaBookSaga() {
   yield takeEvery("myVocaBook/getMyVocaBooks", fetchMyVocaBooksSaga);
   yield takeEvery("myVocaBook/getMyVocaBook", fetchMyVocaBookSaga);
-  yield takeEvery("myVocaBook/getMyVocaBookOne",fetchMyVocaBookOneSaga)
+  yield takeEvery("myVocaBook/getMyVocaBookOne",fetchMyVocaBookOneSaga);
+  yield takeEvery("myVocaBook/getValidateMyVocaBook",fetchValidateMyVocaBookSaga);
 }
 
 export default myVocaBookSaga;
