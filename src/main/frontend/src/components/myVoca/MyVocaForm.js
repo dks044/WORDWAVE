@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
 import styled from "styled-components";
 
-const Title = styled.h2`
+const Title = styled.h1`
   font-weight: bolder;
   text-align: center;
 `
 const Hr = styled.hr`
-  width: 75%;
+  width: 85%;
   margin: 0px auto;
 `
 const StyledRow = styled(Row)`
@@ -17,21 +17,21 @@ const StyledRow = styled(Row)`
 
 function MyVocaForm () {
    // 입력 필드 상태 관리
-   const [inputFields, setInputFields] = useState([{ englishWord: '', koreanWord: '' }]);
+   const [inputFields, setInputFields] = useState([{ engWord: '', korWord: '' }]);
 
    // 필드 추가 함수
    const handleAddFields = () => {
-     const newFields = { englishWord: '', koreanWord: '' };
+     const newFields = { engWord: '', korWord: '' };
      setInputFields([...inputFields, newFields]);
    };
  
    // 입력 변경 처리 함수
    const handleInputChange = (index, event) => {
      const values = [...inputFields];
-     if (event.target.name === "englishWord") {
-       values[index].englishWord = event.target.value;
+     if (event.target.name === "engWord") {
+       values[index].engWord = event.target.value;
      } else {
-       values[index].koreanWord = event.target.value;
+       values[index].korWord = event.target.value;
      }
      setInputFields(values);
    };
@@ -53,7 +53,7 @@ function MyVocaForm () {
       <br/>
       <FloatingLabel controlId="floatingInputGrid" label="영단어 카테고리 입력">
           <Form.Control type="email" placeholder="name@example.com" />
-        </FloatingLabel>
+      </FloatingLabel>
       <br/>
       <Form onSubmit={handleSubmit}>
         {inputFields.map((inputField, index) => (
@@ -62,8 +62,8 @@ function MyVocaForm () {
               <FloatingLabel label="영단어 입력">
                 <Form.Control
                   type="text"
-                  name="englishWord"
-                  value={inputField.englishWord}
+                  name="engWord"
+                  value={inputField.engWord}
                   onChange={event => handleInputChange(index, event)}
                 />
               </FloatingLabel>
@@ -72,8 +72,8 @@ function MyVocaForm () {
               <FloatingLabel label="한글단어 입력">
                 <Form.Control
                   type="text"
-                  name="koreanWord"
-                  value={inputField.koreanWord}
+                  name="korWord"
+                  value={inputField.korWord}
                   onChange={event => handleInputChange(index, event)}
                 />
               </FloatingLabel>
