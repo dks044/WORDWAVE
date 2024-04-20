@@ -58,3 +58,9 @@ export async function validateMyVocaBookAPI({myVocaBookId,userId}){
   const response = await axios.get(`/api/myvocabook/validate/${myVocaBookId}/${userId}`)
   return response.data;
 }
+
+//MyVoca 업로드 (나만의 단어 생성)
+export async function createMyVocaAPI(myVocaBookId, userId,category,myVocas){
+  const response = await axios.post(`/api/myvoca/create`,{myVocaBookId,userId,category,myVocas});
+  return response.data;
+}

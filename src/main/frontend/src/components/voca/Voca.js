@@ -60,17 +60,21 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
 
   //퀴즈를 다풀면 학습이력을 서버에 전송
   //learnType : 1(VOCA) , 2(GRAMMAR)
-  useEffect(()=>{
-    if(stackSize ===0){
-      createUserLearnPerformanceAPI({
-        userId: user.id,
-        category: category,
-        learnType: 1,
-        answerCount: answerCount,
-        wrongCount: wrongCount
-      });
-    }
-  });
+  useEffect(() => {
+    const sendPerformanceData = async () => {
+      if(stackSize === 0){
+        await createUserLearnPerformanceAPI({
+          userId: user.id,
+          category: category,
+          learnType: 1,
+          answerCount: answerCount,
+          wrongCount: wrongCount
+        });
+      }
+    };
+  
+    sendPerformanceData();
+  }, [stackSize, user.id, category, answerCount, wrongCount]);
 
   //voca가 없을경우
   if (!voca) return (

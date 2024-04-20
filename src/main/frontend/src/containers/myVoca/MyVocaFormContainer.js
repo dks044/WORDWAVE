@@ -29,7 +29,7 @@ function MyVocaFormContainer({myVocaBookId}){
 
   return(
     <MyVocaFormBlock>
-      <MyVocaForm />
+      <MyVocaForm myVocaBookId={myVocaBookId} userId={user.id}/>
     </MyVocaFormBlock>
   )
 }

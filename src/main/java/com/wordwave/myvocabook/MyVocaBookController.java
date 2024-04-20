@@ -33,6 +33,7 @@ public class MyVocaBookController {
 	private final MyVocaBookService myVocaBookService;
 	private final S3Service s3Service;
 	private final UserService userService;
+	//private static final String DEFAULT_IMAGE_URL = "https://cdn.pixabay.com/photo/2015/11/07/09/18/sunrise-1030600_1280.jpg"; 
 	
 	@GetMapping("myVocaBookList/{userId}")
 	public ResponseEntity<?> selectMyVocaBook(@PathVariable("userId") long userId){
