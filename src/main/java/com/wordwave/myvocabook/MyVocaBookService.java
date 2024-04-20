@@ -125,4 +125,8 @@ public class MyVocaBookService {
 		return true;
 	}
 	
+	public MyVocaBook getMyVocaBookIdAndUserId(long myVocaBookId, long userId) {
+		SiteUser user = userService.getByUserId(userId);
+		return myVocaBookRepository.findByIdAndUser(myVocaBookId, user);
+	}
 }
