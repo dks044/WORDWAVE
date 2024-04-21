@@ -1,6 +1,7 @@
 package com.wordwave.myvoca;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,6 +67,22 @@ public class MyVocaController {
 					 .build().getError());
 		}
 	}
+	@DeleteMapping("delete/{myVocaBookId}/{userId}/{category}")
+	public ResponseEntity<?> deleteMyVoca(
+											@PathVariable("myVocaBookId") long myVocaBookId,
+											@PathVariable("userId") long userId,
+											@PathVariable("category") String category){
+		try {
+			myVocaService.delete(myVocaBookId, userId, category);
+			return ResponseEntity.ok().body("나만의 단어("+category+") 삭제 완료.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(ResponseDTO.builder().data(e)
+					 .error(e.getMessage())
+					 .build());
+		}
+	}
+	
 	
 	//TODO: 퀴즈 기능 만들어놓기
 }

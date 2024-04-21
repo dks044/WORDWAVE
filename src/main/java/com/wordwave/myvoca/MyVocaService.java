@@ -93,4 +93,19 @@ public class MyVocaService {
 	    myVocaBookService.create(myVocaBook); // 변경된 엔티티를 데이터베이스에 저장
 	}
 	
+	public void delete(long myVocaBookId, long userId, String category) {
+	    MyVocaBook myVocaBook = myVocaBookService.getMyVocaBookIdAndUserId(myVocaBookId, userId);
+	    List<MyVoca> myVocas = myVocaBook.getMyVocas();
+	    Iterator<MyVoca> iterator = myVocas.iterator();
+	    while (iterator.hasNext()) {
+	        MyVoca mv = iterator.next();
+	        if (mv.getCategory().equals(category)) {
+	            iterator.remove(); // 메모리 상에서 삭제
+	            myVocaRepository.delete(mv); // 데이터베이스에서도 삭제
+	        }
+	    }
+	    myVocaBook.updateMyVocas(myVocas); // 메모리 상의 변경 사항을 엔티티에 반영
+	    myVocaBookService.create(myVocaBook); // 변경된 엔티티를 데이터베이스에 저장
+	}
+	
 }
