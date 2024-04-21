@@ -64,3 +64,9 @@ export async function createMyVocaAPI(myVocaBookId, userId,category,myVocas){
   const response = await axios.post(`/api/myvoca/create`,{myVocaBookId,userId,category,myVocas});
   return response.data;
 }
+
+//MyVcoa 업로드폼 데이터 (업로드폼에 표시될 데이터)
+export async function updateFormMyVocaAPI({myVocaBookId,category}){
+  const response = await axios.get(`/api/myvoca/updateForm/${myVocaBookId}/${category}`)
+  return response.data;
+}

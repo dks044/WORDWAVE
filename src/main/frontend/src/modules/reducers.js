@@ -7,11 +7,13 @@ import grammarBook from "./grammar/grammarBook";
 import grammar from "./grammar/grammar"
 import userLearnPerformance from "./userLearnPerformance/userLearnPerformance";
 import myVocaBook from "./myVoca/myVocaBook";
+import myVoca from "./myVoca/myVoca";
 
 const rootReducer = combineReducers({
   voca,
   vocaBook,
   myVocaBook,
+  myVoca,
   grammarBook,
   grammar,
   auth,

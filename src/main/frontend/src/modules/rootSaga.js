@@ -6,12 +6,13 @@ import grammarBookSaga from "./grammar/grammarBookSaga";
 import grammarSaga from "./grammar/grammarSaga";
 import userLearnPerformanceSaga from "./userLearnPerformance/userLearnPerformanceSaga";
 import myVocaBookSaga from "./myVoca/myVocaBookSaga";
+import myVocaSaga from "./myVoca/myVocaSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export function* rootSaga() {
   yield all([call(vocaSaga), call(vocaBookSaga),call(userLearnPerformanceSaga),
-            call(grammarBookSaga),call(grammarSaga),call(myVocaBookSaga)]);
+            call(grammarBookSaga),call(grammarSaga),call(myVocaBookSaga),call(myVocaSaga)]);
 }
 
 export default sagaMiddleware;
