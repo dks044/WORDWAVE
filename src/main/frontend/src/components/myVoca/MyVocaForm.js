@@ -60,6 +60,12 @@ function MyVocaForm ({myVocaBookId,userId}) {
       return;
     }
 
+    if(inputFields.length < 4){
+      dispatch(showPopup('단어는 4개 이상 만들어주세요'));
+      return;
+    }
+
+
     try {
       await createMyVocaAPI(myVocaBookId, userId, category, inputFields);
       window.location.href = `/myvocabooks/${myVocaBookId}`;

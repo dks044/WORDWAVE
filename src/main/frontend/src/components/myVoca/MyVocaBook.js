@@ -169,7 +169,7 @@ function MyVocaBook({ myVocaBook }) {
               <Button variant="secondary" onClick={handleClose}>
                 나중에하기
               </Button>
-              <Button onClick={() => navigate(`/myVocaBooks/${myVocaBook.id}/${selectedCategory}`)} 
+              <Button onClick={() => navigate(`/myvocaBooks/${myVocaBook.id}/${selectedCategory}`)} 
               variant="primary">공부하기!</Button>
             </Modal.Footer>
           </Modal>

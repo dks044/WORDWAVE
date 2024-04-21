@@ -1,17 +1,22 @@
 package com.wordwave.myvoca;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import com.wordwave.myvoca.dto.MyVocaCreateFormDTO;
 import com.wordwave.myvoca.dto.MyVocaDTO;
+import com.wordwave.myvoca.dto.MyVocaResponseDTO;
 import com.wordwave.myvoca.dto.MyVocaUpdateFormDTO;
 import com.wordwave.myvoca.dto.MyVocaUpdateFormRequestDTO;
 import com.wordwave.myvocabook.MyVocaBook;
 import com.wordwave.myvocabook.MyVocaBookService;
+import com.wordwave.voca.Voca;
 
 import lombok.RequiredArgsConstructor;
 
@@ -108,4 +113,63 @@ public class MyVocaService {
 	    myVocaBookService.create(myVocaBook); // 변경된 엔티티를 데이터베이스에 저장
 	}
 	
+	//퀴즈
+	public List<MyVocaResponseDTO> select(long myVocaBookId,long userId, String category){
+		MyVocaBook mvb = myVocaBookService.getMyVocaBookIdAndUserId(myVocaBookId, userId);
+		List<MyVoca> myVocas = myVocaRepository.findByMyVocaBookIdAndCategory(mvb.getId(), category);
+		if(mvb == null || myVocas == null) {
+			throw new RuntimeException("유효하지 않은 나만의 단어장("+myVocaBookId+") 과 사용자id("+userId+") 입니다.");
+		}
+		List<MyVocaResponseDTO> myVocaDTOs = new ArrayList<>();
+		for(MyVoca mv : myVocas) {
+			MyVocaResponseDTO mvr = MyVocaResponseDTO.builder()
+													 .id(mv.getId())
+													 .korWord(mv.getEngWord())
+													 .engWord(mv.getEngWord())
+													 .category(mv.getCategory())
+													 .myVocaBookId(myVocaBookId)
+													 .hiddenEngWord(createhiddenEngWord(mv.getEngWord()))
+													 .quizStatus((int)(Math.random()*2)+1)
+													 .randomEngWord(createRandomEngWord(myVocas, myVocaBookId, category, mv.getEngWord()))
+													 .build();
+
+			myVocaDTOs.add(mvr);
+		}
+		Collections.shuffle(myVocaDTOs);
+		return myVocaDTOs;
+	}
+	
+	//영단어에 랜덤으로 언더바 삽입
+	//MEMO : 난이도 하향
+	//TODO: 추후 난이도 알아서 조정
+	private String createhiddenEngWord(String engWord) {
+		int wordLength = engWord.length();
+		char[] word = engWord.toCharArray();
+		StringBuilder parseHiddenWord = new StringBuilder();
+		Set<Integer> random = new HashSet<>();
+		if(wordLength <= 5) {
+			while(random.size()<2) {
+				random.add((int)(Math.random() * wordLength));
+			}
+		}else {
+			while(random.size()<=3) {
+				random.add((int)(Math.random() * wordLength));
+			}
+		}
+		for(int i : random) word[i] = '_';
+		for(char c : word) parseHiddenWord.append(c);
+		return parseHiddenWord.toString();
+	}
+	
+	//랜덤 영단어 4개 (랜덤 영단어 4개 선택지 기능 구현 용도)
+	private Set<String> createRandomEngWord(List<MyVoca> myVocas, long vocaBookId,String category,
+			String engWord){
+		Set<String> randomWord = new HashSet<>();
+		randomWord.add(engWord); //원래 답 
+		while(randomWord.size()<4) {
+			randomWord.add(myVocas.get((int)(Math.random()*myVocas.size())).getEngWord());
+		}
+		
+		return randomWord;
+	}
 }
