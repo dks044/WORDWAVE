@@ -83,6 +83,19 @@ public class MyVocaController {
 		}
 	}
 	
+	//나만의 영단어 퀴즈
+	@GetMapping("{myVocaBookId}/{userId}/{category}")
+	public ResponseEntity<?> select(@PathVariable("myVocaBookId")long myVocaBookId,
+									@PathVariable("userId") long userId,
+									@PathVariable("category") String category){
+		try {
+			return ResponseEntity.ok().body(myVocaService.select(myVocaBookId, userId, category));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(ResponseDTO.builder().data(e)
+					 .error(e.getMessage())
+					 .build());
+		}
+	}
 	
-	//TODO: 퀴즈 기능 만들어놓기
 }
