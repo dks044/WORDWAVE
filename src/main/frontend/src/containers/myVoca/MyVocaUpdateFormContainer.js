@@ -19,16 +19,17 @@ function MyVocaUpdateFormContainer({myVocaBookId, category}){
   const error = useSelector((state) => state.myVoca.updateFormMyVoca.error);
   const {user} = useSelector(state=>state.auth);
   const dispatch = useDispatch();
+  const validateMyVocaBookError = useSelector((state)=>state.myVocaBook.validateMyVocaBook.error);
 
   useEffect(()=>{
     dispatch(getUpdateFormMyVoca({myVocaBookId,category}));
-    console.log(data);
-  },[dispatch,myVocaBookId,category]);
+    dispatch(getValidateMyVocaBook({myVocaBookId,userId:user.id}));
+  },[dispatch,myVocaBookId,category,user]);
 
 
   
   if (loading && !data) return <CircleSpinner />;
-  if (error) return <div>{error.message}</div>;
+  if (error || validateMyVocaBookError) return <div>잘못된 경로로 접근했습니다.</div>;
 
   return(
     <MyVocaUpdateFormBlock>
