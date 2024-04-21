@@ -127,8 +127,11 @@ public class MyVocaBookController {
 	        }
 	        return ResponseEntity.ok().body(request.getMyVocaBookId() + " <= 수정완료");
 	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return ResponseEntity.badRequest().body("MyVocaBook 수정 실패!");
+			e.printStackTrace();
+			ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+			return ResponseEntity
+								.badRequest()
+								.body(responseDTO);
 	    }
 	}
 	

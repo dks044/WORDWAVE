@@ -132,4 +132,15 @@ public class MyVocaBookService {
 		SiteUser user = userService.getByUserId(userId);
 		return myVocaBookRepository.findByIdAndUser(myVocaBookId, user);
 	}
+	
+	//해당 영어단어장 안에 같은 이름의 카테고리를 생성 못하게 검증 하는
+	public void validateDistinctCategory(long myVocaBookId, String category) {
+	    MyVocaBook myVocaBook = getMyVocaBook(myVocaBookId);
+	    for(MyVoca mv : myVocaBook.getMyVocas()) {
+	        if(mv.getCategory().equals(category)) {
+	            throw new RuntimeException("이미 해당 영어단어장에 존재하고 있는 카테고리입니다: " + category);
+	        }
+	    }
+	}
+	
 }

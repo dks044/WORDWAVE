@@ -117,6 +117,7 @@ export default function MyPageComponent(){
   return(
     <>
       <Title>😀내 프로필</Title>
+      <br />
       <Container>
           <Row className="justify-content-between">
             <Col xs="auto">

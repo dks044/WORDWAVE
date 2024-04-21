@@ -64,7 +64,7 @@ function MyVocaForm ({myVocaBookId,userId}) {
       await createMyVocaAPI(myVocaBookId, userId, category, inputFields);
       window.location.href = `/myvocabooks/${myVocaBookId}`;
     } catch (error) {
-      dispatch(showPopup('에러가 발생했습니다. 잠시 후 다시 시도해주세요.'));
+      dispatch(showPopup('해당 카테고리는 해당 영어단어장에 존재합니다, 다른 이름으로 생성해주세요.'));
     }
   };
 
