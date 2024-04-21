@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getUserLearnHistory } from "../../modules/userLearnPerformance/userLearnPerformance";
+import { FaPencilAlt } from "react-icons/fa";
+import { IoMdTrash } from "react-icons/io";
 
 const Title = styled.h1`
   font-weight: bold;
@@ -17,6 +19,35 @@ const BlueP = styled.span`
 `
 const GreenP = styled.p`
   color: green;
+`
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const MainButton = styled(Button)`
+  flex-grow: 8; 
+`;
+
+const InfoButton = styled(Button)`
+  flex-grow: 2; 
+`;
+const CategoryContainer = styled.div`
+  display: flex;
+  justify-content: space-between; /* 버튼과 수정 아이콘을 양 끝으로 배치 */
+  align-items: center; /* 세로 중앙 정렬 */
+  width: 100%;
+  margin-bottom: 20px; /* 각 카테고리 사이의 간격 */
+`;
+
+const CategoryButton = styled(Button)`
+  flex-grow: 1; /* 버튼이 가능한 많은 공간을 차지하도록 함 */
+  margin-right: 10px; /* 버튼과 수정 아이콘 사이의 간격 */
+`;
+
+const UpdateButtonContainer = styled.div`
+  cursor: pointer;
 `
 
 function MyVocaBook({ myVocaBook }) {
@@ -56,6 +87,9 @@ function MyVocaBook({ myVocaBook }) {
   const handleClickToCreate = () => {
     navigate(`/myvocabooks/${myVocaBook.id}/create`);
   }
+  const handleClickToUpdate = (category) => {
+    navigate(`/myvocabooks/${myVocaBook.id}/update/${category}`);
+  }
 
 
   if (!myVocaBook) return null;
@@ -65,17 +99,21 @@ function MyVocaBook({ myVocaBook }) {
       <hr />
       <div ref={ref}>
         {myVocaBook.categories && myVocaBook.categories.map((category, index) => (
-          <div key={index} style={{ width: '100%' }}>
-            <Button
+          <CategoryContainer key={index}>
+            <CategoryButton
               variant="outline-primary"
               size="lg"
-              style={{ marginBottom: "20px", width: '100%' }}
               onMouseOver={(event) => handleClick(event, index,category)}
               onMouseOut={(event) => handleClick(event, index,category)}
-              onClick={() => handleShow(category)} //각 카테고리 버튼의 onClick 이벤트에서 handleShow 함수를 호출할 때 현재 카테고리를 인자로 전달.
+              onClick={() => handleShow(category)}
             >
               {category}
-            </Button>
+            </CategoryButton>
+            <UpdateButtonContainer>
+              <FaPencilAlt onClick={()=>handleClickToUpdate(category)}/>
+              <br />
+              <IoMdTrash />
+            </UpdateButtonContainer>
             <Overlay
               show={show[index]}
               target={target}
@@ -133,7 +171,7 @@ function MyVocaBook({ myVocaBook }) {
               variant="primary">공부하기!</Button>
             </Modal.Footer>
           </Modal>
-          </div>
+          </CategoryContainer>
         ))}
         <div className="d-grid gap-2">
           <Button variant="outline-primary" onClick={()=>handleClickToCreate()}>+</Button>

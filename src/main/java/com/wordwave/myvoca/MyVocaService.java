@@ -1,6 +1,7 @@
 package com.wordwave.myvoca;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.wordwave.myvoca.dto.MyVocaCreateFormDTO;
 import com.wordwave.myvoca.dto.MyVocaDTO;
 import com.wordwave.myvoca.dto.MyVocaUpdateFormDTO;
+import com.wordwave.myvoca.dto.MyVocaUpdateFormRequestDTO;
 import com.wordwave.myvocabook.MyVocaBook;
 import com.wordwave.myvocabook.MyVocaBookService;
 
@@ -58,4 +60,37 @@ public class MyVocaService {
 											.build();
 											
 	}
+	//업데이트
+	public void update(MyVocaUpdateFormRequestDTO requestDTO) {
+	    MyVocaBook myVocaBook = myVocaBookService.getMyVocaBookIdAndUserId(requestDTO.getMyVocaBookId(),
+	                                                                        requestDTO.getUserId());
+	    List<MyVoca> myVocas = myVocaBook.getMyVocas();
+	    List<MyVocaDTO> myVocaDTOs = requestDTO.getMyVocas();
+
+	    // 이전 카테고리와 일치하는 단어들을 찾아서 삭제
+	    Iterator<MyVoca> iterator = myVocas.iterator();
+	    while (iterator.hasNext()) {
+	        MyVoca mv = iterator.next();
+	        if (mv.getCategory().equals(requestDTO.getPrevCategory())) {
+	            iterator.remove(); // 메모리 상에서 삭제
+	            myVocaRepository.delete(mv); // 데이터베이스에서도 삭제
+	        }
+	    }
+
+	    //수정하는 카테고리가 이미 포함된 카테고리인지 검증한다
+	    myVocaBookService.validateDistinctCategory(requestDTO.getMyVocaBookId(), requestDTO.getNextCategory());
+
+	    for (MyVocaDTO mvDTO : myVocaDTOs) {
+	        MyVoca mv = MyVoca.builder()
+	                          .korWord(mvDTO.getKorWord())
+	                          .engWord(mvDTO.getEngWord())
+	                          .category(requestDTO.getNextCategory())
+	                          .myVocaBook(myVocaBook)
+	                          .build();
+	        myVocas.add(mv); // 메모리 상에 추가
+	    }
+	    myVocaBook.updateMyVocas(myVocas); // 메모리 상의 변경 사항을 엔티티에 반영
+	    myVocaBookService.create(myVocaBook); // 변경된 엔티티를 데이터베이스에 저장
+	}
+	
 }

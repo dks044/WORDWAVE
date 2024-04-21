@@ -22,7 +22,7 @@ import MyVocaBookFormPage from "./pages/myVoca/MyVocaBookFormPage";
 import MyVocaBookPage from "./pages/myVoca/MyVocaBookPage"
 import MyVocaBookUpdateFormPage from "./pages/myVoca/MyVocaBookUpdateFormPage";
 import MyVocaFormPage from "./pages/myVoca/MyVocaFormPage";
-
+import MyVocaUpdateFormPage from "./pages/myVoca/MyVocaUpdateFormPage";
 
 function App() {
   //authenticated
@@ -81,12 +81,16 @@ function App() {
           element={isLoging ? <GrammarPage /> : <Navigate to="/login" />}/>
           {/* MyVoca */}
           <Route path="myvocabooks" element={isLoging ? <MyVocaBooksPage /> : <Navigate to="/login" />} />
-          <Route path="myvocabooks/create" element={isLoging ? <MyVocaBookFormPage /> : <Navigate to="/login" />} />
-          <Route path="myvocabooks/update/:myVocaBookId/" element={isLoging ? <MyVocaBookUpdateFormPage /> : <Navigate to="/login" />} />
+          <Route path="myvocabooks/create" 
+          element={isLoging ? <MyVocaBookFormPage /> : <Navigate to="/login" />} />
+          <Route path="myvocabooks/update/:myVocaBookId/" 
+          element={isLoging ? <MyVocaBookUpdateFormPage /> : <Navigate to="/login" />} />
           <Route path="myvocabooks/:myVocaBookId" 
           element={isLoging ? <MyVocaBookPage /> : <Navigate to="/login" />}/>
           <Route path="myvocabooks/:myVocaBookId/create" 
           element={isLoging ? <MyVocaFormPage /> : <Navigate to="/login" />}/>
+          <Route path="myvocabooks/:myVocaBookId/update/:category" 
+          element={isLoging ? <MyVocaUpdateFormPage /> : <Navigate to="/login" />}/>
         </Route>
       </Routes>
     </>

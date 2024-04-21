@@ -5,7 +5,7 @@ const initialState = {
   updateFormMyVoca : reducerUtils.initial(),
 }
 
-const MyVocaSlice = createSlice({
+const myVocaSlice = createSlice({
   name : "myVoca",
   initialState,
   reducers: {
@@ -29,6 +29,6 @@ export const {
   getUpdateFormMyVoca,
   getUpdateFormMyVocaSuccess,
   getUpdateFormMyVocaError
-} = MyVocaSlice.actions;
+} = myVocaSlice.actions;
 
-export default MyVocaSlice.reducer;
+export default myVocaSlice.reducer;

@@ -70,3 +70,9 @@ export async function updateFormMyVocaAPI({myVocaBookId,category}){
   const response = await axios.get(`/api/myvoca/updateForm/${myVocaBookId}/${category}`)
   return response.data;
 }
+
+//MyVoca 업데이트 (나만의 단어 수정)
+export async function updateMyVocaAPI(myVocaBookId,userId,prevCategory,nextCategory,myVocas){
+  const response = await axios.patch(`/api/myvoca/patch`,{myVocaBookId,userId,prevCategory,nextCategory,myVocas});
+  return response.data;
+}

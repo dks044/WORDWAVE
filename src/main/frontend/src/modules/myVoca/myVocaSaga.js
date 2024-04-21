@@ -3,15 +3,15 @@ import * as myVocaAPI from "../../api/myVocaAPI";
 
 function* fetchUpdateFormMyVocaSaga(action){
   try {
-    const updateFormMyVoca = yield call(myVocaAPI.getUpdateFormMyVocaAPI,action.payload);
+    const updateFormMyVoca = yield call(myVocaAPI.updateFormMyVocaAPI,action.payload);
     yield put ({
-      type: "updateFormMyVoca/getUpdateFormMyVocaSuccess",
+      type: "myVoca/getUpdateFormMyVocaSuccess",
       payload : updateFormMyVoca
     });
     
   } catch (e) {
     yield put({
-      type: "updateFormMyVoca/getUpdateFormMyVocaError",
+      type: "myVoca/getUpdateFormMyVocaError",
       error: true,
       payload: e.message,
     });

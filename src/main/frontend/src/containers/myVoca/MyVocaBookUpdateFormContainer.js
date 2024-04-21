@@ -16,7 +16,6 @@ function MyVocaBookUpdateFormContainer({myVocaBookId}){
   const loading = useSelector((state) => state.myVocaBook.myVocaBookOne.loading);
   const error = useSelector((state) => state.myVocaBook.myVocaBookOne.error);
   const {user} = useSelector(state=>state.auth);
-  console.log(user.id);
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -25,7 +24,11 @@ function MyVocaBookUpdateFormContainer({myVocaBookId}){
 
 
    if (loading && !data) return <CircleSpinner />;
-   if (error) return null;
+   if (error) return (
+    <MyVocaBookUpdateFormBlock>
+      <p>잘못된 경로로 접근했습니다!</p>
+    </MyVocaBookUpdateFormBlock>
+   )
    return(
     <MyVocaBookUpdateFormBlock>
       <MyVocaBookUpdateForm myVocaBook={data}/>
