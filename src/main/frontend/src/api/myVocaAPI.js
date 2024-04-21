@@ -76,3 +76,9 @@ export async function updateMyVocaAPI(myVocaBookId,userId,prevCategory,nextCateg
   const response = await axios.patch(`/api/myvoca/patch`,{myVocaBookId,userId,prevCategory,nextCategory,myVocas});
   return response.data;
 }
+
+//MyVoca 삭제 (나만의 단어 삭제)
+export async function deleteMyVocaAPI({myVocaBookId,userId,category}){
+  const response = await axios.delete(`/api/myvoca/delete/${myVocaBookId}/${userId}/${category}`);
+  return response.data;
+}

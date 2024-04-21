@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { getUserLearnHistory } from "../../modules/userLearnPerformance/userLearnPerformance";
 import { FaPencilAlt } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
+import {deleteMyVocaAPI} from "../../api/myVocaAPI";
 
 const Title = styled.h1`
   font-weight: bold;
@@ -20,19 +21,6 @@ const BlueP = styled.span`
 const GreenP = styled.p`
   color: green;
 `
-
-const ButtonContainer = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-const MainButton = styled(Button)`
-  flex-grow: 8; 
-`;
-
-const InfoButton = styled(Button)`
-  flex-grow: 2; 
-`;
 const CategoryContainer = styled.div`
   display: flex;
   justify-content: space-between; /* 버튼과 수정 아이콘을 양 끝으로 배치 */
@@ -69,6 +57,13 @@ function MyVocaBook({ myVocaBook }) {
     setSelectedCategory(category); // 현재 선택된 카테고리 저장
   };
   
+  //deleteModal
+    const [deleteModalShow, setDeleteModalShow] = useState(false);
+    const deleteModalhandleClose = () => setDeleteModalShow(false);
+    const deleteModalhandleShow = (category) => {
+      setDeleteModalShow(true);
+      setSelectedCategory(category); // 현재 선택된 카테고리 저장
+  };
 
   const handleClick = async (event,index,category) => {
     setShow((prevShow) => ({ ...prevShow, [index]: !prevShow[index] }));
@@ -90,6 +85,12 @@ function MyVocaBook({ myVocaBook }) {
   const handleClickToUpdate = (category) => {
     navigate(`/myvocabooks/${myVocaBook.id}/update/${category}`);
   }
+  const handleClickToDelete = async (category) => {
+    await deleteMyVocaAPI({myVocaBookId : myVocaBook.id,
+                    userId : user.id,
+                    category});
+    window.location.href = `/myvocabooks/${myVocaBook.id}`;
+  };
 
 
   if (!myVocaBook) return null;
@@ -112,7 +113,7 @@ function MyVocaBook({ myVocaBook }) {
             <UpdateButtonContainer>
               <FaPencilAlt onClick={()=>handleClickToUpdate(category)}/>
               <br />
-              <IoMdTrash />
+              <IoMdTrash onClick={()=>deleteModalhandleShow(category)} />
             </UpdateButtonContainer>
             <Overlay
               show={show[index]}
@@ -154,6 +155,7 @@ function MyVocaBook({ myVocaBook }) {
               keyboard={false}
               size="lg"
             >
+            {/* 퀴즈 모달창 */}
             <Modal.Header closeButton>
               <Modal.Title><Title>퀴즈 안내사항</Title></Modal.Title>
             </Modal.Header>
@@ -169,6 +171,29 @@ function MyVocaBook({ myVocaBook }) {
               </Button>
               <Button onClick={() => navigate(`/myVocaBooks/${myVocaBook.id}/${selectedCategory}`)} 
               variant="primary">공부하기!</Button>
+            </Modal.Footer>
+          </Modal>
+          {/* 삭제 모달창 */}
+          <Modal
+              show={deleteModalShow}
+              onHide={deleteModalhandleClose}
+              backdrop="static"
+              keyboard={false}
+              size="lg"
+            >
+            <Modal.Header closeButton>
+              <Modal.Title><Title>삭제</Title></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h5>
+                {selectedCategory} 를 삭제하시겠습니까?
+              </h5>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={deleteModalhandleClose}>
+                취소
+              </Button>
+              <Button variant="danger" onClick={()=>handleClickToDelete(selectedCategory)}>삭제하기</Button>
             </Modal.Footer>
           </Modal>
           </CategoryContainer>
