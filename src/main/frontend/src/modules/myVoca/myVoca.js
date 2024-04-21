@@ -3,7 +3,7 @@ import { reducerUtils } from "../../lib/asyncUtils";
 
 const initialState = {
   updateFormMyVoca : reducerUtils.initial(),
-  myVoca : reducerUtils()
+  myVoca : reducerUtils.initial(),
 }
 
 const myVocaSlice = createSlice({

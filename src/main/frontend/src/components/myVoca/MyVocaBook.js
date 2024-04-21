@@ -66,10 +66,10 @@ function MyVocaBook({ myVocaBook }) {
   };
 
   const handleClick = async (event,index,category) => {
+    var categoryName = `${user.id}_${myVocaBook.name}_${category}`;
     setShow((prevShow) => ({ ...prevShow, [index]: !prevShow[index] }));
     setTarget(event.target);
-    await dispatch(getUserLearnHistory({ category: category, userId: user.id }));
-
+    await dispatch(getUserLearnHistory({ category: categoryName, userId: user.id }));
   };
 
   //날짜데이터를 깔끔하게 (yy-mm-dd)

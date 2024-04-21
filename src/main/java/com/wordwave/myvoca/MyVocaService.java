@@ -124,13 +124,14 @@ public class MyVocaService {
 		for(MyVoca mv : myVocas) {
 			MyVocaResponseDTO mvr = MyVocaResponseDTO.builder()
 													 .id(mv.getId())
-													 .korWord(mv.getEngWord())
+													 .korWord(mv.getKorWord())
 													 .engWord(mv.getEngWord())
 													 .category(mv.getCategory())
 													 .myVocaBookId(myVocaBookId)
 													 .hiddenEngWord(createhiddenEngWord(mv.getEngWord()))
 													 .quizStatus((int)(Math.random()*2)+1)
 													 .randomEngWord(createRandomEngWord(myVocas, myVocaBookId, category, mv.getEngWord()))
+													 .myVocaBookName(mvb.getName())
 													 .build();
 
 			myVocaDTOs.add(mvr);

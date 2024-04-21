@@ -23,6 +23,7 @@ import MyVocaBookPage from "./pages/myVoca/MyVocaBookPage"
 import MyVocaBookUpdateFormPage from "./pages/myVoca/MyVocaBookUpdateFormPage";
 import MyVocaFormPage from "./pages/myVoca/MyVocaFormPage";
 import MyVocaUpdateFormPage from "./pages/myVoca/MyVocaUpdateFormPage";
+import MyVocaPage from "./pages/myVoca/MyVocaPage";
 
 function App() {
   //authenticated
@@ -88,7 +89,7 @@ function App() {
           <Route path="myvocabooks/:myVocaBookId" 
           element={isLoging ? <MyVocaBookPage /> : <Navigate to="/login" />}/>
           <Route path="myvocabooks/:myVocaBookId/:category" 
-          element={isLoging ? <MyVocaBookPage /> : <Navigate to="/login" />}/> {/* 나만의 영단어 퀴즈 */}
+          element={isLoging ? <MyVocaPage /> : <Navigate to="/login" />}/> {/* 나만의 영단어 퀴즈 */}
           <Route path="myvocabooks/:myVocaBookId/create" 
           element={isLoging ? <MyVocaFormPage /> : <Navigate to="/login" />}/>
           <Route path="myvocabooks/:myVocaBookId/update/:category" 

@@ -18,11 +18,10 @@ public class MyVocaResponseDTO {
     private String engWord;
     private String category;
     private Long myVocaBookId;
-    private String imgURL;
     //중간에 빈칸이 있는 영단어
-    public String hiddenEngWord;
+    private String hiddenEngWord;
     //영어빈칸퀴즈 : 1 | 한글제시퀴즈 : 2
-    public int quizStatus;
-    public Set<String> randomEngWord = new HashSet<>();
-	
+    private int quizStatus;
+    private Set<String> randomEngWord = new HashSet<>();
+	private String myVocaBookName;
 }
