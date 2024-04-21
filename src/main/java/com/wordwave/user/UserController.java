@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordwave.emailcode.EmailAuthenicateDTO;
 import com.wordwave.emailcode.EmailCode;
 import com.wordwave.emailcode.EmailCodeService;
+import com.wordwave.myvocabook.MyVocaBookService;
 import com.wordwave.security.Key;
 import com.wordwave.security.TokenProvider;
 import com.wordwave.util.MailDTO;
@@ -45,13 +46,7 @@ public class UserController {
 	private final PasswordEncoder passwordEncoder;
 	private final MailService mailService;
 	private final EmailCodeService emailCodeService;
-	
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/test")
-	public String test() {
-		return "test success";
-	}
-	
+	private final MyVocaBookService myVocaBookService;
 	
 	@PostMapping("/send_authenticateCode")
 	public ResponseEntity<?> authenticateSendEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
@@ -285,7 +280,7 @@ public class UserController {
 	}
 
 	@PostMapping("/delete_user")
-	public ResponseEntity<?> deleteUser(HttpServletRequest request, @RequestBody MyPageDTO myPageDTO){
+	public ResponseEntity<?> deleteUser(HttpServletRequest request, @RequestBody MyPageDTO myPageDTO) throws Exception{
 		try {
 			String token = userService.getTokenFromRequest(request);
 			System.out.println(token);
@@ -293,6 +288,7 @@ public class UserController {
 			if(!user.getEmail().equals(myPageDTO.getEmail()) || !passwordEncoder.matches(myPageDTO.getPassword(), user.getPassword())) {
 				return ResponseEntity.status(401).body("입력한 비밀번호와 이메일이 가입 정보와 다릅니다.");
 			}
+			myVocaBookService.deleteAllImageURL(user);
 			userService.deleteUser(user);
 			emailCodeService.delete(user.getEmail());
 			return ResponseEntity.ok().body(user.getId()+"<= user deleted.");

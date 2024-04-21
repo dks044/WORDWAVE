@@ -143,4 +143,14 @@ public class MyVocaBookService {
 	    }
 	}
 	
+	//회원탈퇴 활용 용도
+	//DB에 있는 S3 IMAGE URL 전부삭제
+	public void deleteAllImageURL(SiteUser user) throws Exception {
+		List<MyVocaBook> myVocaBooks = myVocaBookRepository.findAllByUser(user);
+		for(MyVocaBook mvb : myVocaBooks) {
+			String keyName = UrlParser.getKeyFromUrl(mvb.getImageURL());
+			s3Service.delete(keyName);
+		}
+	}
+	
 }
