@@ -3,6 +3,7 @@ import { reducerUtils } from "../../lib/asyncUtils";
 
 const initialState = {
   updateFormMyVoca : reducerUtils.initial(),
+  myVoca : reducerUtils()
 }
 
 const myVocaSlice = createSlice({
@@ -21,6 +22,18 @@ const myVocaSlice = createSlice({
       ...state,
       updateFormMyVoca: reducerUtils.error(action.error),
     }),
+    getMyVoca: (state) => ({
+      ...state,
+      myVoca: reducerUtils.loading(),
+    }),
+    getMyVocaSuccess: (state, action) => ({
+      ...state,
+      myVoca: reducerUtils.success(action.payload),
+    }),
+    getMyVocaError: (state, action) => ({
+      ...state,
+      myVoca: reducerUtils.error(action.error),
+    }),
   }
 
 })
@@ -28,7 +41,10 @@ const myVocaSlice = createSlice({
 export const {
   getUpdateFormMyVoca,
   getUpdateFormMyVocaSuccess,
-  getUpdateFormMyVocaError
+  getUpdateFormMyVocaError,
+  getMyVoca,
+  getMyVocaSuccess,
+  getMyVocaError
 } = myVocaSlice.actions;
 
 export default myVocaSlice.reducer;

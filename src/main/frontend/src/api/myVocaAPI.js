@@ -82,3 +82,9 @@ export async function deleteMyVocaAPI({myVocaBookId,userId,category}){
   const response = await axios.delete(`/api/myvoca/delete/${myVocaBookId}/${userId}/${category}`);
   return response.data;
 }
+
+//나만의 단어 퀴즈
+export async function selectMyVocaAPI({myVocaBookId,userId,category}){
+  const response = await axios.get(`/api/myvoca/${myVocaBookId}/${userId}/${category}`);
+  return response.data;
+}

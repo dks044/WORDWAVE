@@ -18,8 +18,26 @@ function* fetchUpdateFormMyVocaSaga(action){
   }
 }
 
+function* fetchMyVocaSaga(action){
+  try {
+    const myVoca = yield call(myVocaAPI.selectMyVocaAPI,action.payload);
+    yield put ({
+      type: "myVoca/getMyVocaSuccess",
+      payload : myVoca
+    });
+    
+  } catch (e) {
+    yield put({
+      type: "myVoca/getMyVocaError",
+      error: true,
+      payload: e.message,
+    });
+  }
+}
+
 function* myVocaSaga() {
   yield takeEvery("myVoca/getUpdateFormMyVoca", fetchUpdateFormMyVocaSaga);
+  yield takeEvery("myVoca/getMyVoca", fetchMyVocaSaga);
 }
 
 export default myVocaSaga;

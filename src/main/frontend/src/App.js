@@ -87,6 +87,8 @@ function App() {
           element={isLoging ? <MyVocaBookUpdateFormPage /> : <Navigate to="/login" />} />
           <Route path="myvocabooks/:myVocaBookId" 
           element={isLoging ? <MyVocaBookPage /> : <Navigate to="/login" />}/>
+          <Route path="myvocabooks/:myVocaBookId/:category" 
+          element={isLoging ? <MyVocaBookPage /> : <Navigate to="/login" />}/> {/* 나만의 영단어 퀴즈 */}
           <Route path="myvocabooks/:myVocaBookId/create" 
           element={isLoging ? <MyVocaFormPage /> : <Navigate to="/login" />}/>
           <Route path="myvocabooks/:myVocaBookId/update/:category" 
