@@ -46,6 +46,7 @@ public class MyVocaService {
 	}
 	
 	//업데이트폼에 활용
+	//TODO: 검토필요
 	public MyVocaUpdateFormDTO getMyVocaByMyVocaBookIdAndCategory(long myVocaBookId,String category) {
 		MyVocaBook myVocaBook = myVocaBookService.getMyVocaBook(myVocaBookId);
 		List<MyVoca> myVocas = myVocaBook.getMyVocas();

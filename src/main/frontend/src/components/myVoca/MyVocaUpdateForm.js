@@ -23,10 +23,9 @@ const SubTitle = styled.h3`
 
 function MyVocaUpdateForm({myVoca,userId}){
   const dispatch = useDispatch();
-  const [category, setCategory] = useState(myVoca.category);
 
   // 입력 필드 상태 관리
-  const [inputFields, setInputFields] = useState(myVoca.myVocas);
+  const [inputFields, setInputFields] = useState(myVoca ? myVoca.myVocas : []);
 
   // 필드 추가 함수
   const handleAddFields = () => {
@@ -72,6 +71,8 @@ function MyVocaUpdateForm({myVoca,userId}){
       dispatch(showPopup('해당 카테고리는 해당 영어단어장에 존재합니다, 다른 이름으로 수정해주세요.'));
     }
   };
+  
+  if(!myVoca) return null;
 
   return(
     <>
@@ -83,9 +84,7 @@ function MyVocaUpdateForm({myVoca,userId}){
       <Form onSubmit={handleSubmit}>
         <FloatingLabel controlId="floatingInputCategory" label="영단어 카테고리 입력">
             <Form.Control type="text"
-            placeholder="카테고리"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)} />
+            placeholder="카테고리"/>
         </FloatingLabel>
         <br/>
         {inputFields.map((inputField, index) => (

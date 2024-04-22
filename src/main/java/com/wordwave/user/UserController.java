@@ -288,7 +288,7 @@ public class UserController {
 			if(!user.getEmail().equals(myPageDTO.getEmail()) || !passwordEncoder.matches(myPageDTO.getPassword(), user.getPassword())) {
 				return ResponseEntity.status(401).body("입력한 비밀번호와 이메일이 가입 정보와 다릅니다.");
 			}
-			myVocaBookService.deleteAllImageURL(user);
+			myVocaBookService.deleteAllImageURL(user); //s3에 저장된 사용자의 이미지들 삭제
 			userService.deleteUser(user);
 			emailCodeService.delete(user.getEmail());
 			return ResponseEntity.ok().body(user.getId()+"<= user deleted.");
