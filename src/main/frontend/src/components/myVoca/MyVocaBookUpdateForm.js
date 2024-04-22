@@ -24,10 +24,10 @@ function MyVocaBookUpdateForm({myVocaBook}){
   const [fileError, setFileError] = useState(""); // 파일 에러 상태메시지
   const [isFileError,setIsFileError] = useState(false) //파일 에러 유무 
   const [fileName, setFileName] = useState();
-  const [previewUrl, setPreviewUrl] = useState(myVocaBook.imageURL); // 이미지 미리보기 URL 상태 추가
+  const [previewUrl, setPreviewUrl] = useState(myVocaBook ? myVocaBook.imageURL : null); // 이미지 미리보기 URL 상태 추가
 
   const {user} = useSelector(state=>state.auth);
-  const [name, setName] = useState(myVocaBook.name); // 초기값을 myVocaBook.name으로 설정
+  const [name, setName] = useState(myVocaBook ? myVocaBook.name : ''); // 초기값을 myVocaBook.name으로 설정
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -79,6 +79,7 @@ function MyVocaBookUpdateForm({myVocaBook}){
     navigate('/myvocabooks');
     dispatch(showPopup('나만의 단어장 수정이 완료됐습니다.'));
   }
+  if(!myVocaBook) return null;
 
   return(
     <div>
