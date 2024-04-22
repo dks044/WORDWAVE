@@ -148,8 +148,10 @@ public class MyVocaBookService {
 	public void deleteAllImageURL(SiteUser user) throws Exception {
 		List<MyVocaBook> myVocaBooks = myVocaBookRepository.findAllByUser(user);
 		for(MyVocaBook mvb : myVocaBooks) {
-			String keyName = UrlParser.getKeyFromUrl(mvb.getImageURL());
-			s3Service.delete(keyName);
+			if(mvb.getImageURL() != null) {
+				String keyName = UrlParser.getKeyFromUrl(mvb.getImageURL());
+				s3Service.delete(keyName);
+			}
 		}
 	}
 	
