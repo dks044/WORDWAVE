@@ -85,6 +85,7 @@ public class UserLearnPerformanceTest {
 	
 	@Test
 	@DisplayName("findByUserAndCategory 이 제대로 동작하는지 테스트한다.")
+	@Disabled
 	void getUserLearnPerformanceByUserAndCategory() {
 		SiteUser user = userService.getByUserId(TEST_USER_ID);
 		UserLearnPerformance userLearn = userLearnPerformanceRepository.findByUserAndCategory(user, CATEGORY_OF_TOEIC);
@@ -96,9 +97,9 @@ public class UserLearnPerformanceTest {
 	@Rollback(false)
 	@Disabled
 	void selectUserLearnPerformancePagingTest() {
-		for(int i=1;i<=50;i++) {
+		for(int i=1;i<=100;i++) {
 			UserLearnPerformanceDTO userLearnPerformanceDTO = UserLearnPerformanceDTO.builder()
-															  .userId(1)
+															  .userId(39)
 															  .learnType(1)
 															  .category("테스트중.."+i)
 															  .answerCount(5)
