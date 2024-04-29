@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {createMyVocaAPI} from "../../api/myVocaAPI";
 import { useDispatch } from "react-redux";
 import { showPopup } from "../../modules/popup";
+import { useNavigate } from "react-router-dom";
 
 const Title = styled.h1`
   font-weight: bolder;
@@ -20,6 +21,7 @@ const StyledRow = styled(Row)`
 
 function MyVocaForm ({myVocaBookId,userId}) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
    // 입력 필드 상태 관리
    const [inputFields, setInputFields] = useState([{ engWord: '', korWord: '' }]);
@@ -68,7 +70,8 @@ function MyVocaForm ({myVocaBookId,userId}) {
 
     try {
       await createMyVocaAPI(myVocaBookId, userId, category, inputFields);
-      window.location.href = `/myvocabooks/${myVocaBookId}`;
+      //window.location.href = `/myvocabooks/${myVocaBookId}`;
+      navigate(`/myvocabooks/${myVocaBookId}`);
     } catch (error) {
       dispatch(showPopup('해당 카테고리는 해당 영어단어장에 존재합니다, 다른 이름으로 생성해주세요.'));
     }

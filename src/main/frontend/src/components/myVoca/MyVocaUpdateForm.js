@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { showPopup } from "../../modules/popup";
 import {updateMyVocaAPI} from "../../api/myVocaAPI";
+import { useNavigate } from "react-router-dom";
 
 const Title = styled.h1`
   font-weight: bolder;
@@ -23,6 +24,7 @@ const SubTitle = styled.h3`
 
 function MyVocaUpdateForm({myVoca,userId}){
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // 입력 필드 상태 관리
   const [inputFields, setInputFields] = useState(myVoca ? myVoca.myVocas : []);
@@ -66,7 +68,8 @@ function MyVocaUpdateForm({myVoca,userId}){
 
     try {
       await updateMyVocaAPI(myVoca.myVocaBookId,userId,myVoca.category,category,inputFields);
-      window.location.href = `/myvocabooks/${myVoca.myVocaBookId}`;
+      //window.location.href = `/myvocabooks/${myVoca.myVocaBookId}`;
+      navigate(`/myvocabooks/${myVoca.myVocaBookId}`);
     } catch (error) {
       dispatch(showPopup('해당 카테고리는 해당 영어단어장에 존재합니다, 다른 이름으로 수정해주세요.'));
     }
