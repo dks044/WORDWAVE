@@ -20,12 +20,12 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
     
     // 메일보내기
-    public void sendEmail(MailDTO mailDTO,String subject,String text) {
+    public void sendEmail(String email,String subject,String text) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setTo(mailDTO.getEmail());
+            helper.setTo(email);
             helper.setSubject(subject);
             Context context = new Context();
             context.setVariable("mainSubject", subject);

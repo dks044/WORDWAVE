@@ -19,7 +19,7 @@ const ProfileSubText = styled.h4`
   font-weight: bold;
 `
 
-export default function MyPageComponent(){
+function MyPageComponent(){
   const {user} = useSelector(state=>state.auth);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -206,3 +206,4 @@ export default function MyPageComponent(){
     </>
   )
 }
+export default React.memo(MyPageComponent);

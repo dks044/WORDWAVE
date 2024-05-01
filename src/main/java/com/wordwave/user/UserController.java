@@ -2,8 +2,10 @@ package com.wordwave.user;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +22,7 @@ import com.wordwave.emailcode.EmailAuthenicateDTO;
 import com.wordwave.emailcode.EmailCode;
 import com.wordwave.emailcode.EmailCodeService;
 import com.wordwave.myvocabook.MyVocaBookService;
+import com.wordwave.redis.RedisConfig;
 import com.wordwave.security.Key;
 import com.wordwave.security.TokenProvider;
 import com.wordwave.util.MailDTO;
@@ -47,27 +50,24 @@ public class UserController {
 	private final MailService mailService;
 	private final EmailCodeService emailCodeService;
 	private final MyVocaBookService myVocaBookService;
+	private final StringRedisTemplate stringRedisTemplate;
 	
+	//회원가입 : 인증코드 전송
 	@PostMapping("/send_authenticateCode")
 	public ResponseEntity<?> authenticateSendEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
 		String sendCode = mailService.createRandomPW();
-		emailAuthenicateDTO.setEmailCode(sendCode);
+	    String email = emailAuthenicateDTO.getEmail();
+	    String key = "authCode:" + email; // Redis 키 구성
 		String subject = "[WORDWAVE] 인증코드 입니다.";
+		long timeout = 5 * 60; // 예: 5분
 		try {
-			MailDTO mailDTO = new MailDTO();
-			mailDTO.setEmail(emailAuthenicateDTO.getEmail());
-			if(userService.equalsDatabaseByEmail(emailAuthenicateDTO.getEmail())) {
-				return ResponseEntity.status(401).body("해당 이메일에 코드를 전송할 수 없습니다.");
-			}
+			stringRedisTemplate.opsForValue().set(key, sendCode, timeout, TimeUnit.SECONDS);
+			//이메일전송로직
 			StringBuilder sendMessage = new StringBuilder();
 			sendMessage.append("인증코드 입니다.. <br>");
 			sendMessage.append(sendCode+"<= 해당 임시코드를 입력 하세요.<br>");
 			sendMessage.append("감사합니다.<br>");
-			EmailCode emailCodeEntity = emailCodeService.converterToEntity(emailAuthenicateDTO);
-			if(emailCodeService.isEmail(emailAuthenicateDTO.getEmail())) {
-				return ResponseEntity.status(HttpStatus.OK).body("이미 이메일에 코드를 전송했습니다.");
-			}else emailCodeService.save(emailCodeEntity);
-			mailService.sendEmail(mailDTO, subject, sendMessage.toString());
+			mailService.sendEmail(email, subject, sendMessage.toString());
 			return ResponseEntity.ok().body("email send success.");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,20 +75,26 @@ public class UserController {
 		}
 	}
 	
+	//회원가입 : 인증코드 인증과정
 	@PostMapping("/authenticateCode")
-	public ResponseEntity<?> authenticateEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
-		try {
-			EmailCode emailCode =
-			emailCodeService.getByCredentials(emailAuthenicateDTO.getEmail(),emailAuthenicateDTO.getEmailCode());
-			if(emailCode == null) {
-				return ResponseEntity.status(401).body("이메일 인증 코드가 맞지 않음");
-			}
-			return ResponseEntity.ok().body("이메일 인증 성공");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body("이메일 인증 코드가 맞지 않음.");
-		}
+	public ResponseEntity<?> authenticateEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO) {
+	    String email = emailAuthenicateDTO.getEmail();
+	    String inputCode = emailAuthenicateDTO.getEmailCode();
+	    String key = "authCode:" + email; // Redis 키 구성
+	    String storedCode = stringRedisTemplate.opsForValue().get(key);
+	    try {
+	        if (storedCode != null && storedCode.equals(inputCode)) {
+	            // 성공 로직...
+	            return ResponseEntity.ok().body("이메일 인증 성공");
+	        } else {
+	            return ResponseEntity.status(401).body("이메일 인증 코드가 맞지 않음");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.badRequest().body("이메일 인증 실패.");
+	    }
 	}
+
 	
 	
 	
@@ -225,7 +231,7 @@ public class UserController {
 			sendMessage.append("아이디 찾기 결과 입니다.<br>");
 			sendMessage.append(findedUserName+"<= 해당 아이디로 로그인하세요.<br>");
 			sendMessage.append("감사합니다.<br>");
-			mailService.sendEmail(mailDTO,subject,sendMessage.toString());
+			mailService.sendEmail(mailDTO.getEmail(),subject,sendMessage.toString());
 			return ResponseEntity.ok().body(findedUserName);
 		} catch (DataAccessException e) {
 		    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("데이터베이스 오류");
@@ -250,7 +256,7 @@ public class UserController {
 			sendMessage.append("임시 비밀번호 발급해드리겠습니다.<br>");
 			sendMessage.append(newPassword+"<= 해당 임시 비밀번호로 로그인하세요.<br>");
 			sendMessage.append("감사합니다.<br>");
-			mailService.sendEmail(mailDTO,subject,sendMessage.toString());
+			mailService.sendEmail(mailDTO.getEmail(),subject,sendMessage.toString());
 			return ResponseEntity.ok().body("비밀번호 이메일 전송완료");
 		} catch (Exception e) {
 			e.printStackTrace();
