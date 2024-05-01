@@ -88,7 +88,7 @@ public class UserController {
 	    String storedCode = stringRedisTemplate.opsForValue().get(key);
 	    try {
 	        if (storedCode != null && storedCode.equals(inputCode)) {
-	            // 성공 로직...
+	            // 성공 로직
 	            return ResponseEntity.ok().body("이메일 인증 성공");
 	        } else {
 	            return ResponseEntity.status(401).body("이메일 인증 코드가 맞지 않음");
