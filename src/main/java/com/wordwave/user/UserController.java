@@ -61,6 +61,10 @@ public class UserController {
 		String subject = "[WORDWAVE] 인증코드 입니다.";
 		long timeout = 5 * 60; // 예: 5분
 		try {
+			//사용자가 입력한 이메일이 데이터베이스에 있는지
+			if(userService.equalsDatabaseByEmail(email)) {
+				return ResponseEntity.status(401).body("데이터베이스에 이미 존재하는 이메일");
+			}
 			stringRedisTemplate.opsForValue().set(key, sendCode, timeout, TimeUnit.SECONDS);
 			//이메일전송로직
 			StringBuilder sendMessage = new StringBuilder();
