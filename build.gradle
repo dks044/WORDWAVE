@@ -26,8 +26,13 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.projectlombok:lombok'
+	
 	//H2 DATABASE(개발용)
-	runtimeOnly 'com.h2database:h2'
+	//runtimeOnly 'com.h2database:h2'
+	
+	//my sql
+	implementation 'mysql:mysql-connector-java:8.0.37'
+	
 	//JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	//스프링 시큐리티
@@ -44,7 +49,7 @@ dependencies {
 	
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 	
-	//Redix 설치 
+	//Redis 설치 
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
