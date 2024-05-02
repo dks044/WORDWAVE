@@ -103,12 +103,14 @@ function MyVocaContainer({myVocaBookId,category}){
     }, [timeLeft]);
 
     if (loading && !data) return <CircleSpinner />;
+    
     if (error) return (
       <MyVocaContainerBlock>
         <h3>오류!</h3>
         <h3>접근 불가능한 URL입니다.</h3>
       </MyVocaContainerBlock>
     );
+
     return(
       <MyVocaContainerBlock>
         <ProgressBarBlock>
