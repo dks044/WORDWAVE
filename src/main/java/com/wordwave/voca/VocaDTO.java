@@ -2,6 +2,7 @@ package com.wordwave.voca;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.wordwave.user.UserDTO;
@@ -29,5 +30,5 @@ public class VocaDTO {
     //영어빈칸퀴즈 : 1 | 한글제시퀴즈 : 2
     public int quizStatus;
     
-    public Set<String> randomEngWord = new HashSet<>();
+    public List<String> randomEngWord;
 }
