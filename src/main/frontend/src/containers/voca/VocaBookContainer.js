@@ -10,9 +10,9 @@ const VocaBookContainerBlock = styled.div`
   overflow-y: scroll;
 `
 function VocaBookOfCategoriesContainer( {vocaBookId} ){
-  const loading = useSelector((state) => state.vocaBook.vocaBook.loading);
-  const data = useSelector((state) => state.vocaBook.vocaBook.data);
-  const error = useSelector((state) => state.vocaBook.vocaBook.error);
+  const loading = useSelector((state) => state.vocaBook.vocaBook?.loading);
+  const data = useSelector((state) => state.vocaBook.vocaBook?.data);
+  const error = useSelector((state) => state.vocaBook.vocaBook?.error);
 
   const dispatch = useDispatch();
 
@@ -21,7 +21,6 @@ function VocaBookOfCategoriesContainer( {vocaBookId} ){
   },[dispatch,vocaBookId])
 
   if (loading && !data) return <CircleSpinner />;
-  console.log(data);
   if (error) return <div>{error.message}</div>;
   return (
     <VocaBookContainerBlock>

@@ -11,9 +11,9 @@ const GrammarBookContainerBlock = styled.div`
 `
 function GrammarBookContainer( {grammarBookId} ){
   console.log(grammarBookId);
-  const loading = useSelector((state) => state.grammarBook.grammarBook.loading);
-  const data = useSelector((state) => state.grammarBook.grammarBook.data);
-  const error = useSelector((state) => state.grammarBook.grammarBook.error);
+  const loading = useSelector((state) => state.grammarBook.grammarBook?.loading);
+  const data = useSelector((state) => state.grammarBook.grammarBook?.data);
+  const error = useSelector((state) => state.grammarBook.grammarBook?.error);
 
   const dispatch = useDispatch();
 

@@ -11,10 +11,10 @@ const VocaBooksContainerBlock = styled.div`
 
 function VocaBooksContainer(){
   const loading = useSelector(
-    (state) => state.vocaBook.vocaBooks.loading
+    (state) => state.vocaBook.vocaBooks?.loading
   );
-  const data = useSelector((state) => state.vocaBook.vocaBooks.data);
-  const error = useSelector((state) => state.vocaBook.vocaBooks.error);
+  const data = useSelector((state) => state.vocaBook.vocaBooks?.data);
+  const error = useSelector((state) => state.vocaBook.vocaBooks?.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
