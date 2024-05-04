@@ -14,9 +14,9 @@ const MyVocaUpdateFormBlock = styled.div`
 `
 
 function MyVocaUpdateFormContainer({myVocaBookId, category}){
-  const data = useSelector((state) => state.myVoca.updateFormMyVoca.data);
-  const loading = useSelector((state) => state.myVoca.updateFormMyVoca.loading);
-  const error = useSelector((state) => state.myVoca.updateFormMyVoca.error);
+  const data = useSelector((state) => state.myVoca.updateFormMyVoca?.data);
+  const loading = useSelector((state) => state.myVoca.updateFormMyVoca?.loading);
+  const error = useSelector((state) => state.myVoca.updateFormMyVoca?.error);
   const {user} = useSelector(state=>state.auth);
   const dispatch = useDispatch();
   const validateMyVocaBookError = useSelector((state)=>state.myVocaBook.validateMyVocaBook.error);

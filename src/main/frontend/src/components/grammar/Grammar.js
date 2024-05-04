@@ -76,7 +76,7 @@ const CardContainer = styled.div`
   gap: 20px; // Card 사이의 여백
 `;
 
-function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
+function Grammar({grammar,nextGrammar,stackSize,timeLeft,category,isDataLoaded}){
   const dispatch = useDispatch();
   const [answerCount,setAnswerCount] = useState(0);
   const [wrongCount,setWrongCount] = useState(0);
@@ -117,7 +117,7 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
   //learnType : 1(VOCA) , 2(GRAMMAR)
   useEffect(() => {
     const sendPerformanceData = async () => {
-      if(stackSize === 0){
+      if(stackSize === 0 && isDataLoaded){
         await createUserLearnPerformanceAPI({
           userId: user.id,
           category: category,
@@ -129,7 +129,7 @@ function Grammar({grammar,nextGrammar,stackSize,timeLeft,category}){
     };
   
     sendPerformanceData();
-  }, [stackSize, user.id, category, answerCount, wrongCount]);
+  }, [stackSize, user.id, category, answerCount, wrongCount,isDataLoaded]);
 
 
   //grammar가 없을경우(퀴즈를 다 풀었을경우)

@@ -37,13 +37,15 @@ function MyVocaUpdateForm({myVoca,userId}){
 
   // 입력 변경 처리 함수
   const handleInputChange = (index, event) => {
-    const values = [...inputFields];
+    const values = [...inputFields]; 
+    const updatedField = { ...values[index] }; 
     if (event.target.name === "engWord") {
-      values[index].engWord = event.target.value;
+      updatedField.engWord = event.target.value; 
     } else {
-      values[index].korWord = event.target.value;
+      updatedField.korWord = event.target.value; 
     }
-    setInputFields(values);
+    values[index] = updatedField; 
+    setInputFields(values); 
   };
 
   // 폼 제출 함수

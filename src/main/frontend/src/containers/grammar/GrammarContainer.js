@@ -17,15 +17,18 @@ const ProgressBarBlock = styled.div`
 
 
 function GrammarContainer({grammarBookId,category}){
-  const loading = useSelector((state) => state.grammar.grammar.loading);
-  const data = useSelector((state) => state.grammar.grammar.data);
-  const error = useSelector((state) => state.grammar.grammar.error);
+  const loading = useSelector((state) => state.grammar.grammar?.loading);
+  const data = useSelector((state) => state.grammar.grammar?.data);
+  const error = useSelector((state) => state.grammar.grammar?.error);
 
   const [stack, setStack] = useState([]); //Grammar 퀴즈Stack
   const stackSize = stack.length;
   const [currentGrammar, setCurrentGrammar] = useState(null); //현재 Grammar 퀴즈
   const [remaining, setRemaining] = useState(0); //남은단어
   const [total, setTotal] = useState(0);  // 전체 단어의 수
+
+  //퀴즈 데이터 랜더링이 완료 됐는지
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   //제한시간 로직
   const [timeLeft, setTimeLeft] = useState(60); 
@@ -42,6 +45,7 @@ function GrammarContainer({grammarBookId,category}){
       setCurrentGrammar(data[0]);
       setTotal(data.length);
       setRemaining(data.length);
+      setIsDataLoaded(true);
     }
   }, [data]);
 
@@ -102,7 +106,7 @@ function GrammarContainer({grammarBookId,category}){
         <ProgressBarBlock>
           <ProgressBar animated variant={variant} now={(timeLeft / 60) * 100} />
         </ProgressBarBlock>
-        <Grammar grammar={currentGrammar} nextGrammar={nextGrammar} stackSize={stackSize} timeLeft={timeLeft} category={category} />
+        <Grammar grammar={currentGrammar} nextGrammar={nextGrammar} stackSize={stackSize} timeLeft={timeLeft} category={category} isDataLoaded={isDataLoaded}/>
       </GrammarContainerBlock>
     )
 }

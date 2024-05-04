@@ -60,12 +60,17 @@ public class UserLearnPerformanceService {
 		long daysBetween = 1; //학습이력 차이일 계산
 		if(userlastAttempted != null) {//user가 학습한 이력이 있을경우
 			daysBetween = ChronoUnit.DAYS.between(userlastAttempted, userLearn.getLastAttempted());
-		}
+//			System.out.println("userLearn.getLastAttempted() => "+userLearn.getLastAttempted());
+//			System.out.println("userlastAttempted => "+ userlastAttempted);
+//			System.out.println("daysBetween => "+daysBetween);
+		} 
         if (daysBetween == 1) {
             // 연속 출석일 증가
+        	//System.out.println("증가!");
             userService.increaseUserConsecutiveLearningDays(userId);
         } else if (daysBetween > 1) {
             // 연속 출석일 리셋
+        	//System.out.println("감소!");
             userService.resetUserConsecutiveLearningDays(userId);
         }
 		userLearnPerformanceRepository.save(userLearn);

@@ -19,10 +19,10 @@ const Title = styled.h1`
 function MyVocaBooksContainer(){
   const [isImport,setIsImport] = useState(false);
   const loading = useSelector(
-    (state) => state.myVocaBook.myVocaBooks.loading
+    (state) => state.myVocaBook.myVocaBooks?.loading
   );
-  const data = useSelector((state) => state.myVocaBook.myVocaBooks.data);
-  const error = useSelector((state) => state.myVocaBook.myVocaBooks.error);
+  const data = useSelector((state) => state.myVocaBook.myVocaBooks?.data);
+  const error = useSelector((state) => state.myVocaBook.myVocaBooks?.error);
   const {user} = useSelector(state=>state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -35,7 +35,7 @@ const CardContainer = styled.div`
   gap: 20px; // Card 사이의 여백
 `;
 
-function MyVoca({ voca,nextVoca,stackSize,timeLeft,category,myVocaBookName }) {
+function MyVoca({ voca,nextVoca,stackSize,timeLeft,category,myVocaBookName,isDataLoaded }) {
   console.log(voca);
 
   const [answerCount,setAnswerCount] = useState(0);
@@ -63,7 +63,7 @@ function MyVoca({ voca,nextVoca,stackSize,timeLeft,category,myVocaBookName }) {
   useEffect(() => {
     var categoryName = `${user.id}_${myVocaBookName}_${category}`;
     const sendPerformanceData = async () => {
-      if(stackSize === 0){
+      if(stackSize === 0 && isDataLoaded){
         await createUserLearnPerformanceAPI({
           userId: user.id,
           category: categoryName,
@@ -75,7 +75,7 @@ function MyVoca({ voca,nextVoca,stackSize,timeLeft,category,myVocaBookName }) {
     };
   
     sendPerformanceData();
-  }, [stackSize, user.id, category, answerCount, wrongCount]);
+  }, [stackSize, user.id, category, answerCount, wrongCount, isDataLoaded, myVocaBookName]);
 
   //voca가 없을경우
   if (!voca) return (

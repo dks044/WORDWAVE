@@ -17,15 +17,18 @@ const ProgressBarBlock = styled.div`
 `
 
 function VocaContainer({vocaBookId,category}){
-  const loading = useSelector((state) => state.voca.voca.loading);
-  const data = useSelector((state) => state.voca.voca.data);
-  const error = useSelector((state) => state.voca.voca.error);
+  const loading = useSelector((state) => state.voca.voca?.loading);
+  const data = useSelector((state) => state.voca.voca?.data);
+  const error = useSelector((state) => state.voca.voca?.error);
   
   const [stack, setStack] = useState([]); //voca퀴즈Stack
   const stackSize = stack.length;
   const [currentVoca, setCurrentVoca] = useState(null); //현재voca
   const [remaining, setRemaining] = useState(0); //남은단어
   const [total, setTotal] = useState(0);  // 전체 단어의 수
+  //퀴즈 데이터 랜더링이 완료 됐는지
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,6 +41,7 @@ function VocaContainer({vocaBookId,category}){
       setCurrentVoca(data[0]);
       setTotal(data.length);
       setRemaining(data.length);
+      setIsDataLoaded(true);
     }
   }, [data]);
 
@@ -102,7 +106,7 @@ function VocaContainer({vocaBookId,category}){
       <ProgressBarBlock>
         <ProgressBar animated variant={variant} now={(timeLeft / 20) * 100} />
       </ProgressBarBlock>
-      <Voca voca={currentVoca} nextVoca={nextVoca} stackSize={stackSize} timeLeft={timeLeft} category={category} />
+      <Voca voca={currentVoca} nextVoca={nextVoca} stackSize={stackSize} timeLeft={timeLeft} category={category} isDataLoaded={isDataLoaded} />
     </VocaContainerBlock>
   )
 }

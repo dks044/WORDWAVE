@@ -12,9 +12,9 @@ const MyVocaBookUpdateFormBlock = styled.div`
 `
 
 function MyVocaBookUpdateFormContainer({myVocaBookId}){
-  const data = useSelector((state) => state.myVocaBook.myVocaBookOne.data);
-  const loading = useSelector((state) => state.myVocaBook.myVocaBookOne.loading);
-  const error = useSelector((state) => state.myVocaBook.myVocaBookOne.error);
+  const data = useSelector((state) => state.myVocaBook.myVocaBookOne?.data);
+  const loading = useSelector((state) => state.myVocaBook.myVocaBookOne?.loading);
+  const error = useSelector((state) => state.myVocaBook.myVocaBookOne?.error);
   const {user} = useSelector(state=>state.auth);
   const dispatch = useDispatch();
 

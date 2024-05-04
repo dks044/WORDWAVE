@@ -9,9 +9,9 @@ import { Pagination } from "react-bootstrap";
 
 function MyPageUserLearnPerformanceContainer({userId}){
   const [pageNum, setPageNum] = useState(0);
-  const loading = useSelector((state)=>state.userLearnPerformance.allUserLearnPerformance.loading);
-  const data = useSelector((state)=>state.userLearnPerformance.allUserLearnPerformance.data);
-  const error = useSelector((state)=>state.userLearnPerformance.allUserLearnPerformance.error);
+  const loading = useSelector((state)=>state.userLearnPerformance.allUserLearnPerformance?.loading);
+  const data = useSelector((state)=>state.userLearnPerformance.allUserLearnPerformance?.data);
+  const error = useSelector((state)=>state.userLearnPerformance.allUserLearnPerformance?.error);
   const dispatch = useDispatch();
 
   useEffect(()=>{

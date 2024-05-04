@@ -12,9 +12,9 @@ const MyVocaBookContainerBlock = styled.div`
 
 function MyVocaBookContainer( {myVocaBookId} ){
   console.log(myVocaBookId);
-  const loading = useSelector((state) => state.myVocaBook.myVocaBook.loading);
-  const data = useSelector((state) => state.myVocaBook.myVocaBook.data);
-  const error = useSelector((state) => state.myVocaBook.myVocaBook.error);
+  const loading = useSelector((state) => state.myVocaBook.myVocaBook?.loading);
+  const data = useSelector((state) => state.myVocaBook.myVocaBook?.data);
+  const error = useSelector((state) => state.myVocaBook.myVocaBook?.error);
   const {user} = useSelector(state=>state.auth);
   const dispatch = useDispatch();
 

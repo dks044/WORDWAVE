@@ -37,7 +37,7 @@ const CardContainer = styled.div`
 
 
 
-function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
+function Voca({ voca,nextVoca,stackSize,timeLeft,category,isDataLoaded }) {
   const [answerCount,setAnswerCount] = useState(0);
   const [wrongCount,setWrongCount] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
@@ -62,7 +62,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
   //learnType : 1(VOCA) , 2(GRAMMAR)
   useEffect(() => {
     const sendPerformanceData = async () => {
-      if(stackSize === 0){
+      if(stackSize === 0 && isDataLoaded){
         await createUserLearnPerformanceAPI({
           userId: user.id,
           category: category,
@@ -74,7 +74,7 @@ function Voca({ voca,nextVoca,stackSize,timeLeft,category }) {
     };
   
     sendPerformanceData();
-  }, [stackSize, user.id, category, answerCount, wrongCount]);
+  }, [stackSize, user.id, category, answerCount, wrongCount,isDataLoaded]);
 
   //voca가 없을경우
   if (!voca) return (
