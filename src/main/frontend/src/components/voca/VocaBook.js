@@ -167,7 +167,7 @@ function VocaBook({ vocaBook }) {
           {/* detail 모달창 */}
           <Modal show={detailShow} onHide={detailHandleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>✏️미리 공부하기</Modal.Title>
+              <Modal.Title><strong>✏️미리 공부하기</strong></Modal.Title>
             </Modal.Header>
           <Modal.Body>
           {
