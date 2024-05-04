@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getUserLearnHistory } from "../../modules/userLearnPerformance/userLearnPerformance";
+import { FaSearch } from "react-icons/fa";
 
 const Title = styled.h1`
   font-weight: bold;
@@ -18,6 +19,23 @@ const BlueP = styled.span`
 const GreenP = styled.p`
   color: green;
 `
+const CategoryContainer = styled.div`
+  display: flex;
+  justify-content: space-between; /* 버튼과 수정 아이콘을 양 끝으로 배치 */
+  align-items: center; /* 세로 중앙 정렬 */
+  width: 100%;
+  margin-bottom: 20px; /* 각 카테고리 사이의 간격 */
+`;
+
+const CategoryButton = styled(Button)`
+  flex-grow: 1; /* 버튼이 가능한 많은 공간을 차지하도록 함 */
+  margin-right: 10px; /* 버튼과 수정 아이콘 사이의 간격 */
+`;
+
+const DetailButtonContainer = styled.div`
+  cursor: pointer;
+`
+
 
 function VocaBook({ vocaBook }) {
   const [show, setShow] = useState({});
@@ -37,6 +55,10 @@ function VocaBook({ vocaBook }) {
     setSelectedCategory(category); // 현재 선택된 카테고리 저장
   };
   
+  //detail modal
+  const [detailShow, setDetailShow] = useState(false);
+  const detailHandleClose = () => setDetailShow(false);
+  const detailhandleShow = () => setDetailShow(true);
 
   const handleClick = async (event,index,category) => {
     setShow((prevShow) => ({ ...prevShow, [index]: !prevShow[index] }));
@@ -60,17 +82,20 @@ function VocaBook({ vocaBook }) {
       <hr />
       <div ref={ref}>
         {vocaBook.categories && vocaBook.categories.map((category, index) => (
-          <div key={index} style={{ width: '100%' }}>
-            <Button
+          <CategoryContainer key={index}>
+            <CategoryButton
               variant="outline-primary"
               size="lg"
-              style={{ marginBottom: "20px", width: '100%' }}
+              style={{ marginBottom: "5px", width: '100%' }}
               onMouseOver={(event) => handleClick(event, index,category)}
               onMouseOut={(event) => handleClick(event, index,category)}
               onClick={() => handleShow(category)} //각 카테고리 버튼의 onClick 이벤트에서 handleShow 함수를 호출할 때 현재 카테고리를 인자로 전달.
             >
               {category}
-            </Button>
+            </CategoryButton>
+            <DetailButtonContainer>
+              <FaSearch />
+            </DetailButtonContainer>
             <Overlay
               show={show[index]}
               target={target}
@@ -104,6 +129,8 @@ function VocaBook({ vocaBook }) {
                 </Popover.Body>
               </Popover>
             </Overlay>
+          </CategoryContainer>
+        ))}
             <Modal
               show={modalShow}
               onHide={handleClose}
@@ -128,8 +155,21 @@ function VocaBook({ vocaBook }) {
               variant="primary">공부하기!</Button>
             </Modal.Footer>
           </Modal>
-          </div>
-        ))}
+          {/* detail 모달창 */}
+          <Modal show={detailShow} onHide={detailHandleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+          <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={detailHandleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={detailHandleClose}>
+                Save Changes
+              </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

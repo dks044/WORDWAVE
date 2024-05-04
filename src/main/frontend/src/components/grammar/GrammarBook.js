@@ -104,6 +104,8 @@ function GrammarBook({ grammarBook }) {
                 </Popover.Body>
               </Popover>
             </Overlay>
+          </div>
+        ))}
             <Modal
               show={modalShow}
               onHide={handleClose}
@@ -129,8 +131,6 @@ function GrammarBook({ grammarBook }) {
               </Button>
             </Modal.Footer>
           </Modal>
-          </div>
-        ))}
       </div>
     </>
   );

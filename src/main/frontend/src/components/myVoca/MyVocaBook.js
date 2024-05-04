@@ -148,6 +148,8 @@ function MyVocaBook({ myVocaBook }) {
                 </Popover.Body>
               </Popover>
             </Overlay>
+          </CategoryContainer>
+        ))}
             <Modal
               show={modalShow}
               onHide={handleClose}
@@ -196,8 +198,6 @@ function MyVocaBook({ myVocaBook }) {
               <Button variant="danger" onClick={()=>handleClickToDelete(selectedCategory)}>삭제하기</Button>
             </Modal.Footer>
           </Modal>
-          </CategoryContainer>
-        ))}
         <div className="d-grid gap-2">
           <Button variant="outline-primary" onClick={()=>handleClickToCreate()}>+</Button>
         </div>
