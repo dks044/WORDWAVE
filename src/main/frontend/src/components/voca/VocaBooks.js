@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
+const Title = styled.h1`
+  text-align: center;
+  font-weight: bolder;
+`
 function VocaBooks({vocaBooks})  {
   const navigate = useNavigate();
   return (
     <>
+      <Title>VOCA</Title>
       {vocaBooks && vocaBooks.map((vocaBook) => (
       <Container key={vocaBook.id} className="d-flex justify-content-center mt-3">
         <Card key={vocaBook.id} style={{ width: '18rem' }} border="info" className="text-center">

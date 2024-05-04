@@ -75,12 +75,12 @@ public class VocaBookService {
 	        }
 	    };
 	    
-	    
+	    Set<String> distinctCategories = new TreeSet<>();	
 	    if(vocaBook.getName().equals("BASIC")) {
 	    	// 커스텀 Comparator를 사용하는 TreeSet (chapter1, chapter2, chapter3 ..)
-	    	Set<String> distinctCategories = new TreeSet<>(customComparator);	    	
+	    	distinctCategories = new TreeSet<>(customComparator);	    	
 	    }
-	    Set<String> distinctCategories = new TreeSet<>();	
+	    
 	    distinctCategories.addAll(categories);
 	    for(String category : categories) distinctCategories.add(category);
 	    String name = vocaBookRepository.findById(vocaBookId).get().getName();
