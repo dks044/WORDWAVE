@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  text-align: center;
+  font-weight: bolder;
+`
 
 function GrammarBooks({grammarBooks})  {
   const navigate = useNavigate();
   return (
     <>
+      <Title>Grammar</Title>
       {grammarBooks && grammarBooks.map((grammarBook) => (
       <Container key={grammarBook.id} className="d-flex justify-content-center mt-3">
         <Card key={grammarBook.id} style={{ width: '18rem' }} border="info" className="text-center">

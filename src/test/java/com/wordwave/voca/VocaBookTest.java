@@ -65,18 +65,20 @@ public class VocaBookTest {
 	@DisplayName("vocaBook 생성 테스트") //테스트 성공
 	@Disabled
 	void createVocaBookTest() {
-		VocaBookDTO toeic = VocaBookDTO.builder()
-											 .name("TOEIC")
-											 .imageURL("https://wordwave-bucket.s3.ap-northeast-2.amazonaws.com/voca/toeic.png")
-											 .build();
 		VocaBookDTO basic = VocaBookDTO.builder()
 				 .name("BASIC")
 				 .imageURL("https://wordwave-bucket.s3.ap-northeast-2.amazonaws.com/voca/basic.png")
 				 .build();
 		
+		VocaBookDTO toeic = VocaBookDTO.builder()
+											 .name("TOEIC")
+											 .imageURL("https://wordwave-bucket.s3.ap-northeast-2.amazonaws.com/voca/toeic.png")
+											 .build();
+
 		
-		vocaBookService.create(toeic);
+		
 		vocaBookService.create(basic);
+		vocaBookService.create(toeic);
 	}
 	
 }
