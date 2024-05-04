@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getUserLearnHistory } from "../../modules/userLearnPerformance/userLearnPerformance";
 import { FaSearch } from "react-icons/fa";
+import { getVocaAPI } from "../../api/vocaAPI";
 
 const Title = styled.h1`
   font-weight: bold;
@@ -33,9 +34,11 @@ const CategoryButton = styled(Button)`
 `;
 
 const DetailButtonContainer = styled.div`
+
+`
+const StyledFaSerch =styled(FaSearch)`
   cursor: pointer;
 `
-
 
 function VocaBook({ vocaBook }) {
   const [show, setShow] = useState({});
@@ -46,6 +49,7 @@ function VocaBook({ vocaBook }) {
   const {userLearnHistory} = useSelector(state=>state.userLearnPerformance);
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState(null); //현재 선택된 카테고리를 저장
+  const [detailVoca,setDetailVoca] = useState([]);
 
   //modal
   const [modalShow, setModalShow] = useState(false);
@@ -58,7 +62,12 @@ function VocaBook({ vocaBook }) {
   //detail modal
   const [detailShow, setDetailShow] = useState(false);
   const detailHandleClose = () => setDetailShow(false);
-  const detailhandleShow = () => setDetailShow(true);
+
+  const detailhandleShow = async (category) => {
+    let vocaBookId = vocaBook.id;
+    setDetailShow(true);
+    setDetailVoca(await getVocaAPI({vocaBookId : vocaBookId,category}));
+  }
 
   const handleClick = async (event,index,category) => {
     setShow((prevShow) => ({ ...prevShow, [index]: !prevShow[index] }));
@@ -94,7 +103,7 @@ function VocaBook({ vocaBook }) {
               {category}
             </CategoryButton>
             <DetailButtonContainer>
-              <FaSearch />
+              <StyledFaSerch onClick={()=>detailhandleShow(category)} />
             </DetailButtonContainer>
             <Overlay
               show={show[index]}
@@ -158,15 +167,20 @@ function VocaBook({ vocaBook }) {
           {/* detail 모달창 */}
           <Modal show={detailShow} onHide={detailHandleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+              <Modal.Title>✏️미리 공부하기</Modal.Title>
             </Modal.Header>
-          <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+          {
+              detailVoca && detailVoca.map(({id, korWord, engWord})=>(
+                <div key={id} style={{ marginBottom: "5px"}}>
+                  <strong>{engWord}</strong> : {korWord}<br />
+                </div>
+              ))
+            }
+          </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={detailHandleClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={detailHandleClose}>
-                Save Changes
+                닫기
               </Button>
           </Modal.Footer>
         </Modal>
