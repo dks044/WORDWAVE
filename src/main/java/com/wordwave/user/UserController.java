@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wordwave.emailcode.EmailAuthenicateDTO;
-import com.wordwave.emailcode.EmailCode;
-import com.wordwave.emailcode.EmailCodeService;
 import com.wordwave.myvocabook.MyVocaBookService;
 import com.wordwave.redis.RedisConfig;
 import com.wordwave.security.Key;
@@ -48,7 +46,6 @@ public class UserController {
 	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
 	private final PasswordEncoder passwordEncoder;
 	private final MailService mailService;
-	private final EmailCodeService emailCodeService;
 	private final MyVocaBookService myVocaBookService;
 	private final StringRedisTemplate stringRedisTemplate;
 	
@@ -300,7 +297,6 @@ public class UserController {
 			}
 			myVocaBookService.deleteAllImageURL(user); //s3에 저장된 사용자의 이미지들 삭제
 			userService.deleteUser(user);
-			emailCodeService.delete(user.getEmail());
 			return ResponseEntity.ok().body(user.getId()+"<= user deleted.");
 		} catch (JwtException e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
