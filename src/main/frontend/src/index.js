@@ -7,7 +7,6 @@ import { createGlobalStyle } from "styled-components";
 import WaveEffect from "./components/WaveEffect";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./modules/reducers";
-import logger from "redux-logger";
 import sagaMiddleware, { rootSaga } from "./modules/rootSaga"
 import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -68,7 +67,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(sagaMiddleware, logger),
+    }).concat(sagaMiddleware),
 });
 
 const persistor = persistStore(store);

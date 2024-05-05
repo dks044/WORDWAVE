@@ -112,6 +112,7 @@ function MyPageComponent(){
     }
   }
 
+  
 
 
   return(
@@ -122,12 +123,28 @@ function MyPageComponent(){
           <Row className="justify-content-between">
             <Col xs="auto">
               <h2><Badge bg="primary">ID</Badge></h2>
-              <h2><Badge bg="primary">가입일</Badge></h2>
             </Col>
             <Col xs="auto">
               <ProfileText>{user.userName}</ProfileText>
+            </Col>
+          </Row>
+          <Row className="justify-content-between">
+            <Col xs="auto">
+              <h2><Badge bg="primary">가입일</Badge></h2>
+            </Col>
+            <Col xs="auto">
               <ProfileSubText>
                 <SimpleDateText dateString={user.createUserDate} />
+              </ProfileSubText>
+            </Col>
+          </Row>
+          <Row className="justify-content-between">
+            <Col xs="auto">
+              <h2><Badge bg="primary">이메일</Badge></h2>
+            </Col>
+            <Col xs="auto">
+              <ProfileSubText>
+                {user.email}
               </ProfileSubText>
             </Col>
           </Row>
