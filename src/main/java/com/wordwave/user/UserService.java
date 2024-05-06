@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.wordwave.security.Key;
 import com.wordwave.user.userLearnPerformance.UserLearnPerformance;
 import com.wordwave.user.userLearnPerformance.UserLearnPerformanceRepository;
 
@@ -26,7 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UserService {
 	private final UserRepository userRepository;
-	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
+    private static final String JWT_SECRET_KEY_STRING = System.getenv("JWT_SECREAT_KEY"); 
+    private static final byte[] JWT_SECRET_KEY = JWT_SECRET_KEY_STRING != null ? JWT_SECRET_KEY_STRING.getBytes() : new byte[0];
 	private final PasswordEncoder passwordEncoder;
 	private final UserLearnPerformanceRepository userLearnPerformanceRepository;
 	

@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wordwave.aws.S3Service;
 import com.wordwave.myvocabook.dto.MyVocaBookFormDTO;
-import com.wordwave.security.Key;
 import com.wordwave.security.TokenProvider;
 import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserService;

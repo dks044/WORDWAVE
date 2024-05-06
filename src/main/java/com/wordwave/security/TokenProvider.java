@@ -28,7 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class TokenProvider {
 	private static final String ISSUER = "WORDWAVE";
-	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
+    private static final String JWT_SECRET_KEY_STRING = System.getenv("JWT_SECREAT_KEY"); 
+    private static final byte[] JWT_SECRET_KEY = JWT_SECRET_KEY_STRING != null ? JWT_SECRET_KEY_STRING.getBytes() : new byte[0];
 	private final UserRepository userRepository;
 	
 	

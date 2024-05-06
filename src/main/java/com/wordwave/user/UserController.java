@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordwave.emailcode.EmailAuthenicateDTO;
 import com.wordwave.myvocabook.MyVocaBookService;
 import com.wordwave.redis.RedisConfig;
-import com.wordwave.security.Key;
 import com.wordwave.security.TokenProvider;
 import com.wordwave.util.MailDTO;
 import com.wordwave.util.MailService;
@@ -43,7 +42,8 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	private final UserService userService;
 	private final TokenProvider tokenProvider;
-	private static final byte[] JWT_SECRET_KEY = Key.JWT_SECREAT_KEY.getValueBytes();
+    private static final String JWT_SECRET_KEY_STRING = System.getenv("JWT_SECREAT_KEY"); 
+    private static final byte[] JWT_SECRET_KEY = JWT_SECRET_KEY_STRING != null ? JWT_SECRET_KEY_STRING.getBytes() : new byte[0];
 	private final PasswordEncoder passwordEncoder;
 	private final MailService mailService;
 	private final MyVocaBookService myVocaBookService;
