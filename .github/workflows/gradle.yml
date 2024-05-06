@@ -41,6 +41,11 @@ jobs:
           echo "spring.mail.port=587" >> application.properties
           echo "spring.mail.username=wordwave492@gmail.com" >> application.properties
           echo "spring.mail.password=${{ secrets.MAIL_PASSWORD }}" >> application.properties
+          echo "spring.mail.properties.mail.smtp.starttls.enable=true" >> application.properties
+          echo "spring.mail.properties.mail.smtp.auth=true" >> application.properties
+          echo "spring.mail.properties.mail.debug=true" >> application.properties
+          echo "spring.mail.properties.mail.mime.charset=UTF-8" >> application.properties
+          echo "spring.mail.properties.mail.transport.protocol=smtp" >> application.properties
           # Redis 설정
           echo "spring.redis.host=${{ secrets.REDIS_HOST }}" >> ./application.properties
           echo "spring.redis.port=${{ secrets.REDIS_PORT }}" >> ./application.properties
@@ -48,6 +53,24 @@ jobs:
           echo "springdoc.api-docs.path=/api-docs" >> application.properties
           echo "springdoc.swagger-ui.path=/swagger-ui.html" >> application.properties
           echo "server.forward-headers-strategy=framework" >> application.properties
+          # Thymeleaf 설정
+          echo "spring.thymeleaf.prefix=file:src/main/resources/static/" >> application.properties
+          # AWS S3 설정
+          echo "cloud.aws.region.static=${{ secrets.AWS_REGION }}" >> application.properties
+          echo "cloud.aws.stack.auto=false" >> application.properties
+          echo "cloud.aws.credentials.accessKey=${{ secrets.AWS_ACCESS_KEY }}" >> application.properties
+          echo "cloud.aws.credentials.secretKey=${{ secrets.AWS_SECRET_KEY }}" >> application.properties
+          echo "cloud.aws.s3.bucket=${{ secrets.S3_BUCKET_NAME }}" >> application.properties
+           # 파일 업로드 설정
+          echo "spring.servlet.multipart.max-file-size=2MB" >> application.properties
+          echo "spring.servlet.multipart.max-request-size=2MB" >> application.properties
+          
+          # HikariCP 설정
+          echo "spring.datasource.hikari.connection-timeout=30000" >> application.properties
+          echo "spring.datasource.hikari.minimum-idle=10" >> application.properties
+          echo "spring.datasource.hikari.maximum-pool-size=20" >> application.properties
+          echo "spring.datasource.hikari.idle-timeout=600000" >> application.properties
+          echo "spring.datasource.hikari.max-lifetime=1800000" >> application.properties
         shell: bash
 
       - name: Build with Gradle
