@@ -23,7 +23,7 @@ public class GrammarDataTest {
 	@Autowired
 	private GrammarService grammarService;
 	
-	//TODO: 실제 있는 GrammarBook 데이터의 id로 지정해야함.
+	//TODO: 실제 있는 GrammarBook 데이터로
 	private static final long GRAMMAR_BOOK_TEST_ID = 1; //기초회화
 	
 	@Test
