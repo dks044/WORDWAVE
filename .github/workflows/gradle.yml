@@ -55,7 +55,7 @@ jobs:
           chmod +x gradlew 
           ./gradlew build
         env:
-          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECREAT_KEY }}
           
       - name: web docker build and push
         run: |
