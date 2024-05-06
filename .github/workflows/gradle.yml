@@ -11,7 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
       - name: checkout
         uses: actions/checkout@v3
 
@@ -21,44 +20,49 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-        ## create application-database.yml
-      - name: make application-database.yml
-        run: |
-
-          cd ./src/main/resources
-          
-          # application-database.yml 파일 생성
-          touch ./application-database.yml
-          
-          # GitHub-Actions 에서 설정한 값을 application-database.yml 파일에 쓰기
-          echo "${{ secrets.DATABASE }}" >> ./application-database.yml
-        shell: bash
-
-      - name: make application-redis.yml
+      - name: Create application.properties
         run: |
           cd ./src/main/resources
-
-          # application-redis.yml 파일 생성
-          touch ./application-redis.yml
-
-          # GitHub-Actions 에서 설정한 값을 application-redis.yml 파일에 쓰기
-          echo "${{ secrets.REDIS }}" >> ./application-redis.yml
+          
+          # application.properties 파일 생성
+          touch application.properties
+          
+          # GitHub-Actions 에서 설정한 값을 application.properties 파일에 쓰기
+          echo "spring.datasource.url=${{ secrets.DB_URL }}" >> application.properties
+          echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> application.properties
+          echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> application.properties
+          echo "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver" >> application.properties
+          echo "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect" >> application.properties
+          echo "spring.jpa.properties.hibernate.show_sql=true" >> application.properties
+          echo "spring.jpa.properties.hibernate.format_sql=true" >> application.properties
+          echo "spring.jpa.hibernate.ddl-auto=update" >> application.properties
+          # SMTP 설정
+          echo "spring.mail.host=smtp.gmail.com" >> application.properties
+          echo "spring.mail.port=587" >> application.properties
+          echo "spring.mail.username=wordwave492@gmail.com" >> application.properties
+          echo "spring.mail.password=${{ secrets.MAIL_PASSWORD }}" >> application.properties
+          # Redis 설정
+          echo "spring.redis.host=${{ secrets.REDIS_HOST }}" >> ./application.properties
+          echo "spring.redis.port=${{ secrets.REDIS_PORT }}" >> ./application.properties
+          # Swagger 설정 추가
+          echo "springdoc.api-docs.path=/api-docs" >> application.properties
+          echo "springdoc.swagger-ui.path=/swagger-ui.html" >> application.properties
+          echo "server.forward-headers-strategy=framework" >> application.properties
         shell: bash
-
 
       - name: Build with Gradle
         run: |
           chmod +x gradlew 
           ./gradlew build
+        env:
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECREAT_KEY }}
           
-#          ./gradlew bootJar
-      ## 웹 이미지 빌드 및 도커허브에 push
       - name: web docker build and push
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }} . 
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
-      ## docker compose up
+
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
@@ -66,8 +70,9 @@ jobs:
           username: ubuntu
           key: ${{ secrets.KEY }}
           script: |
-            sudo docker rm $(sudo docker ps -a)
+            sudo docker rm $(sudo docker stop $(sudo docker ps -a -q))
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
             cd ~
             docker-compose up -d
             sudo docker image prune -f
+
