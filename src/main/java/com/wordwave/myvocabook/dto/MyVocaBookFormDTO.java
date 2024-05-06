@@ -1,6 +1,7 @@
 package com.wordwave.myvocabook.dto;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class MyVocaBookFormDTO {
 	private String name;
 	private long myVocaBookId;
