@@ -37,17 +37,7 @@ public class VocaBookTest {
 		}
 	}
 	
-//	@Test
-//	@Disabled
-//	void vocaBookCategoryTest() {
-//		long toeicId = 1;
-//		Map<Long,List<String>> categories = vocaBookService.getCategoriesOfVocaBook(toeicId);
-//		for(Map.Entry<Long, List<String>> entry : categories.entrySet()) {
-//			Long key = entry.getKey();
-//			List<String> value = entry.getValue();
-//			System.out.println(key +" "+value);
-//		}
-//	}
+
 	
 	@Test
 	@Disabled
