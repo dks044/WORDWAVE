@@ -44,12 +44,18 @@ jobs:
           # Redis 설정
           echo "spring.redis.host=${{ secrets.REDIS_HOST }}" >> ./application.properties
           echo "spring.redis.port=${{ secrets.REDIS_PORT }}" >> ./application.properties
+          # Swagger 설정 추가
+          echo "springdoc.api-docs.path=/api-docs" >> application.properties
+          echo "springdoc.swagger-ui.path=/swagger-ui.html" >> application.properties
+          echo "server.forward-headers-strategy=framework" >> application.properties
         shell: bash
 
       - name: Build with Gradle
         run: |
           chmod +x gradlew 
           ./gradlew build
+        env:
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
           
       - name: web docker build and push
         run: |
