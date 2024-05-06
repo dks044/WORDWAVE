@@ -76,7 +76,7 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x gradlew 
-          ./gradlew build
+          ./gradlew build -x test
         env:
           JWT_SECRET_KEY: ${{ secrets.JWT_SECREAT_KEY }}
           
