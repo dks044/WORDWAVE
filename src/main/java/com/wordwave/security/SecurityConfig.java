@@ -17,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -43,7 +44,14 @@ public class SecurityConfig {
             .httpBasic(HttpBasicConfigurer::disable)
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                    .requestMatchers("/", "/api/**").permitAll()
+                    .requestMatchers("/", "/api/**", 
+                    		"/swagger-ui/**", 
+                    		"/v3/api-docs/**", 
+                    		"/swagger-ui.html", 
+                    		"/webjars/**", 
+                    		"/api-docs/swagger-config",
+                    		"/api-docs/**"
+                    		).permitAll()
                     .anyRequest().authenticated());
 
         http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class)
@@ -52,21 +60,10 @@ public class SecurityConfig {
         return http.build();
     }
     
-    @Bean
-    WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
-                .requestMatchers(new AntPathRequestMatcher("/static/**"))
-                .requestMatchers(new AntPathRequestMatcher("/**/*.html"))
-                .requestMatchers(new AntPathRequestMatcher("/**/*.css"))
-                .requestMatchers(new AntPathRequestMatcher("/**/*.js"))
-                .requestMatchers(new AntPathRequestMatcher("/**/*.json"))
-                .requestMatchers(new AntPathRequestMatcher("/**/*.ico"));
-    }
     
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+       
 }
