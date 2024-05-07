@@ -100,7 +100,6 @@ jobs:
             sudo docker rm $(sudo docker stop $(sudo docker ps -a -q)) || true
             sudo docker pull ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_REPO }}
             cd ~
-            sudo docker-compose down # 모든 컨테이너를 멈추고 네트워크를 삭제합니다.
             sudo docker-compose up -d # docker-compose.yml에 정의된 모든 서비스를 다시 시작합니다.
             sudo docker image prune -f
 
