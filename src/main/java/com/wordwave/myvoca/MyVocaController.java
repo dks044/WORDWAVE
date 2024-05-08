@@ -84,7 +84,7 @@ public class MyVocaController {
 	}
 	@Operation(
 			summary = "사용자의 영어단어장의 단어 삭제",
-			description = "사용자가 자신의 영어 단어장에 할당된 단어를 삭제한다."
+			description = "사용자가 자신의 영어 단어장에 생성한 단어를 삭제한다."
 			)
 	@DeleteMapping("delete/{myVocaBookId}/{userId}/{category}")
 	public ResponseEntity<?> deleteMyVoca(
