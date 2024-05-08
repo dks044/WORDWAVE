@@ -20,6 +20,8 @@ import com.wordwave.user.UserService;
 import com.wordwave.util.ResponseDTO;
 
 import groovy.util.logging.Slf4j;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -28,12 +30,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/myvocabook")
+@Tag(name = "MyVocaBook",description = "나만의 영어 단어장 관련 API")
 public class MyVocaBookController {
 	private final MyVocaBookService myVocaBookService;
 	private final S3Service s3Service;
 	private final UserService userService;
 	//private static final String DEFAULT_IMAGE_URL = "https://cdn.pixabay.com/photo/2015/11/07/09/18/sunrise-1030600_1280.jpg"; 
 	
+	@Operation(
+			summary = "나만의 영어단어장 전체 조회",
+			description = "사용자가 생성만 '나만의 영어 단어장' 을 전체 조회한다."
+			)
 	@GetMapping("myVocaBookList/{userId}")
 	public ResponseEntity<?> selectMyVocaBook(@PathVariable("userId") long userId){
 		try {
@@ -44,6 +51,10 @@ public class MyVocaBookController {
 		}
 	}
 	
+	@Operation(
+			summary = "나만의 영어단어장 생성",
+			description = "사용자가 '나만의 영어 단어장' 을 생성한다."
+			)
 	@PostMapping(value = "create", consumes = "multipart/form-data")
 	public ResponseEntity<?> create(@RequestPart(value = "request") MyVocaBookFormDTO request,
 									@RequestPart(value = "imageFile" ,required = false) MultipartFile imageFile){
@@ -78,6 +89,10 @@ public class MyVocaBookController {
 		}
 	}
 	
+	@Operation(
+			summary = "나만의 영어단어장 조회",
+			description = "사용자의 '나만의 영어 단어장' 조회한다."
+			)
 	@GetMapping("{myVocaBookId}/{userId}")
 	public ResponseEntity<?> getMyVocaBookDetail(
 												 @PathVariable("myVocaBookId") long myVocaBookId,
@@ -91,7 +106,12 @@ public class MyVocaBookController {
 		}
 	}
 	
+	
 	//myVocaBook 업데이트 폼 활용
+	@Operation(
+			summary = "나만의 영어단어장 업데이트 폼 조회",
+			description = "사용자의 '나만의 영어 단어장' 수정폼에 진입할 시, 원래 정보를 조회한다."
+			)
 	@GetMapping("get/{myVocaBookId}/{userId}")
 	public ResponseEntity<?> getMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId,
 											@PathVariable("userId") long userId){
@@ -102,6 +122,10 @@ public class MyVocaBookController {
 			return ResponseEntity.badRequest().body("MyVocaBook 불러오기 실패!");
 		}
 	}
+	@Operation(
+			summary = "나만의 영어단어장 삭제",
+			description = "사용자의 '나만의 영어 단어장' 삭제한다."
+			)
 	@DeleteMapping("delete/{myVocaBookId}")
 	public ResponseEntity<?> deleteMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId){
 		try {
@@ -114,6 +138,10 @@ public class MyVocaBookController {
 		}
 	}
 	
+	@Operation(
+			summary = "나만의 영어단어장 수정",
+			description = "사용자의 '나만의 영어 단어장' 수정한다."
+			)
 	@PatchMapping(value = "patch/myVocaBook", consumes = "multipart/form-data")
 	public ResponseEntity<?> patchMyVocaBook(@RequestPart(value = "request") MyVocaBookFormDTO request,
 	                                         @RequestPart(value = "imageFile", required = false) MultipartFile imageFile) {
@@ -136,6 +164,10 @@ public class MyVocaBookController {
 	
 	
 	//해당 MyVocaBook의 id가 해당 사용자의 소유가 맞는지 검증하는 api!!!!
+	@Operation(
+			summary = "나만의 영어단어장 검증",
+			description = "해당 영어단어장이 해당 사용자의 소유가 맞는지 검증한다."
+			)
 	@GetMapping("validate/{myVocaBookId}/{userId}")
 	public ResponseEntity<?> validateMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId,
 												@PathVariable("userId") long userId){

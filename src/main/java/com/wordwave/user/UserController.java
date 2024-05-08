@@ -29,6 +29,8 @@ import com.wordwave.util.ResponseDTO;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,6 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "User",description = "사용자 회원 로직 관련 API")
 public class UserController {
 	private final UserService userService;
 	private final TokenProvider tokenProvider;
@@ -50,6 +53,10 @@ public class UserController {
 	private final StringRedisTemplate stringRedisTemplate;
 	
 	//회원가입 : 인증코드 전송
+	@Operation(
+			summary = "인증코드 메일 전송",
+			description = "회원가입 폼에서 사용자가 입력한 이메일로 인증코드를 전송한다."
+			)
 	@PostMapping("/send_authenticateCode")
 	public ResponseEntity<?> authenticateSendEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO){
 		String sendCode = mailService.createRandomPW();
@@ -77,6 +84,10 @@ public class UserController {
 	}
 	
 	//회원가입 : 인증코드 인증과정
+	@Operation(
+			summary = "인증코드 메일 인증",
+			description = "사용자에게 전송된 인증코드와 사용자가 회원가입폼에서 입력한 인증코드가 맞는지 검증한다."
+			)
 	@PostMapping("/authenticateCode")
 	public ResponseEntity<?> authenticateEmailCode(@RequestBody EmailAuthenicateDTO emailAuthenicateDTO) {
 	    String email = emailAuthenicateDTO.getEmail();
@@ -98,7 +109,10 @@ public class UserController {
 
 	
 	
-	
+	@Operation(
+			summary = "회원가입",
+			description = "회원가입폼에서 사용자가 입력한 정보를 통해 서버에 회원가입 기능을 수행한다."
+			)
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
 		try {
@@ -134,6 +148,11 @@ public class UserController {
 		
 	}
 	
+	@Operation(
+			summary = "로그인",
+			description = "로그인폼에서 사용자가 입력한 정보가 서버에 존재하는지 검증하고, 존재한다면 리프래쉬 토큰, 액세스 토큰을 발급하고, "
+					+ "동시에 사용자의 마지막 학습이력 날짜와 로그인날짜를 계산해서 연속학습일을 설정하고, 로그인처리를 한다."
+			)
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO, HttpServletResponse response){
 		SiteUser user = userService.getByUserName(userDTO.getUserName());
@@ -167,7 +186,10 @@ public class UserController {
 	    }
 	}
 
-	
+	@Operation(
+			summary = "로그아웃",
+			description = "쿠키에 포함된 액세스 토큰을 만료시켜, 해당 사용자를 로그아웃 처리한다."
+			)
 	@PostMapping("/signout")
 	public ResponseEntity<?> signOut(HttpServletResponse response){
 	    Cookie cookie = new Cookie("token", null); 
@@ -177,6 +199,10 @@ public class UserController {
 	    return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Logged out");
 	}
 	
+	@Operation(
+			summary = "JWT 토큰 유효성 검사",
+			description = "쿠키에 포함된 액세스 토큰을 서버의 시크릿키를 통해 해싱 후, 유효한 JWT액세스 토큰인지 검증한다."
+			)
 	@PostMapping("/validateToken")
 	public ResponseEntity<?> validateToken(
 			HttpServletRequest request) {
@@ -220,6 +246,10 @@ public class UserController {
 		return ResponseEntity.ok().body("validate success");
 	}
 	
+	@Operation(
+			summary = "JWT 토큰 유효성 검사",
+			description = "쿠키에 포함된 액세스 토큰을 서버의 시크릿키를 통해 해싱 후, 유효한 JWT액세스 토큰인지 검증한다."
+			)
 	@PostMapping("/find_username")
 	public ResponseEntity<?> findUserName(
 										HttpServletResponse response,
@@ -243,6 +273,10 @@ public class UserController {
 		}
 	}
 	
+	@Operation(
+			summary = "사용자 비밀번호 찾기",
+			description = "사용자가 입력한 이메일에 임시 비밀번호를 전송한다."
+			)
 	@PostMapping("/find_password")
 	public ResponseEntity<?> findPassWord(HttpServletResponse response,
 										  @RequestBody MailDTO mailDTO){
@@ -265,6 +299,10 @@ public class UserController {
 		}
 	}
 	
+	@Operation(
+			summary = "사용자 비밀번호 변경",
+			description = "사용자가 입력한 이메일과 원래 비밀번호가 맞는지 검증하고, 맞다면 비밀번호를 변경한다."
+			)
 	@PostMapping("/change_password")
 	public ResponseEntity<?> changePassword(
 	    HttpServletRequest request,
@@ -286,6 +324,10 @@ public class UserController {
 	    }
 	}
 
+	@Operation(
+			summary = "회원탈퇴",
+			description = "사용자가 입력한 이메일과 원래 비밀번호를 입력하고 사용자를 회원탈퇴 처리한다."
+			)
 	@PostMapping("/delete_user")
 	public ResponseEntity<?> deleteUser(HttpServletRequest request, @RequestBody MyPageDTO myPageDTO) throws Exception{
 		try {
@@ -302,6 +344,11 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
 		}
 	}
+	
+	@Operation(
+			summary = "사용자 연속학습일 조회",
+			description = "서버에서 사용자의 연속학습일(consecutiveLearningDays)을 조회한다."
+			)
 	@GetMapping("/select_consecutiveLearningDays")
 	public ResponseEntity<?> selectCLD(HttpServletRequest request){
 		try {

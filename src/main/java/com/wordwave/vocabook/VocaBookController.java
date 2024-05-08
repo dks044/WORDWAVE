@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import groovy.util.logging.Slf4j;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 
@@ -19,11 +21,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/vocabook")
+@Tag(name = "VocaBook",description = "기본 영어 단어장 관련 API")
 public class VocaBookController {
 	private final VocaBookService vocaBookService;
 	
 		
-		
+	@Operation(
+			summary = "기본 영어 단어장들 조회",
+			description = "기본 영어 단어장들을 조회한다."
+			)
 	@GetMapping("vocabooklist")
 	public ResponseEntity<?> selectVocaBook(){
 		try {
@@ -34,7 +40,10 @@ public class VocaBookController {
 			return ResponseEntity.badRequest().body("vocabook import falid");
 		}
 	}
-	
+	@Operation(
+			summary = "기본 영어 단어장 조회",
+			description = "vocaBookId를 통해 특정 '기본 영어 단어장'을 조회한다."
+			)
 	@GetMapping("{vocaBookId}")
 	public ResponseEntity<?> getVocaBookDetail(@PathVariable("vocaBookId") long vocaBookId){
 		try {

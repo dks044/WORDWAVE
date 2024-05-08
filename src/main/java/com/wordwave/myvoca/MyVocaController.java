@@ -16,16 +16,23 @@ import com.wordwave.myvocabook.MyVocaBookService;
 import com.wordwave.util.ResponseDTO;
 
 import groovy.util.logging.Slf4j;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/myvoca")
+@Tag(name = "MyVoca",description = "나만의 영어 단어장의 단어 관련 API")
 public class MyVocaController {
 	private final MyVocaService myVocaService;
 	private final MyVocaBookService myVocaBookService;
 	
+	@Operation(
+			summary = "사용자의 영어단어장에 단어",
+			description = "사용자의 영어단어장에 단어를 생성 한다."
+			)
 	@PostMapping("create")
 	public ResponseEntity<?> create(@RequestBody MyVocaCreateFormDTO request){
 		try {
@@ -41,6 +48,10 @@ public class MyVocaController {
 		}
 	}
 	//업데이트 폼에 표시될 정보
+	@Operation(
+			summary = "사용자의 영어단어장의 단어 수정폼 정보",
+			description = "사용자가 자신의 영어단어장에 할당된 단어를 수정할 시, 수정폼에 원래 정보가 조회 된다."
+			)
 	@GetMapping("updateForm/{myVocaBookId}/{category}")
 	public ResponseEntity<?> updateForm(
 												@PathVariable("myVocaBookId") long myVocaBookId,
@@ -55,6 +66,10 @@ public class MyVocaController {
 		}
 	}
 	
+	@Operation(
+			summary = "사용자의 영어단어장의 단어 수정",
+			description = "사용자가 자신의 영어 단어장에 할당된 단어를 수정폼에서 입력값을 통해 수정한다."
+			)
 	@PatchMapping("patch")
 	public ResponseEntity<?> updateMyVoca(@RequestBody MyVocaUpdateFormRequestDTO request){
 		try {
@@ -67,6 +82,10 @@ public class MyVocaController {
 					 .build().getError());
 		}
 	}
+	@Operation(
+			summary = "사용자의 영어단어장의 단어 삭제",
+			description = "사용자가 자신의 영어 단어장에 할당된 단어를 삭제한다."
+			)
 	@DeleteMapping("delete/{myVocaBookId}/{userId}/{category}")
 	public ResponseEntity<?> deleteMyVoca(
 											@PathVariable("myVocaBookId") long myVocaBookId,
@@ -84,6 +103,10 @@ public class MyVocaController {
 	}
 	
 	//나만의 영단어 퀴즈
+	@Operation(
+			summary = "사용자의 영어단어장의 단어 퀴즈",
+			description = "사용자가 자신의 영어 단어장에 할당된 단어를 통해 단어 퀴즈를 수행할 수 있도록 클라이언트에 데이터를 전송한다."
+			)
 	@GetMapping("{myVocaBookId}/{userId}/{category}")
 	public ResponseEntity<?> select(@PathVariable("myVocaBookId")long myVocaBookId,
 									@PathVariable("userId") long userId,

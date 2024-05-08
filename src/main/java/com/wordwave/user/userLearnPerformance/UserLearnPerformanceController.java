@@ -8,17 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
+@Tag(name = "UserLearnPerformance",description = "사용자 학습 이력 관련 API")
 @RequestMapping("/api/userLearn")
 public class UserLearnPerformanceController {
 	private final UserLearnPerformanceService userLearnPerformanceService;
 	
-	//TODO:학습이력을 조회하고, 그에따라 사용자에게 점수 부여하는 기능 추가해야함
+	@Operation(
+			summary = "사용자 학습이력 생성",
+			description = "사용자가 퀴즈(voca,grammar,나만의 단어장)를 수행한 정보를 서버에 업로드한다."
+			)
 	@PostMapping("/create_userLearnPerformance")
 	public ResponseEntity<?> createUserLearnPerformance(@RequestBody UserLearnPerformanceDTO userLearnPerformanceDTO){
 		try {
@@ -29,6 +35,10 @@ public class UserLearnPerformanceController {
 		}
 	}
 	
+	@Operation(
+			summary = "특정 퀴즈의 사용자 학습이력 조회",
+			description = "사용자의 id와 해당 퀴즈 category를 통해 사용자 학습이력을 조회한다."
+			)
 	@GetMapping("/get_userLearnHistory")
 	public ResponseEntity<?> getUserLearnHistory(@RequestParam("category") String category, 
 	                                             @RequestParam("userId") long userId) {
@@ -40,7 +50,10 @@ public class UserLearnPerformanceController {
 	        return ResponseEntity.badRequest().body("사용자 학습기록 불러오기 실패!");
 	    }
 	}
-	
+	@Operation(
+			summary = "사용자 학습이력 전체 조회",
+			description = "사용자가 퀴즈(voca,grammar,나만의 단어장)를 수행한 전체 정보를 조회한다."
+			)
 	@GetMapping("/get_allUserLearnPerformance")
 	public ResponseEntity<?> getAllUserLearnPerformance(@RequestParam("userId") long userId,
 														@RequestParam(value = "pageNum", defaultValue = "0") int pageNum){
