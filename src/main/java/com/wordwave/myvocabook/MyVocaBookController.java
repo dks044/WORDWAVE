@@ -39,7 +39,7 @@ public class MyVocaBookController {
 	
 	@Operation(
 			summary = "나만의 영어단어장 전체 조회",
-			description = "사용자가 생성만 '나만의 영어 단어장' 을 전체 조회한다."
+			description = "사용자가 생성만 '나만의 영어 단어장' 들을 전체적으로 조회한다."
 			)
 	@GetMapping("myVocaBookList/{userId}")
 	public ResponseEntity<?> selectMyVocaBook(@PathVariable("userId") long userId){
@@ -91,7 +91,7 @@ public class MyVocaBookController {
 	
 	@Operation(
 			summary = "나만의 영어단어장 조회",
-			description = "사용자의 '나만의 영어 단어장' 조회한다."
+			description = "사용자가 생성 및 소유한 '나만의 영어 단어장' 조회한다."
 			)
 	@GetMapping("{myVocaBookId}/{userId}")
 	public ResponseEntity<?> getMyVocaBookDetail(
@@ -110,7 +110,7 @@ public class MyVocaBookController {
 	//myVocaBook 업데이트 폼 활용
 	@Operation(
 			summary = "나만의 영어단어장 업데이트 폼 조회",
-			description = "사용자의 '나만의 영어 단어장' 수정폼에 진입할 시, 원래 정보를 조회한다."
+			description = "사용자의 '나만의 영어 단어장' 수정폼에 진입할 시, 원래 정보를 조회할수 있다."
 			)
 	@GetMapping("get/{myVocaBookId}/{userId}")
 	public ResponseEntity<?> getMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId,
@@ -124,7 +124,7 @@ public class MyVocaBookController {
 	}
 	@Operation(
 			summary = "나만의 영어단어장 삭제",
-			description = "사용자의 '나만의 영어 단어장' 삭제한다."
+			description = "사용자가 소유한 '나만의 영어 단어장' 삭제한다."
 			)
 	@DeleteMapping("delete/{myVocaBookId}")
 	public ResponseEntity<?> deleteMyVocaBook(@PathVariable("myVocaBookId") long myVocaBookId){
@@ -140,7 +140,7 @@ public class MyVocaBookController {
 	
 	@Operation(
 			summary = "나만의 영어단어장 수정",
-			description = "사용자의 '나만의 영어 단어장' 수정한다."
+			description = "사용자의 '나만의 영어 단어장'을 수정한다."
 			)
 	@PatchMapping(value = "patch/myVocaBook", consumes = "multipart/form-data")
 	public ResponseEntity<?> patchMyVocaBook(@RequestPart(value = "request") MyVocaBookFormDTO request,
