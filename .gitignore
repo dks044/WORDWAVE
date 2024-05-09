@@ -2,6 +2,7 @@ HELP.md
 =======
 Key.java
 application.properties
+.env
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar

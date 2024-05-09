@@ -1,6 +1,7 @@
 package com.wordwave.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -31,7 +32,9 @@ public class SecurityConfig {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    
     @Autowired
+    @Qualifier("customCorsConfigurationSource")
     private CorsConfigurationSource configurationSource;
     
     @Bean
