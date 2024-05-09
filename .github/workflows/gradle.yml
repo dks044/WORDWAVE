@@ -47,8 +47,8 @@ jobs:
           echo "spring.mail.properties.mail.mime.charset=UTF-8" >> application.properties
           echo "spring.mail.properties.mail.transport.protocol=smtp" >> application.properties
           # Redis 설정
-          echo "spring.redis.host=${{ secrets.REDIS_HOST }}" >> ./application.properties
-          echo "spring.redis.port=${{ secrets.REDIS_PORT }}" >> ./application.properties
+          echo "spring.data.redis.host=${{ secrets.REDIS_HOST }}" >> ./application.properties
+          echo "spring.data.redis.port=${{ secrets.REDIS_PORT }}" >> ./application.properties
           # Swagger 설정 추가
           echo "springdoc.api-docs.path=/api-docs" >> application.properties
           echo "springdoc.swagger-ui.path=/swagger-ui.html" >> application.properties
