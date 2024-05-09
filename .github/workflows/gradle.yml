@@ -54,7 +54,8 @@ jobs:
           echo "springdoc.swagger-ui.path=/swagger-ui.html" >> application.properties
           echo "server.forward-headers-strategy=framework" >> application.properties
           # Thymeleaf 설정
-          echo "spring.thymeleaf.prefix=file:src/main/resources/static/" >> application.properties
+          echo "spring.thymeleaf.prefix=classpath:/templates/" >> application.properties
+
           # AWS S3 설정
           echo "cloud.aws.region.static=${{ secrets.AWS_REGION }}" >> application.properties
           echo "cloud.aws.stack.auto=false" >> application.properties
