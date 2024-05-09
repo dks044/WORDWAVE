@@ -9,11 +9,11 @@ const api = axios.create({
 });
 
 export async function loginApi(userName, password) {
-  return await axios.post('/api/auth/signin', { userName, password });
+  return await api.post('/api/auth/signin', { userName, password });
 }
 
 export async function logoutApi(){
-  return await axios.post('/api/auth/signout');
+  return await api.post('/api/auth/signout');
 }
 
 // export async function validateTokenApi(){
@@ -21,29 +21,29 @@ export async function logoutApi(){
 // }
 
 export async function signupApi(userName,password,email,phoneNumber){
-  return await axios.post('/api/auth/signup',{userName,password,email,phoneNumber})
+  return await api.post('/api/auth/signup',{userName,password,email,phoneNumber})
 }
 
 export async function findidAPI(email){
-  return await axios.post('/api/auth/find_username',{email});
+  return await api.post('/api/auth/find_username',{email});
 }
 
 export async function findPwAPI(userName,email){
-  return await axios.post('/api/auth/find_password',{userName,email})
+  return await api.post('/api/auth/find_password',{userName,email})
 }
 
 export async function changePwAPI(password,newPassword){
-  return await axios.post('/api/auth/change_password',{password,newPassword});
+  return await api.post('/api/auth/change_password',{password,newPassword});
 }
 
 export async function deleteUserAPI(email,password){
-  return await axios.post('/api/auth/delete_user',{email,password});
+  return await api.post('/api/auth/delete_user',{email,password});
 }
 
 export async function sendEmailCodeAPI(email){
-  return await axios.post('api/auth/send_authenticateCode',{email});
+  return await api.post('api/auth/send_authenticateCode',{email});
 }
 
 export async function validEmailCodeAPI(email,emailCode){
-  return await axios.post('api/auth/authenticateCode',{email,emailCode});
+  return await api.post('api/auth/authenticateCode',{email,emailCode});
 }

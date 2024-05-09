@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -30,6 +31,8 @@ public class SecurityConfig {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    @Autowired
+    private CorsConfigurationSource configurationSource;
     
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -40,7 +43,7 @@ public class SecurityConfig {
             .addHeaderWriter(new XFrameOptionsHeaderWriter(
                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
 
-        http.cors(AbstractHttpConfigurer::disable)
+        http.cors(cors->cors.configurationSource(configurationSource))
             .httpBasic(HttpBasicConfigurer::disable)
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests

@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 export async function createUserLearnPerformanceAPI({userId, category, learnType, answerCount, wrongCount}){
-  const response = await axios.post('/api/userLearn/create_userLearnPerformance', {
+  const response = await api.post('/api/userLearn/create_userLearnPerformance', {
     userId, 
     category, 
     learnType, 
@@ -20,17 +20,17 @@ export async function createUserLearnPerformanceAPI({userId, category, learnType
 }
 
 export async function getUserLearnHistoryAPI({ category, userId }) {
-  const response = await axios.get(`/api/userLearn/get_userLearnHistory?category=${category}&userId=${userId}`);
+  const response = await api.get(`/api/userLearn/get_userLearnHistory?category=${category}&userId=${userId}`);
   return response.data;
 }
 
 //사용자의 연속학습일 조회
 export async function getUserCLDAPI() {
-  const response = await axios.get('/api/auth/select_consecutiveLearningDays');
+  const response = await api.get('/api/auth/select_consecutiveLearningDays');
   return response.data;
 }
 
 export async function getAllUserLearnPerformanceAPI({userId,pageNum}){
-  const response = await axios.get(`/api/userLearn/get_allUserLearnPerformance?userId=${userId}&pageNum=${pageNum}`);
+  const response = await api.get(`/api/userLearn/get_allUserLearnPerformance?userId=${userId}&pageNum=${pageNum}`);
   return response.data;
 }
