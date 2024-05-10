@@ -75,7 +75,7 @@ jobs:
 
           # SSL KeyStore 설정
           echo "server.port=443" >> application.properties
-          echo "server.ssl.key-store=classpath:ssl/keystore.p12" >> application.properties
+          echo "server.ssl.key-store=file:/app/src/main/resources/ssl/keystore.p12" >> application.properties
           echo "server.ssl.key-store-type=PKCS12" >> application.properties
           echo "server.ssl.key-store-password=${{ secrets.SSL_PASSWORD }}" >> application.properties
           echo "server.ssl.key-alias=wordwave.xyz" >> application.properties
