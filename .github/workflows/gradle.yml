@@ -78,6 +78,8 @@ jobs:
           echo "server.ssl.key-store=classpath:/ssl/keystore.p12" >> application.properties
           echo "server.ssl.keyStoreType=PKCS12" >> application.properties
           echo "server.ssl.key-store-password=${{ secrets.SSL_PASSWORD }}" >> application.properties
+          echo "server.ssl.key-alias = tomcat" >> application.properties
+          
         shell: bash
 
       - name: Build with Gradle
