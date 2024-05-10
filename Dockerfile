@@ -17,7 +17,7 @@ WORKDIR /app
 COPY /home/ec2-user/keystore.p12 /app/src/main/resources/ssl/
 
 # 빌더 이미지에서 jar 파일만 복사
-# COPY --from=builder /build/build/libs/*-SNAPSHOT.jar ./app.jar
+COPY --from=builder /build/build/libs/*-SNAPSHOT.jar ./app.jar
 
 EXPOSE 8080
 
