@@ -14,12 +14,12 @@ FROM openjdk:17.0-slim
 WORKDIR /app
 
 # keystore 파일 추가
-# COPY /home/ec2-user/keystore.p12 /app/src/main/resources/ssl/
+COPY src/main/resources/ssl/keystore.p12 /etc/ssl/
 
 # 빌더 이미지에서 jar 파일만 복사
 COPY --from=builder /build/build/libs/*-SNAPSHOT.jar ./app.jar
 
-EXPOSE 8080
+EXPOSE 443
 
 # root 대신 nobody 권한으로 실행
 USER nobody
