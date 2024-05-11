@@ -84,7 +84,7 @@ jobs:
           echo "server.ssl.key-store=${{ secrets.KEY_STORE_PATH }}" >> application.properties
           echo "server.ssl.key-store-type=PKCS12" >> application.properties
           echo "server.ssl.key-store-password=${{ secrets.SSL_PASSWORD }}" >> application.properties
-          echo "server.ssl.key-alias=wordwave.xyz" >> application.properties
+          echo "server.ssl.key-alias=back.wordwave.xyz" >> application.properties
           
         shell: bash
 
