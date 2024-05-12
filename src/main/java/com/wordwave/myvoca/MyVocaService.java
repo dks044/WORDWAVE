@@ -153,10 +153,6 @@ public class MyVocaService {
 			while(random.size()<2) {
 				random.add((int)(Math.random() * wordLength));
 			}
-		}else {
-			while(random.size()<=3) {
-				random.add((int)(Math.random() * wordLength));
-			}
 		}
 		for(int i : random) word[i] = '_';
 		for(char c : word) parseHiddenWord.append(c);
@@ -169,7 +165,8 @@ public class MyVocaService {
 		List<String> randomWord = new ArrayList<>();
 		randomWord.add(engWord); //원래 답 
 		while(randomWord.size()<4) {
-			randomWord.add(myVocas.get((int)(Math.random()*myVocas.size())).getEngWord());
+			String insertWord = myVocas.get((int)(Math.random()*myVocas.size())).getEngWord();
+			if(!insertWord.equals(engWord)) randomWord.add(insertWord);			
 		}
 		
 		return randomWord;
