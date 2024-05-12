@@ -132,7 +132,7 @@ function NavComponent(){
       dispatch(logout());
       setShow(false);
       setOnLogout(false);
-      window.location.href = '/';
+      //window.location.href = '/';
     }
   },[onLogout,show]);
 

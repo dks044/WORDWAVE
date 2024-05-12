@@ -104,10 +104,10 @@ public class TokenProvider {
 	//TODO: 배포환경에서는 주석해제 해야함
 	public ResponseCookie generateTokenCookie(String token) {
 	    return ResponseCookie.from("access", token)
+	    		.domain(DOMAIN_LIVE)
+	    		.path("/")
 	            .httpOnly(true)
-	            .domain(DOMAIN_LIVE)
 	            .secure(true)
-	            .path("/")
 	            .sameSite(Cookie.SameSite.NONE.attributeValue()) 
 	            .build();
 	}
