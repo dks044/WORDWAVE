@@ -320,7 +320,7 @@ public class UserController {
 			//회원탈퇴시 쿠키도 삭제
 			ResponseCookie deleteCookie = ResponseCookie.from("access", "")
 			        //.domain("localhost")
-			        //.domain(DOMAIN_LIVE)
+			        .domain(DOMAIN_LIVE)
 			        .path("/")
 			        .httpOnly(true)
 			        .secure(true)
