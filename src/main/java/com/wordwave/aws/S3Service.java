@@ -25,8 +25,8 @@
 	
 	    private final AmazonS3 amazonS3;
 	
-	    @Value("${cloud.aws.s3.bucket}")
-	    private String bucket;
+	    //@Value("${cloud.aws.s3.bucket}")
+	    private String bucket = "wordwave-bucket";
 	
 	    public String saveFile(MultipartFile multipartFile) throws IOException {
 	        String originalFilename = multipartFile.getOriginalFilename();
