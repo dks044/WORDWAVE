@@ -19,6 +19,7 @@ function VocaBooksContainer(){
 
   //폴링으로 변경
   useEffect(() => {
+    dispatch(getVocaBooks());
     const intervalId =  setInterval( async () => {
       await dispatch(getVocaBooks());
     }, 30000); // 매 30초 마다 실행

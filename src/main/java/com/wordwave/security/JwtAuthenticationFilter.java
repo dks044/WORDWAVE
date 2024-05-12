@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -73,13 +74,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		                	System.out.println("// 리프레시 토큰이 존재하며 유효한지 확인");
 		                    // 새로운 액세스 토큰 생성 및 발급
 		                    String newAccessToken = tokenProvider.create(user, response);
-//		                    logger.info("New token issued");
-//		                    response.setHeader("Authorization", "Bearer " + newAccessToken);
-		    		        Cookie cookie = new Cookie("token", newAccessToken);
-		    		        cookie.setHttpOnly(true);
-		    		        response.addCookie(cookie);
-		    		        System.out.println("맛잇는 쿠키 왔어요~"+cookie);
-		                    // TODO:필요하다면 새로운 리프레시 토큰도 발급하고 데이터베이스 업데이트
+		                    ResponseCookie responseCookie = tokenProvider.generateTokenCookie(newAccessToken);
+
 		                } else {
 		                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		                    response.getWriter().write("{\"error\": \"Invalid or expired refresh token\"}");

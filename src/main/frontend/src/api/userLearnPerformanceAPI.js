@@ -6,6 +6,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 // Axios 인스턴스 생성
 const api = axios.create({
   baseURL: API_BASE_URL,
+  withCredentials: true
 });
 
 export async function createUserLearnPerformanceAPI({userId, category, learnType, answerCount, wrongCount}){
@@ -26,7 +27,9 @@ export async function getUserLearnHistoryAPI({ category, userId }) {
 
 //사용자의 연속학습일 조회
 export async function getUserCLDAPI() {
-  const response = await api.get('/api/auth/select_consecutiveLearningDays');
+  const response = await api.get('/api/auth/select_consecutiveLearningDays', {
+    withCredentials: true
+  });
   return response.data;
 }
 

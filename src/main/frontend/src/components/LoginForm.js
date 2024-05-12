@@ -62,7 +62,7 @@ export default function LoginForm(){
     const password = event.target.elements.floatingInputPassword.value;
     try {
       await dispatch(login(userName,password));
-      window.location.href = '/';
+      //window.location.href = '/';
     } catch (e) {
       if(e.response && e.response.status === 401){
         setValidLogin(true);

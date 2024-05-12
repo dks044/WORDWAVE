@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.boot.web.server.Cookie;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordwave.emailcode.EmailAuthenicateDTO;
 import com.wordwave.myvocabook.MyVocaBookService;
 import com.wordwave.redis.RedisConfig;
+import com.wordwave.security.TokenInfo;
 import com.wordwave.security.TokenProvider;
 import com.wordwave.util.MailDTO;
 import com.wordwave.util.MailService;
@@ -29,9 +33,9 @@ import com.wordwave.util.ResponseDTO;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.lettuce.core.output.ListOfGenericMapsOutput;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +55,10 @@ public class UserController {
 	private final MailService mailService;
 	private final MyVocaBookService myVocaBookService;
 	private final StringRedisTemplate stringRedisTemplate;
+	
+	
+	private final String DOMAIN_LIVE = "https://d1l64t1cuiy6u1.cloudfront.net";
+	private final String DOMAIN_STAGING = "127.0.0.1";
 	
 	//회원가입 : 인증코드 전송
 	@Operation(
@@ -154,12 +162,14 @@ public class UserController {
 					+ "동시에 사용자의 마지막 학습이력 날짜와 로그인날짜를 계산해서 연속학습일을 설정하고, 로그인처리를 한다."
 			)
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO, HttpServletResponse response){
-		SiteUser user = userService.getByUserName(userDTO.getUserName());
+	public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO, HttpServletResponse response) {
+	    SiteUser user = userService.getByUserName(userDTO.getUserName());
 	    if (user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
 	        try {
 	            final String token = tokenProvider.create(user, response);
-	            final String refreshToken = tokenProvider.createRefreshToken(user);
+	            //리프래시 토큰은 서버에 저장
+	            final String refreshToken = tokenProvider.createRefreshToken(user); 
+	            // 클라이언트에 유저정보 전송
 	            final UserDTO responseDTO = UserDTO.builder()
 	                    .userName(user.getUserName())
 	                    .email(user.getEmail())
@@ -168,87 +178,55 @@ public class UserController {
 	                    .createUserDate(user.getCreateUserDate())
 	                    .id(user.getId())
 	                    .build();
-	            Cookie cookie = new Cookie("token", token);
-	            cookie.setHttpOnly(true);
-	            response.addCookie(cookie);
-	            userService.setLoginTimeStamp(user); //로그인 타임스탬프
-	            userService.calculateConsecutiveLearningDays(user); //로그인 타임스탬프와 마지막 학습이력 계산 후 연속학습일 할당
+	            
+	            // 토큰 정보를 HTTP 헤더에 설정
+	            // 액세스 토큰은 쿠키에 저장
+	            TokenInfo tokenInfo = tokenProvider.responseHeaderToken(token, response);
+	            
+	            userService.setLoginTimeStamp(user); // 로그인 타임스탬프
+	            userService.calculateConsecutiveLearningDays(user); // 연속학습일 할당
+	            
 	            return ResponseEntity.ok().body(responseDTO);
 	        } catch (Exception e) {
 	            System.out.println("오류발생 : " + e.getMessage());
 	            e.printStackTrace();
 	            log.error(e.getMessage());
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류"
-	            		+ e.getMessage());
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
 	        }
 	    } else {
-	        return ResponseEntity.status(401).body("인증 실패");
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증 실패");
 	    }
 	}
 
+	//TODO: 배포환경에 맞게 주석해제
 	@Operation(
 			summary = "로그아웃",
 			description = "쿠키에 포함된 액세스 토큰을 만료시켜, 해당 사용자를 로그아웃 처리한다."
 			)
 	@PostMapping("/signout")
 	public ResponseEntity<?> signOut(HttpServletResponse response){
-	    Cookie cookie = new Cookie("token", null); 
-	    cookie.setHttpOnly(true);
-	    cookie.setMaxAge(0); 
-	    response.addCookie(cookie); //HTTP 응답에 쿠키를 추가
+		ResponseCookie deleteCookie = ResponseCookie.from("access", "")
+		        .domain("localhost")
+		        //.domain(DOMAIN_LIVE)
+		        .path("/")
+		        .httpOnly(true)
+		        //.secure(true)
+		        //.sameSite(Cookie.SameSite.NONE.attributeValue())
+		        .maxAge(0)
+		        .build();
+		response.addHeader("Set-Cookie", deleteCookie.toString());
+		
+//	    Cookie cookie = new Cookie("token", null); 
+//	    cookie.setHttpOnly(true);
+//	    cookie.setMaxAge(0); 
+//	    response.addCookie(cookie); //HTTP 응답에 쿠키를 추가
 	    return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Logged out");
 	}
 	
-	@Operation(
-			summary = "JWT 토큰 유효성 검사",
-			description = "쿠키에 포함된 액세스 토큰을 서버의 시크릿키를 통해 해싱 후, 유효한 JWT액세스 토큰인지 검증한다."
-			)
-	@PostMapping("/validateToken")
-	public ResponseEntity<?> validateToken(
-			HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		if(cookies == null) {
-			ResponseDTO responseDTO = ResponseDTO.builder()
-					.error("Cookie is empty")
-					.build();
-			return ResponseEntity.status(401).body(responseDTO);
-		}
-	    String token = null;
-	    for (Cookie cookie : cookies) {
-	        if (cookie.getName().equals("token")) {
-	            token = cookie.getValue();
-	            break;
-	        }
-	    }
-		
-	    if (token == null) {
-	        ResponseDTO responseDTO = ResponseDTO.builder()
-	                .error("Token is empty")
-	                .build();
-	        return ResponseEntity.status(401).body(responseDTO);
-	    }
-	    //토큰을 찾았을떄 검사시작
-	    try {
-			Jwts.parserBuilder().setSigningKey(JWT_SECRET_KEY).build().parseClaimsJws(token);
-		} catch (JwtException e) {
-			ResponseDTO responseDTO = ResponseDTO.builder()
-					.error("Token is invalid")
-					.build();
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body(responseDTO);
-		} catch (Exception e) {
-			ResponseDTO responseDTO = ResponseDTO.builder()
-					.error(e.getMessage())
-					.build();
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body(responseDTO);
-		}
-		return ResponseEntity.ok().body("validate success");
-	}
 	
 	@Operation(
-			summary = "JWT 토큰 유효성 검사",
-			description = "쿠키에 포함된 액세스 토큰을 서버의 시크릿키를 통해 해싱 후, 유효한 JWT액세스 토큰인지 검증한다."
+			summary = "아이디 찾기",
+			description = "사용자가 입력한 이에밀을 통해 아이디를 사용자에게 이메일 주소로 메일을 전송한다."
 			)
 	@PostMapping("/find_username")
 	public ResponseEntity<?> findUserName(
@@ -329,14 +307,28 @@ public class UserController {
 			description = "사용자가 입력한 이메일과 원래 비밀번호를 입력하고 사용자를 회원탈퇴 처리한다."
 			)
 	@PostMapping("/delete_user")
-	public ResponseEntity<?> deleteUser(HttpServletRequest request, @RequestBody MyPageDTO myPageDTO) throws Exception{
+	public ResponseEntity<?> deleteUser(HttpServletRequest request,
+										HttpServletResponse response,
+										@RequestBody MyPageDTO myPageDTO) throws Exception{
 		try {
 			String token = userService.getTokenFromRequest(request);
-			System.out.println(token);
+			System.out.println("으악"+token);
 			SiteUser user = userService.getByUserId(userService.getUserIdFromJwt(token));
 			if(!user.getEmail().equals(myPageDTO.getEmail()) || !passwordEncoder.matches(myPageDTO.getPassword(), user.getPassword())) {
 				return ResponseEntity.status(401).body("입력한 비밀번호와 이메일이 가입 정보와 다릅니다.");
 			}
+			//회원탈퇴시 쿠키도 삭제
+			ResponseCookie deleteCookie = ResponseCookie.from("access", "")
+			        .domain("localhost")
+			        //.domain(DOMAIN_LIVE)
+			        .path("/")
+			        .httpOnly(true)
+			        //.secure(true)
+			        //.sameSite(Cookie.SameSite.NONE.attributeValue())
+			        .maxAge(0)
+			        .build();
+			response.addHeader("Set-Cookie", deleteCookie.toString());
+			
 			myVocaBookService.deleteAllImageURL(user); //s3에 저장된 사용자의 이미지들 삭제
 			userService.deleteUser(user);
 			return ResponseEntity.ok().body(user.getId()+"<= user deleted.");
@@ -353,8 +345,12 @@ public class UserController {
 	public ResponseEntity<?> selectCLD(HttpServletRequest request){
 		try {
 			String token = userService.getTokenFromRequest(request);
-			if(token == null) return ResponseEntity.badRequest().body("Token is empty");
+			if(token == null) {
+				log.error("Token is empty");
+				return ResponseEntity.badRequest().body("Token is empty");
+			}
 		    long userId = userService.getUserIdFromJwt(token);
+
 	    	SiteUser user = userService.getByUserId(userId);
 	    	return ResponseEntity.ok().body(user.getConsecutiveLearningDays());
 		} catch (Exception e) {
