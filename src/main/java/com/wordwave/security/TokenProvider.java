@@ -105,7 +105,7 @@ public class TokenProvider {
 	public ResponseCookie generateTokenCookie(String token) {
 	    return ResponseCookie.from("access", token)
 	            .httpOnly(true)
-	            .domain(DOMAIN_LIVE)
+	            //.domain(DOMAIN_LIVE)
 	            .secure(true)
 	            .path("/")
 	            .sameSite(Cookie.SameSite.NONE.attributeValue()) 
