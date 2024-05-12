@@ -18,6 +18,7 @@ function GrammarBooksContainer(){
 
   //폴링으로 변경
   useEffect(() => {
+    dispatch(getGrammarBooks());
     const intervalId =  setInterval( async () => {
       await dispatch(getGrammarBooks());
     }, 30000); // 매 30초 마다 실행

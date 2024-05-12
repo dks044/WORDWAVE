@@ -6,6 +6,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 // Axios 인스턴스 생성
 const api = axios.create({
   baseURL: API_BASE_URL,
+  withCredentials: true
 });
 
 export async function loginApi(userName, password) {
@@ -13,7 +14,9 @@ export async function loginApi(userName, password) {
 }
 
 export async function logoutApi(){
-  return await api.post('/api/auth/signout');
+  return await api.post('/api/auth/signout',{
+    withCredentials: true
+  });
 }
 
 // export async function validateTokenApi(){
@@ -33,11 +36,15 @@ export async function findPwAPI(userName,email){
 }
 
 export async function changePwAPI(password,newPassword){
-  return await api.post('/api/auth/change_password',{password,newPassword});
+  return await api.post('/api/auth/change_password',{password,newPassword}, {
+    withCredentials: true
+  });
 }
 
 export async function deleteUserAPI(email,password){
-  return await api.post('/api/auth/delete_user',{email,password});
+  return await api.post('/api/auth/delete_user',{email,password}, {
+    withCredentials: true
+  });
 }
 
 export async function sendEmailCodeAPI(email){

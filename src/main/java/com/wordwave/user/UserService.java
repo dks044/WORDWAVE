@@ -118,13 +118,23 @@ public class UserService {
 	    Cookie[] cookies = request.getCookies();
 	    if (cookies != null) {
 	        for (Cookie cookie : cookies) {
-	            if (cookie.getName().equals("token")) {
+	            if (cookie.getName().equals("access")) {
 	                return cookie.getValue();
 	            }
 	        }
 	    }
 	    return null;
 	}
+	//쿠키에서 토큰을 가져온다. (헤더를 통해서)
+	public String getTokenFromRequestHeader(HttpServletRequest request) {
+	    String authorizationHeader = request.getHeader("Authorization");
+	    if (authorizationHeader != null && authorizationHeader.startsWith("access")) {
+	        // "Bearer " 다음부터가 실제 토큰 값이므로, 이를 추출
+	        return authorizationHeader.substring(7);
+	    }
+	    return null;
+	}
+	
 	
 	public void deleteUser(SiteUser user) {
 	    userRepository.delete(user);

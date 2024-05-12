@@ -2,23 +2,27 @@ package com.wordwave.security;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Base64;
+
 import java.util.Date;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.boot.web.server.Cookie;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.wordwave.user.SiteUser;
 import com.wordwave.user.UserRepository;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
+
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.Cookie;
+
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +35,8 @@ public class TokenProvider {
     private static final String JWT_SECRET_KEY_STRING = System.getenv("JWT_SECREAT_KEY"); 
     private static final byte[] JWT_SECRET_KEY = JWT_SECRET_KEY_STRING != null ? JWT_SECRET_KEY_STRING.getBytes() : new byte[0];
 	private final UserRepository userRepository;
-	
+	private final String DOMAIN_LIVE = ".wordwave.xyz"; //배포환경
+	private final String DOMAIN_STAGING = "localhost"; //개발환경
 	
 	public String create(SiteUser user, HttpServletResponse response) {
 		//기한 설정 (현재 1일)
@@ -46,12 +51,7 @@ public class TokenProvider {
 					.setExpiration(expiryDate)
 					.signWith(secretKey,SignatureAlgorithm.HS512)
 					.compact();
-		//쿠키 생성 및 설정
-	    Cookie cookie = new Cookie("token", token);
-	    cookie.setHttpOnly(true);
-	    cookie.setMaxAge(24 * 60 * 60); // 쿠키 유효 시간 설정 (24시간)
-	    response.addCookie(cookie);
-		
+	
 		return token;
 	}
 	//검증된 사용자의 userId을 조회
@@ -100,4 +100,34 @@ public class TokenProvider {
 	        return false;
 	    }
 	}
+	//액세스 토큰 발급
+	//TODO: 배포환경에서는 주석해제 해야함
+	public ResponseCookie generateTokenCookie(String token) {
+	    return ResponseCookie.from("access", token)
+	            .httpOnly(true)
+	            .domain(DOMAIN_LIVE)
+	            .secure(true)
+	            .path("/")
+	            .sameSite(Cookie.SameSite.NONE.attributeValue()) 
+	            .build();
+	}
+	
+	
+	public TokenInfo responseHeaderToken(String token, HttpServletResponse response) {
+	    // Token을 쿠키로 클라이언트에 전송
+	    ResponseCookie responseCookie = generateTokenCookie(token);
+	    response.setHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
+	    //정보 전송할거면 활용
+	    return TokenInfo.builder()
+	    		.grantType("Bearer")
+	    		.accessToken(token)
+	    		.build();
+	}
+	
+	
+	
+	
+	
+	
+	
 }
