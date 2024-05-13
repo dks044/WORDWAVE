@@ -149,8 +149,12 @@ public class MyVocaService {
 		char[] word = engWord.toCharArray();
 		StringBuilder parseHiddenWord = new StringBuilder();
 		Set<Integer> random = new HashSet<>();
-		if(wordLength <= 5) {
+		if(wordLength <= 6) {
 			while(random.size()<2) {
+				random.add((int)(Math.random() * wordLength));
+			}
+		}else {
+			while(random.size()<3) {
 				random.add((int)(Math.random() * wordLength));
 			}
 		}
