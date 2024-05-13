@@ -108,7 +108,7 @@ export default function LoginForm(){
       await dispatch(findPw(userName,email));
       await dispatch(showPopup('입력하신 이메일에 임시 비밀번호를 전송했습니다.'));
     } catch (error) {
-      await dispatch(showPopup('유효하지 않은 이메일과 아이디 입니다.'));
+      await dispatch(showPopup('유효하지 않은 이메일과 아이디이거나 이미 등록된 전화번호 입니다.'));
       setEmailForFindPw('');
       setUserNameForFindPw('');
     } finally {

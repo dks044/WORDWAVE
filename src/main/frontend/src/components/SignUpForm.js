@@ -103,7 +103,7 @@ function SignUpForm() {
       navigate('/'); 
     } catch (error) {
       handleShow();
-      setErrorMessage('이미 가입된 사용자이거나, 이메일입니다, 다시 확인해주세요.');
+      setErrorMessage('이미 가입된 사용자이거나, 이메일이거나, 전화번호 입니다. 다시 확인해주세요.');
       return;
     }
   };

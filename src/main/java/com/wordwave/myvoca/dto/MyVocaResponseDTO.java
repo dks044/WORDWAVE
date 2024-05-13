@@ -2,6 +2,8 @@ package com.wordwave.myvoca.dto;
 
 
 import java.util.List;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,6 @@ public class MyVocaResponseDTO {
     private String hiddenEngWord;
     //영어빈칸퀴즈 : 1 | 한글제시퀴즈 : 2
     private int quizStatus;
-    private List<String> randomEngWord;
+    private Set<String> randomEngWord;
 	private String myVocaBookName;
 }

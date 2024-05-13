@@ -86,9 +86,9 @@ public class VocaService {
 	}
 	
 	//랜덤 영단어 4개 (랜덤 영단어 4개 선택지 기능 구현 용도)
-	private List<String> createRandomEngWord(List<Voca> vocas, long vocaBookId,String category,
+	private Set<String> createRandomEngWord(List<Voca> vocas, long vocaBookId,String category,
 			String engWord){
-		List<String> randomWord = new ArrayList<>();
+		Set<String> randomWord = new HashSet<>();
 		randomWord.add(engWord); //원래 답 
 		while(randomWord.size()<4) {
 			String insertWord = vocas.get((int)(Math.random()*vocas.size())).getEngWord();

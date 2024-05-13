@@ -30,5 +30,5 @@ public class VocaDTO {
     //영어빈칸퀴즈 : 1 | 한글제시퀴즈 : 2
     public int quizStatus;
     
-    public List<String> randomEngWord;
+    public Set<String> randomEngWord;
 }
