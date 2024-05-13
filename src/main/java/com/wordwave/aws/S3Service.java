@@ -29,7 +29,7 @@
 	    private String bucket = "wordwave-bucket";
 	
 	    public String saveFile(MultipartFile multipartFile) throws IOException {
-	        String originalFilename = multipartFile.getOriginalFilename();
+	        String originalFilename = "userFile/" + multipartFile.getOriginalFilename();
 	
 	        ObjectMetadata metadata = new ObjectMetadata();
 	        metadata.setContentLength(multipartFile.getSize());
