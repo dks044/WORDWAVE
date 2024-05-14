@@ -24,8 +24,12 @@
 저희 팀은 우테코 6기 프리코스에서 만났습니다.
 
 그곳에서 인연이 되어 팀을 결성하고, 프리코스에서 배운 컨벤션들을 적용해서
-깔끔한 팀프로젝트를 만들어보기로 했습니다.
-우테코 프리코스에서는 CBD, TDD, Git 컨벤션, 도메인 로직 등 협업에 중요한 전략들을 배웠습니다. 배운 것들을 활용해 프로젝트를 만들며 ‘협업에 강한 개발자’가 되고자 시작했습니다.
+
+깔끔한 팀프로젝트를 만들어보기로 했습니다.   
+
+우테코 프리코스에서는 CBD, TDD, Git 컨벤션, 도메인 로직 등 협업에 중요한 전략들을 배웠습니다.   
+
+배운 것들을 활용해 프로젝트를 만들며 ‘협업에 강한 개발자’가 되고자 시작했습니다.
 
 # **⭐️ 주요 기능**
 
@@ -50,7 +54,8 @@
 1. 나만의 영어 단어장을 만들수 있다.
 2. 나만의 영어 단어장을 썸네일을 정해서 만들수도 있다.
 3. 나만의 영어 단어장에 단어 정보를 넣고, 수정도 할 수 있으며 퀴즈로도 공부할 수 있다.
-<br><br>
+   
+<br><br><br><br>
 
 <div align=center><h1>⚙️ 시스템 아키텍처 </h1></div>
 <div align=center>
@@ -61,6 +66,333 @@
     <h4>프론트엔드 배포:</h4> 프론트엔드 리액트 프로젝트는 AWS S3에 빌드되어 업로드되며, AWS CloudFront를 통해 전 세계에 배포됩니다.
     <h4>HTTPS 적용:</h4> 전체 시스템은 HTTPS를 통해 보안이 강화된 통신을 제공합니다. 이는 Keystore 설정 및 서버 구성을 통해 이루어집니다.
 </div>
+
+<br><br><br><br>
+
+<div align=center><h1>🛠 TECH STACKS 🛠</h1></div>
+<div align=center>
+  <div align=center>
+    <h3>⚙️ Backend ⚙️</h3>
+    <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+    <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
+    <img alt="Static Badge" src="https://img.shields.io/badge/JPA-grey?style=for-the-badge&logo=databricks&logoSize=auto">
+    <img alt="Static Badge" src="https://img.shields.io/badge/SpringSecurity-black?style=for-the-badge&logo=springsecurity&logoColor=white&color=%236DB33F">
+    <img alt="Static Badge" src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=jsonwebtokens&logoSize=auto">
+    <br>
+    <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Redis-red?style=for-the-badge&logo=redis&logoColor=white&logoSize=auto">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Swagger-green?style=for-the-badge&logo=swagger&logoColor=white&logoSize=auto">
+    <br>
+      <img alt="Static Badge" src="https://img.shields.io/badge/AWS%20EC2-orange?style=for-the-badge&logo=amazonec2&logoSize=auto">
+      <img alt="Static Badge" src="https://img.shields.io/badge/DOCKER-blue?style=for-the-badge&logo=docker&logoSize=auto">
+      <img alt="Static Badge" src="https://img.shields.io/badge/GitHub_Actions-black?style=for-the-badge&logo=githubactions&logoColor=white&color=%232088FF">
+  </div>
+  <br>
+  <div align=center>
+    <h3>🖌 Frontend 🖌</h3>
+    <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+    <img alt="Static Badge" src="https://img.shields.io/badge/styled_components-pink?style=for-the-badge&logo=styledcomponents&logoColor=white&color=%23DB7093">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Redux-black?style=for-the-badge&logo=redux&logoColor=white&color=%23764ABC">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Redux_Saga-black?style=for-the-badge&logo=reduxsaga&logoColor=white&color=%23764ABC">
+    <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+    <br>
+    <img alt="Static Badge" src="https://img.shields.io/badge/React_router-black?style=for-the-badge&logo=reactrouter&logoColor=white&color=%23CA4245">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Axios-black?style=for-the-badge&logo=axios&logoColor=white&color=%235A29E4">
+
+  </div>
+  <br>
+  <div align=center>
+    <h3>🔧 Tool 🔧</h3>
+    <img alt="Static Badge" src="https://img.shields.io/badge/Notion-black?style=for-the-badge&logo=notion&logoColor=white&color=%23000000">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Git-black?style=for-the-badge&logo=git&logoColor=white&color=%23F05032">
+  </div>
+</div>
+<br><br><br><br>
+
+<div align=center><h1>🗂️ 파일 구조 🗂️</h1></div>
+<div align=center>
+    <h3>백엔드</h3>
+    <details>
+      <summary>자세히</summary>
+        <div align=left>
+<code>
+📦Backend
+ ┣ 📂gradle
+ ┃ ┗ 📂wrapper
+ ┃ ┃ ┣ 📜gradle-wrapper.jar
+ ┃ ┃ ┗ 📜gradle-wrapper.properties
+ ┣ 📂src
+ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂wordwave
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂aws
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜S3Config.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3Service.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂emailcode
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailAuthenicateDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataNotFoundException.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂grammar
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Grammar.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GrammarService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂grammarBook
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarBook.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarBookController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarBookDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarBookRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GrammarBookService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MainController.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂myvoca
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaCreateFormDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaResponseDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaUpdateFormDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MyVocaUpdateFormRequestDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVoca.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MyVocaService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂myvocabook
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaBookCategoriesDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaBookDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MyVocaBookFormDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaBook.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaBookController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyVocaBookRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MyVocaBookService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂redis
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RedisConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂security
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CorsConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomAuthenticationEntryPoint.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAuthenticationFilter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityApplication.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TokenInfo.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TokenProvider.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂swagger
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SwaggerConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂user
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂userLearnPerformance
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserLearnHistoryDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserLearnPerformance.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserLearnPerformanceController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserLearnPerformanceDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserLearnPerformanceRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserLearnPerformanceService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyPageDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SiteUser.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserRole.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserRoleConverter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MailDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MailService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UrlParser.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂voca
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂data
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaDataCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜VocaDataTool.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Voca.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜VocaService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂vocabook
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaBook.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaBookController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaBookDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaBookRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜VocaBookService.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordwaveApplication.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┣ 📂ssl
+ ┃ ┃ ┃ ┣ 📂static
+ ┃ ┃ ┃ ┣ 📂templates
+ ┃ ┃ ┃ ┃ ┗ 📜mail.html
+ ┃ ┃ ┃ ┗ 📜application.properties
+ ┃ ┗ 📂test
+ ┃ ┃ ┗ 📂java
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂wordwave
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenRefreshTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂emailcode
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailCodeTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂grammar
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarBookTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GrammarDataTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GrammarTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordwaveApplicationTests.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂myvoca
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MyVocaTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂user
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂userLearnPerformance
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserLearnPerformanceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserTest.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂voca
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaBookTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜VocaDataTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜VocaTest.java
+ ┣ 📜.classpath
+ ┣ 📜.gitignore
+ ┣ 📜.project
+ ┣ 📜build.gradle
+ ┣ 📜Dockerfile
+ ┣ 📜gradlew
+ ┣ 📜gradlew.bat
+ ┗ 📜settings.gradle
+</code>
+        </div>
+    </details>
+<br> 
+    <div align=center>
+    <h3>프론트</h3>
+    <details>
+      <summary>자세히</summary>
+        <div align=left>
+<code>
+📦Frontend
+ ┣ 📂api
+ ┃ ┣ 📜authAPI.js
+ ┃ ┣ 📜grammarAPI.js
+ ┃ ┣ 📜myVocaAPI.js
+ ┃ ┣ 📜userLearnPerformanceAPI.js
+ ┃ ┗ 📜vocaAPI.js
+ ┣ 📂components
+ ┃ ┣ 📂grammar
+ ┃ ┃ ┣ 📜Grammar.js
+ ┃ ┃ ┣ 📜GrammarBook.js
+ ┃ ┃ ┗ 📜GrammarBooks.js
+ ┃ ┣ 📂myPage
+ ┃ ┃ ┣ 📜MyPageComponent.js
+ ┃ ┃ ┗ 📜MyPageUserLearnPerformance.js
+ ┃ ┣ 📂myVoca
+ ┃ ┃ ┣ 📜MyVoca.js
+ ┃ ┃ ┣ 📜MyVocaBook.js
+ ┃ ┃ ┣ 📜MyVocaBookForm.js
+ ┃ ┃ ┣ 📜MyVocaBooks.js
+ ┃ ┃ ┣ 📜MyVocaBookUpdateForm.js
+ ┃ ┃ ┣ 📜MyVocaForm.js
+ ┃ ┃ ┗ 📜MyVocaUpdateForm.js
+ ┃ ┣ 📂voca
+ ┃ ┃ ┣ 📜Voca.js
+ ┃ ┃ ┣ 📜VocaBook.js
+ ┃ ┃ ┗ 📜VocaBooks.js
+ ┃ ┣ 📜CircleSpinner.js
+ ┃ ┣ 📜DialMenu.js
+ ┃ ┣ 📜IsNotData.js
+ ┃ ┣ 📜LoginForm.js
+ ┃ ┣ 📜NavComponent.js
+ ┃ ┣ 📜SignUpForm.js
+ ┃ ┣ 📜SimplePieChart.js
+ ┃ ┣ 📜ToastComponent.js
+ ┃ ┗ 📜WaveEffect.js
+ ┣ 📂containers
+ ┃ ┣ 📂grammar
+ ┃ ┃ ┣ 📜GrammarBookContainer.js
+ ┃ ┃ ┣ 📜GrammarBooksContainer.js
+ ┃ ┃ ┗ 📜GrammarContainer.js
+ ┃ ┣ 📂myPage
+ ┃ ┃ ┣ 📜MyPageContainer.js
+ ┃ ┃ ┗ 📜MyPageUserLearnPerformanceContainer.js
+ ┃ ┣ 📂myVoca
+ ┃ ┃ ┣ 📜MyVocaBookContainer.js
+ ┃ ┃ ┣ 📜MyVocaBookFormContainer.js
+ ┃ ┃ ┣ 📜MyVocaBooksContainer.js
+ ┃ ┃ ┣ 📜MyVocaBookUpdateFormContainer.js
+ ┃ ┃ ┣ 📜MyVocaContainer.js
+ ┃ ┃ ┣ 📜MyVocaFormContainer.js
+ ┃ ┃ ┗ 📜MyVocaUpdateFormContainer.js
+ ┃ ┣ 📂voca
+ ┃ ┃ ┣ 📜VocaBookContainer.js
+ ┃ ┃ ┣ 📜VocaBooksContainer.js
+ ┃ ┃ ┗ 📜VocaContainer.js
+ ┃ ┣ 📜HeaderContainer.js
+ ┃ ┣ 📜LayoutContainer.js
+ ┃ ┣ 📜LoginContainer.js
+ ┃ ┗ 📜SignUpContainer.js
+ ┣ 📂lib
+ ┃ ┣ 📜asyncUtils.js
+ ┃ ┗ 📜SimpleDateText.js
+ ┣ 📂modules
+ ┃ ┣ 📂grammar
+ ┃ ┃ ┣ 📜grammar.js
+ ┃ ┃ ┣ 📜grammarBook.js
+ ┃ ┃ ┣ 📜grammarBookSaga.js
+ ┃ ┃ ┗ 📜grammarSaga.js
+ ┃ ┣ 📂myVoca
+ ┃ ┃ ┣ 📜myVoca.js
+ ┃ ┃ ┣ 📜myVocaBook.js
+ ┃ ┃ ┣ 📜myVocaBookSaga.js
+ ┃ ┃ ┗ 📜myVocaSaga.js
+ ┃ ┣ 📂userLearnPerformance
+ ┃ ┃ ┣ 📜userLearnPerformance.js
+ ┃ ┃ ┗ 📜userLearnPerformanceSaga.js
+ ┃ ┣ 📂voca
+ ┃ ┃ ┣ 📜voca.js
+ ┃ ┃ ┣ 📜vocaBook.js
+ ┃ ┃ ┣ 📜vocaBookSaga.js
+ ┃ ┃ ┗ 📜vocaSaga.js
+ ┃ ┣ 📜auth.js
+ ┃ ┣ 📜popup.js
+ ┃ ┣ 📜reducers.js
+ ┃ ┗ 📜rootSaga.js
+ ┣ 📂pages
+ ┃ ┣ 📂grammar
+ ┃ ┃ ┣ 📜GrammarBookPage.js
+ ┃ ┃ ┣ 📜GrammarBooksPage.js
+ ┃ ┃ ┗ 📜GrammarPage.js
+ ┃ ┣ 📂myVoca
+ ┃ ┃ ┣ 📜MyVocaBookFormPage.js
+ ┃ ┃ ┣ 📜MyVocaBookPage.js
+ ┃ ┃ ┣ 📜MyVocaBooksPage.js
+ ┃ ┃ ┣ 📜MyVocaBookUpdateFormPage.js
+ ┃ ┃ ┣ 📜MyVocaFormPage.js
+ ┃ ┃ ┣ 📜MyVocaPage.js
+ ┃ ┃ ┗ 📜MyVocaUpdateFormPage.js
+ ┃ ┣ 📂voca
+ ┃ ┃ ┣ 📜VocaBookPage.js
+ ┃ ┃ ┣ 📜VocaBooksPage.js
+ ┃ ┃ ┗ 📜VocaPage.js
+ ┃ ┣ 📜HomePage.js
+ ┃ ┣ 📜LoginPage.js
+ ┃ ┣ 📜MyPage.js
+ ┃ ┣ 📜NotFoundPage.js
+ ┃ ┣ 📜SignUpPage.js
+ ┃ ┗ 📜VocaBookListPage.js
+ ┣ 📂resources
+ ┃ ┣ 📜GmarketSansTTFLight.ttf
+ ┃ ┗ 📜WAVELOGO.png
+ ┣ 📜App.css
+ ┣ 📜App.js
+ ┣ 📜App.test.js
+ ┣ 📜index.css
+ ┣ 📜index.js
+ ┣ 📜logo.svg
+ ┣ 📜reportWebVitals.js
+ ┣ 📜setProxy.js
+ ┣ 📜setupTests.js
+ ┗ 📜test.md
+</code>
+        </div>
+    </details>
+</div>
+
+
 
 
 
