@@ -125,7 +125,7 @@
 <h1 align="center">
   <a href="https://back.wordwave.xyz/swagger-ui/index.html">👉API 명세서👈</a>
 </h1>
-<br><br>
+<br><br><br><br>
 <div align=center><h1>🗂️ 파일 구조 🗂️</h1></div>
 <div align=center>
     <h3>백엔드</h3>
