@@ -1,15 +1,26 @@
-# WORDWAVE
+<div align=center><h1><a href="https://www.wordwave.xyz/">🌊WORDWAVE🌊</a></h1></div>
 <img src="https://github.com/dks044/WORDWAVE/assets/74749417/4419bca1-f15b-4e26-aa88-acc051bfa3b8" alt="메인화면">
+<div align=center>
+    <h1>영어공부를 쉽고 재밌게 하는 사이트</h1>
+</div>
+<br>
+<div align=center>
+    <h1>📅 기간 📅</h1>
+    <h4>기획 및 개인 학습</h4> 23. 11. 15 ~ 23. 12. 31
+    <h4>구현 단계</h4> 24.1.1 ~ 24.5.13
+</div>
 
-# **📅**기간
 
-**기획 및 개인 학습 :** 23. 11. 15 ~ 23. 12. 31 
+<div align=center>
+    <h2>🔎 목차 🔎</h2>
+    <p> <a href="one">1. 기획배경</a> </p>
+</div>
+<br>
+<div id="one" align=center>
+    <h2>🎯 기획 배경 🎯</h2>
+    <h3>🖊영어 공부와 프로그래밍 공부를 동시에 하고싶어서</h3>
+</div>
 
-**구현 단계 :** 24.1.1 ~ 24.5.13
-
-# **🎯 기획 배경**
-
-## **🖊**영어 공부와 프로그래밍 공부를 동시에 하고싶어서
 
 영어는 ‘세계의 공통어’ 라고 할 정도로, 많이 쓰입니다.
 
@@ -57,7 +68,7 @@
    
 <br><br><br><br>
 
-<div align=center><h1>⚙️ 시스템 아키텍처 </h1></div>
+<div align=center><h1>⚙️ 시스템 아키텍처 ⚙️</h1></div>
 <div align=center>
     <img src="https://github.com/dks044/WORDWAVE/assets/74749417/40067796-87e4-4e7e-9266-7ab09626567a" alt="시스템아키텍처v1">
     <h4>깃허브 액션 워크플로우 트리거:</h4> main 브랜치에 푸시가 발생할 때마다 워크플로우가 실행됩니다.
@@ -109,6 +120,10 @@
 </div>
 <br><br><br><br>
 
+<h1 align="center">
+  <a href="https://back.wordwave.xyz/swagger-ui/index.html">👉API 명세서👈</a>
+</h1>
+<br><br>
 <div align=center><h1>🗂️ 파일 구조 🗂️</h1></div>
 <div align=center>
     <h3>백엔드</h3>
@@ -391,16 +406,40 @@
         </div>
     </details>
 </div>
+<br>
+<div align=center><h1>💾 ERD 💾</h1></div>
+<img src="https://github.com/dks044/WORDWAVE/assets/74749417/5aa3487a-c47d-4bc9-9a43-db576e91f5a7" alt="WAVE">
+<br>
+<div align=center><h1>🖥️ 화면 소개 🖥️</h1></div>
+<h2>홈 페이지</h2>
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/d142430d-cfae-49f7-9557-c67f85e49d83" alt="Home1 (1)">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/de6db540-bf67-4f2c-afd7-c46a358febd6" alt="Home1 (2)">
+<h2>로그인 페이지</h2>
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/ecd4f89b-1f53-4476-8833-42a91eb28499" alt="로그인페이지">
+<h2>회원가입 페이지</h2>
+<img width="50%" height="50%"  src="https://github.com/dks044/WORDWAVE/assets/74749417/cfe8be4b-704a-4724-be47-0b575fc40189" alt="회원가입페이지">
+<h2>Grammar 페이지(문법)</h2>
+<img width="50%" height="50%"  src="https://github.com/dks044/WORDWAVE/assets/74749417/8a91f8d5-473f-4b4b-a3e4-677a35e3015b" alt="GrammarBooks">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/2ccbcc77-47a4-4332-bfea-52fee9d02024" alt="GrammarBook">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/184aeb55-e177-47ba-ba31-863ef9abd7b3" alt="Grammar">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/82d945e4-655c-414e-8080-df76688897eb" alt="Grammar2">
+<h2>Voca 페이지(단어)</h2>
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/c8e4995e-2ba3-442e-ba23-b7a2c402e1b1" alt="VocaBooks">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/682df728-26ea-4584-9c5d-bd4b89fca64f" alt="VocaBook">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/c9391485-799e-48e1-bca1-21956092abfe" alt="Voca1">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/59e0965a-d1f5-470b-8cf2-18ee54120e92" alt="Voca2">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/3b6bac65-593b-46b0-8d65-4e36e80601ac" alt="Grammar2">
+<h2>마이 페이지</h2>
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/14474cf2-8640-4c40-899c-76bb90c8be54" alt="MyPage">
+<br><br>
 
+<div align=center><h1>😎 트러블슈팅 😎</h1></div>
 
-
-
-
-# **📋**트러블슈팅 희고록
-
-[백엔드 트러블슈팅](https://storm-wormhole-609.notion.site/fc10406a146d436c907531ca4e276e07)   
-[프론트 트러블슈팅](https://storm-wormhole-609.notion.site/74f729e1799c46b4ac20476c78b3ded1)   
-[보안 트러블슈팅](https://storm-wormhole-609.notion.site/b64b79f8c9c04ac39881e1c258bf0c1d)
+<a href="https://storm-wormhole-609.notion.site/fc10406a146d436c907531ca4e276e07">백엔드 트러블슈팅</a><br>
+<a href="https://storm-wormhole-609.notion.site/74f729e1799c46b4ac20476c78b3ded1">프론트 트러블슈팅</a><br>
+<a href="https://storm-wormhole-609.notion.site/b64b79f8c9c04ac39881e1c258bf0c1d">보안 트러블슈팅</a>
+<a href="https://blog.naver.com/buzz7811/223438977530">[CI/CD] GitHub Actions</a>
+<a href="https://blog.naver.com/buzz7811/223433243301">Redis</a>
 
 # 🌊팀 - 광안리형제들
 
