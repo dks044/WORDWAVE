@@ -11,13 +11,15 @@
 </div>
 
 
-<div align=center>
-    <h2>🔎 목차 🔎</h2>
-    <p> <a href="one">1. 기획배경</a> </p>
+<div align="center">
+
 </div>
+
+
 <br>
 <div id="one" align=center>
-    <h2>🎯 기획 배경 🎯</h2>
+    <h2>#기획 배경
+    </h2>
     <h3>🖊영어 공부와 프로그래밍 공부를 동시에 하고싶어서</h3>
 </div>
 
