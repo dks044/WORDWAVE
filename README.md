@@ -71,7 +71,7 @@
 
 <br><br><br><br>
 
-<div align=center><h1>⚙️ 시스템 아키텍처 ⚙️</h1></div>
+<div align=center><h1>⚙️ 시스템 아키텍처 </h1></div>
 <div align=center>
     <img src="https://github.com/dks044/WORDWAVE/assets/74749417/40067796-87e4-4e7e-9266-7ab09626567a" alt="시스템아키텍처v1">
     <h4>깃허브 액션 워크플로우 트리거:</h4> main 브랜치에 푸시가 발생할 때마다 워크플로우가 실행됩니다.
@@ -86,7 +86,7 @@
 <div align=center><h1>🛠 TECH STACKS 🛠</h1></div>
 <div align=center>
   <div align=center>
-    <h3>⚙️ Backend ⚙️</h3>
+    <h3>⚙️ Backend </h3>
     <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
     <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
     <img alt="Static Badge" src="https://img.shields.io/badge/JPA-grey?style=for-the-badge&logo=databricks&logoSize=auto">
@@ -103,7 +103,7 @@
   </div>
   <br>
   <div align=center>
-    <h3>🖌 Frontend 🖌</h3>
+    <h3>🖌 Frontend </h3>
     <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
     <img alt="Static Badge" src="https://img.shields.io/badge/styled_components-pink?style=for-the-badge&logo=styledcomponents&logoColor=white&color=%23DB7093">
     <img alt="Static Badge" src="https://img.shields.io/badge/Redux-black?style=for-the-badge&logo=redux&logoColor=white&color=%23764ABC">
@@ -116,7 +116,7 @@
   </div>
   <br>
   <div align=center>
-    <h3>🔧 Tool 🔧</h3>
+    <h3>🔧 Tool </h3>
     <img alt="Static Badge" src="https://img.shields.io/badge/Notion-black?style=for-the-badge&logo=notion&logoColor=white&color=%23000000">
     <img alt="Static Badge" src="https://img.shields.io/badge/Git-black?style=for-the-badge&logo=git&logoColor=white&color=%23F05032">
   </div>
@@ -127,7 +127,7 @@
   <a href="https://back.wordwave.xyz/swagger-ui/index.html">👉API 명세서👈</a>
 </h1>
 <br><br><br><br>
-<div align=center><h1>🗂️ 파일 구조 🗂️</h1></div>
+<div align=center><h1>🗂️ 파일 구조 🗂</h1></div>
 <div align=center>
     <h3>백엔드</h3>
     <details>
@@ -410,10 +410,10 @@
     </details>
 </div>
 <br>
-<div align=center><h1>💾 ERD 💾</h1></div>
+<div align=center><h1>💾 ERD </h1></div>
 <img src="https://github.com/dks044/WORDWAVE/assets/74749417/5aa3487a-c47d-4bc9-9a43-db576e91f5a7" alt="WAVE">
 <br>
-<div align=center><h1>🖥️ 화면 소개 🖥️</h1></div>
+<div align=center><h1>🖥️ 화면 소개 </h1></div>
 <h2>홈 페이지</h2>
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/d142430d-cfae-49f7-9557-c67f85e49d83" alt="Home1 (1)">
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/de6db540-bf67-4f2c-afd7-c46a358febd6" alt="Home1 (2)">
@@ -448,7 +448,7 @@
 <br><br>
 
 <div align=center>
-    <h1>😎 트러블슈팅 😎</h1>
+    <h1>😎 트러블슈팅 </h1>
     <a href="https://storm-wormhole-609.notion.site/fc10406a146d436c907531ca4e276e07">백엔드 트러블슈팅</a><br>
     <a href="https://storm-wormhole-609.notion.site/74f729e1799c46b4ac20476c78b3ded1">프론트 트러블슈팅</a><br>
     <a href="https://storm-wormhole-609.notion.site/b64b79f8c9c04ac39881e1c258bf0c1d">보안 트러블슈팅</a><br>
@@ -457,7 +457,7 @@
 </div>
 <br><br>
 <div align=center>
-    <h1>🌊 팀원소개 🌊</h1>
+    <h1>🌊 팀원소개 </h1>
     <h2>AJN - 팀장 (풀스택)</h2>
     <h3><a href="https://github.com/dks044">깃허브주소</a></h3>
     <p>전반적인 기능 및 아이디어 기획</p>
