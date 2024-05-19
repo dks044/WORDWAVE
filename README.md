@@ -7,7 +7,8 @@
 <div align=center>
     <h1>📅 기간 📅</h1>
     <h4>기획 및 개인 학습</h4> 23. 11. 15 ~ 23. 12. 31
-    <h4>구현 단계</h4> 24.1.1 ~ 24.5.13
+    <h4>구현 단계</h4> 24.1.1 ~ 24.5.6
+    <h4>CI|CD 구축 단계(배포)</h4> 24.5.6 ~ 24.5.13
 </div>
 <br>
 
@@ -431,8 +432,19 @@
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/c9391485-799e-48e1-bca1-21956092abfe" alt="Voca1">
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/59e0965a-d1f5-470b-8cf2-18ee54120e92" alt="Voca2">
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/3b6bac65-593b-46b0-8d65-4e36e80601ac" alt="Grammar2">
+<h2>나만의 단어장</h2>
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/31354566-0a9a-4006-895c-1837130dd367" alt="나만의단어장1">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/ab456119-7903-4a03-92cc-1984113ae280" alt="나만의단어장2">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/83628835-2cee-45e0-a34b-e73f1235bfa6" alt="나만의단어장3">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/be243ef8-321e-4e85-aead-f9664def4409" alt="나만의 단어장4">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/61f45bef-2638-49e7-8eb3-23f40d52d0ee" alt="나만의 단어장5">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/8e1a0b76-58de-4b8d-8053-8a7cdebf1de0" alt="나만의 단어장6">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/7b03d320-08d9-46a0-ab22-a874ce469c80" alt="나만의 단어장7">
+
 <h2>마이 페이지</h2>
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/14474cf2-8640-4c40-899c-76bb90c8be54" alt="MyPage">
+
+
 <br><br>
 
 <div align=center>
