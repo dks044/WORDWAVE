@@ -17,12 +17,13 @@
     <h4>1. 🎯 기획 배경 </h4>
     <h4>2. ⭐️ 주요 기능 </h4>
     <h4>3. ⚙ 시스템 아키텍처</h4>
-    <h4>4. 👉 API 명세서 </h4>
-    <h4>5. 🗂️ 파일 구조 </h4>
-    <h4>6. 💾 ERD </h4>
-    <h4>7. 🖥️ 화면 소개 </h4>
-    <h4>8. 😎 트러블슈팅 </h4>
-    <h4>9. 🌊 팀원 소개 </h4>
+    <h4>4. 🛠 TECH STACKS</h4>
+    <h4>5. 👉 API 명세서 </h4>
+    <h4>6. 🗂️ 파일 구조 </h4>
+    <h4>7. 💾 ERD </h4>
+    <h4>8. 🖥️ 화면 소개 </h4>
+    <h4>9. 😎 트러블슈팅 </h4>
+    <h4>10. 🌊 팀원 소개 </h4>
 </div>
 
 
@@ -86,7 +87,7 @@
 
 <br><br><br><br>
 
-<div align=center><h1>🛠 TECH STACKS 🛠</h1></div>
+<div align=center><h1>🛠 TECH STACKS </h1></div>
 <div align=center>
   <div align=center>
     <h3>⚙️ Backend </h3>
