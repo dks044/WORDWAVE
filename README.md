@@ -13,18 +13,18 @@
 <br>
 
 <div align="center">
-    <h1>🔎 목차</h1>
+    <h1 id="목차">🔎 목차</h1>
     <h4><a href="#기획-배경">1. 🎯 기획 배경 </a></h4>
-    <h4><a href="#-주요-기능">2. ⭐️ 주요 기능 </a></h4>
-    <h4><a href="#-시스템-아키텍처">3. ⚙ 시스템 아키텍처</a></h4>
-    <h4><a href="#-주요-로직">4. 🧠 주요 로직</a></h4>
-    <h4><a href="#-tech-stacks">4. 🛠 TECH STACKS</a></h4>
-    <h4><a href="#-api-명세서">5. 👉 API 명세서 </a></h4>
-    <h4><a href="#-파일-구조">6. 🗂️ 파일 구조 </a></h4>
-    <h4><a href="#-erd">7. 💾 ERD </a></h4>
-    <h4><a href="#-화면-소개">8. 🖥️ 화면 소개 </a></h4>
-    <h4><a href="#-트러블슈팅">9. 😎 트러블슈팅 </a></h4>
-    <h4><a href="#-팀원-소개">10. 🌊 팀원 소개 </a></h4>
+    <h4><a href="#주요-기능">2. ⭐️ 주요 기능 </a></h4>
+    <h4><a href="#시스템-아키텍처">3. ⚙ 시스템 아키텍처</a></h4>
+    <h4><a href="#주요-로직">4. 🧠 주요 로직</a></h4>
+    <h4><a href="#tech-stacks">5. 🛠 TECH STACKS</a></h4>
+    <h4><a href="#api-명세서">6. 👉 API 명세서 </a></h4>
+    <h4><a href="#파일-구조">7. 🗂️ 파일 구조 </a></h4>
+    <h4><a href="#erd">8. 💾 ERD </a></h4>
+    <h4><a href="#화면-소개">9. 🖥️ 화면 소개 </a></h4>
+    <h4><a href="#트러블슈팅">10. 😎 트러블슈팅 </a></h4>
+    <h4><a href="#팀원-소개">11. 🌊 팀원 소개 </a></h4>
 </div>
 
 
@@ -43,10 +43,12 @@
     깔끔한 팀프로젝트를 만들어보기로 했습니다.   <br>
     우테코 프리코스에서는 CBD, TDD, Git 컨벤션, 도메인 로직 등 협업에 중요한 전략들을 배웠습니다.   <br>
     배운 것들을 활용해 프로젝트를 만들며 ‘협업에 강한 개발자’가 되고자 시작했습니다.<br>
+    <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
 </div>
 <br>
 <div align=center>
-    <h2>⭐️ 주요 기능</h2>
+    <h1 id="주요-기능">⭐️ 주요 기능</h1>
     <h3>영어 단어 퀴즈</h3>
     <h4>단어 문제 유형은 2가지가 있다.</h4>
     <p>랜덤 : 문제는 풀떄마다 랜덤으로 유형이 바뀐다.</p>
@@ -76,11 +78,14 @@
     <h4>나만의 영어 단어장에 단어 정보를 넣고, 수정도 할 수 있으며 퀴즈로도 공부할 수 있다.</h4>
     <p>(✏️사용자가 자신만의 단어장을 생성하고, 썸네일과 이름을 커스터마이징함으로써,<br>보다 개인화된 학습 경험을 제공) </p>
     <p>(✏️사용자가 언제 어디서나 접근 가능한 나만의 단어장을 통해,<br>시간과 장소에 구애받지 않고 학습하는 유연한 학습환경 제공) </p>
+    <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
 </div>
 
 <br><br><br><br>
 
-<div align=center><h1>⚙️ 시스템 아키텍처 </h1></div>
+<br><br><br><br>
+<div align=center><h1 id="시스템-아키텍처">⚙️ 시스템 아키텍처 </h1></div>
 <div align=center>
     <img src="https://github.com/dks044/WORDWAVE/assets/74749417/40067796-87e4-4e7e-9266-7ab09626567a" alt="시스템아키텍처v1">
     <h4>깃허브 액션 워크플로우 트리거:</h4> main 브랜치에 푸시가 발생할 때마다 워크플로우가 실행됩니다.
@@ -88,11 +93,29 @@
     <h4>EC2에서의 도커 컨테이너 관리:</h4> EC2 인스턴스에 SSH 접속을 통해 기존에 실행 중이던 도커 컨테이너를 모두 제거하고,<br>새로운 도커 이미지를 풀한 뒤 도커 컴포즈를 이용하여 어플리케이션을 다시 실행합니다.
     <h4>프론트엔드 배포:</h4> 프론트엔드 리액트 프로젝트는 AWS S3에 빌드되어 업로드되며, AWS CloudFront를 통해 전 세계에 배포됩니다.
     <h4>HTTPS 적용:</h4> 전체 시스템은 HTTPS를 통해 보안이 강화된 통신을 제공합니다. 이는 Keystore 설정 및 서버 구성을 통해 이루어집니다.
+    <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
 </div>
-
 <br><br><br><br>
 
-<div align=center><h1>🛠 TECH STACKS </h1></div>
+<div align=center><h1 id="주요-로직"> 🧠 주요 로직 </h1></div>
+<div align=center>
+    <h2>JWT 토큰 로직</h2>
+    <img src="https://github.com/dks044/WORDWAVE/assets/74749417/e7800fba-9e29-4a7d-ab52-33f887e8a83e" alt="JWT토큰로직"><br>
+    <h3>Refresh Token => 서버 저장 | Access Token => 브라우저(쿠키) 저장 </h3>
+    <h2>VOCA 로직</h2>
+    <img src="https://github.com/dks044/WORDWAVE/assets/74749417/c25d80c9-3b0f-4f06-9c4e-60eab2bc1e9e" alt="VOCA 로직"><br>
+    <h2>Grammar 로직</h2>
+    <img src="https://github.com/dks044/WORDWAVE/assets/74749417/f8e4093e-a6df-49a7-9dcd-6a107e07fc26" alt="Grammar 로직"><br>
+    <h2>Voca 퀴즈 로직</h2>
+    <img src="https://github.com/dks044/WORDWAVE/assets/74749417/e5cc89d2-057b-4b23-aa07-31a65c79f88e" alt="Voca퀴즈로직"><br>
+    <h3>Grammar 퀴즈 로직도 Voca퀴즈로직과 비슷한 구조입니다.</h3>
+    <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
+</div>
+<br><br><br><br>
+
+<div align=center><h1 id="tech-stacks">🛠 TECH STACKS </h1></div>
 <div align=center>
   <div align=center>
     <h3>⚙️ Backend </h3>
@@ -110,7 +133,6 @@
       <img alt="Static Badge" src="https://img.shields.io/badge/DOCKER-blue?style=for-the-badge&logo=docker&logoSize=auto">
       <img alt="Static Badge" src="https://img.shields.io/badge/GitHub_Actions-black?style=for-the-badge&logo=githubactions&logoColor=white&color=%232088FF">
   </div>
-  <br>
   <div align=center>
     <h3>🖌 Frontend </h3>
     <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
@@ -129,14 +151,18 @@
     <img alt="Static Badge" src="https://img.shields.io/badge/Notion-black?style=for-the-badge&logo=notion&logoColor=white&color=%23000000">
     <img alt="Static Badge" src="https://img.shields.io/badge/Git-black?style=for-the-badge&logo=git&logoColor=white&color=%23F05032">
   </div>
+    <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
 </div>
 <br><br><br><br>
 
-<h1 align="center">
+<h1 id="api-명세서" align="center">
   <a href="https://back.wordwave.xyz/swagger-ui/index.html">👉API 명세서👈</a>
+        <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
 </h1>
 <br><br><br><br>
-<div align=center><h1>🗂️ 파일 구조 🗂</h1></div>
+<div align=center><h1 id="파일-구조">🗂️ 파일 구조 🗂</h1></div>
 <div align=center>
     <h3>백엔드</h3>
     <details>
@@ -415,14 +441,18 @@
  ┣ 📜setupTests.js
  ┗ 📜test.md
 </code>
-        </div>
-    </details>
 </div>
-<br>
-<div align=center><h1>💾 ERD </h1></div>
+    </details>
+        <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
+</div>
+<br><br><br><br>
+<div align=center><h1 id="erd">💾 ERD </h1></div>
 <img src="https://github.com/dks044/WORDWAVE/assets/74749417/5aa3487a-c47d-4bc9-9a43-db576e91f5a7" alt="WAVE">
 <br>
-<div align=center><h1>🖥️ 화면 소개 </h1></div>
+<h5><a href="#목차">🔎 목차로 이동 </a> </h5>
+<br><br><br><br>
+<div align=center><h1 id="화면-소개">🖥️ 화면 소개 </h1></div>
 <h2>홈 페이지</h2>
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/d142430d-cfae-49f7-9557-c67f85e49d83" alt="Home1 (1)">
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/de6db540-bf67-4f2c-afd7-c46a358febd6" alt="Home1 (2)">
@@ -452,21 +482,24 @@
 
 <h2>마이 페이지</h2>
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/14474cf2-8640-4c40-899c-76bb90c8be54" alt="MyPage">
+<br>
+<h5><a href="#목차">🔎 목차로 이동 </a> </h5>
 
-
-<br><br>
+<br><br><br><br>
 
 <div align=center>
-    <h1>😎 트러블슈팅 </h1>
+    <h1 id="트러블슈팅">😎 트러블슈팅 </h1>
     <a href="https://storm-wormhole-609.notion.site/fc10406a146d436c907531ca4e276e07">백엔드 트러블슈팅</a><br>
     <a href="https://storm-wormhole-609.notion.site/74f729e1799c46b4ac20476c78b3ded1">프론트 트러블슈팅</a><br>
     <a href="https://storm-wormhole-609.notion.site/b64b79f8c9c04ac39881e1c258bf0c1d">보안 트러블슈팅</a><br>
     <a href="https://blog.naver.com/buzz7811/223438977530">[CI/CD] GitHub Actions</a><br>
     <a href="https://blog.naver.com/buzz7811/223433243301">Redis</a>
+    <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
 </div>
 <br><br>
 <div align=center>
-    <h1>🌊 팀원소개 </h1>
+    <h1 id="팀원-소개">🌊 팀원소개 </h1>
     <h2>AJN - 팀장 (풀스택)</h2>
     <h3><a href="https://github.com/dks044">깃허브주소</a></h3>
     <p>전반적인 기능 및 디자인, 아이디어, 컨셉 기획</p>
@@ -488,4 +521,6 @@
     <p>개발에 필요한 기술스택들 기술 문서들 정리</p>
     <p>팀 프로젝트 스토리보드 운영(노션)</p>
     <p>영어 문법 퀴즈 버전1 구현</p>
+        <br>
+    <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
 </div>
