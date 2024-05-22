@@ -460,7 +460,11 @@
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/ecd4f89b-1f53-4476-8833-42a91eb28499" alt="로그인페이지">
 <h2>회원가입 페이지</h2>
 <img width="50%" height="50%"  src="https://github.com/dks044/WORDWAVE/assets/74749417/cfe8be4b-704a-4724-be47-0b575fc40189" alt="회원가입페이지">
-<h2>Grammar 페이지(문법)</h2>
+<h2>Grammar 페이지(문법) -버전1(정재윤)</h2>
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/06a75ca6-8100-467e-adc1-aaa19dd5f498" alt="캡처_2024_05_22_16_14_47_433">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/61a632fa-fbb6-43a1-9fb7-9eec039673cc" alt="캡처_2024_05_22_16_12_45_865">
+<img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/46b029ff-d5c5-4df0-ab8c-6498a2dd0e09" alt="캡처_2024_05_22_16_14_59_157">
+<h2>Grammar 페이지(문법) -버전2(안종윤)</h2>
 <img width="50%" height="50%"  src="https://github.com/dks044/WORDWAVE/assets/74749417/8a91f8d5-473f-4b4b-a3e4-677a35e3015b" alt="GrammarBooks">
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/2ccbcc77-47a4-4332-bfea-52fee9d02024" alt="GrammarBook">
 <img width="50%" height="50%" src="https://github.com/dks044/WORDWAVE/assets/74749417/184aeb55-e177-47ba-ba31-863ef9abd7b3" alt="Grammar">
@@ -508,8 +512,8 @@
     <p>전반적인 프론트 레이아웃 디자인 및 구현</p>
     <p>Reids를 활용한 이메일 인증 기능 구현 </p>
     <p>JWT 토큰 인증 방식 구현 (쿠키 저장) </p>
-    <p>영어 단어 퀴즈 로직 구현</p>
-    <p>영어 문법 퀴즈 개선 및 로직 버전2 구현</p>
+    <p>영어 단어 퀴즈 기능 및 로직 구현</p>
+    <p><strong>영어 문법 퀴즈 로직 개선 및 전체 리팩토링 버전2 구현</strong></p>
     <p>사용자 학습이력 저장 및 조회 기능 구현</p>
     <p>GitHub Actions를 활용한 CI|CD 환경 구축 </p>
     <p>SSL 설치를 통해 프론트, 백엔드 서버를 HTTPS 전환</p>
