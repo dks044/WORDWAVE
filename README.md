@@ -25,6 +25,7 @@
     <h4><a href="#화면-소개">9. 🖥️ 화면 소개 </a></h4>
     <h4><a href="#트러블슈팅">10. 😎 트러블슈팅 </a></h4>
     <h4><a href="#팀원-소개">11. 🌊 팀원 소개 </a></h4>
+    <h4><a href="#부록">📜 부록(PPT, 시연영상 링크 안내) </a></h4>
 </div>
 
 
@@ -528,4 +529,10 @@
     <p>영어 문법 퀴즈 버전1 구현</p>
         <br>
     <h5><a href="#목차">🔎 목차로 이동 </a> </h5>
+</div>
+<br><br>
+<div align=center>
+    <h1 id="부록">📜 부록 </h1>
+    <h3><a href="https://youtu.be/QnfLLMcKEWg?si=nmfl4LoeCbpiw68I">💿 시연영상</a></h3>
+    <h3><a href="https://zrr.kr/lBho">📢 PPT</a></h3>
 </div>
