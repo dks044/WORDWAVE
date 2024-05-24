@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -61,7 +62,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		    logger.error("Token expired", e);
 		    // 만료된 액세스 토큰으로부터 사용자 ID 추출
 		    String expiredTokenUserId = e.getClaims().getSubject();
-
 		    if (expiredTokenUserId != null) {
 		        try {
 		            // 데이터베이스에서 사용자와 연관된 리프레시 토큰 조회
@@ -73,9 +73,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		                if (refreshTokenFromDB != null && tokenProvider.validateRefreshToken(refreshTokenFromDB)) {
 		                	System.out.println("// 리프레시 토큰이 존재하며 유효한지 확인");
 		                    // 새로운 액세스 토큰 생성 및 발급
-		                    String newAccessToken = tokenProvider.create(user, response);
-		                    ResponseCookie responseCookie = tokenProvider.generateTokenCookie(newAccessToken);
-
+		                    String newAccessToken = tokenProvider.create(user);
+		    	            // 액세스 토큰은 쿠키에 저장
+		    	            tokenProvider.responseHeaderToken(newAccessToken, response);
+		    	            System.out.println("마 발급한다 잘받아라!!!!");
 		                } else {
 		                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		                    response.getWriter().write("{\"error\": \"Invalid or expired refresh token\"}");
@@ -88,16 +89,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		            response.getWriter().write("{\"error\": \"Could not refresh token\"}");
 		            return;
 		        }
-		    } else {
-		        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		        response.getWriter().write("{\"error\": \"User identification is missing\"}");
-		        return;
 		    }
 		}
-		catch (Exception e) {
-		    logger.error("Could not set user authentication in security context", e);
-		}
-		
 		filterChain.doFilter(request, response);
 	}
 	

@@ -166,7 +166,7 @@ public class UserController {
 	    SiteUser user = userService.getByUserName(userDTO.getUserName());
 	    if (user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
 	        try {
-	            final String token = tokenProvider.create(user, response);
+	            final String token = tokenProvider.create(user);
 	            //리프래시 토큰은 서버에 저장
 	            final String refreshToken = tokenProvider.createRefreshToken(user); 
 	            // 클라이언트에 유저정보 전송
@@ -181,7 +181,7 @@ public class UserController {
 	            
 	            // 토큰 정보를 HTTP 헤더에 설정
 	            // 액세스 토큰은 쿠키에 저장
-	            TokenInfo tokenInfo = tokenProvider.responseHeaderToken(token, response);
+	            tokenProvider.responseHeaderToken(token, response);
 	            
 	            userService.setLoginTimeStamp(user); // 로그인 타임스탬프
 	            userService.calculateConsecutiveLearningDays(user); // 연속학습일 할당

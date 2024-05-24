@@ -38,7 +38,8 @@ public class TokenProvider {
 	private final String DOMAIN_LIVE = ".wordwave.xyz"; //배포환경
 	private final String DOMAIN_STAGING = "localhost"; //개발환경
 	
-	public String create(SiteUser user, HttpServletResponse response) {
+	//액세스 토큰 생성
+	public String create(SiteUser user) {
 		//기한 설정 (현재 1일)
 		Date expiryDate = Date.from(Instant.now()
 											.plus(1,ChronoUnit.DAYS));
@@ -65,6 +66,7 @@ public class TokenProvider {
 		return claims.getSubject();
 	}
 	
+	//리프래쉬 토큰 생성
 	public String createRefreshToken(final SiteUser user) {
 	    Date expiryDate = Date.from(Instant.now().plus(14, ChronoUnit.DAYS)); // 예: 7일 후 만료
 	    SecretKey secretKey = Keys.hmacShaKeyFor(JWT_SECRET_KEY);
@@ -113,18 +115,18 @@ public class TokenProvider {
 	}
 	
 	
-	public TokenInfo responseHeaderToken(String token, HttpServletResponse response) {
+	public void responseHeaderToken(String token, HttpServletResponse response) {
 	    // Token을 쿠키로 클라이언트에 전송
 	    ResponseCookie responseCookie = generateTokenCookie(token);
 	    response.setHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
 	    //정보 전송할거면 활용
-	    return TokenInfo.builder()
-	    		.grantType("Bearer")
-	    		.accessToken(token)
-	    		.build();
+//	    return TokenInfo.builder()
+//	    		.grantType("Bearer")
+//	    		.accessToken(token)
+//	    		.build();
 	}
 	
-	
+
 	
 	
 	
