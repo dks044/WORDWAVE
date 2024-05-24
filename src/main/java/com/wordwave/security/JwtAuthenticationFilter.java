@@ -76,7 +76,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		                    String newAccessToken = tokenProvider.create(user);
 		    	            // 액세스 토큰은 쿠키에 저장
 		    	            tokenProvider.responseHeaderToken(newAccessToken, response);
-		    	            System.out.println("마 발급한다 잘받아라!!!!");
 		                } else {
 		                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		                    response.getWriter().write("{\"error\": \"Invalid or expired refresh token\"}");
