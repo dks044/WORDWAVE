@@ -1,5 +1,5 @@
 <div align=center><h1><a href="https://www.wordwave.xyz/">🌊 WORDWAVE</a></h1></div>
-<img src="https://github.com/dks044/WORDWAVE/assets/74749417/4419bca1-f15b-4e26-aa88-acc051bfa3b8" alt="메인화면">
+<img src="https://github.com/dks044/dks044/assets/74749417/ef751d5d-44f8-4b7b-a190-ff3fa682c65b" alt="홈페이지">
 <div align=center>
     <h1>영어공부를 쉽고 재밌게 하는 사이트</h1>
 </div>
