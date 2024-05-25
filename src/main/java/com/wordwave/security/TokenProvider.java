@@ -86,6 +86,7 @@ public class TokenProvider {
 	    return refreshToken;
 	}
 	
+	//리프래쉬 토큰 검증
 	public boolean validateRefreshToken(String token) {
 	    try {
 	        Claims claims = Jwts.parserBuilder()
@@ -96,12 +97,20 @@ public class TokenProvider {
 
 	        // 리프레시 토큰임을 나타내는 'token_type' 클레임 검증
 	        String tokenType = claims.get("token_type", String.class);
-	        return "refresh".equals(tokenType);
+	        if (!"refresh".equals(tokenType)) {
+	            return false;
+	        }
+
+	        // 유효기간 검증
+	        Date expiration = claims.getExpiration();
+	        return !expiration.before(new Date()); // 현재 날짜와 시간이 만료 날짜와 시간 이전이면 false, 그렇지 않으면 true
 	    } catch (JwtException | IllegalArgumentException e) {
-	        log.error("Invalid JWT token", e);
+	        log.error("Invalid & Expired JWT RefreshToken", e);
 	        return false;
 	    }
 	}
+	
+	
 	//액세스 토큰 발급
 	//TODO: 배포환경에서는 주석해제 해야함
 	public ResponseCookie generateTokenCookie(String token) {

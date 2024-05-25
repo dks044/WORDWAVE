@@ -46,6 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		try {
 			String token = parseBearerToken(request);
+			System.out.println("로깅테스트");
 			log.info("filter is running...");
 			//토큰 검사
 			if(token != null && !token.equalsIgnoreCase("null")) {
@@ -98,7 +99,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	    Cookie[] cookies = request.getCookies();
 	    if (cookies != null) {
 	        for (Cookie cookie : cookies) {
-	            if (cookie.getName().equals("token")) {
+	            if (cookie.getName().equals("access")) {
 	                return cookie.getValue();
 	            }
 	        }
