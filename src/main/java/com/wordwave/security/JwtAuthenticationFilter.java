@@ -72,7 +72,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		                System.out.println("맛잇는 리프래쉬 토큰이 왔어요~"+refreshTokenFromDB);
 		                // 리프레시 토큰이 존재하며 유효한지 확인
 		                if (refreshTokenFromDB != null && tokenProvider.validateRefreshToken(refreshTokenFromDB)) {
-		                	System.out.println("// 리프레시 토큰이 존재하며 유효한지 확인");
+		                	System.out.println("리프레시 토큰이 존재하며 유효한지 확인했음.");
 		                    // 새로운 액세스 토큰 생성 및 발급
 		                    String newAccessToken = tokenProvider.create(user);
 		    	            // 액세스 토큰은 쿠키에 저장
