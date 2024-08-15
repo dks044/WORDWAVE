@@ -2,6 +2,7 @@
 <img src="https://github.com/dks044/dks044/assets/74749417/ef751d5d-44f8-4b7b-a190-ff3fa682c65b" alt="홈페이지">
 <div align=center>
     <h1>영어공부를 쉽고 재밌게 하는 사이트</h1>
+    <div align=center>(배포중단)</div>
 </div>
 <br>
 <div align=center>
