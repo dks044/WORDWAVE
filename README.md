@@ -496,9 +496,9 @@
 
 <div align=center>
     <h1 id="트러블슈팅">😎 트러블슈팅 </h1>
-    <a href="https://storm-wormhole-609.notion.site/fc10406a146d436c907531ca4e276e07">백엔드 트러블슈팅</a><br>
-    <a href="https://storm-wormhole-609.notion.site/74f729e1799c46b4ac20476c78b3ded1">프론트 트러블슈팅</a><br>
-    <a href="https://storm-wormhole-609.notion.site/b64b79f8c9c04ac39881e1c258bf0c1d">보안 트러블슈팅</a><br>
+    <a href="https://ahnjonyun.notion.site/fc10406a146d436c907531ca4e276e07?pvs=74">백엔드 트러블슈팅</a><br>
+    <a href="https://ahnjonyun.notion.site/74f729e1799c46b4ac20476c78b3ded1?pvs=74">프론트 트러블슈팅</a><br>
+    <a href="https://ahnjonyun.notion.site/b64b79f8c9c04ac39881e1c258bf0c1d?pvs=74">보안 트러블슈팅</a><br>
     <a href="https://blog.naver.com/buzz7811/223438977530">[CI/CD] GitHub Actions</a><br>
     <a href="https://blog.naver.com/buzz7811/223433243301">Redis</a>
     <br>
